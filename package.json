@@ -1,7 +1,7 @@
 {
-  "name": "node-js-sample",
-  "version": "0.2.0",
-  "description": "A sample Node.js app using Express 4",
+  "name": "type-script-game-studio",
+  "version": "0.1.0",
+  "description": "TypeScriptGameStudio",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -14,16 +14,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-sample"
+    "url": "https://github.com/mackenziejylu/TypeScriptGameStudio"
   },
   "keywords": [
     "node",
     "heroku",
     "express"
   ],
-  "author": "Mark Pundsack",
+  "author": "Maximilian Hasselbusch",
   "contributors": [
-    "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com)"
+    "Micah Carlisle",
+    "Mackenzie Lu"
   ],
   "license": "MIT"
 }
