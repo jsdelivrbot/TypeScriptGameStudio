@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var databse = require('./tsgs-modules/database')
+var database = require('./tsgs-modules/database')
 
 app.set('port', (process.env.PORT || 5000));
 
