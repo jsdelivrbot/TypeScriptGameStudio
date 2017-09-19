@@ -1,12 +1,28 @@
 (function(){
 
-	module.exports.connectToDB = function() {
-		var MongoClient = require('mongodb').MongoClient;
-
-		MongoClient.connect("mongodb://heroku_rjb68fzf:q6b65jumkk4nsp9kov6jrrrqha@ds129144.mlab.com:29144/heroku_rjb68fzf", function(err, db) {
-			if(!err){
-				console.log("We are connected");
+	//Add a new collection to the database
+	module.exports.createNewCollection = function(connection, name) {
+		connection.createCollection(name, {strict	:true}, function(err, collection) {
+			if(err){
+				console.log("Collection already exists,", err);
 			}
-		})
+			else{
+				console.log("Successfully created collection");
+			}
+		});
+	}
+
+	//Add a new document to the database
+	module.exports.createNewDoc = function(connection, collection_name, contents) {
+		var collection = connection.collection(collection_name);	
+		var doc = {contents};
+		collection.insert(doc, function(err, results){
+			if(err){
+				console.log("Error creating document:\n", err);
+			}
+			else{
+				console.log("Successfully created document");
+			}
+		});
 	}
 }());
