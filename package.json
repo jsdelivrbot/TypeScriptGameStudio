@@ -2,7 +2,7 @@
   "name": "type-script-game-studio",
   "version": "0.1.0",
   "description": "TypeScriptGameStudio",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
