@@ -8,8 +8,8 @@ var mongodb = require('mongodb')
 //Database connection variable for use throughout the app
 var connection;
 
-//URL for database
-var url = "mongodb://heroku_rjb68fzf:q6b65jumkk4nsp9kov6jrrrqha@ds129144.mlab.com:29144/heroku_rjb68fzf";
+//URI for database
+var url = process.env.MONGOLAB_URI;
 
 /*
 	Connect to database before initializing the app.
