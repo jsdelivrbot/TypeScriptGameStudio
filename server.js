@@ -40,6 +40,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/test'));
 
 app.get('/', function(request, response) {
-	response.sendFile(path.resolve('test/test.html'));
+	response.sendFile(path.resolve('views/test.html'));
 });
 
