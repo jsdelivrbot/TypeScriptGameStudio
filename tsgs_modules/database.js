@@ -4,7 +4,7 @@
 	module.exports.createNewCollection = function(connection, name) {
 		connection.createCollection(name, {strict	:true}, function(err, collection) {
 			if(err){
-				console.log("Collection already exists,", err);
+				console.log("Collection already exists,");
 			}
 			else{
 				console.log("Successfully created collection");
