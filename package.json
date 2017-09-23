@@ -2,15 +2,21 @@
   "name": "type-script-game-studio",
   "version": "0.1.0",
   "description": "TypeScriptGameStudio",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.13.3"
+    "@types/pixi.js": "^4.5.4",
+    "boostrap": "^1.0.0",
+    "express": "^4.13.3",
+    "jquery": "^3.2.1",
+    "mongodb": "^2.2.31",
+    "pixi.js": "^4.5.6",
+    "popper.js": "^1.12.5"
   },
   "engines": {
-    "node": "4.0.0"
+    "node": "6.11.1"
   },
   "repository": {
     "type": "git",
