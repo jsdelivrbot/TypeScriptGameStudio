@@ -24,7 +24,7 @@ aws.config.region = "us-east-1";
 */
 mongodb.MongoClient.connect(url, function(err, db) {
 	if(err){
-		console.log(err)
+		console.log("Error:" + err)
 		process.exit(1);	
 	}
 
