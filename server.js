@@ -1,22 +1,31 @@
 //Require Modules
 var express = require('express');
+var aws = require('aws-sdk');
+
 var app = express();
 var path = require('path');
-var database = require('./tsgs_modules/database')
-var mongodb = require('mongodb')
+var database = require('./tsgs_modules/database');
+var mongodb = require('mongodb');
+
+app.set('views', __dirname + '/views');
+
+app.engine('html', require('ejs').renderFile);
 
 //Database connection variable for use throughout the app
 var connection;
 
 //URI for database
 var url = process.env.MONGOLAB_URI;
+const S3_BUCKET = process.env.S3_BUCKET_NAME;
+aws.config.region = "us-east-1";
 
 /*
 	Connect to database before initializing the app.
 */
 mongodb.MongoClient.connect(url, function(err, db) {
 	if(err){
-		console.log(err)
+		console.log("Error:" + err)
+    console.log(url);
 		process.exit(1);	
 	}
 
@@ -37,9 +46,39 @@ mongodb.MongoClient.connect(url, function(err, db) {
 });
 
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/test'));
+app.use(express.static(__dirname + '/views'));
 
-app.get('/', function(request, response) {
-	response.sendFile(path.resolve('views/test.html'));
+app.get('/test', (req, res) => res.render('test.html'));
+
+app.get('/sign-s3', (req, res) => {
+  const s3 = new aws.S3();
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+    Bucket: "typescript-game-studio",
+    Key: fileName,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+    res.write(JSON.stringify(returnData));
+    res.end();
+  });
+});
+
+app.post('/save-details', (req, res) => {
+  // TODO: Read POSTed form data and do something useful
+  console.log("received");
+  return;
 });
 
