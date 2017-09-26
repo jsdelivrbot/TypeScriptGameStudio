@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "es5",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
+    "module": "commonjs",                     /* Specify module code generation: 'none', commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "compileOnSave": true,                    /* Specify library files to be included in the compilation  */
+    "allowJs": true,                          /* Allow javascript files to be compiled. */
+    "outFile": "./library.js",
+
+    /* Strict Type-Checking Options */
+    "strict": true,                           /* Enable all strict type-checking options. */
+    "noImplicitAny": true,                    /* Raise error on expressions and declarations with an implied 'any' type. */
+
+    /* Module Resolution Options */
+    //"typeRoots": [../node_modules/@types, ./typedefinitions],        /* List of folders to include type definitions from. */
+    //"types": ["pixi.js", "physicstype2d"]                           /* Type declaration files to be included in compilation. */
+  },
+  "files": [
+    "./dependencyfiles/pixi.min.js",
+    "./dependencyfiles/PhysicsType2d.v0_9.min.js"
+  ]
+}
