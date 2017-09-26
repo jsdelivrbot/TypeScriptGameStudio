@@ -79,6 +79,7 @@ class Scene {
 
   constructor() {
     this.mWorld = new PhysicsType2d.Dynamics.World(new PhysicsType2d.Vector2(0, 0));
+    this.mRenderables = new Array<Actor>();
   }
 
   addActor(actor: Actor) {
