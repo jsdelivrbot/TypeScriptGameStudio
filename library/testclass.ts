@@ -29,7 +29,7 @@ class Actor {
   mContainer: PIXI.Container;
 
   constructor(scene: Scene, img: string, width: number, height: number) {
-    PIXI.loader.add(img);
+    PIXI.loader.add(img).load();
     this.mScene = scene;
     this.mSprite = new PIXI.Sprite(PIXI.loader.resources[img].texture);
     this.mSize = new PhysicsType2d.Vector2(width, height);
