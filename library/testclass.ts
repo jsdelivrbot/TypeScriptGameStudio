@@ -5,7 +5,7 @@
 let renderer = PIXI.autoDetectRenderer(512, 512);
 let image = "./images/OrangeBox.png";
 document.body.appendChild(renderer.view);
-main(5);
+main(50);
 
 function main(speed: number) {
   let MainScene = new Scene();
