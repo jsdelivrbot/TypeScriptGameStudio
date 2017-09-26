@@ -3,7 +3,7 @@
 /// <reference types="pixi.js"/>
 
 let renderer = PIXI.autoDetectRenderer(512, 512);
-let image = NULL;
+let image = "./images/OrangeBox.png";
 document.body.appendChild(renderer.view);
 main(5);
 
