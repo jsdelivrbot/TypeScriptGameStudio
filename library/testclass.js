@@ -65,9 +65,10 @@ function main(speed) {
     MainScene.addActor(Hero);
     Hero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 0, 0);
     Hero.setVelocity(speed, 0);
-    requestAnimationFrame(function () { return gameLoop(MainScene); });
+    gameLoop(MainScene);
 }
 function gameLoop(MainScene) {
     MainScene.mWorld.Step(1 / 45, 8, 3);
     MainScene.render();
+    requestAnimationFrame(function () { return gameLoop(MainScene); });
 }
