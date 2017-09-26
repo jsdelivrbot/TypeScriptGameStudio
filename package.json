@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "@types/pixi.js": "^4.5.4",
+    "aws-sdk": "^2.122.0",
     "boostrap": "^1.0.0",
+    "ejs": "^2.5.7",
     "express": "^4.13.3",
     "jquery": "^3.2.1",
     "mongodb": "^2.2.31",
