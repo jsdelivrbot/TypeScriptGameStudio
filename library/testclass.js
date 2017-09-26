@@ -5,19 +5,6 @@
 var renderer = PIXI.autoDetectRenderer(512, 512);
 var image = "./images/OrangeBox.png";
 document.body.appendChild(renderer.view);
-main(50);
-function main(speed) {
-    var MainScene = new Scene();
-    var Hero = new Actor(MainScene, image, 50, 50);
-    MainScene.addActor(Hero);
-    Hero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 0, 0);
-    Hero.setVelocity(speed, 0);
-    requestAnimationFrame(function () { return gameLoop(MainScene); });
-}
-function gameLoop(MainScene) {
-    MainScene.mWorld.Step(1 / 45, 8, 3);
-    MainScene.render();
-}
 var Actor = /** @class */ (function () {
     function Actor(scene, img, width, height) {
         PIXI.loader.add(img).load();
@@ -71,3 +58,16 @@ var Scene = /** @class */ (function () {
     };
     return Scene;
 }());
+main(50);
+function main(speed) {
+    var MainScene = new Scene();
+    var Hero = new Actor(MainScene, image, 50, 50);
+    MainScene.addActor(Hero);
+    Hero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 0, 0);
+    Hero.setVelocity(speed, 0);
+    requestAnimationFrame(function () { return gameLoop(MainScene); });
+}
+function gameLoop(MainScene) {
+    MainScene.mWorld.Step(1 / 45, 8, 3);
+    MainScene.render();
+}
