@@ -1,14 +1,13 @@
 //Require Modules
 var express = require('express');
 var aws = require('aws-sdk');
-
+var fs = require('fs');
 var app = express();
 var path = require('path');
 var database = require('./tsgs_modules/database');
 var mongodb = require('mongodb');
 
 app.set('views', __dirname + '/views');
-
 app.engine('html', require('ejs').renderFile);
 
 //Database connection variable for use throughout the app
@@ -24,8 +23,7 @@ aws.config.region = "us-east-1";
 */
 mongodb.MongoClient.connect(url, function(err, db) {
 	if(err){
-		console.log("Error:" + err)
-    console.log(url);
+		console.log(err)
 		process.exit(1);	
 	}
 
@@ -47,8 +45,12 @@ mongodb.MongoClient.connect(url, function(err, db) {
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/library'));
+
 
 app.get('/test', (req, res) => res.render('test.html'));
+app.get('/game', (req, res) => res.render('game.html'));
+
 
 app.get('/sign-s3', (req, res) => {
   const s3 = new aws.S3();
