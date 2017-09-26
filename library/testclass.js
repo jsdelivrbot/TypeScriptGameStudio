@@ -5,18 +5,18 @@
 var renderer = PIXI.autoDetectRenderer(512, 512);
 var image = "./images/OrangeBox.png";
 document.body.appendChild(renderer.view);
+PIXI.loader.add(image).load(function () { return main(50); });
 var Actor = /** @class */ (function () {
     function Actor(scene, img, width, height) {
-        PIXI.loader.add(img).load();
         this.mScene = scene;
         this.mSprite = new PIXI.Sprite(PIXI.loader.resources[img].texture);
         this.mSize = new PhysicsType2d.Vector2(width, height);
         this.mContainer = new PIXI.Container();
-        this.mContainer.addChild(this.mSprite);
         this.mSprite.width = this.mSize.x;
         this.mSprite.height = this.mSize.y;
         this.mSprite.anchor.x = 0.5;
         this.mSprite.anchor.y = 0.5;
+        this.mContainer.addChild(this.mSprite);
     }
     Actor.prototype.setBoxPhysics = function (type, x, y) {
         var shape = new PhysicsType2d.Collision.Shapes.PolygonShape();
@@ -58,7 +58,6 @@ var Scene = /** @class */ (function () {
     };
     return Scene;
 }());
-main(50);
 function main(speed) {
     var MainScene = new Scene();
     var Hero = new Actor(MainScene, image, 50, 50);
