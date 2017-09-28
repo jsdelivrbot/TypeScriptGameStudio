@@ -46,9 +46,7 @@ mongodb.MongoClient.connect(url, function(err, db) {
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views'));
 app.use(express.static(__dirname + '/library'));
-app.use(express.static(__dirname + '/library/dependencyFiles'));
-
-
+app.use(express.static(__dirname + '/library/dependencyfiles'));
 
 app.get('/test', (req, res) => res.render('test.html'));
 app.get('/game', (req, res) => res.render('game.html'));
