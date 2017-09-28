@@ -5,21 +5,8 @@
 let renderer = PIXI.autoDetectRenderer(512, 512);
 let image = "./images/OrangeBox.png";
 document.body.appendChild(renderer.view);
-main(50);
 
-function main(speed: number) {
-  let MainScene = new Scene();
-  let Hero = new Actor(MainScene, image, 50, 50);
-  MainScene.addActor(Hero);
-  Hero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 0, 0);
-  Hero.setVelocity(speed, 0);
-  requestAnimationFrame(() => gameLoop(MainScene));
-}
-
-function gameLoop(MainScene: Scene) {
-  MainScene.mWorld.Step(1/45, 8, 3);
-  MainScene.render();
-}
+PIXI.loader.add(image).load(()=>main(50));
 
 class Actor {
   mSize: PhysicsType2d.Vector2;
@@ -29,16 +16,15 @@ class Actor {
   mContainer: PIXI.Container;
 
   constructor(scene: Scene, img: string, width: number, height: number) {
-    PIXI.loader.add(img).load();
     this.mScene = scene;
     this.mSprite = new PIXI.Sprite(PIXI.loader.resources[img].texture);
     this.mSize = new PhysicsType2d.Vector2(width, height);
     this.mContainer = new PIXI.Container();
-    this.mContainer.addChild(this.mSprite);
     this.mSprite.width = this.mSize.x;
     this.mSprite.height = this.mSize.y;
     this.mSprite.anchor.x = 0.5;
     this.mSprite.anchor.y = 0.5;
+    this.mContainer.addChild(this.mSprite);
   }
 
   setBoxPhysics(type: PhysicsType2d.Dynamics.BodyType, x: number, y: number) {
@@ -79,6 +65,7 @@ class Scene {
 
   constructor() {
     this.mWorld = new PhysicsType2d.Dynamics.World(new PhysicsType2d.Vector2(0, 0));
+    this.mRenderables = new Array<Actor>();
   }
 
   addActor(actor: Actor) {
@@ -90,4 +77,19 @@ class Scene {
       e.render();
     });
   }
+}
+
+function main(speed: number) {
+  let MainScene = new Scene();
+  let Hero = new Actor(MainScene, image, 50, 50);
+  MainScene.addActor(Hero);
+  Hero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 0, 0);
+  Hero.setVelocity(speed, 0);
+  gameLoop(MainScene);
+}
+
+function gameLoop(MainScene: Scene) {
+  MainScene.mWorld.Step(1/45, 8, 3);
+  MainScene.render();
+  requestAnimationFrame(() => gameLoop(MainScene));
 }
