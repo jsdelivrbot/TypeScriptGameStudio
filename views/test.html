@@ -1,31 +1,10 @@
 <html>
   <body>
 
-    <h1>Edit your account</h1>
-
-    <hr>
-
-    <h2>Your avatar</h2>
-
     <input type="file" id="file-input">
     <p id="status">Please select a file</p>
-    <img style="border:1px solid gray;width:300px;"  id="preview" src="/images/default.png">
-
-    <h2>Your information</h2>
-
-    <form method="POST" action="/save-details">
-      <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png">
-      <input type="text" name="username" placeholder="Username"><br>
-      <input type="text" name="full-name" placeholder="Full name"><br><br>
-
-      <hr>
-      <h2>Save changes</h2>
-
-      <input type="submit" value="Update profile">
-    </form>
-
-
     <script>
+
     /*
       Function to carry out the actual PUT request to S3 using the signed request from the app.
     */
@@ -34,11 +13,7 @@
       xhr.open('PUT', signedRequest);
       xhr.onreadystatechange = () => {
         if(xhr.readyState === 4){
-          if(xhr.status === 200){
-            document.getElementById('preview').src = url;
-            document.getElementById('avatar-url').value = url;
-          }
-          else{
+          if(xhr.status !== 200){
             alert('Could not upload file.');
           }
         }
