@@ -1,0 +1,57 @@
+<!doctype HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Test Game</title>
+		<script src="PhysicsType2d.v0_9.min.js"></script>
+		<script src="pixi.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+    	<p id="status">Please upload a text file specifying the speed of the actor</p>
+		<form>
+		    <input id="fileinput" name="file" type="file" />
+		    <input type="button" value="Upload" />
+		</form>
+
+		<script src="testclass.js"></script>
+		<script type="text/javascript">
+
+		function success(speed){
+			console.log("success");
+			loadGame(speed);
+		}
+		$(':file').on('change', function() {
+		    var file = this.files[0];
+		    if (file.size > 3145728) {
+		        alert('max upload size is 3MB')
+		    }
+		});
+		$(':button').on('click', function() {
+
+			var reader = new FileReader();
+			var text;
+			reader.onload = function(e) {
+		        
+		        var text = e.target.result;
+    		    
+    		    $.ajax({
+			        url: '/uploadToDatabase',
+			        type: 'POST',
+			        data: 
+			        	JSON.stringify({
+			        		fileContents: text
+			        }),
+			        cache: false,
+			        dataType: 'json',
+			        contentType: 'application/json; charset=utf-8',
+			        processData: false,
+			        success: success(text) 
+		    	});
+		    };
+
+		    reader.readAsText(fileinput.files[0]);					 
+		});
+		</script>
+	</body>
+</html>
