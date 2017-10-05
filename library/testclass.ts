@@ -47,8 +47,16 @@ class Actor {
     this.mBody.SetUserData(this);
   }
 
-  setVelocity(x: number, y: number) {
+  updateVelocity(x: number, y: number) {
     this.mBody.SetLinearVelocity(new PhysicsType2d.Vector2(x, y));
+  }
+
+  addVelocity(x: number, y: number) {
+    let velocity = this.mBody.GetLinearVelocity();
+    let additional = new PhysicsType2d.Vector2(x, y);
+    velocity.x += additional.x;
+    velocity.y += additional.y;
+    this.updateVelocity(velocity.x, velocity.y);
   }
 
   render() {
@@ -84,7 +92,7 @@ function main(speed: number) {
   let Hero = new Actor(MainScene, image, 50, 50);
   MainScene.addActor(Hero);
   Hero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 0, 0);
-  Hero.setVelocity(speed, 0);
+  Hero.updateVelocity(speed, 0);
   gameLoop(MainScene);
 }
 
