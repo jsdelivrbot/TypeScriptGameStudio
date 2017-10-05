@@ -50,6 +50,7 @@ mongodb.MongoClient.connect(url, function(err, db) {
 app.use(express.static(__dirname + '/views'));
 app.use(express.static(__dirname + '/library'));
 app.use(express.static(__dirname + '/library/dependencyfiles'));
+app.use(express.static(__dirname + '/website/js'));
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -58,6 +59,8 @@ app.use(bodyParser.json());
 
 app.get('/test', (req, res) => res.render('test.html'));
 app.get('/game', (req, res) => res.render('game.html'));
+app.get('/home', (req, res) => res.render('home.html'));
+app.get('/login', (req, res) => res.render('login.html'));
 
 app.get('/sign-s3', (req, res) => {
   const s3 = new aws.S3();
