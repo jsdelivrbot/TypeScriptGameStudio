@@ -11,7 +11,7 @@ var mongodb = require('mongodb');
 var formidable = require('formidable');
 var passport = require('passport');
 var session = require('express-session');
-
+var auth = require('./lib/auth');
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 
@@ -35,8 +35,7 @@ app.use(session(sessionConfig));
 // OAuth2
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(require('./lib/auth').router);
-app.use(require('./lib/auth').required);
+app.use(auth.router);
 
 /*
 	Connect to database before initializing the app.
@@ -77,7 +76,7 @@ app.use(bodyParser.json());
 
 app.get('/test', (req, res) => res.render('test.html'));
 app.get('/game', (req, res) => res.render('game.html'));
-app.get('/home', (req, res) => res.render('home.html'));
+app.get('/home', auth.required, (req, res) => res.render('home.html'));
 app.get('/login', (req, res) => res.render('login.html'));
 
 app.get('/sign-s3', (req, res) => {
