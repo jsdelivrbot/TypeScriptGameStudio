@@ -36,6 +36,7 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('./lib/auth').router);
+app.use(require('./lib/auth').required);
 
 /*
 	Connect to database before initializing the app.
