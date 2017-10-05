@@ -11,6 +11,13 @@
   <div class="userContent"></div>
 
   <script type="text/javascript">
+
+    if(profile){
+      console.log("Hi");
+    }
+    else{
+      console.log("no");
+    }
     function onSuccess(googleUser) {
       var profile = googleUser.getBasicProfile();
       gapi.client.load('plus', 'v1', function () {

@@ -9,6 +9,9 @@ var path = require('path');
 var database = require('./tsgs_modules/database');
 var mongodb = require('mongodb');
 var formidable = require('formidable');
+var passport = require('passport');
+var session = require('express-session');
+
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 
@@ -19,6 +22,20 @@ var connection;
 var url = process.env.MONGOLAB_URI;
 const S3_BUCKET = process.env.S3_BUCKET_NAME;
 aws.config.region = "us-east-1";
+
+var sessionConfig = {
+  resave : false,
+  saveUninitialized : false,
+  secret: process.env.OAuth_Secret,
+  signed: true,
+};
+
+app.use(session(sessionConfig));
+
+// OAuth2
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(require('./lib/auth').router);
 
 /*
 	Connect to database before initializing the app.
