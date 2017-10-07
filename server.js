@@ -32,7 +32,7 @@ var sessionConfig = {
 
 app.use(session(sessionConfig));
 
-// OAuth2
+// Authentication
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(auth.router);
@@ -72,11 +72,12 @@ app.use(express.static(__dirname + '/website/js'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 app.use(bodyParser.json());
 
 app.get('/test', (req, res) => res.render('test.html'));
-app.get('/game', (req, res) => res.render('game.html'));
-app.get('/home', auth.required, (req, res) => res.render('home.html'));
+app.get('/game', auth.required, (req, res) => res.render('game.html'));
+app.get('/home', (req, res) => res.render('home.html'));
 app.get('/login', (req, res) => res.render('login.html'));
 
 app.get('/sign-s3', (req, res) => {
