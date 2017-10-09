@@ -111,7 +111,7 @@ app.get('/sign-s3', (req, res) => {
   const fileType = req.query['file-type'];
   const s3Params = {
     Bucket: S3_BUCKET,
-    Key: auth.extractProfile.email + '/' + fileName,
+    Key: auth.extractProfile(auth.userProfile).email + '/' + fileName,
     Expires: 60,
     ContentType: fileType,
     ACL: 'public-read'
