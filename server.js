@@ -91,7 +91,7 @@ app.use(express.static(__dirname + '/views'));
 
 ==============*/
 
-app.get('/test', (req, res) => res.render('test.html'));
+app.get('/uploadtest', auth.required, (req, res) => res.render('test.html'));
 app.get('/game', auth.required, (req, res) => res.render('game.html'));
 app.get('/home', (req, res) => res.render('home.html'));
 app.get('/login', (req, res) => res.render('login.html'));
@@ -106,29 +106,40 @@ app.get('/login', (req, res) => res.render('login.html'));
   Sign an Amazon S3 upload
 */
 app.get('/sign-s3', (req, res) => {
+
   const s3 = new aws.S3();
   const fileName = req.query['file-name'];
   const fileType = req.query['file-type'];
-  const s3Params = {
-    Bucket: S3_BUCKET,
-    Key: auth.extractProfile(auth.userProfile).email + '/' + fileName,
-    Expires: 60,
-    ContentType: fileType,
-    ACL: 'public-read'
-  };
 
-  s3.getSignedUrl('putObject', s3Params, (err, data) => {
-    if(err){
-      console.log(err);
-      return res.end();
-    }
-    const returnData = {
-      signedRequest: data,
-      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
-    };
-    res.write(JSON.stringify(returnData));
-    res.end();
-  });
+  //Make sure the user is logged in
+  if(req.user != undefined){
+
+    const s3Params = {
+        Bucket: S3_BUCKET,
+        Key: req.user.email + '/' + fileName,
+        Expires: 60,
+        ContentType: fileType,
+        ACL: 'public-read'
+      };
+
+      s3.getSignedUrl('putObject', s3Params, (err, data) => {
+        if(err){
+          console.log(err);
+          return res.end();
+        }
+        const returnData = {
+          signedRequest: data,
+          url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+        };
+        res.write(JSON.stringify(returnData));
+        res.end();
+      });
+  }
+  else{
+    res.status(500);
+    return res.end();
+  }
+  
 });
 
 /*
