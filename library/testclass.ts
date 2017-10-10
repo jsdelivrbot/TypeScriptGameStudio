@@ -218,8 +218,8 @@ function main(speed: number) {
 
   let upBtn = new Actor(hud, upImg, 25, 25);
   let downBtn = new Actor(hud, downImg, 25, 25);
-  upBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 390);
-  downBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 410);
+  upBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 380);
+  downBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 420);
   hud.addActor(upBtn);
   hud.addActor(downBtn);
 

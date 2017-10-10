@@ -179,14 +179,14 @@ function main(speed) {
     zoomoutBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 10, 10);
     hud.addActor(zoominBtn);
     hud.addActor(zoomoutBtn);
-    var upBtn = new Actor(hud, zoomInImg, 25, 25);
-    var downBtn = new Actor(hud, zoomInImg, 25, 25);
+    var upBtn = new Actor(hud, upImg, 25, 25);
+    var downBtn = new Actor(hud, downImg, 25, 25);
     upBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 390);
     downBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 410);
     hud.addActor(upBtn);
     hud.addActor(downBtn);
-    var leftBtn = new Actor(hud, zoomInImg, 25, 25);
-    var rightBtn = new Actor(hud, zoomInImg, 25, 25);
+    var leftBtn = new Actor(hud, leftImg, 25, 25);
+    var rightBtn = new Actor(hud, rightImg, 25, 25);
     leftBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 380, 400);
     rightBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 420, 400);
     hud.addActor(leftBtn);
