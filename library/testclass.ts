@@ -8,23 +8,67 @@ document.body.appendChild(renderer.view);
 
 PIXI.loader.add(image).load(()=>main(50));
 
+class LolManager {
+  mWorld: Scene;
+  mHud: Scene;  // TODO: create hudscene
+  mCamera: Camera;
+
+  constructor(world: Scene, hud?: Scene) {
+    this.mWorld = world;
+    if (hud) this.mHud = hud;
+    //this.mCamera = new Camera();  // TODO: we need the main actor
+  }
+}
+
+// TODO: Right now the camera can only follow an actor
+// IMPDET: Should the camera go inside a scene?
+class Camera {
+  mContainer: PIXI.Container;
+  mScene: Scene;
+  mChaseActor: Actor;
+
+  constructor(chaseActor: Actor) {
+    this.mContainer = new PIXI.Container();
+    this.mChaseActor = chaseActor;
+  }
+
+  changeScene(scene: Scene) {
+    this.mContainer.removeChildren();
+    this.mScene = scene;
+    this.mContainer.addChild(scene.mContainer);
+  }
+
+  updatePosition() {
+    this.mContainer.pivot = this.mChaseActor.mSprite.position;
+  }
+
+  setZoom(x: number, y: number) {
+    this.mContainer.scale.set(x, y);
+  }
+
+  zoomInOut(x: number, y:number) {
+    let z = this.mContainer.scale;
+    this.mContainer.scale.set(z.x * x, z.y * y);
+  }
+}
+
 class Actor {
   mSize: PhysicsType2d.Vector2;
   mBody: PhysicsType2d.Dynamics.Body;
   mScene: Scene;
   mSprite: PIXI.Sprite;
-  mContainer: PIXI.Container;
+  //mContainer: PIXI.Container;
 
   constructor(scene: Scene, img: string, width: number, height: number) {
     this.mScene = scene;
     this.mSprite = new PIXI.Sprite(PIXI.loader.resources[img].texture);
     this.mSize = new PhysicsType2d.Vector2(width, height);
-    this.mContainer = new PIXI.Container();
+    //this.mContainer = new PIXI.Container();
     this.mSprite.width = this.mSize.x;
     this.mSprite.height = this.mSize.y;
     this.mSprite.anchor.x = 0.5;
     this.mSprite.anchor.y = 0.5;
-    this.mContainer.addChild(this.mSprite);
+    //this.mContainer.addChild(this.mSprite);
   }
 
   setBoxPhysics(type: PhysicsType2d.Dynamics.BodyType, x: number, y: number) {
@@ -62,7 +106,6 @@ class Actor {
   render() {
     this.mSprite.position.x = this.mBody.GetWorldCenter().x;
     this.mSprite.position.y = this.mBody.GetWorldCenter().y;
-    renderer.render(this.mContainer);
   }
 }
 
@@ -70,14 +113,17 @@ class Actor {
 class Scene {
   mWorld: PhysicsType2d.Dynamics.World;
   mRenderables: Array<Actor>;
+  mContainer: PIXI.Container;
 
   constructor() {
     this.mWorld = new PhysicsType2d.Dynamics.World(new PhysicsType2d.Vector2(0, 0));
     this.mRenderables = new Array<Actor>();
+    this.mContainer = new PIXI.Container();
   }
 
   addActor(actor: Actor) {
     this.mRenderables.push(actor);
+    this.mContainer.addChild(actor.mSprite);
   }
 
   render() {
