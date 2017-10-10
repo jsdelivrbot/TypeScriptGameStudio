@@ -49,7 +49,7 @@ class LolManager {
     this.mWorld = world;
     if (hud) this.mHud = hud;
     this.mContainer = new PIXI.Container();
-    this.mContainer.addChild(world.mContainer);
+    this.mContainer.addChild(this.mWorld.mCamera.mContainer);
     if (hud) this.mContainer.addChild(hud.mContainer);
   }
 }
@@ -139,8 +139,8 @@ class Actor {
   }
 
   render() {
-    if (this.mBody) this.mSprite.position.x = this.mBody.GetWorldCenter().x;
-    if (this.mBody) this.mSprite.position.y = this.mBody.GetWorldCenter().y;
+    if(this.mBody) this.mSprite.position.x = this.mBody.GetWorldCenter().x;
+    if(this.mBody) this.mSprite.position.y = this.mBody.GetWorldCenter().y;
   }
 }
 
@@ -178,7 +178,8 @@ class MainScene extends Scene {
 
   chaseActor(hero: Actor) {
     this.mChaseActor = hero;
-    this.mCamera = new Camera(this.mChaseActor)
+    this.mCamera = new Camera(this.mChaseActor);
+    this.mCamera.mContainer.addChild(this.mContainer);
   }
 }
 
@@ -194,13 +195,13 @@ function main(speed: number) {
   mainScene.chaseActor(Hero);
 
   let Obstacle1 = new Actor(mainScene, obstImg, 25, 25);
-  Obstacle1.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 50, 100);
+  Obstacle1.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 0, 0);
 
   let Obstacle2 = new Actor(mainScene, obstImg, 50, 50);
   Obstacle2.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 200, 200);
 
   let Obstacle3 = new Actor(mainScene, obstImg, 25, 25);
-  Obstacle3.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 425, 25);
+  Obstacle3.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 75, 25);
 
   mainScene.addActor(Obstacle1);
   mainScene.addActor(Obstacle2);
@@ -215,15 +216,15 @@ function main(speed: number) {
   hud.addActor(zoominBtn);
   hud.addActor(zoomoutBtn);
 
-  let upBtn = new Actor(hud, zoomInImg, 25, 25);
-  let downBtn = new Actor(hud, zoomInImg, 25, 25);
+  let upBtn = new Actor(hud, upImg, 25, 25);
+  let downBtn = new Actor(hud, downImg, 25, 25);
   upBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 390);
   downBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 410);
   hud.addActor(upBtn);
   hud.addActor(downBtn);
 
-  let leftBtn = new Actor(hud, zoomInImg, 25, 25);
-  let rightBtn = new Actor(hud, zoomInImg, 25, 25);
+  let leftBtn = new Actor(hud, leftImg, 25, 25);
+  let rightBtn = new Actor(hud, rightImg, 25, 25);
   leftBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 380, 400);
   rightBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 420, 400);
   hud.addActor(leftBtn);
@@ -246,10 +247,10 @@ function main(speed: number) {
 
   let game = new Lol(mgr);
 
-  requestAnimationFrame(() => gameLoop(game));
+  requestAnimationFrame(() => gameLoop2(game));
 }
 
-function gameLoop(game: Lol) {
+function gameLoop2(game: Lol) {
   game.render();
-  requestAnimationFrame(() => gameLoop(game));
+  requestAnimationFrame(() => gameLoop2(game));
 }
