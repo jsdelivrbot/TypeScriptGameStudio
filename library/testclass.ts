@@ -3,25 +3,48 @@
 /// <reference types="pixi.js"/>
 
 let renderer = PIXI.autoDetectRenderer(512, 512);
-let image = "./images/OrangeBox.png";
+let heroImg = "./images/OrangeBox.png";
+let obstImg = "./images/BlueBox.png"
+let zoomInImg = "";
+let zoomOutImg = "";
 document.body.appendChild(renderer.view);
 
-PIXI.loader.add(image).load(()=>main(50));
+PIXI.loader
+.add(heroImg)
+.add(obstImg)
+.load(()=>main(50));
+
+class Lol {
+  mManager: LolManager;
+
+  constructor(manager: LolManager) {
+    this.mManager = manager;
+  }
+
+  render() {
+    this.mManager.mWorld.mWorld.Step(1/45, 8, 3);
+    this.mManager.mWorld.mCamera.updatePosition();
+    this.mManager.mWorld.render();
+    this.mManager.mHud.render();
+    renderer.render(this.mManager.mContainer);
+  }
+}
 
 class LolManager {
-  mWorld: Scene;
-  mHud: Scene;  // TODO: create hudscene
-  mCamera: Camera;
+  mWorld: MainScene;
+  mHud: Scene;
+  mContainer: PIXI.Container;
 
-  constructor(world: Scene, hud?: Scene) {
+  constructor(world: MainScene, hud?: Scene) {
     this.mWorld = world;
     if (hud) this.mHud = hud;
-    //this.mCamera = new Camera();  // TODO: we need the main actor
+    this.mContainer = new PIXI.Container();
+    this.mContainer.addChild(world.mContainer);
+    if (hud) this.mContainer.addChild(hud.mContainer);
   }
 }
 
 // TODO: Right now the camera can only follow an actor
-// IMPDET: Should the camera go inside a scene?
 class Camera {
   mContainer: PIXI.Container;
   mScene: Scene;
@@ -104,8 +127,8 @@ class Actor {
   }
 
   render() {
-    this.mSprite.position.x = this.mBody.GetWorldCenter().x;
-    this.mSprite.position.y = this.mBody.GetWorldCenter().y;
+    if (this.mBody) this.mSprite.position.x = this.mBody.GetWorldCenter().x;
+    if (this.mBody) this.mSprite.position.y = this.mBody.GetWorldCenter().y;
   }
 }
 
@@ -133,17 +156,49 @@ class Scene {
   }
 }
 
-function main(speed: number) {
-  let MainScene = new Scene();
-  let Hero = new Actor(MainScene, image, 50, 50);
-  MainScene.addActor(Hero);
-  Hero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 0, 0);
-  Hero.updateVelocity(speed, 0);
-  gameLoop(MainScene);
+class MainScene extends Scene {
+  mChaseActor: Actor;
+  mCamera: Camera;
+
+  constructor() {
+    super();
+  }
+
+  chaseActor(hero: Actor) {
+    this.mChaseActor = hero;
+    this.mCamera = new Camera(this.mChaseActor)
+  }
 }
 
-function gameLoop(MainScene: Scene) {
-  MainScene.mWorld.Step(1/45, 8, 3);
-  MainScene.render();
-  requestAnimationFrame(() => gameLoop(MainScene));
+
+
+function main(speed: number) {
+  let mainScene = new MainScene();
+  let Hero = new Actor(mainScene, heroImg, 50, 50);
+  mainScene.addActor(Hero);
+  mainScene.chaseActor(Hero);
+  Hero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 0, 0);
+  Hero.updateVelocity(speed, 0);
+
+  let hud = new Scene();
+  let zoominBtn = new Actor(mainScene, zoomInImg, 25, 25);
+  let zoomoutBtn = new Actor(mainScene, zoomOutImg, 25, 25);
+  hud.addActor(zoominBtn);
+  hud.addActor(zoomoutBtn);
+
+  let mgr = new LolManager(mainScene, hud);
+  mgr.mContainer.interactive = true;
+  zoominBtn.mSprite.interactive = true;
+  zoomoutBtn.mSprite.interactive = true;
+  zoominBtn.mSprite.on('mouseclick', () => mgr.mWorld.mCamera.zoomInOut(1.25, 1.25));
+  zoomoutBtn.mSprite.on('mouseclick', () => mgr.mWorld.mCamera.zoomInOut(0.75, 0.75));
+
+  let game = new Lol(mgr);
+
+  requestAnimationFrame(() => gameLoop(game));
+}
+
+function gameLoop(game: Lol) {
+  game.render();
+  requestAnimationFrame(() => gameLoop(game));
 }
