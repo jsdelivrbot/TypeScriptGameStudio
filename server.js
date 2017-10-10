@@ -54,6 +54,7 @@ app.use(auth.router);
 	Connect to database before initializing the app.
 
 ==============*/
+
 mongodb.MongoClient.connect(database_url, function(err, db) {
 
 	if(err){
@@ -76,14 +77,21 @@ mongodb.MongoClient.connect(database_url, function(err, db) {
 
 ==============*/
 
-
 //Game engine library files
 app.use(express.static(__dirname + '/library'));
 app.use(express.static(__dirname + '/library/dependencyfiles'));
 
 //Static html and javascript files for web pages
-app.use(express.static(__dirname + '/website/js'));
 app.use(express.static(__dirname + '/views'));
+
+app.use('/js', express.static(__dirname + '/website/js'));
+app.use('/css', express.static(__dirname + '/website/css')); // redirect CSS bootstrap
+app.use('/images', express.static(__dirname + '/website/images')); // redirect CSS bootstrap
+
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/node_modules/tether/dist/js')); // redirect JS jQuery
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
 /*============
   
@@ -93,8 +101,11 @@ app.use(express.static(__dirname + '/views'));
 
 app.get('/uploadtest', auth.required, (req, res) => res.render('test.html'));
 app.get('/game', auth.required, (req, res) => res.render('game.html'));
-app.get('/home', (req, res) => res.render('home.html'));
+app.get('/home', (req, res) => res.render('index.html'));
 app.get('/login', (req, res) => res.render('login.html'));
+app.get('/tab', (req, res) => res.render('tab.html'));
+app.get('/template', (req, res) => res.render('template.html'));
+app.get('/editor', (req, res) => res.render('editor.html'));
 
 /*============
   
