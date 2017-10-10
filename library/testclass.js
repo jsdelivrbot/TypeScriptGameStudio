@@ -50,7 +50,7 @@ var LolManager = /** @class */ (function () {
         if (hud)
             this.mHud = hud;
         this.mContainer = new PIXI.Container();
-        this.mContainer.addChild(world.mContainer);
+        this.mContainer.addChild(this.mWorld.mCamera.mContainer);
         if (hud)
             this.mContainer.addChild(hud.mContainer);
     }
@@ -152,6 +152,7 @@ var MainScene = /** @class */ (function (_super) {
     MainScene.prototype.chaseActor = function (hero) {
         this.mChaseActor = hero;
         this.mCamera = new Camera(this.mChaseActor);
+        this.mCamera.mContainer.addChild(this.mContainer);
     };
     return MainScene;
 }(Scene));
@@ -163,11 +164,11 @@ function main(speed) {
     mainScene.addActor(Hero);
     mainScene.chaseActor(Hero);
     var Obstacle1 = new Actor(mainScene, obstImg, 25, 25);
-    Obstacle1.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 50, 100);
+    Obstacle1.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 0, 0);
     var Obstacle2 = new Actor(mainScene, obstImg, 50, 50);
     Obstacle2.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 200, 200);
     var Obstacle3 = new Actor(mainScene, obstImg, 25, 25);
-    Obstacle3.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 425, 25);
+    Obstacle3.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 75, 25);
     mainScene.addActor(Obstacle1);
     mainScene.addActor(Obstacle2);
     mainScene.addActor(Obstacle3);
@@ -205,9 +206,9 @@ function main(speed) {
     leftBtn.mSprite.on('click', function () { return Hero.updateVelocity(-speed, 0); });
     rightBtn.mSprite.on('click', function () { return Hero.updateVelocity(speed, 0); });
     var game = new Lol(mgr);
-    requestAnimationFrame(function () { return gameLoop(game); });
+    requestAnimationFrame(function () { return gameLoop2(game); });
 }
-function gameLoop(game) {
+function gameLoop2(game) {
     game.render();
-    requestAnimationFrame(function () { return gameLoop(game); });
+    requestAnimationFrame(function () { return gameLoop2(game); });
 }
