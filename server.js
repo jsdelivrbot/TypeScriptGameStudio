@@ -80,6 +80,7 @@ mongodb.MongoClient.connect(database_url, function(err, db) {
 //Game engine library files
 app.use(express.static(__dirname + '/library'));
 app.use(express.static(__dirname + '/library/dependencyfiles'));
+app.use('/images', express.static(__dirname + '/library/images'));
 
 //Static html and javascript files for web pages
 app.use(express.static(__dirname + '/views'));
