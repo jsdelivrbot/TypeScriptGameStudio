@@ -4,7 +4,7 @@
   "description": "TypeScriptGameStudio",
   "main": "server.js",
   "scripts": {
-    "start": "tsc && node server.js"
+    "start": "tsc --project ./library/tsconfig.json && node server.js"
   },
   "dependencies": {
     "@types/pixi.js": "^4.5.4",

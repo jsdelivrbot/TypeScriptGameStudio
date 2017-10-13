@@ -1,3 +1,6 @@
+/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+/// <reference types="pixi.js"/>
+
 class Actor {
   mSize: PhysicsType2d.Vector2;
   mBody: PhysicsType2d.Dynamics.Body;
