@@ -6,7 +6,7 @@
 
 //App modules
 var express = require('express');
-var app = express();
+var app = module.exports = express();
 var bodyParser = require('body-parser');
 
 //Database modules
@@ -42,7 +42,6 @@ var sessionConfig = {
   signed: true,
 };
 
-
 // Authentication
 app.use(session(sessionConfig));
 app.use(passport.initialize());
@@ -63,6 +62,11 @@ mongodb.MongoClient.connect(database_url, function(err, db) {
 	}
 
 	connection = db;
+
+  module.exports.connection = connection;
+  module.exports.database = database;
+
+
 	console.log("We are connected to the database");
 
 	var server = app.listen(process.env.PORT || 5000, function () {
@@ -70,6 +74,7 @@ mongodb.MongoClient.connect(database_url, function(err, db) {
     	console.log("App now running on port", port);
 	});
 });
+
 
 /*============
   
@@ -101,6 +106,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 app.get('/uploadtest', auth.required, (req, res) => res.render('test.html'));
 app.get('/game', auth.required, (req, res) => res.render('game.html'));
+app.get('/account', auth.required, (req, res) => res.render('account.html'));
 app.get('/home', (req, res) => res.render('index.html'));
 app.get('/login', (req, res) => res.render('login.html'));
 app.get('/tab', (req, res) => res.render('tab.html'));
@@ -142,6 +148,14 @@ app.get('/sign-s3', (req, res) => {
           signedRequest: data,
           url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
         };
+
+        /*
+          Add the new file to the user's list of files in the 
+          database
+        */
+
+        database.addNewFileEntry(connection, fileName, 
+          "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName, req.user);
         res.write(JSON.stringify(returnData));
         res.end();
       });
@@ -166,3 +180,46 @@ app.post('/uploadToDatabase', function(req, res){
     res.json();
 });
 
+/*
+  Retrieve account data for display
+*/
+app.get("/accountData", function(req, res){
+
+  if(req.user){
+      connection.collection('accounts').findOne({
+        email : req.user.email
+      }, function(err, object){
+        if(!err){ 
+          res.write(JSON.stringify(object));
+          res.status(200);
+          res.end();
+        }
+        else{
+          res.status(500);
+          res.end();
+        }
+      });
+  }
+});
+
+app.get("/accountFiles", function(req, res){
+
+  if(req.user){
+      connection.collection('files').findOne({
+        id : req.user.id,
+        email : req.user.email
+      }, function(err, object){
+        if(object != null){
+          if(!err){ 
+            res.write(JSON.stringify(object.files));
+            res.status(200);
+            res.end();
+          }
+          else{
+            res.status(500);
+            res.end();
+          }
+        }
+      });
+  }
+});
