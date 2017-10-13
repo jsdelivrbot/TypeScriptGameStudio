@@ -63,9 +63,9 @@ mongodb.MongoClient.connect(database_url, function(err, db) {
 
 	connection = db;
 
+  //Export the database connection and the database module for use throughout the app
   module.exports.connection = connection;
   module.exports.database = database;
-
 
 	console.log("We are connected to the database");
 
@@ -107,8 +107,8 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.get('/uploadtest', auth.required, (req, res) => res.render('test.html'));
 app.get('/game', auth.required, (req, res) => res.render('game.html'));
 app.get('/account', auth.required, (req, res) => res.render('account.html'));
+
 app.get('/home', (req, res) => res.render('index.html'));
-app.get('/login', (req, res) => res.render('login.html'));
 app.get('/tab', (req, res) => res.render('tab.html'));
 app.get('/template', (req, res) => res.render('template.html'));
 app.get('/editor', (req, res) => res.render('editor.html'));
@@ -181,12 +181,13 @@ app.post('/uploadToDatabase', function(req, res){
 });
 
 /*
-  Retrieve account data for display
+  Retrieve account data (ID, email, displayName)
 */
 app.get("/accountData", function(req, res){
 
   if(req.user){
       connection.collection('accounts').findOne({
+        id : req.user.id,
         email : req.user.email
       }, function(err, object){
         if(!err){ 
@@ -202,16 +203,19 @@ app.get("/accountData", function(req, res){
   }
 });
 
+/*
+  Retrieve account files 
+*/  
 app.get("/accountFiles", function(req, res){
 
   if(req.user){
-      connection.collection('files').findOne({
+      connection.collection('files').find({
         id : req.user.id,
         email : req.user.email
-      }, function(err, object){
+      }).toArray(function(err, object){
         if(object != null){
           if(!err){ 
-            res.write(JSON.stringify(object.files));
+            res.write(JSON.stringify(object[0].files));
             res.status(200);
             res.end();
           }
