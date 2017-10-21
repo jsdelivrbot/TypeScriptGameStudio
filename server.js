@@ -203,6 +203,7 @@ app.get("/accountFiles", function(req, res){
       }).toArray(function(err, object){
         if(object != null){
           if(!err){ 
+            console.log(object);
             res.write(JSON.stringify(object[0].files));
             res.status(200);
             res.end();
