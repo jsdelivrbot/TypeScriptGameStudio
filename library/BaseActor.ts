@@ -34,10 +34,10 @@ class BaseActor extends Renderable {
   /// The sprite associated with this actor
   mSprite: PIXI.Sprite;
 
-  constructor(scene: LolScene, img: string, width: number, height: number) {
+  constructor(scene: LolScene, imgName: string, width: number, height: number) {
     super();
     this.mScene = scene;
-    this.mSprite = new PIXI.Sprite(PIXI.loader.resources[img].texture);
+    this.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
     this.mSize = new PhysicsType2d.Vector2(width, height);
     this.mSprite.width = this.mSize.x;
     this.mSprite.height = this.mSize.y;

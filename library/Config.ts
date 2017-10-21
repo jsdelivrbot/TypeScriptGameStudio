@@ -9,7 +9,7 @@
     /// The number of pixels on screen that correspond to a meter in the game.
     ///
     /// NB: 'pixels' are relative to <code>mWidth</code> and <code>mHeight</code>
-    protected mPixelMeterRatio: number; //float
+    public mPixelMeterRatio: number; //float
     /// The default screen width (note: it will be stretched to fill the phone screen)
     public mWidth: number; //int
     /// The default screen height (note: it will be stretched to fill the phone screen)
