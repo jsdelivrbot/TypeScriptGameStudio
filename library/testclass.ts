@@ -27,44 +27,44 @@ PIXI.loader
 
 function main(speed: number) {
   let mainScene = new MainScene();
-  let Hero = new Actor(mainScene, heroImg, 25, 25);
+  let Hero = new WorldActor(mainScene, heroImg, 25, 25);
   Hero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 100, 100);
   Hero.updateVelocity(speed, 0);
 
   mainScene.addActor(Hero);
   mainScene.chaseActor(Hero);
 
-  let Obstacle1 = new Actor(mainScene, obstImg, 25, 25);
+  let Obstacle1 = new WorldActor(mainScene, obstImg, 25, 25);
   Obstacle1.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 0, 0);
 
-  let Obstacle2 = new Actor(mainScene, obstImg, 50, 50);
+  let Obstacle2 = new WorldActor(mainScene, obstImg, 50, 50);
   Obstacle2.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 200, 200);
 
-  let Obstacle3 = new Actor(mainScene, obstImg, 25, 25);
+  let Obstacle3 = new WorldActor(mainScene, obstImg, 25, 25);
   Obstacle3.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 75, 25);
 
   mainScene.addActor(Obstacle1);
   mainScene.addActor(Obstacle2);
   mainScene.addActor(Obstacle3);
 
-  let hud = new Scene();
-  let zoominBtn = new Actor(hud, zoomInImg, 25, 25);
-  let zoomoutBtn = new Actor(hud, zoomOutImg, 25, 25);
+  let hud = new HudScene();
+  let zoominBtn = new WorldActor(hud, zoomInImg, 25, 25);
+  let zoomoutBtn = new WorldActor(hud, zoomOutImg, 25, 25);
   zoominBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 50, 10);
   zoomoutBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 10, 10);
 
   hud.addActor(zoominBtn);
   hud.addActor(zoomoutBtn);
 
-  let upBtn = new Actor(hud, upImg, 25, 25);
-  let downBtn = new Actor(hud, downImg, 25, 25);
+  let upBtn = new WorldActor(hud, upImg, 25, 25);
+  let downBtn = new WorldActor(hud, downImg, 25, 25);
   upBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 380);
   downBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 420);
   hud.addActor(upBtn);
   hud.addActor(downBtn);
 
-  let leftBtn = new Actor(hud, leftImg, 25, 25);
-  let rightBtn = new Actor(hud, rightImg, 25, 25);
+  let leftBtn = new WorldActor(hud, leftImg, 25, 25);
+  let rightBtn = new WorldActor(hud, rightImg, 25, 25);
   leftBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 380, 400);
   rightBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 420, 400);
   hud.addActor(leftBtn);
@@ -78,8 +78,8 @@ function main(speed: number) {
   downBtn.mSprite.interactive = true;
   leftBtn.mSprite.interactive = true;
   rightBtn.mSprite.interactive = true;
-  zoominBtn.mSprite.on('click', () => mgr.mWorld.mCamera.zoomInOut(1.25, 1.25));
-  zoomoutBtn.mSprite.on('click', () => mgr.mWorld.mCamera.zoomInOut(0.75, 0.75));
+  zoominBtn.mSprite.on('click', () => mgr.mWorld.mCamera.zoomInOut(1.25));
+  zoomoutBtn.mSprite.on('click', () => mgr.mWorld.mCamera.zoomInOut(0.75));
   upBtn.mSprite.on('click', () =>   Hero.updateVelocity(0, -speed));
   downBtn.mSprite.on('click', () =>   Hero.updateVelocity(0, speed));
   leftBtn.mSprite.on('click', () =>   Hero.updateVelocity(-speed, 0));
