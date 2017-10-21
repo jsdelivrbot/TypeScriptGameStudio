@@ -169,19 +169,6 @@ app.get('/sign-s3', (req, res) => {
 });
 
 /*
-  Upload text to the database
-*/
-app.post('/uploadToDatabase', function(req, res){  
-    console.log(req.body.fileContents);
-    database.createNewCollection(connection, "speed");
-    database.createNewDoc(connection, "speed", {
-      value: req.body.fileContents
-    });
-    res.status(200);
-    res.json();
-});
-
-/*
   Retrieve account data (ID, email, displayName)
 */
 app.get("/accountData", function(req, res){
@@ -226,5 +213,62 @@ app.get("/accountFiles", function(req, res){
           }
         }
       });
+  }
+});
+
+/*
+  Update a game's files
+*/  
+app.post("/game/updateGameFiles", function(req, res){
+
+  if(req.user){
+    
+    var response = database.updateGameFiles(connection, req.game_name, req.files, user);
+    res.status(response);
+    res.end();
+  }
+});
+
+app.post("/game/addNewGameFile", function(req, res){
+
+  if(req.user){
+    
+    var response = database.addNewGameFile(connection, req.game_name, req.file, user);
+    res.status(response);
+    res.end();
+  }
+});
+
+/*
+  Create a new game 
+*/  
+app.post("/game/newGame", function(req, res){
+
+  if(req.user){
+      
+    var response = database.addNewGame(connection, req.game_name, req.description, req.imgURL, req.datetime, user);
+    res.status(response);
+    res.end();
+  }
+});
+
+/*
+  Retrieve all of a game's files
+*/
+app.get("/game/getGame", function(req, res){
+
+  if(req.user){
+
+    var response = database.getGamefiles(connection, req.game_name, user);
+
+    if(response != null){
+      res.write(JOSN.stringify(response));
+      res.status(200);
+      res.end();
+    }
+    else{
+      res.status(500);
+      res.end();
+    }
   }
 });
