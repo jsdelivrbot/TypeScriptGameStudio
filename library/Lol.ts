@@ -6,11 +6,20 @@
 
 class Lol {
   mManager: LolManager;
+  mRenderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
+  mConfig: Config;
 
-  constructor(manager: LolManager) {
+  constructor(manager: LolManager, config: Config) {
     this.mManager = manager;
+    this.mConfig = config;
+    this.mRenderer = PIXI.autoDetectRenderer(config.mWidth, config.mHeight);
   }
 
+  /**
+   * This code is called every 1/45th of a second to update the game state and re-draw the screen
+   * <p>
+   * NB: This is an internal method. User code should never call this.
+   */
   render() {
     this.mManager.mWorld.mWorld.Step(1/45, 8, 3);
     this.mManager.mWorld.mCamera.updatePosition();
