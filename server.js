@@ -171,7 +171,7 @@ app.get('/sign-s3', (req, res) => {
 /*
   Retrieve account data (ID, email, displayName)
 */
-app.get("/accountData", function(req, res){
+app.get("/account/data", function(req, res){
 
   if(req.user){
       connection.collection('accounts').findOne({
@@ -192,9 +192,9 @@ app.get("/accountData", function(req, res){
 });
 
 /*
-  Retrieve account files 
+  Retrieve account files uploaded to Amazon
 */  
-app.get("/accountFiles", function(req, res){
+app.get("/account/files", function(req, res){
 
   if(req.user){
       connection.collection('files').find({
@@ -217,6 +217,15 @@ app.get("/accountFiles", function(req, res){
   }
 });
 
+app.post("/account/verify", function(req, res){
+
+  if(req.user){
+    res.status(200);
+  }
+  else{
+    res.status(500);
+  }
+});
 /*
   Update a game's files
 */  
