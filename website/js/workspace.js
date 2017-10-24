@@ -20,6 +20,7 @@ function createGame() {
 
     let xhr = new XMLHttpRequest(); 
     xhr.open('POST', '/game/newGame');
+    xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = () => {
         if(xhr.readyState === 4){

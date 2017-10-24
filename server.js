@@ -235,20 +235,14 @@ app.post("/account/verify", function(req, res){
 app.post("/game/updateGameFiles", function(req, res){
 
   if(req.user){
-    
-    var response = database.updateGameFiles(connection, req.body.game_name, req.body.files, user);
-    res.status(response);
-    res.end();
+    database.updateGameFiles(connection, req.body.game_name, req.body.files, req.user, res);
   }
 });
 
 app.post("/game/addNewGameFile", function(req, res){
 
   if(req.user){
-    
-    var response = database.addNewGameFile(connection, req.body.game_name, req.file, user);
-    res.status(response);
-    res.end();
+    database.addNewGameFile(connection, req.body.game_name, req.file, req.user, res);
   }
 });
 
@@ -258,10 +252,7 @@ app.post("/game/addNewGameFile", function(req, res){
 app.post("/game/newGame", function(req, res){
 
   if(req.user){
-      
-    var response = database.addNewGame(connection, req.body.game_name, req.description, req.imgURL, req.datetime, user);
-    res.status(response);
-    res.end();
+    database.addNewGame(connection, req.body.game_name, req.body.description, req.body.imgURL, req.body.datetime, req.user, res);
   }
 });
 
@@ -271,18 +262,6 @@ app.post("/game/newGame", function(req, res){
 app.get("/game/getGame", function(req, res){
 
   if(req.user){
-
-    var response = database.getGamefiles(connection, req.body.game_name, user);
-
-    if(response != null){
-      res.write(JOSN.stringify(response));
-      res.status(200);
-      res.end();
-    }
-    else{
-      res.write("Could not retrieve game files");
-      res.status(500);
-      res.end();
-    }
+    database.getGamefiles(connection, req.body.game_name, req.user, res);  
   }
 });
