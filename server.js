@@ -233,7 +233,7 @@ app.post("/game/updateGameFiles", function(req, res){
 
   if(req.user){
     
-    var response = database.updateGameFiles(connection, req.game_name, req.files, user);
+    var response = database.updateGameFiles(connection, req.body.game_name, req.body.files, user);
     res.status(response);
     res.end();
   }
@@ -243,7 +243,7 @@ app.post("/game/addNewGameFile", function(req, res){
 
   if(req.user){
     
-    var response = database.addNewGameFile(connection, req.game_name, req.file, user);
+    var response = database.addNewGameFile(connection, req.body.game_name, req.file, user);
     res.status(response);
     res.end();
   }
@@ -256,7 +256,7 @@ app.post("/game/newGame", function(req, res){
 
   if(req.user){
       
-    var response = database.addNewGame(connection, req.game_name, req.description, req.imgURL, req.datetime, user);
+    var response = database.addNewGame(connection, req.body.game_name, req.description, req.imgURL, req.datetime, user);
     res.status(response);
     res.end();
   }
@@ -269,7 +269,7 @@ app.get("/game/getGame", function(req, res){
 
   if(req.user){
 
-    var response = database.getGamefiles(connection, req.game_name, user);
+    var response = database.getGamefiles(connection, req.body.game_name, user);
 
     if(response != null){
       res.write(JOSN.stringify(response));
@@ -277,6 +277,7 @@ app.get("/game/getGame", function(req, res){
       res.end();
     }
     else{
+      res.write("Could not retrieve game files");
       res.status(500);
       res.end();
     }
