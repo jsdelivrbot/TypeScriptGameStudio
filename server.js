@@ -148,7 +148,7 @@ app.get('/sign-s3', (req, res) => {
         }
         const returnData = {
           signedRequest: data,
-          url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+          url: "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName
         };
 
         /*
@@ -170,22 +170,9 @@ app.get('/sign-s3', (req, res) => {
 });
 
 /*
-  Upload text to the database
-*/
-app.post('/uploadToDatabase', function(req, res){  
-    console.log(req.body.fileContents);
-    database.createNewCollection(connection, "speed");
-    database.createNewDoc(connection, "speed", {
-      value: req.body.fileContents
-    });
-    res.status(200);
-    res.json();
-});
-
-/*
   Retrieve account data (ID, email, displayName)
 */
-app.get("/accountData", function(req, res){
+app.get("/account/data", function(req, res){
 
   if(req.user){
       connection.collection('accounts').findOne({
@@ -206,9 +193,9 @@ app.get("/accountData", function(req, res){
 });
 
 /*
-  Retrieve account files 
+  Retrieve account files uploaded to Amazon
 */  
-app.get("/accountFiles", function(req, res){
+app.get("/account/files", function(req, res){
 
   if(req.user){
       connection.collection('files').find({
@@ -217,6 +204,7 @@ app.get("/accountFiles", function(req, res){
       }).toArray(function(err, object){
         if(object != null){
           if(!err){ 
+            console.log(object);
             res.write(JSON.stringify(object[0].files));
             res.status(200);
             res.end();
@@ -227,5 +215,72 @@ app.get("/accountFiles", function(req, res){
           }
         }
       });
+  }
+});
+
+app.post("/account/verify", function(req, res){
+
+  if(req.user){
+    res.status(200);
+  }
+  else{
+    res.status(500);
+  }
+});
+/*
+  Update a game's files
+*/  
+app.post("/game/updateGameFiles", function(req, res){
+
+  if(req.user){
+    
+    var response = database.updateGameFiles(connection, req.body.game_name, req.body.files, user);
+    res.status(response);
+    res.end();
+  }
+});
+
+app.post("/game/addNewGameFile", function(req, res){
+
+  if(req.user){
+    
+    var response = database.addNewGameFile(connection, req.body.game_name, req.file, user);
+    res.status(response);
+    res.end();
+  }
+});
+
+/*
+  Create a new game 
+*/  
+app.post("/game/newGame", function(req, res){
+
+  if(req.user){
+      
+    var response = database.addNewGame(connection, req.body.game_name, req.description, req.imgURL, req.datetime, user);
+    res.status(response);
+    res.end();
+  }
+});
+
+/*
+  Retrieve all of a game's files
+*/
+app.get("/game/getGame", function(req, res){
+
+  if(req.user){
+
+    var response = database.getGamefiles(connection, req.body.game_name, user);
+
+    if(response != null){
+      res.write(JOSN.stringify(response));
+      res.status(200);
+      res.end();
+    }
+    else{
+      res.write("Could not retrieve game files");
+      res.status(500);
+      res.end();
+    }
   }
 });
