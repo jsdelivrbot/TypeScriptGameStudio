@@ -24,6 +24,8 @@ var aws = require('aws-sdk');
 app.set('view engine', 'ejs'); 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //Database connection variable for use throughout the app
 var connection;
