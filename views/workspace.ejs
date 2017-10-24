@@ -1,0 +1,119 @@
+<!-- Basic Template -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <% include partials/headdefaults.ejs %>    
+        <title>Workspace</title>
+    </head>
+
+    <body class="d-flex" style="height: 100vh">
+
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top lehighbgcolor">
+            <a class="navbar-brand" href="./index">TypeScript Game Studio</a>
+            
+            <button class="btn bg-white ml-auto" data-toggle="modal" data-target="#createModal" type="button">Create Project</button>
+        </nav>
+
+        <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create New Project</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <label for="projectName">Project Name</label>
+                            <input class="form-control" id="projectName" aria-describedby="projectName" required>
+                            <br>
+                            <label for="projectDesc">Project Description</label>
+                            <textarea class="form-control" id="projectDesc" rows="5"></textarea>  
+                            <br>
+                            <label for="imgUpload">Upload Project Image</label>
+                            <input type="file" class="form-control-file" id="projectImgUpload" aria-describedby="fileHelp" accept=".jpg, .jpeg, .png">
+                            <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png format!</small>                            
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="./editor"><button type="button" class="btn btn-primary text-capitalize" onclick="createGame()">start coding!</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="card-deck justify-content-center align-items-center" style="height: 100%">
+                <div class="card" style="width: 15rem;">
+                    <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
+                    <div class="card-block container">
+                        <h4 class="card-title">Project title</h4>
+                        <p class="card-text">Project Description</p>
+                        <a href="./editor" class="btn btn-sm btn-primary tgsmb10 mr-3">Open Project</a>
+                        <button class="btn btn-sm btn-primary tgsmb10" data-toggle="modal" data-target="#settingModal" type="button">Project Setting</button>
+                    </div>
+                    <div class="card-footer text-muted">Last updated</div>
+                </div>
+
+                <div class="card" style="width: 15rem;">
+                    <img class="card-img-top" src="images/img2.jpg" alt="Card image cap">
+                    <div class="card-block container">
+                        <h4 class="card-title">Project title</h4>
+                        <p class="card-text">Project Description</p>
+                        <a href="./editor" class="btn btn-sm btn-primary tgsmb10 mr-3">Open Project</a>
+                        <button class="btn btn-sm btn-primary tgsmb10" data-toggle="modal" data-target="#settingModal" type="button">Project Setting</button>
+                    </div>
+                    <div class="card-footer text-muted">Last updated</div>
+                </div>
+
+                <div class="card" style="width: 15rem;">
+                    <img class="card-img-top" src="images/img3.jpg" alt="Card image cap">
+                    <div class="card-block container">
+                        <h4 class="card-title">Project title</h4>
+                        <p class="card-text">Project Description</p>
+                        <a href="./editor" class="btn btn-sm btn-primary tgsmb10 mr-3">Open Project</a>
+                        <button class="btn btn-sm btn-primary tgsmb10" data-toggle="modal" data-target="#settingModal" type="button">Project Setting</button>
+                    </div>
+                    <div class="card-footer text-muted">Last updated</div>                    
+                </div>                
+            </div>
+
+
+            <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Project Setting</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <label for="projectName">Project Name</label>
+                                <input class="form-control" id="projectName" aria-describedby="projectName">
+                                <br>
+                                <label for="projectDesc">Project Description</label>
+                                <textarea class="form-control" id="projectDesc" rows="5"></textarea> 
+                                <br>
+                                <label for="exampleInputFile">Upload Project Image</label>
+                                <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">                            
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a href="./editor"><button type="button" class="btn btn-primary text-capitalize">update setting</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <% include partials/jsdefaults.ejs %>
+        <script src="js/workspace.js" type="text/javascript" charset="utf-8"></script>        
+    </body>
+</html>

@@ -21,6 +21,7 @@ var session = require('express-session');
 //Storage modules
 var aws = require('aws-sdk');
 
+app.set('view engine', 'ejs'); 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 
@@ -96,7 +97,7 @@ app.use('/images', express.static(__dirname + '/website/images')); // redirect C
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
-app.use('/js', express.static(__dirname + '/node_modules/tether/dist/js')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/node_modules/popper.js/dist/umd')); //redirect popper.js
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
 /*============
@@ -107,12 +108,12 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 app.get('/uploadtest', auth.required, (req, res) => res.render('test.html'));
 app.get('/game', auth.required, (req, res) => res.render('game.html'));
-app.get('/account', auth.required, (req, res) => res.render('account.html'));
 
-app.get('/home', (req, res) => res.render('index.html'));
-app.get('/tab', (req, res) => res.render('tab.html'));
-app.get('/template', (req, res) => res.render('template.html'));
-app.get('/editor', (req, res) => res.render('editor.html'));
+app.get('/', (req, res) => res.render('index'));
+app.get('/home', (req, res) => res.render('index'));
+app.get('/account', auth.required, (req, res) => res.render('workspace'));
+app.get('/editor', (req, res) => res.render('editor'));
+app.get('/template', (req, res) => res.render('template'));
 
 /*============
   
@@ -188,8 +189,8 @@ app.get("/accountData", function(req, res){
 
   if(req.user){
       connection.collection('accounts').findOne({
-        id : req.user.id,
-        email : req.user.email
+        user_id : req.user.id,
+        user_email : req.user.email
       }, function(err, object){
         if(!err){ 
           res.write(JSON.stringify(object));
@@ -211,8 +212,8 @@ app.get("/accountFiles", function(req, res){
 
   if(req.user){
       connection.collection('files').find({
-        id : req.user.id,
-        email : req.user.email
+        user_id : req.user.id,
+        user_email : req.user.email
       }).toArray(function(err, object){
         if(object != null){
           if(!err){ 
