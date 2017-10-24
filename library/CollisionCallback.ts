@@ -14,5 +14,5 @@ interface CollisionCallback {
    * @param collideActor The actor who collided with <code>thisActor</code>
    * @param contact      A low-level description of the collision event
    */
-  go(thisActor: WorldActor, collideActor: WorldActor, contact: PhysicsType2d.Collision.ContactFeature): void;
+  go(thisActor: WorldActor, collideActor: WorldActor, contact: PhysicsType2d.Dynamics.Contacts.Contact): void;
 }
