@@ -1,4 +1,5 @@
 /// <reference path="./Camera.ts" />
+/// <reference path="./LolAction.ts" />
 /// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
 /// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 /// <reference types="pixi.js"/>
@@ -45,7 +46,7 @@ abstract class LolScene {
   //final mTapHandlers: ArrayList<TouchEventHandler>;
 
   /// Events that get processed on the next render, then discarded
-  //readonly mOneTimeEvents: ArrayList<LolAction>;
+  readonly mOneTimeEvents: Array<LolAction>;
   /// Events that get processed on every render
   //readonly mRepeatEvents: ArrayList<LolAction>;
 
