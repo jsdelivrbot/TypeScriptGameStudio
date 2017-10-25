@@ -45,14 +45,20 @@ class BaseActor extends Renderable {
     this.mSprite.anchor.y = 0.5;
   }
 
+  /**
+   * Specify that this actor should have a rectangular physics shape
+   *
+   * @param type Is the actor's body static or dynamic?
+   * @param x    The X coordinate of the bottom left corner, in meters
+   * @param y    The Y coordinate of the bottom left corner, in meters
+   */
   setBoxPhysics(type: PhysicsType2d.Dynamics.BodyType, x: number, y: number) {
     let shape = new PhysicsType2d.Collision.Shapes.PolygonShape();
     shape.SetAsBoxAtOrigin(this.mSize.x / 2, this.mSize.y / 2);
-
     let boxBodyDef = new PhysicsType2d.Dynamics.BodyDefinition();
     boxBodyDef.type = type;
-    boxBodyDef.position = new PhysicsType2d.Vector2(x + this.mSize.x / 2, y + this.mSize.y / 2);
-
+    boxBodyDef.position.x = x + this.mSize.x / 2;
+    boxBodyDef.position.y = y + this.mSize.y / 2;
     this.mBody = this.mScene.mWorld.CreateBody(boxBodyDef);
 
     let fd = new PhysicsType2d.Dynamics.FixtureDefinition();
@@ -61,23 +67,70 @@ class BaseActor extends Renderable {
     fd.friction = 0;
     fd.restitution = 0;
     this.mBody.CreateFixtureFromDefinition(fd);
+    //no shape.dispose()
 
     this.mBody.SetUserData(this);
+
+    // remember this is a box
+    this.mIsCircleBody = false;
+    this.mIsBoxBody = true;
+    this.mIsPolygonBody = false;
   }
 
+  /**
+   * Internal method for updating an actor's velocity
+   * <p>
+   * We use this because we need to be careful about possibly breaking joints when we make the
+   * actor move
+   *
+   * @param x The new x velocity
+   * @param y The new y velocity
+   */
   updateVelocity(x: number, y: number) {
+    // // make sure it is not static... heroes are already Dynamic, let's just set everything else
+    // // that is static to kinematic... that's probably safest.
+    // if (mBody.getType() == BodyDef.BodyType.StaticBody)
+    //    mBody.setType(BodyDef.BodyType.KinematicBody);
+    // breakJoints();
     this.mBody.SetLinearVelocity(new PhysicsType2d.Vector2(x, y));
   }
 
+  /**
+   * Add velocity to this actor
+   *
+   * @param x Velocity in X dimension, in meters per second
+   * @param y Velocity in Y dimension, in meters per second
+   */
   addVelocity(x: number, y: number) {
-    let velocity = this.mBody.GetLinearVelocity();
-    let additional = new PhysicsType2d.Vector2(x, y);
-    velocity.x += additional.x;
-    velocity.y += additional.y;
-    this.updateVelocity(velocity.x, velocity.y);
+    // ensure this is a moveable actor
+    // if (mBody.getType() == BodyDef.BodyType.StaticBody)
+    //   mBody.setType(BodyDef.BodyType.DynamicBody);
+    let v = this.mBody.GetLinearVelocity();
+    v.x += x;
+    v.y += y;
+    this.updateVelocity(v.x, v.y);
+    // Disable sensor, or else this actor will go right through walls
+    //this.setCollisionsEnabled(true);
   }
 
-  // Override
+  /**
+  * Indicate whether this actor is fast-moving, so that the physics simulator can do a better job
+  * dealing with tunneling effects.
+  *
+  * @param state True or false, depending on whether it is fast-moving or not
+  */
+  setFastMoving(state: boolean): void {
+    this.mBody.SetBullet(state);
+  }
+
+  /**
+   * Every time the world advances by a timestep, we call this code to update the actor route and
+   * animation, and then draw the actor
+   *
+   * @param sb    The spritebatch to use in order to draw this actor
+   * @param delta The amount of time since the last render event
+   */
+  //@Override
   onRender() {
     if(this.mBody) this.mSprite.position.x = this.mBody.GetWorldCenter().x;
     if(this.mBody) this.mSprite.position.y = this.mBody.GetWorldCenter().y;

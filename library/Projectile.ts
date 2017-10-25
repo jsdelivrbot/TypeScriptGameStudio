@@ -41,7 +41,7 @@ class Projectile extends WorldActor {
             this.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, x, y);
         }
         this.setFastMoving(true);
-        this.mBody.setGravityScale(0);
+        this.mBody.SetGravityScale(0);
         this.setCollisionsEnabled(false);
         this.disableRotation();
         this.mScene.addActor(this, zIndex);
