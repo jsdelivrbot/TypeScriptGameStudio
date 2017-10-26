@@ -229,6 +229,7 @@ app.post("/account/verify", function(req, res){
   else{
     res.status(500);
   }
+  res.end();
 });
 
 /*
@@ -264,7 +265,7 @@ app.post("/game/newGame", function(req, res){
 app.get("/game/getGame", function(req, res){
 
   if(req.user){
-    database.getGamefiles(connection, req.body.game_name, req.user, res);  
+    database.getGamefiles(connection, req.query['game_name'], req.user, res);  
   }
 });
 
