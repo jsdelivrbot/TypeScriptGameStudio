@@ -165,8 +165,8 @@ class Camera {
     //   this.mContainer.addChild(scene.mContainer);
     // }
     setPosition(x, y) {
-        this.mContainer.position.x = x;
-        this.mContainer.position.y = y;
+        this.mContainer.position.x = x - this.mWidth / 2;
+        this.mContainer.position.y = y - this.mHeight / 2;
     }
     updatePosition() {
         this.mContainer.pivot = this.mChaseActor.mSprite.position;
