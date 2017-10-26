@@ -1,8 +1,8 @@
 /// <reference path="./Camera.ts" />
 /// <reference path="./LolAction.ts" />
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-/// <reference types="pixi.js"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference types="pixi.js"/>
 // ^this isn't working properly right now
 
 /**
