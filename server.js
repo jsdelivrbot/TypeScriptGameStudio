@@ -221,13 +221,17 @@ app.get("/account/files", function(req, res){
   }
 });
 
-app.post("/account/verify", function(req, res){
+app.get("/account/verify", function(req, res){
 
   if(req.user){
     res.status(200);
+    res.write("Logged in");
+
   }
   else{
     res.status(500);
+    res.write("Not logged in");
+
   }
   res.end();
 });
