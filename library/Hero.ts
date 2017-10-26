@@ -119,6 +119,7 @@ class Hero extends WorldActor {
     //   onCollideWithObstacle(other as Obstacle, contact);
     //   else if (other instanceof Goodie)
     //   onCollideWithGoodie(other as Goodie);
+      console.log("Hero collision");
     }
     //
     // /**
