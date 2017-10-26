@@ -35,7 +35,7 @@ var connection;
 const database_url = process.env.MONGOLAB_URI;
 
 //S3 bucket name and region
-const S3_BUCKET = process.env.S3_BUCKET_NAME;7
+const S3_BUCKET = process.env.S3_BUCKET_NAME;
 aws.config.region = "us-east-1";
 
 //Session configuration object for user authentication
