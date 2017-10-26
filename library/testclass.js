@@ -301,11 +301,14 @@ class MainScene extends LolScene {
             */
             //@Override
             BeginContact(contact) {
+                console.log("In BeginContact");
                 // Get the bodies, make sure both are actors
                 let a = contact.GetFixtureA().GetBody().GetUserData(); //any type
                 let b = contact.GetFixtureB().GetBody().GetUserData(); //any type
-                if (!(a instanceof WorldActor) || !(b instanceof WorldActor))
+                if (!(a instanceof WorldActor) || !(b instanceof WorldActor)) {
+                    console.log("Not a WorldActor");
                     return;
+                }
                 // the order is Hero, Enemy, Goodie, Projectile, Obstacle, Destination
                 //
                 // Of those, Hero, Enemy, and Projectile are the only ones with
