@@ -273,6 +273,6 @@ app.get("/game/getGame", function(req, res){
 */
 app.get("/game/allGames", function(req, res){
   if(req.user){
-    database.getGamefiles(connection, req.user, res);  
+    database.getAllGames(connection, req.user, res);  
   }
 });
