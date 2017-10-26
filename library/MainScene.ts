@@ -1,11 +1,11 @@
-/// <reference path="./WorldActor.ts"/>
-/// <reference path="./Hero.ts"/>
-/// <reference path="./Enemy.ts"/>
-/// <reference path="./Projectile.ts"/>
-/// <reference path="./LolAction.ts"/>
+//// <reference path="./Hero.ts"/>
+//// <reference path="./Enemy.ts"/>
+//// <reference path="./Projectile.ts"/>
+//// <reference path="./LolAction.ts"/>
 /// <reference path="./LolScene.ts"/>
-/// <reference path="./Config.ts"/>
-/// <reference path="./Media.ts"/>
+//// <reference path="./Config.ts"/>
+//// <reference path="./Media.ts"/>
+//// <reference path="./WorldActor.ts"/>
 /// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
 /// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
@@ -81,12 +81,12 @@ class MainScene extends LolScene {
         // NB: this is called from render, while world is updating.  We can't modify the
         // world or its actors until the update finishes, so we have to schedule
         // collision-based updates to run after the world update.
-        this.superThis.mOneTimeEvents.push(new LolAction() {
+        this.superThis.mOneTimeEvents.push(new (class _ extends LolAction {
           //@Override
           public go(): void {
             c0.onCollide(c1, contact);
           }
-        });
+        })());
       }
 
       /**

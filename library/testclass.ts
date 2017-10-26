@@ -1,8 +1,12 @@
 // Testing file
+/// <reference path="./MainScene.ts"/>
+/// <reference path="./Hero.ts"/>
+/// <reference path="./LolScene.ts"/>
+/// <reference path="./Lol.ts"/>
+/// <reference path="./Obstacle.ts"/>
 /// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
 /// <reference types="pixi.js"/>
 
-let renderer = PIXI.autoDetectRenderer(512, 512);
 let heroImg = "./images/OrangeBox.png";
 let obstImg = "./images/BlueBox.png"
 let zoomInImg = "./images/ZoomIn.png";
@@ -11,7 +15,6 @@ let upImg = "./images/up_arrow.png";
 let downImg = "./images/down_arrow.png"
 let leftImg = "./images/left_arrow.png";
 let rightImg = "./images/right_arrow.png";
-document.body.appendChild(renderer.view);
 
 PIXI.loader
 .add(heroImg)
@@ -26,51 +29,64 @@ PIXI.loader
 
 
 function main(speed: number) {
-  let mainScene = new MainScene();
-  let Hero = new WorldActor(mainScene, heroImg, 25, 25);
-  Hero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 100, 100);
-  Hero.updateVelocity(speed, 0);
+  let myConfig = new (class _ extends Config {
+    constructor() {
+      super();
+      this.mWidth = 512;
+      this.mHeight = 512;
+      this.mPixelMeterRatio = 1;
+    }
+  })
 
-  mainScene.addActor(Hero);
-  mainScene.chaseActor(Hero);
+  let myMedia = new Media();
+  let mainScene = new MainScene(myConfig, myMedia);
+  let hud = new HudScene(myConfig, myMedia);
+  let mgr = new LolManager(mainScene, hud);
+  let game = new Lol(mgr, myConfig);
+  document.body.appendChild(game.mRenderer.view);
 
-  let Obstacle1 = new WorldActor(mainScene, obstImg, 25, 25);
+  let myHero = new Hero(game, mainScene, 25, 25, heroImg);
+  myHero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 100, 100);
+  myHero.updateVelocity(speed, 0);
+
+  mainScene.addActor(myHero, 1);
+  mainScene.chaseActor(myHero);
+
+  let Obstacle1 = new Obstacle(game, mainScene, 25, 25, obstImg);
   Obstacle1.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 0, 0);
 
-  let Obstacle2 = new WorldActor(mainScene, obstImg, 50, 50);
+  let Obstacle2 = new Obstacle(game, mainScene, 50, 50, obstImg);
   Obstacle2.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 200, 200);
 
-  let Obstacle3 = new WorldActor(mainScene, obstImg, 25, 25);
+  let Obstacle3 = new Obstacle(game, mainScene, 50, 50, obstImg);
   Obstacle3.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 75, 25);
 
-  mainScene.addActor(Obstacle1);
-  mainScene.addActor(Obstacle2);
-  mainScene.addActor(Obstacle3);
+  mainScene.addActor(Obstacle1, 0);
+  mainScene.addActor(Obstacle2, 0);
+  mainScene.addActor(Obstacle3, 0);
 
-  let hud = new HudScene();
-  let zoominBtn = new WorldActor(hud, zoomInImg, 25, 25);
-  let zoomoutBtn = new WorldActor(hud, zoomOutImg, 25, 25);
+  let zoominBtn = new SceneActor(hud, zoomInImg, 25, 25);
+  let zoomoutBtn = new SceneActor(hud, zoomOutImg, 25, 25);
   zoominBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 50, 10);
   zoomoutBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 10, 10);
 
-  hud.addActor(zoominBtn);
-  hud.addActor(zoomoutBtn);
+  hud.addActor(zoominBtn, 2);
+  hud.addActor(zoomoutBtn, 2);
 
-  let upBtn = new WorldActor(hud, upImg, 25, 25);
-  let downBtn = new WorldActor(hud, downImg, 25, 25);
+  let upBtn = new SceneActor(hud, upImg, 25, 25);
+  let downBtn = new SceneActor(hud, downImg, 25, 25);
   upBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 380);
   downBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 400, 420);
-  hud.addActor(upBtn);
-  hud.addActor(downBtn);
+  hud.addActor(upBtn, 2);
+  hud.addActor(downBtn, 2);
 
-  let leftBtn = new WorldActor(hud, leftImg, 25, 25);
-  let rightBtn = new WorldActor(hud, rightImg, 25, 25);
+  let leftBtn = new SceneActor(hud, leftImg, 25, 25);
+  let rightBtn = new SceneActor(hud, rightImg, 25, 25);
   leftBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 380, 400);
   rightBtn.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, 420, 400);
-  hud.addActor(leftBtn);
-  hud.addActor(rightBtn);
+  hud.addActor(leftBtn, 2);
+  hud.addActor(rightBtn, 2);
 
-  let mgr = new LolManager(mainScene, hud);
   mgr.mContainer.interactive = true;
   zoominBtn.mSprite.interactive = true;
   zoomoutBtn.mSprite.interactive = true;
@@ -80,12 +96,10 @@ function main(speed: number) {
   rightBtn.mSprite.interactive = true;
   zoominBtn.mSprite.on('click', () => mgr.mWorld.mCamera.zoomInOut(1.25));
   zoomoutBtn.mSprite.on('click', () => mgr.mWorld.mCamera.zoomInOut(0.75));
-  upBtn.mSprite.on('click', () =>   Hero.updateVelocity(0, -speed));
-  downBtn.mSprite.on('click', () =>   Hero.updateVelocity(0, speed));
-  leftBtn.mSprite.on('click', () =>   Hero.updateVelocity(-speed, 0));
-  rightBtn.mSprite.on('click', () =>   Hero.updateVelocity(speed, 0));
-
-  let game = new Lol(mgr);
+  upBtn.mSprite.on('click', () =>   myHero.updateVelocity(0, -speed));
+  downBtn.mSprite.on('click', () =>   myHero.updateVelocity(0, speed));
+  leftBtn.mSprite.on('click', () =>   myHero.updateVelocity(-speed, 0));
+  rightBtn.mSprite.on('click', () =>   myHero.updateVelocity(speed, 0));
 
   requestAnimationFrame(() => gameLoop2(game));
 }

@@ -36,7 +36,7 @@ class Obstacle extends WorldActor {
      * @param height  height of this Obstacle
      * @param imgName Name of the image file to use
      */
-    protected constructor(game: Lol, level: MainScene, width: number, height: number, imgName: string) {
+    constructor(game: Lol, level: MainScene, width: number, height: number, imgName: string) { //TODO: protected?
         super(game, level, imgName, width, height);
     }
 

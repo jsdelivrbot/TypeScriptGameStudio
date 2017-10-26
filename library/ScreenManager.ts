@@ -1,3 +1,5 @@
+/// <reference path="./Level.ts"/>
+
 /**
  * The ScreenManager interface provides a way for programmers to tell LibLOL how to configure a
  * screen.  The codes for building the Splash, Help, Store, Config, and Levels should each be a

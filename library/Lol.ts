@@ -25,6 +25,6 @@ class Lol {
     this.mManager.mWorld.mCamera.updatePosition();
     this.mManager.mWorld.render();
     this.mManager.mHud.render();
-    renderer.render(this.mManager.mContainer);
+    this.mRenderer.render(this.mManager.mContainer);
   }
 }
