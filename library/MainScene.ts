@@ -43,11 +43,14 @@ class MainScene extends LolScene {
       */
       //@Override
       public BeginContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
+        console.log("In BeginContact");
         // Get the bodies, make sure both are actors
         let a = contact.GetFixtureA().GetBody().GetUserData(); //any type
         let b = contact.GetFixtureB().GetBody().GetUserData(); //any type
-        if (!(a instanceof WorldActor) || !(b instanceof WorldActor))
-        return;
+        if (!(a instanceof WorldActor) || !(b instanceof WorldActor)) {
+          console.log("Not a WorldActor");
+          return;
+        }
 
         // the order is Hero, Enemy, Goodie, Projectile, Obstacle, Destination
         //

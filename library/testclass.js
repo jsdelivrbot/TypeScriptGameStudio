@@ -278,7 +278,7 @@ class LolScene {
 class MainScene extends LolScene {
     constructor(config, media) {
         super(config, media);
-        //this.configureCollisionHandlers();
+        this.configureCollisionHandlers();
     }
     chaseActor(hero) {
         this.mChaseActor = hero;
@@ -300,7 +300,7 @@ class MainScene extends LolScene {
             * @param contact A description of the contact event
             */
             //@Override
-            beginContact(contact) {
+            BeginContact(contact) {
                 // Get the bodies, make sure both are actors
                 let a = contact.GetFixtureA().GetBody().GetUserData(); //any type
                 let b = contact.GetFixtureB().GetBody().GetUserData(); //any type
@@ -357,7 +357,7 @@ class MainScene extends LolScene {
             * @param contact A description of the contact event
             */
             //@Override
-            endContact(contact) {
+            EndContact(contact) {
             }
             /**
             * Presolve is a hook for disabling certain collisions. We use it
@@ -367,7 +367,7 @@ class MainScene extends LolScene {
             * @param oldManifold The manifold from the previous world step
             */
             //@Override
-            preSolve(contact, oldManifold) {
+            PreSolve(contact, oldManifold) {
                 // get the bodies, make sure both are actors
                 //  let a = contact.GetFixtureA().GetBody().GetUserData();
                 //  let b = contact.GetFixtureB().GetBody().GetUserData();
@@ -427,7 +427,7 @@ class MainScene extends LolScene {
             * @param impulse The impulse of the contact
             */
             //@Override
-            postSolve(contact, impulse) {
+            PostSolve(contact, impulse) {
             }
         })(this));
     }
@@ -992,47 +992,20 @@ function main(speed) {
     downBtn.mSprite.on('click', () => myHero.updateVelocity(0, speed));
     leftBtn.mSprite.on('click', () => myHero.updateVelocity(-speed, 0));
     rightBtn.mSprite.on('click', () => myHero.updateVelocity(speed, 0));
-    mgr.mWorld.mWorld.SetContactListener(new (class myContactListener extends PhysicsType2d.Dynamics.ContactListener {
-        constructor() {
-            super();
-        }
-        /**
-        * When two bodies start to collide, we can use this to forward to our onCollide methods
-        *
-        * @param contact A description of the contact event
-        */
-        //@Override
-        BeginContact(contact) {
-            console.log("CONTACT!");
-        }
-        /**
-        * We ignore endcontact
-        *
-        * @param contact A description of the contact event
-        */
-        //@Override
-        EndContact(contact) {
-        }
-        /**
-        * Presolve is a hook for disabling certain collisions. We use it
-        * for collision immunity, sticky obstacles, and one-way walls
-        *
-        * @param contact A description of the contact event
-        * @param oldManifold The manifold from the previous world step
-        */
-        //@Override
-        PreSolve(contact, oldManifold) {
-        }
-        /**
-        * We ignore postsolve
-        *
-        * @param contact A description of the contact event
-        * @param impulse The impulse of the contact
-        */
-        //@Override
-        PostSolve(contact, impulse) {
-        }
-    })());
+    // mgr.mWorld.mWorld.SetContactListener(new (class myContactListener extends PhysicsType2d.Dynamics.ContactListener {
+    //   constructor() {
+    //     super();
+    //   }
+    //   public BeginContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
+    //     console.log("CONTACT!");
+    //   }
+    //   public EndContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
+    //   }
+    //   public PreSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, oldManifold: PhysicsType2d.Collision.Manifold): void {
+    //   }
+    //   public PostSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, impulse: PhysicsType2d.Dynamics.ContactImpulse): void {
+    //   }
+    // })());
     requestAnimationFrame(() => gameLoop2(game));
 }
 function gameLoop2(game) {
