@@ -29,5 +29,6 @@ class Lol {
     this.mManager.mWorld.mOneTimeEvents.forEach((pe) => {
        pe.go();
     });
+    this.mManager.mWorld.mOneTimeEvents.length = 0;
   }
 }
