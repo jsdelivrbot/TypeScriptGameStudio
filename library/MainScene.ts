@@ -16,7 +16,7 @@ class MainScene extends LolScene {
 
   constructor(config: Config, media: Media) {
     super(config, media);
-    //this.configureCollisionHandlers();
+    this.configureCollisionHandlers();
   }
 
   chaseActor(hero: WorldActor) {
@@ -42,7 +42,7 @@ class MainScene extends LolScene {
       * @param contact A description of the contact event
       */
       //@Override
-      public beginContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
+      public BeginContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
         // Get the bodies, make sure both are actors
         let a = contact.GetFixtureA().GetBody().GetUserData(); //any type
         let b = contact.GetFixtureB().GetBody().GetUserData(); //any type
@@ -96,7 +96,7 @@ class MainScene extends LolScene {
       * @param contact A description of the contact event
       */
       //@Override
-      public endContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
+      public EndContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
       }
 
       /**
@@ -107,7 +107,7 @@ class MainScene extends LolScene {
       * @param oldManifold The manifold from the previous world step
       */
       //@Override
-      public preSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, oldManifold: PhysicsType2d.Collision.Manifold): void {
+      public PreSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, oldManifold: PhysicsType2d.Collision.Manifold): void {
         // get the bodies, make sure both are actors
         //  let a = contact.GetFixtureA().GetBody().GetUserData();
         //  let b = contact.GetFixtureB().GetBody().GetUserData();
@@ -170,7 +170,7 @@ class MainScene extends LolScene {
       * @param impulse The impulse of the contact
       */
       //@Override
-      public postSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, impulse: PhysicsType2d.Dynamics.ContactImpulse): void {
+      public PostSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, impulse: PhysicsType2d.Dynamics.ContactImpulse): void {
       }
     })(this));
   }

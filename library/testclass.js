@@ -1002,7 +1002,7 @@ function main(speed) {
         * @param contact A description of the contact event
         */
         //@Override
-        beginContact(contact) {
+        BeginContact(contact) {
             console.log("CONTACT!");
         }
         /**
@@ -1011,7 +1011,7 @@ function main(speed) {
         * @param contact A description of the contact event
         */
         //@Override
-        endContact(contact) {
+        EndContact(contact) {
         }
         /**
         * Presolve is a hook for disabling certain collisions. We use it
@@ -1021,7 +1021,7 @@ function main(speed) {
         * @param oldManifold The manifold from the previous world step
         */
         //@Override
-        preSolve(contact, oldManifold) {
+        PreSolve(contact, oldManifold) {
         }
         /**
         * We ignore postsolve
@@ -1030,7 +1030,7 @@ function main(speed) {
         * @param impulse The impulse of the contact
         */
         //@Override
-        postSolve(contact, impulse) {
+        PostSolve(contact, impulse) {
         }
     })());
     requestAnimationFrame(() => gameLoop2(game));
