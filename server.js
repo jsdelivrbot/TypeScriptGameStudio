@@ -21,6 +21,7 @@ var session = require('express-session');
 //Storage modules
 var aws = require('aws-sdk');
 
+//Set up a few misc. usages for the app
 app.set('view engine', 'ejs'); 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -34,7 +35,7 @@ var connection;
 const database_url = process.env.MONGOLAB_URI;
 
 //S3 bucket name and region
-const S3_BUCKET = process.env.S3_BUCKET_NAME;
+const S3_BUCKET = process.env.S3_BUCKET_NAME;7
 aws.config.region = "us-east-1";
 
 //Session configuration object for user authentication
@@ -229,6 +230,7 @@ app.post("/account/verify", function(req, res){
     res.status(500);
   }
 });
+
 /*
   Update a game's files
 */  
@@ -263,5 +265,14 @@ app.get("/game/getGame", function(req, res){
 
   if(req.user){
     database.getGamefiles(connection, req.body.game_name, req.user, res);  
+  }
+});
+
+/*
+  Retrieve the metadata for all the games
+*/
+app.get("/game/allGames", function(req, res){
+  if(req.user){
+    database.getGamefiles(connection, req.user, res);  
   }
 });
