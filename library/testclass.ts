@@ -101,6 +101,52 @@ function main(speed: number) {
   leftBtn.mSprite.on('click', () =>   myHero.updateVelocity(-speed, 0));
   rightBtn.mSprite.on('click', () =>   myHero.updateVelocity(speed, 0));
 
+  mgr.mWorld.mWorld.SetContactListener(new (class myContactListener extends PhysicsType2d.Dynamics.ContactListener {
+    constructor() {
+      super();
+    }
+
+    /**
+    * When two bodies start to collide, we can use this to forward to our onCollide methods
+    *
+    * @param contact A description of the contact event
+    */
+    //@Override
+    public BeginContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
+      console.log("CONTACT!");
+    }
+
+    /**
+    * We ignore endcontact
+    *
+    * @param contact A description of the contact event
+    */
+    //@Override
+    public EndContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
+    }
+
+    /**
+    * Presolve is a hook for disabling certain collisions. We use it
+    * for collision immunity, sticky obstacles, and one-way walls
+    *
+    * @param contact A description of the contact event
+    * @param oldManifold The manifold from the previous world step
+    */
+    //@Override
+    public PreSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, oldManifold: PhysicsType2d.Collision.Manifold): void {
+    }
+
+    /**
+    * We ignore postsolve
+    *
+    * @param contact A description of the contact event
+    * @param impulse The impulse of the contact
+    */
+    //@Override
+    public PostSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, impulse: PhysicsType2d.Dynamics.ContactImpulse): void {
+    }
+  })());
+
   requestAnimationFrame(() => gameLoop2(game));
 }
 

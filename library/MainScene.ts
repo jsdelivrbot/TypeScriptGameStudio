@@ -16,7 +16,7 @@ class MainScene extends LolScene {
 
   constructor(config: Config, media: Media) {
     super(config, media);
-    this.configureCollisionHandlers();
+    //this.configureCollisionHandlers();
   }
 
   chaseActor(hero: WorldActor) {

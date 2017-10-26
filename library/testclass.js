@@ -235,7 +235,7 @@ class LolScene {
         this.mContainer.position.x = 0;
         this.mContainer.position.y = 0;
         // set up the event lists
-        //this.mOneTimeEvents = new ArrayList<>();
+        this.mOneTimeEvents = new Array();
         //this.mRepeatEvents = new ArrayList<>();
         // set up the game camera, with (0, 0) in the bottom left
         this.mCamera = new Camera(w, h);
@@ -278,7 +278,7 @@ class LolScene {
 class MainScene extends LolScene {
     constructor(config, media) {
         super(config, media);
-        this.configureCollisionHandlers();
+        //this.configureCollisionHandlers();
     }
     chaseActor(hero) {
         this.mChaseActor = hero;
@@ -517,9 +517,9 @@ class Lol {
         this.mManager.mWorld.render();
         this.mManager.mHud.render();
         this.mRenderer.render(this.mManager.mContainer);
-        this.mManager.mWorld.mOneTimeEvents.forEach((pe) => {
-            pe.go();
-        });
+        // this.mManager.mWorld.mOneTimeEvents.forEach((pe) => {
+        //   pe.go();
+        // });
     }
 }
 /// <reference path="./Config.ts"/>
@@ -992,6 +992,47 @@ function main(speed) {
     downBtn.mSprite.on('click', () => myHero.updateVelocity(0, speed));
     leftBtn.mSprite.on('click', () => myHero.updateVelocity(-speed, 0));
     rightBtn.mSprite.on('click', () => myHero.updateVelocity(speed, 0));
+    mgr.mWorld.mWorld.SetContactListener(new (class myContactListener extends PhysicsType2d.Dynamics.ContactListener {
+        constructor() {
+            super();
+        }
+        /**
+        * When two bodies start to collide, we can use this to forward to our onCollide methods
+        *
+        * @param contact A description of the contact event
+        */
+        //@Override
+        beginContact(contact) {
+            console.log("CONTACT!");
+        }
+        /**
+        * We ignore endcontact
+        *
+        * @param contact A description of the contact event
+        */
+        //@Override
+        endContact(contact) {
+        }
+        /**
+        * Presolve is a hook for disabling certain collisions. We use it
+        * for collision immunity, sticky obstacles, and one-way walls
+        *
+        * @param contact A description of the contact event
+        * @param oldManifold The manifold from the previous world step
+        */
+        //@Override
+        preSolve(contact, oldManifold) {
+        }
+        /**
+        * We ignore postsolve
+        *
+        * @param contact A description of the contact event
+        * @param impulse The impulse of the contact
+        */
+        //@Override
+        postSolve(contact, impulse) {
+        }
+    })());
     requestAnimationFrame(() => gameLoop2(game));
 }
 function gameLoop2(game) {
