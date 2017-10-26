@@ -6,11 +6,15 @@ class Camera {
   mContainer: PIXI.Container;
   mScene: LolScene;
   mChaseActor: WorldActor;
+  mHeight: number;
+  mWidth: number;
 
   constructor(x: number, y: number) {
     this.mContainer = new PIXI.Container();
-    this.mContainer.position.x = x;
-    this.mContainer.position.y = y;
+    this.mWidth = x;
+    this.mHeight = y;
+    //this.mContainer.position.x = x;
+    //this.mContainer.position.y = y;
   }
 
   // changeScene(scene: Scene) {
@@ -26,8 +30,8 @@ class Camera {
 
   updatePosition() {
     this.mContainer.pivot = this.mChaseActor.mSprite.position;
-    this.mContainer.position.x = this.mScene.mConfig.mWidth / 2;
-    this.mContainer.position.y = this.mScene.mConfig.mHeight / 2;
+    this.mContainer.position.x = this.mWidth / 2;
+    this.mContainer.position.y = this.mHeight / 2;
   }
 
   setChase(chaseActor: WorldActor) {

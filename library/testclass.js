@@ -38,118 +38,10 @@ class Renderable {
         this.onRender();
     }
 }
-// TODO: Right now the camera can only follow an actor
-// The Camera is essentially a wrapper for a pixi Container
-// which could contain an actor to chase
-// and the scene it is acting as a camera for
-class Camera {
-    constructor(x, y) {
-        this.mContainer = new PIXI.Container();
-        this.mContainer.position.x = x;
-        this.mContainer.position.y = y;
-    }
-    // changeScene(scene: Scene) {
-    //   this.mContainer.removeChildren();
-    //   this.mScene = scene;
-    //   this.mContainer.addChild(scene.mContainer);
-    // }
-    setPosition(x, y) {
-        this.mContainer.position.x = x;
-        this.mContainer.position.y = y;
-    }
-    updatePosition() {
-        this.mContainer.pivot = this.mChaseActor.mSprite.position;
-        this.mContainer.position.x = this.mScene.mConfig.mWidth / 2;
-        this.mContainer.position.y = this.mScene.mConfig.mHeight / 2;
-    }
-    setChase(chaseActor) {
-        this.mChaseActor = chaseActor;
-    }
-    setZoom(zoom) {
-        this.mContainer.scale.set(zoom, zoom);
-    }
-    getZoom() {
-        return this.mContainer.scale;
-    }
-    zoomInOut(zoom) {
-        let z = this.mContainer.scale;
-        this.mContainer.scale.set(z.x * zoom, z.y * zoom);
-    }
-}
-/**
- * LolAction describes code that runs in response to events.  LolAction is only intended for events
- * that take no parameters, such as events that run on a timer.
- */
-class LolAction {
-    constructor() {
-        /// A flag to disable and re-enable actions.  This is especially useful when a LolAction is on
-        /// a repeating timer.
-        this.mIsActive = true;
-    }
-}
-/// <reference path="./Camera.ts" />
-/// <reference path="./LolAction.ts" />
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-/// <reference types="pixi.js"/>
-// ^this isn't working properly right now
-/**
- * LolScene is the parent of all Scene types
- * <p>
- * A Scene consists of a physics world and a bunch of actors who exist within that world.  Notably,
- * a Scene can be rendered, which advances its physics world.
- * <p>
- * There is a close relationship between a BaseActor and a LolScene, namely that a BaseActor should
- * not need any scene functionality that is not present in LolScene.
- */
-class LolScene {
-    /// Events that get processed on every render
-    //readonly mRepeatEvents: ArrayList<LolAction>;
-    /**
-     * Construct a new scene
-     *
-     * @param media  All image and sound assets for the game
-     * @param config The game-wide configuration
-     */
-    constructor(config, media) {
-        this.mContainer = new PIXI.Container();
-        this.mConfig = config;
-        this.mMedia = media;
-        let w = config.mWidth / config.mPixelMeterRatio;
-        let h = config.mHeight / config.mPixelMeterRatio;
-        // set up the event lists
-        //this.mOneTimeEvents = new ArrayList<>();
-        //this.mRepeatEvents = new ArrayList<>();
-        // set up the game camera, with (0, 0) in the bottom left
-        this.mCamera = new Camera(w, h);
-        this.mCamera.setPosition(w / 2, h / 2);
-        this.mCamera.setZoom(1);
-        // set default camera bounds
-        this.mCamBound = new PhysicsType2d.Vector2(w, h);
-        // create a world with no default gravitational forces
-        this.mWorld = new PhysicsType2d.Dynamics.World(new PhysicsType2d.Vector2(0, 0));
-        this.mRenderables = new Array();
-    }
-    /**
-     * Add an actor to the level, putting it into the appropriate z plane
-     *
-     * @param actor  The actor to add
-     * @param zIndex The z plane. valid values are -2, -1, 0, 1, and 2. 0 is the default.
-     */
-    addActor(actor, zIndex) {
-        //TODO: change actor to a RENDERABLE type
-        // Coerce index into legal range, then add the actor
-        // zIndex = (zIndex < -2) ? -2 : zIndex;
-        // zIndex = (zIndex > 2) ? 2 : zIndex;
-        // mRenderables.get(zIndex + 2).add(actor);
-        this.mRenderables.push(actor);
-        this.mContainer.addChild(actor.mSprite);
-    }
-}
 /// <reference path="./Renderable.ts"/>
-/// <reference path="./LolScene.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./LolScene.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 /**
  * BaseActor is the parent of all Actor types.
@@ -255,31 +147,118 @@ class BaseActor extends Renderable {
             this.mSprite.position.y = this.mBody.GetWorldCenter().y;
     }
 }
-/// <reference path="./BaseActor.ts"/>
-//// <reference path="./MainScene.ts"/>
-//// <reference path="./Lol.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-// <reference types="pixi.js"/>
-class WorldActor extends BaseActor {
-    /**
-     * Create a new actor that does not yet have physics, but that has a renderable picture
-     *
-     * @param game    The currently active game
-     * @param scene   The scene into which the actor is being placed
-     * @param imgName The image to display
-     * @param width   The width
-     * @param height  The height
-     */
-    constructor(game, scene, imgName, width, height) {
-        super(scene, imgName, width, height);
-        this.mGame = game;
+// TODO: Right now the camera can only follow an actor
+// The Camera is essentially a wrapper for a pixi Container
+// which could contain an actor to chase
+// and the scene it is acting as a camera for
+class Camera {
+    constructor(x, y) {
+        this.mContainer = new PIXI.Container();
+        this.mContainer.position.x = x;
+        this.mContainer.position.y = y;
+    }
+    // changeScene(scene: Scene) {
+    //   this.mContainer.removeChildren();
+    //   this.mScene = scene;
+    //   this.mContainer.addChild(scene.mContainer);
+    // }
+    setPosition(x, y) {
+        this.mContainer.position.x = x;
+        this.mContainer.position.y = y;
+    }
+    updatePosition() {
+        this.mContainer.pivot = this.mChaseActor.mSprite.position;
+        this.mContainer.position.x = this.mScene.mConfig.mWidth / 2;
+        this.mContainer.position.y = this.mScene.mConfig.mHeight / 2;
+    }
+    setChase(chaseActor) {
+        this.mChaseActor = chaseActor;
+    }
+    setZoom(zoom) {
+        this.mContainer.scale.set(zoom, zoom);
+    }
+    getZoom() {
+        return this.mContainer.scale;
+    }
+    zoomInOut(zoom) {
+        let z = this.mContainer.scale;
+        this.mContainer.scale.set(z.x * zoom, z.y * zoom);
     }
 }
-/// <reference path="./WorldActor.ts" />
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./WorldActor.ts" />
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 // <reference types="pixi.js"/>
+/**
+ * LolAction describes code that runs in response to events.  LolAction is only intended for events
+ * that take no parameters, such as events that run on a timer.
+ */
+class LolAction {
+    constructor() {
+        /// A flag to disable and re-enable actions.  This is especially useful when a LolAction is on
+        /// a repeating timer.
+        this.mIsActive = true;
+    }
+}
+/// <reference path="./Camera.ts" />
+/// <reference path="./LolAction.ts" />
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference types="pixi.js"/>
+// ^this isn't working properly right now
+/**
+ * LolScene is the parent of all Scene types
+ * <p>
+ * A Scene consists of a physics world and a bunch of actors who exist within that world.  Notably,
+ * a Scene can be rendered, which advances its physics world.
+ * <p>
+ * There is a close relationship between a BaseActor and a LolScene, namely that a BaseActor should
+ * not need any scene functionality that is not present in LolScene.
+ */
+class LolScene {
+    /// Events that get processed on every render
+    //readonly mRepeatEvents: ArrayList<LolAction>;
+    /**
+     * Construct a new scene
+     *
+     * @param media  All image and sound assets for the game
+     * @param config The game-wide configuration
+     */
+    constructor(config, media) {
+        this.mContainer = new PIXI.Container();
+        this.mConfig = config;
+        this.mMedia = media;
+        let w = config.mWidth / config.mPixelMeterRatio;
+        let h = config.mHeight / config.mPixelMeterRatio;
+        // set up the event lists
+        //this.mOneTimeEvents = new ArrayList<>();
+        //this.mRepeatEvents = new ArrayList<>();
+        // set up the game camera, with (0, 0) in the bottom left
+        this.mCamera = new Camera(w, h);
+        this.mCamera.setPosition(w / 2, h / 2);
+        this.mCamera.setZoom(1);
+        // set default camera bounds
+        this.mCamBound = new PhysicsType2d.Vector2(w, h);
+        // create a world with no default gravitational forces
+        this.mWorld = new PhysicsType2d.Dynamics.World(new PhysicsType2d.Vector2(0, 0));
+        this.mRenderables = new Array();
+    }
+    /**
+     * Add an actor to the level, putting it into the appropriate z plane
+     *
+     * @param actor  The actor to add
+     * @param zIndex The z plane. valid values are -2, -1, 0, 1, and 2. 0 is the default.
+     */
+    addActor(actor, zIndex) {
+        //TODO: change actor to a RENDERABLE type
+        // Coerce index into legal range, then add the actor
+        // zIndex = (zIndex < -2) ? -2 : zIndex;
+        // zIndex = (zIndex > 2) ? 2 : zIndex;
+        // mRenderables.get(zIndex + 2).add(actor);
+        this.mRenderables.push(actor);
+        this.mContainer.addChild(actor.mSprite);
+    }
+}
 //// <reference path="./Hero.ts"/>
 //// <reference path="./Enemy.ts"/>
 //// <reference path="./Projectile.ts"/>
@@ -288,8 +267,8 @@ class WorldActor extends BaseActor {
 //// <reference path="./Config.ts"/>
 //// <reference path="./Media.ts"/>
 //// <reference path="./WorldActor.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 class MainScene extends LolScene {
     constructor(config, media) {
@@ -454,8 +433,8 @@ class MainScene extends LolScene {
     }
 }
 /// <reference path="./LolScene.ts" />
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 // <reference types="pixi.js"/>
 class HudScene extends LolScene {
     /// The set of all controls that have toggle handlers.  We need this, so we can "lift" toggles
@@ -496,8 +475,8 @@ class HudScene extends LolScene {
 }
 /// <reference path="./MainScene.ts"/>
 /// <reference path="./HudScene.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 class LolManager {
     constructor(world, hud) {
@@ -512,8 +491,8 @@ class LolManager {
 }
 /// <reference path="./LolManager.ts"/>
 /// <reference path="./LolScene.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 class Lol {
     constructor(manager, config) {
@@ -588,9 +567,30 @@ class Level {
  */
 class Config {
 }
+/// <reference path="./BaseActor.ts"/>
+//// <reference path="./MainScene.ts"/>
+//// <reference path="./Lol.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference types="pixi.js"/>
+class WorldActor extends BaseActor {
+    /**
+     * Create a new actor that does not yet have physics, but that has a renderable picture
+     *
+     * @param game    The currently active game
+     * @param scene   The scene into which the actor is being placed
+     * @param imgName The image to display
+     * @param width   The width
+     * @param height  The height
+     */
+    constructor(game, scene, imgName, width, height) {
+        super(scene, imgName, width, height);
+        this.mGame = game;
+    }
+}
 /// <reference path="./WorldActor.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 /**
  * Enemies are things to be avoided or defeated by the Hero. Enemies do damage to heroes when they
@@ -632,9 +632,9 @@ class Enemy extends WorldActor {
         //         onCollideWithProjectile((Projectile) other);
     }
 }
-/// <reference path="./WorldActor.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./WorldActor.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 /**
 * Goodies are actors that a hero can collect.
@@ -676,8 +676,8 @@ class Goodie extends WorldActor {
     }
 }
 /// <reference path="./WorldActor.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 /**
  * The Hero is the focal point of a game. While it is technically possible to have many heroes, or
@@ -756,8 +756,8 @@ class Hero extends WorldActor {
 /// <reference path="./CollisionCallback.ts"/>
 /// <reference path="./Lol.ts"/>
 /// <reference path="./Level.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 /**
  * Obstacles are usually walls, except they can move, and can be used to run all sorts of arbitrary
@@ -804,8 +804,8 @@ class Obstacle extends WorldActor {
 }
 /// <reference path="./WorldActor.ts"/>
 /// <reference path="./MainScene.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 /**
  * Projectiles are actors that can be thrown from the hero's location in order to remove enemies.
@@ -891,9 +891,9 @@ class Projectile extends WorldActor {
     }
 }
 /// <reference path="./BaseActor.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-// <reference types="pixi.js"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference types="pixi.js"/>
 class SceneActor extends BaseActor {
 }
 // Testing file
