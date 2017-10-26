@@ -232,6 +232,8 @@ class LolScene {
         this.mMedia = media;
         let w = config.mWidth / config.mPixelMeterRatio;
         let h = config.mHeight / config.mPixelMeterRatio;
+        this.mContainer.position.x = w / 2;
+        this.mContainer.position.y = h / 2;
         // set up the event lists
         //this.mOneTimeEvents = new ArrayList<>();
         //this.mRepeatEvents = new ArrayList<>();
