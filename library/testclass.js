@@ -154,8 +154,10 @@ class BaseActor extends Renderable {
 class Camera {
     constructor(x, y) {
         this.mContainer = new PIXI.Container();
-        this.mContainer.position.x = x;
-        this.mContainer.position.y = y;
+        this.mWidth = x;
+        this.mHeight = y;
+        //this.mContainer.position.x = x;
+        //this.mContainer.position.y = y;
     }
     // changeScene(scene: Scene) {
     //   this.mContainer.removeChildren();
@@ -168,8 +170,8 @@ class Camera {
     }
     updatePosition() {
         this.mContainer.pivot = this.mChaseActor.mSprite.position;
-        this.mContainer.position.x = this.mScene.mConfig.mWidth / 2;
-        this.mContainer.position.y = this.mScene.mConfig.mHeight / 2;
+        this.mContainer.position.x = this.mWidth / 2;
+        this.mContainer.position.y = this.mHeight / 2;
     }
     setChase(chaseActor) {
         this.mChaseActor = chaseActor;
