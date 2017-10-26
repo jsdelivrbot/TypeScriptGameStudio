@@ -6,10 +6,10 @@
         <title>Workspace</title>
     </head>
 
-    <body class="d-flex" style="height: 100vh">
+    <body class="d-flex" style="height: 100vh" onload="loadGames()">
 
         <nav class="navbar navbar-expand-md navbar-dark fixed-top lehighbgcolor">
-            <a class="navbar-brand" href="./index">TypeScript Game Studio</a>
+            <a class="navbar-brand" href="./">TypeScript Game Studio</a>
             
             <button class="btn bg-white ml-auto" data-toggle="modal" data-target="#createModal" type="button">Create Project</button>
         </nav>
@@ -38,7 +38,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        
 <!--                         <a href="./editor">
  -->                        <button type="button" class="btn btn-primary text-capitalize" onclick="createGame()">start coding!</button>
 <!--                         </a>

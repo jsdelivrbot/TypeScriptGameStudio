@@ -1,3 +1,6 @@
+/*
+    Object Game prototype
+*/ 
 function Game(name, description, imgURL, lastUpdated, files) {
     this.name = name; 
     this.description = description; 
@@ -5,7 +8,9 @@ function Game(name, description, imgURL, lastUpdated, files) {
     this.lastUpdated = lastUpdated; 
     this.files = files;
 }
-
+/*
+    Function to create a game amd save to the database
+*/ 
 function createGame() {
     let name = document.getElementById("projectName").value; 
     let description = document.getElementById("projectDesc").value; 
@@ -31,4 +36,20 @@ function createGame() {
     };
 
     xhr.send(JSON.stringify(newGame));
+}
+/*
+    Funciton to load all games a user has
+*/ 
+function loadGames() {
+    let xhr = new XMLHttpRequest(); 
+    xhr.open('GET', '/game/allGames');
+    xhr.setRequestHeader("Content-Type", "application/json");    
+    
+    xhr.onreadystatechange = function() {
+        if(this.readyState === 4 && this.status === 200){
+            console.log(this.responseText);
+        }
+    }
+
+    xhr.send(); 
 }
