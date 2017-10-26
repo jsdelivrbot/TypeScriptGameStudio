@@ -488,7 +488,7 @@ class LolManager {
         this.mContainer = new PIXI.Container();
         this.mContainer.addChild(this.mWorld.mCamera.mContainer);
         if (hud)
-            this.mContainer.addChild(hud.mContainer);
+            this.mContainer.addChild(this.mHud.mCamera.mContainer);
     }
 }
 /// <reference path="./LolManager.ts"/>

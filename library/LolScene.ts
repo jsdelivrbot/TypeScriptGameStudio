@@ -97,6 +97,7 @@ abstract class LolScene {
 
     this.mRenderables.push(actor);
     this.mContainer.addChild(actor.mSprite);
+    this.mCamera.mContainer.addChild(this.mContainer);
   }
 
   /**
