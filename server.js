@@ -8,6 +8,7 @@
 var express = require('express');
 var app = module.exports = express();
 var bodyParser = require('body-parser');
+var https = require('https');
 
 //Database modules
 var database = require('./lib/database');
@@ -221,21 +222,6 @@ app.get("/account/files", function(req, res){
   }
 });
 
-app.get("/account/verify", function(req, res){
-
-  if(req.user){
-    res.status(200);
-    res.write("Logged in");
-
-  }
-  else{
-    res.status(500);
-    res.write("Not logged in");
-
-  }
-  res.end();
-});
-
 /*
   Update a game's files
 */  
@@ -279,5 +265,15 @@ app.get("/game/getGame", function(req, res){
 app.get("/game/allGames", function(req, res){
   if(req.user){
     database.getAllGames(connection, req.user, res);  
+  }
+});
+
+/*
+  Send a game's files off for compilation on the build server
+*/
+app.get("/game/compile", function(req, res){
+  if(req.user){
+
+    //Code here...
   }
 });
