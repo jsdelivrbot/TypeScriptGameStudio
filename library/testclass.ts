@@ -32,8 +32,8 @@ function main(speed: number) {
   let myConfig = new (class _ extends Config {
     constructor() {
       super();
-      this.mWidth = 512;
-      this.mHeight = 512;
+      this.mWidth = 1024;
+      this.mHeight = 1024;
       this.mPixelMeterRatio = 1;
     }
   })
