@@ -259,6 +259,7 @@ class LolScene {
         // mRenderables.get(zIndex + 2).add(actor);
         this.mRenderables.push(actor);
         this.mContainer.addChild(actor.mSprite);
+        this.mCamera.mContainer.addChild(this.mContainer);
     }
 }
 //// <reference path="./Hero.ts"/>
