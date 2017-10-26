@@ -68,7 +68,7 @@ abstract class LolScene {
     this.mContainer.position.x = 0;
     this.mContainer.position.y = 0;
     // set up the event lists
-    //this.mOneTimeEvents = new ArrayList<>();
+    this.mOneTimeEvents = new Array<LolAction>();
     //this.mRepeatEvents = new ArrayList<>();
 
     // set up the game camera, with (0, 0) in the bottom left

@@ -517,6 +517,9 @@ class Lol {
         this.mManager.mWorld.render();
         this.mManager.mHud.render();
         this.mRenderer.render(this.mManager.mContainer);
+        this.mManager.mWorld.mOneTimeEvents.forEach((pe) => {
+            pe.go();
+        });
     }
 }
 /// <reference path="./Config.ts"/>
