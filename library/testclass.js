@@ -278,6 +278,7 @@ class LolScene {
 class MainScene extends LolScene {
     constructor(config, media) {
         super(config, media);
+        this.configureCollisionHandlers();
     }
     chaseActor(hero) {
         this.mChaseActor = hero;
@@ -755,6 +756,7 @@ class Hero extends WorldActor {
         //   onCollideWithObstacle(other as Obstacle, contact);
         //   else if (other instanceof Goodie)
         //   onCollideWithGoodie(other as Goodie);
+        console.log("Hero collision");
     }
 }
 /// <reference path="./WorldActor.ts"/>
