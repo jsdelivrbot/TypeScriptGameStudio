@@ -21,6 +21,7 @@ var session = require('express-session');
 //Storage modules
 var aws = require('aws-sdk');
 
+//Set up a few misc. usages for the app
 app.set('view engine', 'ejs'); 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -34,7 +35,7 @@ var connection;
 const database_url = process.env.MONGOLAB_URI;
 
 //S3 bucket name and region
-const S3_BUCKET = process.env.S3_BUCKET_NAME;
+const S3_BUCKET = process.env.S3_BUCKET_NAME;7
 aws.config.region = "us-east-1";
 
 //Session configuration object for user authentication
@@ -229,26 +230,21 @@ app.post("/account/verify", function(req, res){
     res.status(500);
   }
 });
+
 /*
   Update a game's files
 */  
 app.post("/game/updateGameFiles", function(req, res){
 
   if(req.user){
-    
-    var response = database.updateGameFiles(connection, req.body.game_name, req.body.files, user);
-    res.status(response);
-    res.end();
+    database.updateGameFiles(connection, req.body.game_name, req.body.files, req.user, res);
   }
 });
 
 app.post("/game/addNewGameFile", function(req, res){
 
   if(req.user){
-    
-    var response = database.addNewGameFile(connection, req.body.game_name, req.file, user);
-    res.status(response);
-    res.end();
+    database.addNewGameFile(connection, req.body.game_name, req.file, req.user, res);
   }
 });
 
@@ -258,10 +254,7 @@ app.post("/game/addNewGameFile", function(req, res){
 app.post("/game/newGame", function(req, res){
 
   if(req.user){
-      
-    var response = database.addNewGame(connection, req.body.game_name, req.description, req.imgURL, req.datetime, user);
-    res.status(response);
-    res.end();
+    database.addNewGame(connection, req.body.game_name, req.body.description, req.body.imgURL, req.body.datetime, req.user, res);
   }
 });
 
@@ -271,18 +264,15 @@ app.post("/game/newGame", function(req, res){
 app.get("/game/getGame", function(req, res){
 
   if(req.user){
+    database.getGamefiles(connection, req.body.game_name, req.user, res);  
+  }
+});
 
-    var response = database.getGamefiles(connection, req.body.game_name, user);
-
-    if(response != null){
-      res.write(JOSN.stringify(response));
-      res.status(200);
-      res.end();
-    }
-    else{
-      res.write("Could not retrieve game files");
-      res.status(500);
-      res.end();
-    }
+/*
+  Retrieve the metadata for all the games
+*/
+app.get("/game/allGames", function(req, res){
+  if(req.user){
+    database.getGamefiles(connection, req.user, res);  
   }
 });
