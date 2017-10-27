@@ -805,6 +805,9 @@ class Hero extends WorldActor {
         //   else if (other instanceof Goodie)
         //   onCollideWithGoodie(other as Goodie);
         console.log("Hero collision");
+        // if(other instanceof Goodie) {
+        //   this.mGame.mManager.onGoodieCollected(other as Goodie);
+        // }
     }
 }
 /// <reference path="./WorldActor.ts"/>
