@@ -1,5 +1,7 @@
 var currentGame;
 var currentGameFiles = [];
+var activeFile;
+let editor = ace.edit("editor"); 
 
 $(document).ready(function(){
 
@@ -42,7 +44,7 @@ function compile(){
 
     var files = [{
         gfile_name : currentGameFiles[0].gfile_name,
-        gfile_contents : ace.edit("editor").getValue()
+        gfile_contents : editor.getValue()
     }];
 
     //Save the files to the user's account
@@ -88,14 +90,16 @@ function loadGameFiles(gameName) {
                         //Set the editor contents equal to the first files's
                         if(i == 0){
                             setContentFile(files[i].gfile_contents);
+                            activeFile = files[i].gfile_name;
                         }
                         addFileFromAccount(files[i].gfile_name, files[i].gfile_contents);
-                        currentGameFiles.push({gfile_name : files[i].gfile_name, gfile_contents : files[i].gfile_contents})
+                        currentGameFiles[files[i].gfile_name] = files[i].gfile_contents;
                     }
                     console.log(currentGameFiles);
                 }
                 else{
-                    document.getElementById("editor").innerHTML = "Click the plus sign to the left to create a new file for your game!"
+                    let initialContent = "//Click the plus sign to the left to add a new file to your project and start coding!";
+                    editor.setValue(initialContent); 
                 }
             }
         }
@@ -105,7 +109,6 @@ function loadGameFiles(gameName) {
 }
 
 function editorSetup() {
-    let editor = ace.edit("editor");
     editor.setTheme("ace/theme/chrome");
     editor.getSession().setMode("ace/mode/typescript");
     editor.resize();
@@ -116,12 +119,18 @@ function editorSetup() {
 */
 function saveContent() {
         
-    console.log(ace.edit("editor").getValue());
+    //Push the active file's contents to the currentGameFiles dictionary
+    currentGameFiles[activeFile] = editor.getValue();
 
-    var files = [{
-        gfile_name : currentGameFiles[0].gfile_name,
-        gfile_contents : ace.edit("editor").getValue()
-    }];
+    var files = [];
+
+    for(key in currentGameFiles){
+
+        files.push({
+            gfile_name : key,
+            gfile_contents : currentGameFiles[key]
+        });
+    }
 
     //Save the files to the user's account
     const xhr = new XMLHttpRequest();
@@ -156,26 +165,60 @@ function saveContent() {
     */
 }
 
+/*
+editor.on("change", function(data){
+    console.log(data);
+    currentGameFiles[activeFile] = editor.getValue();
+});
+*/
+
+function switchActiveFile(name){
+
+    if(activeFile != name){
+
+        /*
+            Do one last push to the currentGameFiles dictionary to 
+            ensure the active file is up to date.
+        */
+        currentGameFiles[activeFile] = editor.getValue();
+
+        //Swap the contents of the editor
+        editor.setValue(currentGameFiles[name]);
+        activeFile = name;
+    }
+}
+
 function addFileFromAccount(name, contents){
     let listItemNode = document.createElement("button");
     listItemNode.type = "button";     
     listItemNode.className += "list-group-item";
     listItemNode.className += " text-left";
+    listItemNode.id += name;
     let textNode = document.createTextNode(name); 
     listItemNode.appendChild(textNode); 
     document.getElementById("fileList").appendChild(listItemNode);
+    $(listItemNode).on("click", function(){
+        switchActiveFile($(this).attr('id'));
+    });
 }
 
 function createFile() {
+
     let fileName = document.getElementById("fileName").value; 
     let listItemNode = document.createElement("button");
     listItemNode.type = "button";     
     listItemNode.className += "list-group-item";
     listItemNode.className += " text-left";
+    listItemNode.id += name;
+
     setContentNewFile(fileName); 
     let textNode = document.createTextNode(fileName); 
     listItemNode.appendChild(textNode); 
     document.getElementById("fileList").appendChild(listItemNode);
+
+    $(listItemNode).on("click", function(){
+        switchActiveFile($(this).attr('id'));
+    });
 
     //Send the new file off to the server to add to the user's account
     const xhr = new XMLHttpRequest();
@@ -204,13 +247,10 @@ function createFile() {
 }
 
 function setContentNewFile(fileName) {
-    let editor = ace.edit("editor"); 
     let initialContent = "//" + fileName;
     editor.setValue(initialContent); 
-    console.log("here");
 }
 
 function setContentFile(contents) {
-    let editor = ace.edit("editor"); 
     editor.setValue(contents);
 }
