@@ -51,6 +51,8 @@ class Renderable {
  * an WorldActor (MainScene) require a Score object, and are thus incompatible with non-Main scenes.
  */
 class BaseActor extends Renderable {
+    /// The sprite associated with this actor
+    //mSprite: PIXI.Sprite;
     constructor(scene, imgName, width, height) {
         super();
         this.mScene = scene;
@@ -263,6 +265,40 @@ class LolScene {
         this.mContainer.addChild(actor.mSprite);
         this.mCamera.mContainer.addChild(this.mContainer);
     }
+    /**
+     * Draw some text in the scene, using a bottom-left coordinate
+     *
+     * @param x         The x coordinate of the bottom left corner
+     * @param y         The y coordinate of the bottom left corner
+     * @param fontName  The name of the font to use
+     * @param fontColor The color of the font
+     * @param fontSize  The size of the font
+     * @param prefix    Prefix text to put before the generated text
+     * @param suffix    Suffix text to put after the generated text
+     * @param tp        A TextProducer that will generate the text to display
+     * @param zIndex    The z index of the text
+     * @return A Renderable of the text, so it can be enabled/disabled by program code
+     */
+    addText(x, y, fontName, fontColor, fontSize, prefix, suffix, tp, zIndex) {
+        // Choose a font color and get the BitmapFont
+        //final Color mColor = Color.valueOf(fontColor);
+        //final BitmapFont mFont = mMedia.getFont(fontName, fontSize);
+        // Create a renderable that updates its text on every render, and add it to the scene
+        var superThis = this;
+        let d = new (class _ extends Renderable {
+            //@Override
+            onRender() {
+                //mFont.setColor(mColor);
+                //String txt = prefix + tp.makeText() + suffix;
+                //renderText(x, y, txt, mFont, sb);
+                let txt = prefix + tp.toString() + suffix;
+                let newText = new PIXI.Text(txt, { fontFamily: fontName, fontSize: fontSize, fill: 0xffffff, align: 'center' });
+                superThis.mContainer.addChild(newText);
+            }
+        })();
+        this.addActor(d, zIndex);
+        return d;
+    }
 }
 //// <reference path="./Hero.ts"/>
 //// <reference path="./Enemy.ts"/>
@@ -301,7 +337,7 @@ class MainScene extends LolScene {
             */
             //@Override
             BeginContact(contact) {
-                console.log("In BeginContact");
+                console.log("Begin Contact");
                 // Get the bodies, make sure both are actors
                 let a = contact.GetFixtureA().GetBody().GetUserData(); //any type
                 let b = contact.GetFixtureB().GetBody().GetUserData(); //any type
@@ -361,6 +397,7 @@ class MainScene extends LolScene {
             */
             //@Override
             EndContact(contact) {
+                console.log("End Contact");
             }
             /**
             * Presolve is a hook for disabling certain collisions. We use it
@@ -496,6 +533,10 @@ class LolManager {
         this.mContainer.addChild(this.mWorld.mCamera.mContainer);
         if (hud)
             this.mContainer.addChild(this.mHud.mCamera.mContainer);
+        this.mGoodiesCollected = new Array();
+    }
+    onGoodieCollected(goodie) {
+        this.mGoodiesCollected[1] += 1;
     }
 }
 /// <reference path="./LolManager.ts"/>
@@ -951,6 +992,7 @@ function main(speed) {
     let mgr = new LolManager(mainScene, hud);
     let game = new Lol(mgr, myConfig);
     document.body.appendChild(game.mRenderer.view);
+    mgr.mHud.addText(400, 0, "Arial", "Blue", 24, "Score: ", "", mgr.mGoodiesCollected[1], 2);
     let myHero = new Hero(game, mainScene, 25, 25, heroImg);
     myHero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 100, 100);
     myHero.updateVelocity(speed, 0);
@@ -996,20 +1038,6 @@ function main(speed) {
     downBtn.mSprite.on('click', () => myHero.updateVelocity(0, speed));
     leftBtn.mSprite.on('click', () => myHero.updateVelocity(-speed, 0));
     rightBtn.mSprite.on('click', () => myHero.updateVelocity(speed, 0));
-    // mgr.mWorld.mWorld.SetContactListener(new (class myContactListener extends PhysicsType2d.Dynamics.ContactListener {
-    //   constructor() {
-    //     super();
-    //   }
-    //   public BeginContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
-    //     console.log("CONTACT!");
-    //   }
-    //   public EndContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
-    //   }
-    //   public PreSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, oldManifold: PhysicsType2d.Collision.Manifold): void {
-    //   }
-    //   public PostSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, impulse: PhysicsType2d.Dynamics.ContactImpulse): void {
-    //   }
-    // })());
     requestAnimationFrame(() => gameLoop2(game));
 }
 function gameLoop2(game) {
