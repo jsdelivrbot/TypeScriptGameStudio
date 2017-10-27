@@ -226,7 +226,16 @@ app.get("/account/files", function(req, res){
 app.post("/game/updateGameFiles", function(req, res){
 
   if(req.user){
-    database.updateGameFiles(connection, req.body.game_name, req.body.files, req.user, res);
+    database.updateGameFiles(connection, req.body.game_name, req.body.date, req.body.files, req.user, res);
+  }
+});
+
+/*
+  Update a game's settings
+*/
+app.post("/game/updateGameSettings", function(req, res){
+  if(req.user){
+    database.updateGameSettings(connection, req.body.game_name, req.body.new_name, req.body.description, req.body.imgURL, req.body.datetime, req.user, res);
   }
 });
 

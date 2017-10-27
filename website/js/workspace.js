@@ -21,8 +21,25 @@ function createGame() {
     if(length !== 0) {
         file = document.getElementById("projectImgUpload").files[0]; 
     }
-    getSignedRequest(file, name, description, currentTime); 
+    getSignedRequest(file, name, description, currentTime, createGameStep2); 
 }
+
+/*
+    Function to change the settings of a game
+*/ 
+function updateSettings() {
+    let name = document.getElementById("updateProjectName").value; 
+    let description = document.getElementById("updateProjectDesc").value; 
+    let length = document.getElementById("updateProjectImage").files.length; 
+    let currentTime = new Date();     
+    let img = ""; 
+    var file;
+    if(length !== 0) {
+        file = document.getElementById("updateProjectImage").files[0]; 
+    }
+    getSignedRequest(file, name, description, currentTime, updateGameStep2, oldName); 
+}
+
 /*
     Funciton to load all games a user has
 */ 
@@ -63,7 +80,7 @@ function loadGames() {
     xhr.send(); 
 }
 
-function getSignedRequest(file, name, description, currentTime){
+function getSignedRequest(file, name, description, currentTime, callback, oldName){
     const xhr = new XMLHttpRequest();
     xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
     xhr.onreadystatechange = () => {
@@ -71,7 +88,7 @@ function getSignedRequest(file, name, description, currentTime){
             if(xhr.status === 200){
                 const response = JSON.parse(xhr.responseText);
                 let newGame = {game_name : name, description : description, imgURL : response.url, datetime : currentTime};  
-                uploadFile(file, response.signedRequest, response.url, newGame);
+                uploadFile(file, response.signedRequest, response.url, newGame, callback, oldName);
             }
             else{
                 alert('Could not get signed URL.');
@@ -81,7 +98,7 @@ function getSignedRequest(file, name, description, currentTime){
     xhr.send();
 }
 
-function uploadFile(file, signedRequest, url, newGame){
+function uploadFile(file, signedRequest, url, newGame, callback, oldName){
     const xhr = new XMLHttpRequest();
     xhr.open('PUT', signedRequest);
     xhr.onreadystatechange = () => {
@@ -90,14 +107,31 @@ function uploadFile(file, signedRequest, url, newGame){
                 alert('Could not upload file.');
             }
             else{
-                createGameStep2(newGame);
+                callback(newGame, oldName);
             }
         }
     };
     xhr.send(file);
 }
 
-function createGameStep2(newGame) {
+function updateGameStep2(newSettings, oldName){
+    let xhr = new XMLHttpRequest(); 
+    newSettings.new_name = newSettings.game_name;
+    newSettings.game_name = oldName;
+    xhr.open('POST', '/game/updateGameSettings');
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState === 4){
+            if(xhr.status !== 200){
+                alert('Could not create game.');
+            }
+        }
+    };
+    xhr.send(JSON.stringify(newSettings));
+}
+
+function createGameStep2(newGame, oldName) {
     let xhr = new XMLHttpRequest(); 
     xhr.open('POST', '/game/newGame');
     xhr.setRequestHeader("Content-Type", "application/json");

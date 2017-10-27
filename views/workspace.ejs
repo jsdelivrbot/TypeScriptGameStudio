@@ -32,7 +32,7 @@
                             <label for="projectDesc">Project Description</label>
                             <textarea class="form-control" id="projectDesc" rows="5"></textarea>  
                             <br>
-                            <label for="imgUpload">Upload Project Image</label>
+                            <label for="projectImgUpload">Upload Project Image</label>
                             <input type="file" class="form-control-file" id="projectImgUpload" aria-describedby="fileHelp" accept=".jpg, .jpeg, .png">
                             <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png format!</small>                            
                         </form>
@@ -67,19 +67,19 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <label for="projectName">Project Name</label>
-                                <input class="form-control" id="projectName" aria-describedby="projectName">
+                                <label for="updateProjectName">Project Name</label>
+                                <input class="form-control" id="updateProjectName" aria-describedby="updateProjectName">
                                 <br>
-                                <label for="projectDesc">Project Description</label>
-                                <textarea class="form-control" id="projectDesc" rows="5"></textarea> 
+                                <label for="updateProjectDesc">Project Description</label>
+                                <textarea class="form-control" id="updateProjectDesc" rows="5"></textarea> 
                                 <br>
-                                <label for="exampleInputFile">Upload Project Image</label>
-                                <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">                            
+                                <label for="updateProjectImage">Upload Project Image</label>
+                                <input type="file" class="form-control-file" id="updateProjectImage" aria-describedby="fileHelp">                            
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <a href="./editor"><button type="button" class="btn btn-primary text-capitalize">update setting</button></a>
+                            <button type="button" class="btn btn-primary text-capitalize" onclick="updateSettings()">update setting</button>
                         </div>
                     </div>
                 </div>
