@@ -8,6 +8,7 @@
 var express = require('express');
 var app = module.exports = express();
 var bodyParser = require('body-parser');
+var https = require('https');
 
 //Database modules
 var database = require('./lib/database');
@@ -35,7 +36,7 @@ var connection;
 const database_url = process.env.MONGOLAB_URI;
 
 //S3 bucket name and region
-const S3_BUCKET = process.env.S3_BUCKET_NAME;7
+const S3_BUCKET = process.env.S3_BUCKET_NAME;
 aws.config.region = "us-east-1";
 
 //Session configuration object for user authentication
@@ -221,17 +222,6 @@ app.get("/account/files", function(req, res){
   }
 });
 
-app.post("/account/verify", function(req, res){
-
-  if(req.user){
-    res.status(200);
-  }
-  else{
-    res.status(500);
-  }
-  res.end();
-});
-
 /*
   Update a game's files
 */  
@@ -275,5 +265,15 @@ app.get("/game/getGame", function(req, res){
 app.get("/game/allGames", function(req, res){
   if(req.user){
     database.getAllGames(connection, req.user, res);  
+  }
+});
+
+/*
+  Send a game's files off for compilation on the build server
+*/
+app.get("/game/compile", function(req, res){
+  if(req.user){
+
+    //Code here...
   }
 });
