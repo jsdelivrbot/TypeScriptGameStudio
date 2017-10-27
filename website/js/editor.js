@@ -38,6 +38,7 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+/*
 function compile(){
 
     saveContent();
@@ -70,6 +71,7 @@ function compile(){
     };
     xhr.send(JSON.stringify(request)); 
 }
+*/
 
 function loadGameFiles(gameName) {
     let xhr = new XMLHttpRequest(); 
