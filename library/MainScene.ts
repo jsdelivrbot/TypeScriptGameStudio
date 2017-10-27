@@ -43,7 +43,7 @@ class MainScene extends LolScene {
       */
       //@Override
       public BeginContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
-        console.log("In BeginContact");
+        console.log("Begin Contact");
         // Get the bodies, make sure both are actors
         let a = contact.GetFixtureA().GetBody().GetUserData(); //any type
         let b = contact.GetFixtureB().GetBody().GetUserData(); //any type
@@ -100,6 +100,7 @@ class MainScene extends LolScene {
       */
       //@Override
       public EndContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
+        console.log("End Contact");
       }
 
       /**

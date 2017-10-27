@@ -32,7 +32,7 @@ class BaseActor extends Renderable {
   private mZIndex: number;
 
   /// The sprite associated with this actor
-  mSprite: PIXI.Sprite;
+  //mSprite: PIXI.Sprite;
 
   constructor(scene: LolScene, imgName: string, width: number, height: number) {
     super();

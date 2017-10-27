@@ -8,6 +8,7 @@ abstract class Renderable {
   /// Track if the object is currently allowed to be rendered.
   /// When it is false, we don't run any updates on the object
   mEnabled: boolean = true;
+  mSprite: PIXI.Sprite;
 
   /**
   * Specify whether this Renderable object is enabled or disabled.  When it is disabled, it

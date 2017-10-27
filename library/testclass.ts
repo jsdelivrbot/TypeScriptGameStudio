@@ -45,6 +45,8 @@ function main(speed: number) {
   let game = new Lol(mgr, myConfig);
   document.body.appendChild(game.mRenderer.view);
 
+  mgr.mHud.addText(400, 0, "Arial", "Blue", 24, "Score: ", "", mgr.mGoodiesCollected[1], 2);
+
   let myHero = new Hero(game, mainScene, 25, 25, heroImg);
   myHero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 100, 100);
   myHero.updateVelocity(speed, 0);
@@ -100,21 +102,6 @@ function main(speed: number) {
   downBtn.mSprite.on('click', () =>   myHero.updateVelocity(0, speed));
   leftBtn.mSprite.on('click', () =>   myHero.updateVelocity(-speed, 0));
   rightBtn.mSprite.on('click', () =>   myHero.updateVelocity(speed, 0));
-
-  // mgr.mWorld.mWorld.SetContactListener(new (class myContactListener extends PhysicsType2d.Dynamics.ContactListener {
-  //   constructor() {
-  //     super();
-  //   }
-  //   public BeginContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
-  //     console.log("CONTACT!");
-  //   }
-  //   public EndContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
-  //   }
-  //   public PreSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, oldManifold: PhysicsType2d.Collision.Manifold): void {
-  //   }
-  //   public PostSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, impulse: PhysicsType2d.Dynamics.ContactImpulse): void {
-  //   }
-  // })());
 
   requestAnimationFrame(() => gameLoop2(game));
 }
