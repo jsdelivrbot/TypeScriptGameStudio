@@ -265,40 +265,6 @@ class LolScene {
         this.mContainer.addChild(actor.mSprite);
         this.mCamera.mContainer.addChild(this.mContainer);
     }
-    /**
-     * Draw some text in the scene, using a bottom-left coordinate
-     *
-     * @param x         The x coordinate of the bottom left corner
-     * @param y         The y coordinate of the bottom left corner
-     * @param fontName  The name of the font to use
-     * @param fontColor The color of the font
-     * @param fontSize  The size of the font
-     * @param prefix    Prefix text to put before the generated text
-     * @param suffix    Suffix text to put after the generated text
-     * @param tp        A TextProducer that will generate the text to display
-     * @param zIndex    The z index of the text
-     * @return A Renderable of the text, so it can be enabled/disabled by program code
-     */
-    addText(x, y, fontName, fontColor, fontSize, prefix, suffix, tp, zIndex) {
-        // Choose a font color and get the BitmapFont
-        //final Color mColor = Color.valueOf(fontColor);
-        //final BitmapFont mFont = mMedia.getFont(fontName, fontSize);
-        // Create a renderable that updates its text on every render, and add it to the scene
-        var superThis = this;
-        let d = new (class _ extends Renderable {
-            //@Override
-            onRender() {
-                //mFont.setColor(mColor);
-                //String txt = prefix + tp.makeText() + suffix;
-                //renderText(x, y, txt, mFont, sb);
-                let txt = prefix + tp.toString() + suffix;
-                let newText = new PIXI.Text(txt, { fontFamily: fontName, fontSize: fontSize, fill: 0xffffff, align: 'center' });
-                superThis.mContainer.addChild(newText);
-            }
-        })();
-        this.addActor(d, zIndex);
-        return d;
-    }
 }
 //// <reference path="./Hero.ts"/>
 //// <reference path="./Enemy.ts"/>

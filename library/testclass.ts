@@ -45,7 +45,7 @@ function main(speed: number) {
   let game = new Lol(mgr, myConfig);
   document.body.appendChild(game.mRenderer.view);
 
-  mgr.mHud.addText(400, 0, "Arial", "Blue", 24, "Score: ", "", mgr.mGoodiesCollected[1], 2);
+  //mgr.mHud.addText(400, 0, "Arial", "Blue", 24, "Score: ", "", mgr.mGoodiesCollected[1], 2);
 
   let myHero = new Hero(game, mainScene, 25, 25, heroImg);
   myHero.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, 100, 100);
