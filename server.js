@@ -8,6 +8,7 @@
 var express = require('express');
 var app = module.exports = express();
 var bodyParser = require('body-parser');
+var https = require('https');
 
 //Database modules
 var database = require('./lib/database');
@@ -21,6 +22,7 @@ var session = require('express-session');
 //Storage modules
 var aws = require('aws-sdk');
 
+//Set up a few misc. usages for the app
 app.set('view engine', 'ejs'); 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -220,15 +222,6 @@ app.get("/account/files", function(req, res){
   }
 });
 
-app.post("/account/verify", function(req, res){
-
-  if(req.user){
-    res.status(200);
-  }
-  else{
-    res.status(500);
-  }
-});
 /*
   Update a game's files
 */  
@@ -262,6 +255,25 @@ app.post("/game/newGame", function(req, res){
 app.get("/game/getGame", function(req, res){
 
   if(req.user){
-    database.getGamefiles(connection, req.body.game_name, req.user, res);  
+    database.getGamefiles(connection, req.query['game_name'], req.user, res);  
+  }
+});
+
+/*
+  Retrieve the metadata for all the games
+*/
+app.get("/game/allGames", function(req, res){
+  if(req.user){
+    database.getAllGames(connection, req.user, res);  
+  }
+});
+
+/*
+  Send a game's files off for compilation on the build server
+*/
+app.get("/game/compile", function(req, res){
+  if(req.user){
+
+    //Code here...
   }
 });
