@@ -7,6 +7,7 @@ function uploadFile(file, signedRequest, url){
                 alert('Could not upload file.');
             }else{
                 showUploadSucessMsg(); 
+                //updateFileList(file.name); 
             }
         }
     };
@@ -53,4 +54,14 @@ function showUploadSucessMsg() {
 
 function hideUploadSucessMsg() {
     document.getElementById('file_upload_successMsg').style.display = "none";     
+}
+
+function updateFileList(fileNamePara) {
+    let fileName = fileNamePara;  
+    let listItemNode = document.createElement("a");
+    listItemNode.className += "list-group-item";
+    listItemNode.className += " text-left";
+    let textNode = document.createTextNode(fileName); 
+    listItemNode.appendChild(textNode); 
+    document.getElementById("fileList").appendChild(listItemNode); 
 }

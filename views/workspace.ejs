@@ -6,14 +6,15 @@
         <title>Workspace</title>
     </head>
 
-    <body class="d-flex" style="height: 100vh">
+    <body class="d-flex" style="height: 100vh" onload="loadGames()">
 
         <nav class="navbar navbar-expand-md navbar-dark fixed-top lehighbgcolor">
-            <a class="navbar-brand" href="./index">TypeScript Game Studio</a>
+            <a class="navbar-brand" href="./">TypeScript Game Studio</a>
             
             <button class="btn bg-white ml-auto" data-toggle="modal" data-target="#createModal" type="button">Create Project</button>
         </nav>
 
+        <!-- Modal to create a project -->
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -38,7 +39,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        
 <!--                         <a href="./editor">
  -->                        <button type="button" class="btn btn-primary text-capitalize" onclick="createGame()">start coding!</button>
 <!--                         </a>
@@ -50,42 +50,12 @@
 
 
         <div class="container">
-            <div class="card-deck justify-content-center align-items-center" style="height: 100%">
-                <div class="card" style="width: 15rem;">
-                    <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
-                    <div class="card-block container">
-                        <h4 class="card-title">Project title</h4>
-                        <p class="card-text">Project Description</p>
-                        <a href="./editor" class="btn btn-sm btn-primary tgsmb10 mr-3">Open Project</a>
-                        <button class="btn btn-sm btn-primary tgsmb10" data-toggle="modal" data-target="#settingModal" type="button">Project Setting</button>
-                    </div>
-                    <div class="card-footer text-muted">Last updated</div>
-                </div>
-
-                <div class="card" style="width: 15rem;">
-                    <img class="card-img-top" src="images/img2.jpg" alt="Card image cap">
-                    <div class="card-block container">
-                        <h4 class="card-title">Project title</h4>
-                        <p class="card-text">Project Description</p>
-                        <a href="./editor" class="btn btn-sm btn-primary tgsmb10 mr-3">Open Project</a>
-                        <button class="btn btn-sm btn-primary tgsmb10" data-toggle="modal" data-target="#settingModal" type="button">Project Setting</button>
-                    </div>
-                    <div class="card-footer text-muted">Last updated</div>
-                </div>
-
-                <div class="card" style="width: 15rem;">
-                    <img class="card-img-top" src="images/img3.jpg" alt="Card image cap">
-                    <div class="card-block container">
-                        <h4 class="card-title">Project title</h4>
-                        <p class="card-text">Project Description</p>
-                        <a href="./editor" class="btn btn-sm btn-primary tgsmb10 mr-3">Open Project</a>
-                        <button class="btn btn-sm btn-primary tgsmb10" data-toggle="modal" data-target="#settingModal" type="button">Project Setting</button>
-                    </div>
-                    <div class="card-footer text-muted">Last updated</div>                    
-                </div>                
+            <!-- Card Decks: a list of card each containing information for one project -->
+            <div class="card-deck justify-content-center align-items-center" id="card-deck">
             </div>
 
 
+            <!-- Modal: project setting -->
             <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

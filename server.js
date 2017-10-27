@@ -116,7 +116,7 @@ app.get('/game', auth.required, (req, res) => res.render('game.html'));
 app.get('/', (req, res) => res.render('index'));
 app.get('/home', (req, res) => res.render('index'));
 app.get('/account', auth.required, (req, res) => res.render('workspace'));
-app.get('/editor', (req, res) => res.render('editor'));
+app.get('/editor', auth.required, (req, res) => res.render('editor'));
 app.get('/template', (req, res) => res.render('template'));
 
 /*============
@@ -159,11 +159,9 @@ app.get('/sign-s3', (req, res) => {
           Add the new file to the user's list of files in the 
           database
         */
-
-        database.addNewFileEntry(connection, fileName, 
-          "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName, req.user);
         res.write(JSON.stringify(returnData));
-        res.end();
+        database.addNewFileEntry(connection, fileName, 
+          "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName, req.user, res);        
       });
   }
   else{
@@ -234,8 +232,9 @@ app.post("/game/updateGameFiles", function(req, res){
 
 app.post("/game/addNewGameFile", function(req, res){
 
+  //console.log(req.body);
   if(req.user){
-    database.addNewGameFile(connection, req.body.game_name, req.file, req.user, res);
+    database.addNewGameFile(connection, req.body.game_name, req.body.file, req.user, res);
   }
 });
 
@@ -269,11 +268,47 @@ app.get("/game/allGames", function(req, res){
 });
 
 /*
-  Send a game's files off for compilation on the build server
+  Send a game's files off for compilation on the build server. 
+
+  We should send the ID and email of the user along with the request. They will be
+  checked on the other end.
 */
-app.get("/game/compile", function(req, res){
+app.post("/game/compile", function(req, res){
+
   if(req.user){
 
-    //Code here...
+    var postData = {
+      email : req.user.email,
+      id : req.user.id,
+      contents : req.body.contents
+    };
+
+    var options = {
+      hostname : "typescript-game-studio-build.herokuapp.com",
+      path : "/compile",
+      method : "POST",
+      headers : {
+         'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+
+    var req = https.request(options, (res) => {
+
+      var data = '';
+
+      console.log('statusCode: ', res.statusCode);
+
+      res.on('data', (d) => {
+        data += d;
+      });
+
+      res.on('end', () => {
+        console.log(data);
+      });
+
+    });
+
+    req.write(JSON.stringify(postData));
+    req.end();
   }
 });
