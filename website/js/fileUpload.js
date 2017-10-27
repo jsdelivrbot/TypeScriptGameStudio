@@ -7,7 +7,7 @@ function uploadFile(file, signedRequest, url){
                 alert('Could not upload file.');
             }else{
                 showUploadSucessMsg(); 
-                updateFileList(file.name); 
+                //updateFileList(file.name); 
             }
         }
     };

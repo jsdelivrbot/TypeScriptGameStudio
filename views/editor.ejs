@@ -18,7 +18,7 @@
                 </a>                   
                 <button onclick="saveContent()" class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Save</button>
                 <button class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Run</button>
-                <button class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Publish</button>
+                <button onclick="compile()" class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Publish</button>
             </div>
         </nav>
 
@@ -134,11 +134,7 @@
                 <!-- embedded IDE -->
                 <div class="col-10">
                     <pre id="editor">
-function greeter(person) {
-    return "Hello, " + person;
-};
-var user = "Jane User"; 
-document.body.innerHTML = greeter(user);
+
                     </pre>
                 </div>
 
@@ -149,7 +145,7 @@ document.body.innerHTML = greeter(user);
         <% include partials/jsdefaults.ejs %>                
         <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
         <script src="js/ace/mode-typescript.js" type="text/javascript" charset="utf-8"></script>    
-        <script src="js/workspace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/editor.js" type="text/javascript" charset="utf-8"></script>
         <script src="js/fileUpload.js" type="text/javascript" charset="utf-8"></script>                
     </body>
 </html>
