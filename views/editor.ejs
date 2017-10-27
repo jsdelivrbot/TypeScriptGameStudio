@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <% include partials/headdefaults.ejs %>  
+        <link rel="stylesheet" href="css/editor.css">     
+        <title>Editor</title>
+    </head>
+
+    <body onload="editorSetup()" class="pt-0 tgsoverhidden"> 
+
+        <div class="clearfix"></div>
+
+        <nav class="navbar navbar-expand-md navbar-dark lehighbgcolor d-flex justify-content-between">
+            <a class="navbar-brand" href="./">TypeScript Game Studio - Project Name</a>
+            <div>
+                <a href="./account">
+                    <button class="btn btn-sm bg-white my-2 my-sm-0" type="submit">Back to Workspace</button> 
+                </a>                   
+                <button onclick="saveContent()" class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Save</button>
+                <button class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Run</button>
+                <button onclick="compile()" class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Publish</button>
+            </div>
+        </nav>
+
+        <div class="container-fluid d-flex flex-column pl-0" style="height: 100vh;">
+            
+            <div class="row d-flex align-items-stretch tgsflex1">
+
+                <div class="col-2 d-flex flex-column align-self-stretch pr-0">
+
+                    <div class="row">
+
+                        <!-- Vertical Tabs on the left -->
+                        <div class="col-1">
+                            <ul class="nav nav-tabs tabs-left vertical-text d-flex flex-column">
+                                <li class="active"><a class="text-dark" href="#home-v" data-toggle="tab">Projects</a></li>
+                                <li><a class="text-dark" href="#profile-v" data-toggle="tab">Reference</a></li>
+                                <li><a class="text-dark" href="#messages-v" data-toggle="tab">Library</a></li>
+                                <li><a class="text-dark" href="#search-v" data-toggle="tab">Search</a></li>
+                                <li><a class="text-dark" href="#settings-v" data-toggle="tab">Setting</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Content for each tab -->
+                        <div class="col align-self-stretch">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home-v">
+                                    <span class="pull-right">
+                                        <a data-toggle="modal" data-target="#createFileModal">
+                                            <i class="fa fa-plus mr-1" aria-hidden="true"></i>
+                                        </a>
+                                        <a data-toggle="modal" data-target="#uploadModal" onclick="hideUploadSucessMsg()">
+                                            <i class="fa fa-upload" aria-hidden="true"></i>
+                                        </a>
+                                    </span>
+                                    <br>
+                                    Project Files
+                                    <div class="list-group" id="fileList">
+                                        <!-- <button type="button" onclick="setContent()" class="list-group-item text-left">File 1</button>
+                                        <button type="button" class="list-group-item text-left">File 2</button>
+                                        <button type="button" class="list-group-item text-left">File 3</button>
+                                        <button type="button" class="list-group-item text-left">File 4</button>
+                                        <button type="button" class="list-group-item text-left">File 5</button> -->
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="profile-v">Reference Tab.</div>
+                                <div class="tab-pane" id="messages-v">Library Tab.</div>
+                                <div class="tab-pane" id="search-v">Search Tab.</div>
+                                <div class="tab-pane" id="settings-v">Setting Tab.</div>
+                            </div>
+                        </div>
+
+                        <!-- Modal to upload a file -->
+                        <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">File Upload</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <input type="file" class="form-control-file" id="file_upload" aria-describedby="fileHelp" onclick="hideUploadSucessMsg()">
+                                            <br>  
+                                            <div id="file_upload_successMsg"> 
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                <small id="fileHelp" class="form-text text-muted d-inline">File uploaded successfully!</small>  
+                                            </div>                                          
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button id="file_upload_button" onclick="initUpload()" type="button" class="btn btn-primary text-capitalize">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal to create a file -->
+                        <div class="modal fade" id="createFileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Create New File</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <label for="fileName">File Name</label>
+                                            <input class="form-control" id="fileName" aria-describedby="projectName" required>     
+                                            
+                                            
+                                            <label for="exampleSelect1">Select File extension</label>
+                                            <select class="form-control" id="exampleSelect1">
+                                              <option>TypeScript .ts file</option>
+                                              <option>Markdown .md file</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button id="file_upload_button" onclick="createFile()" data-dismiss="modal" type="button" class="btn btn-primary text-capitalize">Create File</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- embedded IDE -->
+                <div class="col-10">
+                    <pre id="editor">
+                        
+                    </pre>
+                </div>
+
+
+            </div>
+        </div>
+        
+        <% include partials/jsdefaults.ejs %>                
+        <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/ace/mode-typescript.js" type="text/javascript" charset="utf-8"></script>    
+        <script src="js/editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/fileUpload.js" type="text/javascript" charset="utf-8"></script>                
+    </body>
+</html>
