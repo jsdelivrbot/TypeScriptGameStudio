@@ -241,6 +241,7 @@ class BaseActor extends Renderable {
     do {
       fixtures.Current().SetSensor(!state);
     } while(fixtures.MoveNext());
+    fixtures.Reset();
   }
 
 
@@ -258,6 +259,7 @@ class BaseActor extends Renderable {
       fixtures.Current().SetRestitution(elasticity);
       fixtures.Current().SetFriction(friction);
     } while(fixtures.MoveNext());
+    fixtures.Reset();
     this.mBody.ResetMassData();
   }
 
