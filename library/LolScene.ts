@@ -38,7 +38,7 @@ abstract class LolScene {
   /// This callback is used to get a touched actor from the physics world
   //final mTouchCallback: QueryCallback;
   /// When there is a touch of an actor in the physics world, this is how we find it
-  //mHitActor: BaseActor
+  mHitActor: BaseActor
 
   /// Use this for determining bounds of text boxes
   //private final mGlyphLayout: GlyphLayout;
@@ -48,7 +48,7 @@ abstract class LolScene {
   /// Events that get processed on the next render, then discarded
   readonly mOneTimeEvents: Array<LolAction>;
   /// Events that get processed on every render
-  //readonly mRepeatEvents: ArrayList<LolAction>;
+  readonly mRepeatEvents: Array<LolAction>;
 
   /**
    * Construct a new scene

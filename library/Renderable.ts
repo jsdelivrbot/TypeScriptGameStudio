@@ -8,6 +8,8 @@ abstract class Renderable {
   /// Track if the object is currently allowed to be rendered.
   /// When it is false, we don't run any updates on the object
   mEnabled: boolean = true;
+
+  /// The Sprite used for rendering
   mSprite: PIXI.Sprite;
 
   /**
@@ -19,7 +21,6 @@ abstract class Renderable {
   public setEnabled(val: boolean) {
     this.mEnabled = val;
   }
-
 
   /**
   * Return the current enabled/disabled state of this Renderable
@@ -37,15 +38,15 @@ abstract class Renderable {
   */
   render(): void {
     if (!this.mEnabled)
-    return;
+      return;
     this.onRender();
   }
 
   /**
-   * User-provided code to run when a renderable object is enabled and ready to be rendered.
-   *
-   * @param sb      The SpriteBatch to use for rendering
-   * @param elapsed The time since the last render
-   */
+  * User-provided code to run when a renderable object is enabled and ready to be rendered.
+  *
+  * @param sb      The SpriteBatch to use for rendering
+  * @param elapsed The time since the last render
+  */
   abstract onRender(): void;
 }
