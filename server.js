@@ -106,7 +106,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 /*============
   
-  Paths that return static html pages
+  Paths for every web page
 
 ==============*/
 
@@ -137,7 +137,9 @@ app.get('/sign-s3', (req, res) => {
   //Make sure the user is logged in
   if(req.user != undefined){
 
-    const s3Params = {
+    if(!database.checkIfExists(connection, {name : fileName}, "file", req.user)){
+
+      const s3Params = {
         Bucket: S3_BUCKET,
         Key: req.user.email + '/' + fileName,
         Expires: 60,
@@ -159,10 +161,19 @@ app.get('/sign-s3', (req, res) => {
           Add the new file to the user's list of files in the 
           database
         */
-        res.write(JSON.stringify(returnData));
         database.addNewFileEntry(connection, fileName, 
           "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName, req.user, res);        
       });
+    }
+    else{
+      const returnData = {
+        signedRequest : null,
+        url: "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName
+      };
+      res.status(200);
+      res.write(JSON.stringify(returnData));
+      res.end();
+    }
   }
   else{
     res.status(500);
@@ -182,9 +193,15 @@ app.get("/account/data", function(req, res){
         user_email : req.user.email
       }, function(err, object){
         if(!err){ 
-          res.write(JSON.stringify(object));
-          res.status(200);
-          res.end();
+          if(object){
+            res.write(JSON.stringify(object));
+            res.status(200);
+            res.end();
+          }
+          else{
+            res.status(500);
+            res.end();
+          }
         }
         else{
           res.status(500);
@@ -204,7 +221,7 @@ app.get("/account/files", function(req, res){
         user_id : req.user.id,
         user_email : req.user.email
       }).toArray(function(err, object){
-        if(object != null){
+        if(object){
           if(!err){ 
             console.log(object);
             res.write(JSON.stringify(object[0].files));
@@ -232,9 +249,15 @@ app.post("/game/updateGameFiles", function(req, res){
 
 app.post("/game/addNewGameFile", function(req, res){
 
-  //console.log(req.body);
   if(req.user){
-    database.addNewGameFile(connection, req.body.game_name, req.body.file, req.user, res);
+    if(!database.checkIfExists(connection, {name : req.body.game_name, file : req.body.file }, "gfile", req.user)){
+      database.addNewGameFile(connection, req.body.game_name, req.body.file, req.user, res);
+    }
+    else{
+      res.status(200);
+      res.write("A file with this name already exists.");
+      res.end();
+    }
   }
 });
 
@@ -244,7 +267,14 @@ app.post("/game/addNewGameFile", function(req, res){
 app.post("/game/newGame", function(req, res){
 
   if(req.user){
-    database.addNewGame(connection, req.body.game_name, req.body.description, req.body.imgURL, req.body.datetime, req.user, res);
+    if(!database.checkIfExists(connection, {name : req.body.game_name}, "game", req.user)){
+      database.addNewGame(connection, req.body.game_name, req.body.description, req.body.imgURL, req.body.datetime, req.user, res);
+    }
+    else{
+      res.status(200);
+      res.write("A project with this name already exists");
+      res.end();
+    }
   }
 });
 
