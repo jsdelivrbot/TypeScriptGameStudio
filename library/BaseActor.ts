@@ -687,7 +687,7 @@ class BaseActor extends Renderable {
   *
   * @param delay How long to wait before displaying the actor, in milliseconds
   */
-  //TODO: Test this
+  //TODO: Timer vs setTimeout
   public setAppearDelay(delay: number): void {
     this.mEnabled = false;
     this.mBody.SetActive(false);
