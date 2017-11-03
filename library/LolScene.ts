@@ -104,6 +104,32 @@ abstract class LolScene {
     this.mCamera.mContainer.addChild(this.mContainer);
   }
 
+  /**
+  * Remove an actor from its z plane
+  *
+  * @param actor  The actor to remove
+  * @param zIndex The z plane where it is expected to be
+  */
+  removeActor(actor: Renderable, zIndex: number): void {
+    // Coerce index into legal range, then remove the actor
+    zIndex = (zIndex < -2) ? -2 : zIndex;
+    zIndex = (zIndex > 2) ? 2 : zIndex;
+    let i = this.mRenderables[zIndex + 2].indexOf(actor);
+    this.mRenderables[zIndex + 2].splice(i, 1);
+  }
+
+  /**
+  * Reset a scene by clearing all of its lists
+  */
+  reset(): void {
+    //this.mTapHandlers.length = 0;
+    this.mOneTimeEvents.length = 0;
+    this.mRepeatEvents.length = 0;
+    for (let a of this.mRenderables) {
+      a.length = 0;
+    }
+  }
+
   // /**
   //  * Draw some text in the scene, using a bottom-left coordinate
   //  *

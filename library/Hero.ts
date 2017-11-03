@@ -218,8 +218,9 @@ class Hero extends WorldActor {
       // hide the hero quietly, since the destination might make a sound
       this.remove(true);
       destination.mHolding++;
-      if (destination.mArrivalSound != null)
-      destination.mArrivalSound.play(Lol.getGameFact(this.mScene.mConfig, "volume", 1));
+      // if (destination.mArrivalSound != null) {
+      //   destination.mArrivalSound.play(Lol.getGameFact(this.mScene.mConfig, "volume", 1));
+      // }
       this.mGame.mManager.onDestinationArrive();
     }
   }

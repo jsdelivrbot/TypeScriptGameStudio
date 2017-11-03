@@ -77,10 +77,10 @@ class MyConfig extends Config {
 
         // don't change these lines unless you know what you are doing
         // THESES WILL BE THE USER CREATED CLASSES
-        this.mLevels = new Levels();
-        this.mChooser = new Chooser();
-        this.mHelp = new Help();
-        this.mSplash = new Splash();
-        this.mStore = new Store();
+        //this.mLevels = new Levels();
+        //this.mChooser = new Chooser();
+        //this.mHelp = new Help();
+        //this.mSplash = new Splash();
+        //this.mStore = new Store();
     }
 }

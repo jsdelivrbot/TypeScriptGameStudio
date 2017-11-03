@@ -180,9 +180,11 @@ class MainScene extends LolScene {
   }
 
   render(): boolean {
-    this.mRenderables.forEach((e) => {
-      e.render();
-    });
+    for(let zA of this.mRenderables) {
+      for(let r of zA) {
+        r.render();
+      }
+    }
     return true;
   }
 

@@ -52,11 +52,11 @@ class LolManager {
 
   /// Modes of the game, for use by the state machine.  We can be showing the main splash
   /// screen, the help screens, the level chooser, the store, or a playable level
-  readonly private SPLASH = 0;
-  readonly private HELP = 1;
-  readonly private CHOOSER = 2;
-  readonly private STORE = 3;
-  readonly private PLAY = 4;
+  private readonly SPLASH = 0;
+  private readonly HELP = 1;
+  private readonly CHOOSER = 2;
+  private readonly STORE = 3;
+  private readonly PLAY = 4;
   /// The current state (e.g., are we showing a STORE)
   private mMode: number;
   /// The level within each mode (e.g., we are in PLAY scene 4, and will return to CHOOSER 2)
@@ -172,7 +172,7 @@ class LolManager {
     //this.mBackground = new ParallaxScene(this.mConfig);
     //this.mForeground = new ParallaxScene(this.mConfig);
     // the win/lose/pre/pause scenes are a little bit complicated
-    this.mWinScene = new QuickScene(this.mMedia, this.mConfig, this.mConfig.mDefaultWinText);
+    this.mWinScene = new QuickScene(this.mConfig, this.mMedia, this.mConfig.mDefaultWinText);
     let out_this = this;
     this.mWinScene.setDismissAction(new (class _ extends LolAction {
       //@Override
@@ -180,16 +180,16 @@ class LolManager {
         out_this.advanceLevel();
       }
     })());
-    this.mLoseScene = new QuickScene(this.mMedia, this.mConfig, this.mConfig.mDefaultLoseText);
+    this.mLoseScene = new QuickScene(this.mConfig, this.mMedia, this.mConfig.mDefaultLoseText);
     this.mLoseScene.setDismissAction(new (class _ extends LolAction {
       //@Override
       public go(): void {
         out_this.repeatLevel();
       }
     })());
-    this.mPreScene = new QuickScene(this.mMedia, this.mConfig, "");
+    this.mPreScene = new QuickScene(this.mConfig, this.mMedia, "");
     this.mPreScene.setShowAction(null);
-    this.mPauseScene = new QuickScene(this.mMedia, this.mConfig, "");
+    this.mPauseScene = new QuickScene(this.mConfig, this.mMedia, "");
     this.mPauseScene.setAsPauseScene();
   }
 
@@ -414,7 +414,7 @@ class LolManager {
           // Run the level-complete callback
           if (win && out_this.mWinCallback != null){
             out_this.mWinCallback.go();
-          }else if (!win && out_this.mLoseCallback != null){
+          } else if (!win && out_this.mLoseCallback != null){
             out_this.mLoseCallback.go();
           }
           // if we won, unlock the next level
@@ -431,8 +431,7 @@ class LolManager {
           // display the PostScene before we retry/start the next level
           if (win) {
             out_this.mGame.mManager.mWinScene.show();
-          }
-          else{
+          } else {
             out_this.mGame.mManager.mLoseScene.show();
           }
         }

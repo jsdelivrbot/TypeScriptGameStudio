@@ -77,34 +77,34 @@ class QuickScene extends LolScene {
     //     mDisplayTime = System.currentTimeMillis();
     // }
     //
-    // /**
-    //  * Render the QuickScene, or return false if it is not supposed to be shown
-    //  *
-    //  * @param sb    The SpriteBatch used to draw the text and pictures
-    //  * @param delta The time since the last render
-    //  * @return true if the PauseScene was drawn, false otherwise
-    //  */
-    // boolean render(SpriteBatch sb, float delta) {
-    //     // if the scene is not visible, do nothing
-    //     if (!mVisible)
-    //         return false;
-    //
-    //     // clear screen and draw images/text via HudCam
-    //     Gdx.gl.glClearColor(0, 0, 0, 1);
-    //     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    //     mCamera.update();
-    //     sb.setProjectionMatrix(mCamera.combined);
-    //     sb.begin();
-    //     for (ArrayList<Renderable> a : mRenderables) {
-    //         for (Renderable r : a) {
-    //             r.render(sb, delta);
-    //         }
-    //     }
-    //     sb.end();
-    //
-    //     // TODO: debug rendering?
-    //     return true;
-    // }
+    /**
+     * Render the QuickScene, or return false if it is not supposed to be shown
+     *
+     * @param sb    The SpriteBatch used to draw the text and pictures
+     * @param delta The time since the last render
+     * @return true if the PauseScene was drawn, false otherwise
+     */
+    render(): boolean {
+        // if the scene is not visible, do nothing
+        // if (!mVisible)
+        //     return false;
+        //
+        // // clear screen and draw images/text via HudCam
+        // Gdx.gl.glClearColor(0, 0, 0, 1);
+        // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        // mCamera.update();
+        // sb.setProjectionMatrix(mCamera.combined);
+        // sb.begin();
+        // for (ArrayList<Renderable> a : mRenderables) {
+        //     for (Renderable r : a) {
+        //         r.render(sb, delta);
+        //     }
+        // }
+        // sb.end();
+
+        // TODO: debug rendering?
+        return true;
+    }
     //
     // /**
     //  * Handler to run when the screen is tapped while the scene is being displayed
@@ -146,12 +146,12 @@ class QuickScene extends LolScene {
     //     mSound = mMedia.getSound(soundName);
     // }
     //
-    // /**
-    //  * Indicate that this scene should not be displayed
-    //  */
-    // public void disable() {
-    //     mDisable = true;
-    // }
+    /**
+     * Indicate that this scene should not be displayed
+     */
+    public disable(): void {
+        this.mDisable = true;
+    }
     //
     // /**
     //  * Indicate that tapping the non-button parts of the scene shouldn't return immediately to the
@@ -180,64 +180,66 @@ class QuickScene extends LolScene {
     //         }, duration);
     //     }
     // }
-    //
-    // /**
-    //  * Set the text that should be drawn, centered, when the Scene is shown
-    //  *
-    //  * @param text The text to display. Use "" to disable
-    //  */
-    // public void setDefaultText(String text) {
-    //     mText = text;
-    // }
-    //
-    // /**
-    //  * Reset a scene, so we can change what is on it.  Only useful for the scenes we might show more
-    //  * than once (such as the PauseScene)
-    //  */
-    // public void reset() {
-    //     mDisable = false;
-    //     mVisible = false;
-    //     mSound = null;
-    //     mDisplayTime = 0;
-    //     mClickToClear = true;
-    //     mText = "";
-    //     super.reset();
-    // }
-    //
-    // /**
-    //  * Show the scene
-    //  */
-    // public void show() {
-    //     mVisible = true;
-    //     if (mShowAction != null)
-    //         mShowAction.go();
-    // }
-    //
-    // /**
-    //  * Stop showing the scene
-    //  */
-    // public void dismiss() {
-    //     mVisible = false;
-    //     mDismissAction.go();
-    // }
-    //
-    // /**
-    //  * Provide some custom code to run when the scene is dismissed
-    //  *
-    //  * @param dismissAction The code to run
-    //  */
-    // void setDismissAction(LolAction dismissAction) {
-    //     mDismissAction = dismissAction;
-    // }
-    //
-    // /**
-    //  * Provide some custom code to run when the scene is dismissed
-    //  *
-    //  * @param showAction The code to run
-    //  */
-    // void setShowAction(LolAction showAction) {
-    //     mShowAction = showAction;
-    // }
+
+    /**
+     * Set the text that should be drawn, centered, when the Scene is shown
+     *
+     * @param text The text to display. Use "" to disable
+     */
+    public setDefaultText(text: string): void {
+        this.mText = text;
+    }
+
+    /**
+     * Reset a scene, so we can change what is on it.  Only useful for the scenes we might show more
+     * than once (such as the PauseScene)
+     */
+    public reset(): void {
+        this.mDisable = false;
+        this.mVisible = false;
+        //this.mSound = null;
+        this.mDisplayTime = 0;
+        this.mClickToClear = true;
+        this.mText = "";
+        super.reset();
+    }
+
+    /**
+     * Show the scene
+     */
+    public show(): void {
+        this.mVisible = true;
+        if (this.mShowAction != null) {
+            this.mShowAction.go();
+        }
+    }
+
+    /**
+     * Stop showing the scene
+     */
+    public dismiss(): void {
+        this.mVisible = false;
+        this.mDismissAction.go();
+    }
+
+    /**
+     * Provide some custom code to run when the scene is dismissed
+     *
+     * @param dismissAction The code to run
+     */
+    setDismissAction(dismissAction: LolAction): void {
+        this.mDismissAction = dismissAction;
+    }
+
+    /**
+     * Provide some custom code to run when the scene is dismissed
+     *
+     * @param showAction The code to run
+     */
+    setShowAction(showAction: LolAction): void {
+        this.mShowAction = showAction;
+    }
+
     //
     // /**
     //  * If this scene is to be uased as a pause scene, then the code to run when we dismiss it needs

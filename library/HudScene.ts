@@ -6,7 +6,7 @@
 class HudScene extends LolScene {
   /// The set of all controls that have toggle handlers.  We need this, so we can "lift" toggles
   /// on screen change evenrs
-  //readonly mToggleControls: ArrayList<SceneActor>;
+  //readonly mToggleControls: Array<SceneActor>;
 
   /**
    * Create a new heads-up display by providing the dimensions for its camera
@@ -17,7 +17,7 @@ class HudScene extends LolScene {
   constructor(config: Config, media: Media) {
     super(config, media);
 
-    //mToggleControls = new ArrayList<>();
+    //mToggleControls = new Array<SceneActor>();
   }
 
   /**
@@ -35,9 +35,12 @@ class HudScene extends LolScene {
     //sb.setProjectionMatrix(mCamera.combined);
     //sb.begin();
 
-    this.mRenderables.forEach((e) => {
-      e.render();
-    });
+    for(let zA of this.mRenderables) {
+      for(let r of zA) {
+        r.render();
+      }
+    }
+    
     //sb.end();
     // TODO: box2d shape renderer for controls2
     // if (mConfig.mShowDebugBoxes) {
