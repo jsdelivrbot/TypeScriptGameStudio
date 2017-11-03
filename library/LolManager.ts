@@ -187,10 +187,10 @@ class LolManager {
         out_this.repeatLevel();
       }
     })());
-    this.mPreScene = new QuickScene(this.mConfig, this.mMedia, "");
-    this.mPreScene.setShowAction(null);
-    this.mPauseScene = new QuickScene(this.mConfig, this.mMedia, "");
-    this.mPauseScene.setAsPauseScene();
+    // this.mPreScene = new QuickScene(this.mConfig, this.mMedia, "");
+    // this.mPreScene.setShowAction(null);
+    // this.mPauseScene = new QuickScene(this.mConfig, this.mMedia, "");
+    // this.mPauseScene.setAsPauseScene();
   }
 
   /**
@@ -205,17 +205,17 @@ class LolManager {
     //   this.mLevel.addDisplay(800, 15, mConfig.mDefaultFontFace, mConfig.mDefaultFontColor, 12, "fps: ", "", mLevel.DisplayFPS, 2);
   }
 
-  /**
-  * If the level that follows this level has not yet been unlocked, unlock it.
-  * <p>
-  * NB: we only track one value for locking/unlocking, so this actually unlocks all levels up to
-  * and including the level after the current level.
-  */
-  private unlockNext(): void {
-    if (Lol.getGameFact(this.mConfig, "unlocked", 1) <= this.mModeStates[this.PLAY]) {
-      Lol.putGameFact(this.mConfig, "unlocked", this.mModeStates[this.PLAY] + 1);
-    }
-  }
+  // /**
+  // * If the level that follows this level has not yet been unlocked, unlock it.
+  // * <p>
+  // * NB: we only track one value for locking/unlocking, so this actually unlocks all levels up to
+  // * and including the level after the current level.
+  // */
+  // private unlockNext(): void {
+  //   if (Lol.getGameFact(this.mConfig, "unlocked", 1) <= this.mModeStates[this.PLAY]) {
+  //     Lol.putGameFact(this.mConfig, "unlocked", this.mModeStates[this.PLAY] + 1);
+  //   }
+  // }
 
   /**
   * Move forward to the next level, if there is one, and otherwise go back to the chooser.
@@ -418,9 +418,9 @@ class LolManager {
             out_this.mLoseCallback.go();
           }
           // if we won, unlock the next level
-          if (win){
-            out_this.mGame.mManager.unlockNext();
-          }
+          // if (win){
+          //   out_this.mGame.mManager.unlockNext();
+          // }
           // drop everything from the hud
           out_this.mGame.mManager.mHud.reset();
 
