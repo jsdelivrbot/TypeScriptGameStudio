@@ -23,8 +23,7 @@ abstract class LolScene {
   /// The physics world in which all actors interact
   readonly mWorld: PhysicsType2d.Dynamics.World;
   /// Anything in the world that can be rendered, in 5 planes [-2, -1, 0, 1, 2]
-  readonly mRenderables: Array<Renderable>;
-  //TODO: CHANGE THIS TO AN ARRAY OF ARRAYS
+  readonly mRenderables: Array<Array<Renderable>>;
 
   // The container to group sprites for rendering
   mContainer: PIXI.Container;
@@ -81,7 +80,12 @@ abstract class LolScene {
 
     // create a world with no default gravitational forces
     this.mWorld = new PhysicsType2d.Dynamics.World(new PhysicsType2d.Vector2(0, 0));
-    this.mRenderables = new Array<Renderable>();
+
+    // set up the containers for holding anything we can render
+    this.mRenderables = new Array<Array<Renderable>>(5);
+    for (let i = 0; i < 5; ++i) {
+      this.mRenderables.push(new Array<Renderable>());
+    }
   }
 
   /**
@@ -91,13 +95,11 @@ abstract class LolScene {
    * @param zIndex The z plane. valid values are -2, -1, 0, 1, and 2. 0 is the default.
    */
   addActor(actor: Renderable, zIndex: number) {
-    //TODO: change actor to a RENDERABLE type
     // Coerce index into legal range, then add the actor
-    // zIndex = (zIndex < -2) ? -2 : zIndex;
-    // zIndex = (zIndex > 2) ? 2 : zIndex;
-    // mRenderables.get(zIndex + 2).add(actor);
+    zIndex = (zIndex < -2) ? -2 : zIndex;
+    zIndex = (zIndex > 2) ? 2 : zIndex;
+    this.mRenderables[zIndex+2].push(actor);
 
-    this.mRenderables.push(actor);
     this.mContainer.addChild(actor.mSprite);
     this.mCamera.mContainer.addChild(this.mContainer);
   }
