@@ -182,163 +182,159 @@ class Level {
   //     public void setLoseCallback(LolAction callback) {
   //       mGame.mManager.mLoseCallback = callback;
   //     }
-  //
-  //
-  //     /**
-  //     * Manually increment the number of goodies of type 1 that have been collected.
-  //     */
-  //     public void incrementGoodiesCollected1() {
-  //       mGame.mManager.mGoodiesCollected[0]++;
-  //     }
-  //
-  //     /**
-  //     * Manually increment the number of goodies of type 2 that have been collected.
-  //     */
-  //     public void incrementGoodiesCollected2() {
-  //       mGame.mManager.mGoodiesCollected[1]++;
-  //     }
-  //
-  //     /**
-  //     * Manually increment the number of goodies of type 3 that have been collected.
-  //     */
-  //     public void incrementGoodiesCollected3() {
-  //       mGame.mManager.mGoodiesCollected[2]++;
-  //     }
-  //
-  //     /**
-  //     * Manually increment the number of goodies of type 4 that have been collected.
-  //     */
-  //     public void incrementGoodiesCollected4() {
-  //       mGame.mManager.mGoodiesCollected[3]++;
-  //     }
-  //
-  //     /**
-  //     * Getter for number of goodies of type 1 that have been collected.
-  //     *
-  //     * @return The number of goodies collected.
-  //     */
-  //     public int getGoodiesCollected1() {
-  //       return mGame.mManager.mGoodiesCollected[0];
-  //     }
-  //
-  //     /**
-  //     * Manually set the number of goodies of type 1 that have been collected.
-  //     *
-  //     * @param value The new value
-  //     */
-  //     public void setGoodiesCollected1(int value) {
-  //       mGame.mManager.mGoodiesCollected[0] = value;
-  //     }
-  //
-  //     /**
-  //     * Getter for number of goodies of type 2 that have been collected.
-  //     *
-  //     * @return The number of goodies collected.
-  //     */
-  //     public int getGoodiesCollected2() {
-  //       return mGame.mManager.mGoodiesCollected[1];
-  //     }
-  //
-  //     /**
-  //     * Manually set the number of goodies of type 2 that have been collected.
-  //     *
-  //     * @param value The new value
-  //     */
-  //     public void setGoodiesCollected2(int value) {
-  //       mGame.mManager.mGoodiesCollected[1] = value;
-  //     }
-  //
-  //     /**
-  //     * Getter for number of goodies of type 3 that have been collected.
-  //     *
-  //     * @return The number of goodies collected.
-  //     */
-  //     public int getGoodiesCollected3() {
-  //       return mGame.mManager.mGoodiesCollected[2];
-  //     }
-  //
-  //     /**
-  //     * Manually set the number of goodies of type 3 that have been collected.
-  //     *
-  //     * @param value The new value
-  //     */
-  //     public void setGoodiesCollected3(int value) {
-  //       mGame.mManager.mGoodiesCollected[2] = value;
-  //     }
-  //
-  //     /**
-  //     * Getter for number of goodies of type 4 that have been collected.
-  //     *
-  //     * @return The number of goodies collected.
-  //     */
-  //     public int getGoodiesCollected4() {
-  //       return mGame.mManager.mGoodiesCollected[3];
-  //     }
-  //
-  //     /**
-  //     * Manually set the number of goodies of type 4 that have been collected.
-  //     *
-  //     * @param value The new value
-  //     */
-  //     public void setGoodiesCollected4(int value) {
-  //       mGame.mManager.mGoodiesCollected[3] = value;
-  //     }
-  //
-  //     /**
-  //     * Indicate that the level is won by defeating all the enemies. This version is useful if the
-  //     * number of enemies isn't known, or if the goal is to defeat all enemies before more are are
-  //     * created.
-  //     */
-  //     public void setVictoryEnemyCount() {
-  //       mGame.mManager.mVictoryType = LolManager.VictoryType.ENEMYCOUNT;
-  //       mGame.mManager.mVictoryEnemyCount = -1;
-  //     }
-  //
-  //     /**
-  //     * Indicate that the level is won by defeating a certain number of enemies
-  //     *
-  //     * @param howMany The number of enemies that must be defeated to win the level
-  //     */
-  //     public void setVictoryEnemyCount(int howMany) {
-  //       mGame.mManager.mVictoryType = LolManager.VictoryType.ENEMYCOUNT;
-  //       mGame.mManager.mVictoryEnemyCount = howMany;
-  //     }
-  //
-  //     /**
-  //     * Indicate that the level is won by collecting enough goodies
-  //     *
-  //     * @param v1 Number of type-1 goodies that must be collected to win the level
-  //     * @param v2 Number of type-2 goodies that must be collected to win the level
-  //     * @param v3 Number of type-3 goodies that must be collected to win the level
-  //     * @param v4 Number of type-4 goodies that must be collected to win the level
-  //     */
-  //     public void setVictoryGoodies(int v1, int v2, int v3, int v4) {
-  //       mGame.mManager.mVictoryType = LolManager.VictoryType.GOODIECOUNT;
-  //       mGame.mManager.mVictoryGoodieCount[0] = v1;
-  //       mGame.mManager.mVictoryGoodieCount[1] = v2;
-  //       mGame.mManager.mVictoryGoodieCount[2] = v3;
-  //       mGame.mManager.mVictoryGoodieCount[3] = v4;
-  //     }
-  //
-  //     /**
-  //     * Indicate that the level is won by having a certain number of heroes reach destinations
-  //     *
-  //     * @param howMany Number of heroes that must reach destinations
-  //     */
-  //     public void setVictoryDestination(int howMany) {
-  //       mGame.mManager.mVictoryType = LolManager.VictoryType.DESTINATION;
-  //       mGame.mManager.mVictoryHeroCount = howMany;
-  //     }
-  //
-  //     /**
-  //     * Change the amount of time left in a countdown timer
-  //     *
-  //     * @param delta The amount of time to add before the timer expires
-  //     */
-  //     public void updateTimerExpiration(float delta) {
-  //       mGame.mManager.mLoseCountDownRemaining += delta;
-  //     }
-  //
+
+
+      /**
+      * Manually increment the number of goodies of type 1 that have been collected.
+      */
+      public incrementGoodiesCollected1(): void {
+        this.mGame.mManager.mGoodiesCollected[0]++;
+      }
+
+      /**
+      * Manually increment the number of goodies of type 2 that have been collected.
+      */
+      public incrementGoodiesCollected2(): void {
+        this.mGame.mManager.mGoodiesCollected[1]++;
+      }
+
+      /**
+      * Manually increment the number of goodies of type 3 that have been collected.
+      */
+      public incrementGoodiesCollected3(): void {
+        this.mGame.mManager.mGoodiesCollected[2]++;
+      }
+
+      /**
+      * Manually increment the number of goodies of type 4 that have been collected.
+      */
+      public incrementGoodiesCollected4(): void {
+        this.mGame.mManager.mGoodiesCollected[3]++;
+      }
+
+      /**
+      * Getter for number of goodies of type 1 that have been collected.
+      *
+      * @return The number of goodies collected.
+      */
+      public getGoodiesCollected1(): number {
+        return this.mGame.mManager.mGoodiesCollected[0];
+      }
+
+      /**
+      * Manually set the number of goodies of type 1 that have been collected.
+      *
+      * @param value The new value
+      */
+      public setGoodiesCollected1(value: number): void {
+        this.mGame.mManager.mGoodiesCollected[0] = value;
+      }
+
+      /**
+      * Getter for number of goodies of type 2 that have been collected.
+      *
+      * @return The number of goodies collected.
+      */
+      public getGoodiesCollected2(): number {
+        return this.mGame.mManager.mGoodiesCollected[1];
+      }
+
+      /**
+      * Manually set the number of goodies of type 2 that have been collected.
+      *
+      * @param value The new value
+      */
+      public setGoodiesCollected2(value: number): void {
+        this.mGame.mManager.mGoodiesCollected[1] = value;
+      }
+
+      /**
+      * Getter for number of goodies of type 3 that have been collected.
+      *
+      * @return The number of goodies collected.
+      */
+      public getGoodiesCollected3(): number {
+        return this.mGame.mManager.mGoodiesCollected[2];
+      }
+
+      /**
+      * Manually set the number of goodies of type 3 that have been collected.
+      *
+      * @param value The new value
+      */
+      public setGoodiesCollected3(value: number): void {
+        this.mGame.mManager.mGoodiesCollected[2] = value;
+      }
+
+      /**
+      * Getter for number of goodies of type 4 that have been collected.
+      *
+      * @return The number of goodies collected.
+      */
+      public getGoodiesCollected4(): number {
+        return this.mGame.mManager.mGoodiesCollected[3];
+      }
+
+      /**
+      * Manually set the number of goodies of type 4 that have been collected.
+      *
+      * @param value The new value
+      */
+      public setGoodiesCollected4(value: number): void {
+        this.mGame.mManager.mGoodiesCollected[3] = value;
+      }
+
+      /**
+      * Indicate that the level is won by defeating a certain number of enemies or by defeating
+      * all of the enemies if not given an argument. This version is useful if the number of
+      * enemies isn't known, or if the goal is to defeat all enemies before more are are created.
+      *
+      * @param howMany The number of enemies that must be defeated to win the level
+      */
+      public setVictoryEnemyCount(howMany?: number): void {
+        this.mGame.mManager.mVictoryType = VictoryType.ENEMYCOUNT;
+        if (howMany) {
+          this.mGame.mManager.mVictoryEnemyCount = howMany;
+        } else {
+          this.mGame.mManager.mVictoryEnemyCount = -1;
+        }
+      }
+
+      /**
+      * Indicate that the level is won by collecting enough goodies
+      *
+      * @param v1 Number of type-1 goodies that must be collected to win the level
+      * @param v2 Number of type-2 goodies that must be collected to win the level
+      * @param v3 Number of type-3 goodies that must be collected to win the level
+      * @param v4 Number of type-4 goodies that must be collected to win the level
+      */
+      public setVictoryGoodies(v1: number, v2: number, v3: number, v4: number): void {
+        this.mGame.mManager.mVictoryType = VictoryType.GOODIECOUNT;
+        this.mGame.mManager.mVictoryGoodieCount[0] = v1;
+        this.mGame.mManager.mVictoryGoodieCount[1] = v2;
+        this.mGame.mManager.mVictoryGoodieCount[2] = v3;
+        this.mGame.mManager.mVictoryGoodieCount[3] = v4;
+      }
+
+      /**
+      * Indicate that the level is won by having a certain number of heroes reach destinations
+      *
+      * @param howMany Number of heroes that must reach destinations
+      */
+      public setVictoryDestination(howMany: number): void {
+        this.mGame.mManager.mVictoryType = VictoryType.DESTINATION;
+        this.mGame.mManager.mVictoryHeroCount = howMany;
+      }
+
+      /**
+      * Change the amount of time left in a countdown timer
+      *
+      * @param delta The amount of time to add before the timer expires
+      */
+      public updateTimerExpiration(delta: number): void {
+        this.mGame.mManager.mLoseCountDownRemaining += delta;
+      }
+
   //     /**
   //     * Report the total distance the hero has traveled
   //     *

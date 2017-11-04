@@ -1,5 +1,5 @@
-/// <reference path="./MainScene.ts"/>
 /// <reference path="./HudScene.ts"/>
+/// <reference path="./Media.ts"/>
 /// <reference path="./Lol.ts"/>
 //// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
 /// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
@@ -18,7 +18,6 @@ enum VictoryType {
 class LolManager {
   mContainer: PIXI.Container;
 
-
   /// A reference to the top-level game object
   private readonly mGame: Lol;
   /// A reference to the game configuration object
@@ -27,7 +26,6 @@ class LolManager {
   private readonly mMedia: Media;
   /// The object that comprises the public API
   private readonly mLevel: Level;
-
 
   /// The physics world in which all actors exist
   mWorld: MainScene;
