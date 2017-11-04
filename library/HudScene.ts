@@ -9,23 +9,23 @@ class HudScene extends LolScene {
   //readonly mToggleControls: Array<SceneActor>;
 
   /**
-   * Create a new heads-up display by providing the dimensions for its camera
-   *
-   * @param media  All image and sound assets for the game
-   * @param config The game-wide configuration
-   */
+  * Create a new heads-up display by providing the dimensions for its camera
+  *
+  * @param media  All image and sound assets for the game
+  * @param config The game-wide configuration
+  */
   constructor(config: Config, media: Media) {
     super(config, media);
 
-    //mToggleControls = new Array<SceneActor>();
+    //this.mToggleControls = new Array<SceneActor>();
   }
 
   /**
-   * Draw the Hud
-   *
-   * @param sb    The spritebatch to use when drawing
-   * @param delta The time since the last render
-   */
+  * Draw the Hud
+  *
+  * @param sb    The spritebatch to use when drawing
+  * @param delta The time since the last render
+  */
   render() {
     //this.mCamera.updatePosition();
 
@@ -40,11 +40,26 @@ class HudScene extends LolScene {
         r.render();
       }
     }
-    
+
     //sb.end();
     // TODO: box2d shape renderer for controls2
     // if (mConfig.mShowDebugBoxes) {
     // }
     return true;
   }
+
+  // /**
+  // * Simulate all toggle controls being up-pressed.  This is useful when we load a pre/post/pause
+  // * scene
+  // *
+  // * @param touchX The X location at which the simulated "up" happened
+  // * @param touchY The Y location at which the simulated "up" happened
+  // */
+  // liftAllButtons(touchX: number, touchY: number): void {
+  //   for (let c of this.mToggleControls) {
+  //     if (c.mIsTouchable) {
+  //       c.mToggleHandler.go(true, touchX, touchY);
+  //     }
+  //   }
+  // }
 }

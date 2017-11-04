@@ -35,12 +35,23 @@ class BaseActor extends Renderable {
   /// Integer that the game designer can modify to hold additional information about the actor
   private mInfoInt: number;
 
+  /// Code to run when this actor is tapped
+  mTapHandler: TouchEventHandler;
+  /// Code to run when this actor is held or released
+  mToggleHandler: ToggleEventHandler;
+
+  /// A temporary vertex that we use when resizing
+  private mTempVector: PhysicsType2d.Vector2;
+
 
   constructor(scene: LolScene, imgName: string, width: number, height: number) {
     super();
     this.mScene = scene;
-    this.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
     this.mSize = new PhysicsType2d.Vector2(width, height);
+    this.mZIndex = 0;
+    this.mInfoText = "";
+
+    this.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
     this.mSprite.width = this.mSize.x;
     this.mSprite.height = this.mSize.y;
     this.mSprite.anchor.x = 0.5;
