@@ -1,4 +1,8 @@
 /// <reference path="./HudScene.ts"/>
+/// <reference path="./MainScene.ts"/>
+/// <reference path="./Enemy.ts"/>
+/// <reference path="./Goodie.ts"/>
+/// <reference path="./QuickScene.ts"/>
 /// <reference path="./Media.ts"/>
 /// <reference path="./Lol.ts"/>
 //// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>

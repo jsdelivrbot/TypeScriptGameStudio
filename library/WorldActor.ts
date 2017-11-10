@@ -8,8 +8,44 @@
 abstract class WorldActor extends BaseActor {
   /// A reference to the top-level Lol object
   readonly mGame: Lol;
+  /// Some actors run custom code when they are touched. This is a reference to the code to run.
+  mDragHandler: TouchEventHandler;
+  /// When the camera follows the actor without centering on it, this gives us the difference
+  /// between the actor and camera
+  mCameraOffset: PhysicsType2d.Vector2 = new PhysicsType2d.Vector2(0, 0);
+  /// Sometimes an actor collides with another actor, and should stick to it. In that case, we
+  /// create two joints to connect the two actors. This is the Distance joint that connects them
+  //DistanceJoint mDJoint;
+  /// Sometimes an actor collides with another actor, and should stick to it.  In that case, we
+  /// create two joints to connect the two actors. This is the Weld joint that connects them
+  //WeldJoint mWJoint;
+  /// We allow the programmer to manually weld objects together. For it to work, we need a local
+  /// WeldJoint
+  //private WeldJoint mExplicitWeldJoint;
+  /// When we have actors stuck together, we might want to set a brief delay before they can
+  /// re-join. This field represents that delay time, in milliseconds.
+  //long mStickyDelay;
+  /// A vector for computing hover placement
+  mHover: PhysicsType2d.Vector3 | null;
+  /// Track if Heros stick to this WorldActor. The array has 4 positions, corresponding to top,
+  /// right, bottom, left
+  //boolean[] mIsSticky = new boolean[4];
+  /// Disable 3 of 4 sides of a Actors, to allow walking through walls. The value reflects the
+  /// side that remains active. 0 is top, 1 is right, 2 is bottom, 3 is left
+  mIsOneSided: number = -1;
+  /// Actors with a matching nonzero Id don't collide with each other
+  mPassThroughId: number = 0;
+  /// A definition for when we attach a revolute joint to this actor
+  //private RevoluteJointDef mRevJointDef;
+  /// A joint that allows this actor to revolve around another
+  //private Joint mRevJoint;
+  /// A definition for when we attach a distance joint to this actor
+  //private DistanceJointDef mDistJointDef;
+  /// A joint that allows this actor to stay within a fixed distance of another
+  //private Joint mDistJoint;
+  /// If this actor is chasing another actor, we track who is being chased via this field
+  private mChaseTarget: WorldActor;
 
-  mCameraOffset: PhysicsType2d.Vector2;
 
   /**
   * Create a new actor that does not yet have physics, but that has a renderable picture
@@ -23,29 +59,30 @@ abstract class WorldActor extends BaseActor {
   constructor(game: Lol, scene: MainScene, imgName: string, width: number, height: number) {
     super(scene, imgName, width, height);
     this.mGame = game;
-    this.mCameraOffset = new PhysicsType2d.Vector2(0, 0);
   }
 
-  // /**
-  // * Indicate that when this actor stops, we should run custom code
-  // *
-  // * @param callback The callback to run when the actor stops
-  // */
-  // public void setStopCallback(final LolActorEvent callback) {
-  //   mScene.mRepeatEvents.add(new LolAction() {
-  //     boolean moving = false;
-  //     @Override
-  //     public void go() {
-  //       Vector2 speed = mBody.getLinearVelocity();
-  //       if (!moving && (Math.abs(speed.x) > 0 || Math.abs(speed.y) > 0))
-  //       moving = true;
-  //       else if (moving && speed.x == 0 && speed.y == 0) {
-  //         callback.go(WorldActor.this);
-  //         moving = false;
-  //       }
-  //     }
-  //   });
-  // }
+  /**
+  * Indicate that when this actor stops, we should run custom code
+  *
+  * @param callback The callback to run when the actor stops
+  */
+  public setStopCallback(callback: LolActorEvent): void {
+    let out_this = this;
+    this.mScene.mRepeatEvents.push(new (class _ extends LolAction {
+      moving: boolean = false;
+      //@Override
+      public go(): void {
+        let speed: PhysicsType2d.Vector2 = out_this.mBody.GetLinearVelocity();
+        if (!this.moving && (Math.abs(speed.x) > 0 || Math.abs(speed.y) > 0)) {
+          this.moving = true;
+        }
+        else if (this.moving && speed.x == 0 && speed.y == 0) {
+          callback.go(out_this);
+          this.moving = false;
+        }
+      }
+    })());
+  }
 
   /**
   * Each descendant defines this to address any custom logic that we need to deal with on a
@@ -67,20 +104,22 @@ abstract class WorldActor extends BaseActor {
     this.mCameraOffset.y = y;
   }
 
-  // /**
-  // * Indicate that the actor should move with the tilt of the phone
-  // */
-  // public void setMoveByTilting() {
-  //   // If we've already added this to the set of tiltable objects, don't do it again
-  //   if (((MainScene) mScene).mTiltActors.contains(this))
-  //   return;
-  //   // make sure it is moveable, add it to the list of tilt actors
-  //   if (mBody.getType() != BodyType.DynamicBody)
-  //   mBody.setType(BodyType.DynamicBody);
-  //   ((MainScene) mScene).mTiltActors.add(this);
-  //   // turn off sensor behavior, so this collides with stuff...
-  //   setCollisionsEnabled(true);
-  // }
+  /**
+  * Indicate that the actor should move with the tilt of the phone
+  */
+  public setMoveByTilting(): void {
+    // If we've already added this to the set of tiltable objects, don't do it again
+    if ((this.mScene as MainScene).mTiltActors.indexOf(this) < 0) {
+      return;
+    }
+    // make sure it is moveable, add it to the list of tilt actors
+    if (this.mBody.GetType() != PhysicsType2d.Dynamics.BodyType.DYNAMIC) {
+      this.mBody.SetType(PhysicsType2d.Dynamics.BodyType.DYNAMIC);
+    }
+    (this.mScene as MainScene).mTiltActors.push(this);
+    // turn off sensor behavior, so this collides with stuff...
+    this.setCollisionsEnabled(true);
+  }
 
   // /**
   // * Indicate that touching this object will cause some special code to run

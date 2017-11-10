@@ -36,9 +36,9 @@ class BaseActor extends Renderable {
   private mInfoInt: number;
 
   /// Code to run when this actor is tapped
-  mTapHandler: TouchEventHandler;
+  mTapHandler: TouchEventHandler | null;
   /// Code to run when this actor is held or released
-  mToggleHandler: ToggleEventHandler;
+  mToggleHandler: ToggleEventHandler | null;
 
   /// A temporary vertex that we use when resizing
   private mTempVector: PhysicsType2d.Vector2;

@@ -1,5 +1,8 @@
 /// <reference path="./WorldActor.ts"/>
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+/// <reference path="./Obstacle.ts"/>
+/// <reference path="./Destination.ts"/>
+/// <reference path="./LolActorEvent.ts"/>
+/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
 //// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 
@@ -348,26 +351,27 @@ class Hero extends WorldActor {
     this.mStrength = amount;
   }
 
-  // /**
-  //  * Indicate that upon a touch, this hero should begin moving with a specific velocity
-  //  *
-  //  * @param x Velocity in X dimension
-  //  * @param y Velocity in Y dimension
-  //  */
-  // public void setTouchAndGo(final float x, final float y) {
-  //     mTapHandler = new TouchEventHandler() {
-  //         public boolean go(float worldX, float worldY) {
-  //             mHover = null;
-  //             // if it was hovering, its body type won't be Dynamic
-  //             if (mBody.getType() != BodyType.DynamicBody)
-  //                 mBody.setType(BodyType.DynamicBody);
-  //             setAbsoluteVelocity(x, y);
-  //             // turn off isTouchAndGo, so we can't double-touch
-  //             mTapHandler = null;
-  //             return true;
-  //         }
-  //     };
-  // }
+  /**
+   * Indicate that upon a touch, this hero should begin moving with a specific velocity
+   *
+   * @param x Velocity in X dimension
+   * @param y Velocity in Y dimension
+   */
+  public setTouchAndGo(x: number, y: number): void {
+      let out_this = this;
+      this.mTapHandler = new (class _ extends TouchEventHandler {
+          public go(worldX: number, worldY: number): boolean {
+              out_this.mHover = null;
+              // if it was hovering, its body type won't be Dynamic
+              if (out_this.mBody.GetType() != PhysicsType2d.Dynamics.BodyType.DYNAMIC)
+                  out_this.mBody.SetType(PhysicsType2d.Dynamics.BodyType.DYNAMIC);
+              out_this.setAbsoluteVelocity(x, y);
+              // turn off isTouchAndGo, so we can't double-touch
+              out_this.mTapHandler = null;
+              return true;
+          }
+      })();
+  }
 
   /**
    * Specify the X and Y velocity to give to the hero whenever it is instructed to jump
@@ -386,17 +390,18 @@ class Hero extends WorldActor {
       this.mAllowMultiJump = true;
   }
 
-  // /**
-  //  * Indicate that touching this hero should make it jump
-  //  */
-  // public void setTouchToJump() {
-  //     mTapHandler = new TouchEventHandler() {
-  //         public boolean go(float worldX, float worldY) {
-  //             jump();
-  //             return true;
-  //         }
-  //     };
-  // }
+  /**
+  * Indicate that touching this hero should make it jump
+  */
+  public setTouchToJump(): void {
+    let out_this = this;
+    this.mTapHandler = new (class _ extends TouchEventHandler {
+      public go(worldX: number, worldY: number): boolean {
+        out_this.jump();
+        return true;
+      }
+    })();
+  }
 
   // /**
   //  * Register an animation sequence for when the hero is jumping
