@@ -1,6 +1,6 @@
 //// <reference path="./Hero.ts"/>
 //// <reference path="./Enemy.ts"/>
-//// <reference path="./Projectile.ts"/>
+/// <reference path="./TouchEventHandler.ts"/>
 //// <reference path="./LolAction.ts"/>
 /// <reference path="./LolScene.ts"/>
 //// <reference path="./Config.ts"/>
