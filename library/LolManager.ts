@@ -29,7 +29,7 @@ class LolManager {
   /// The set of loaded assets
   private readonly mMedia: Media;
   /// The object that comprises the public API
-  private readonly mLevel: Level;
+  mLevel: Level;
 
   /// The physics world in which all actors exist
   mWorld: MainScene;

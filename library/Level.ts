@@ -59,16 +59,16 @@ class Level {
   //   if (height < mConfig.mHeight / mConfig.mPixelMeterRatio)
   //   Lol.message(mConfig, "Warning", "Your game height is less than 1/10 of the screen height");
   // }
-  //
-  // /**
-  // * Identify the actor that the camera should try to keep on screen at all times
-  // *
-  // * @param actor The actor the camera should chase
-  // */
-  // public void setCameraChase(WorldActor actor) {
-  //   mGame.mManager.mWorld.mChaseActor = actor;
-  // }
-  //
+
+  /**
+  * Identify the actor that the camera should try to keep on screen at all times
+  *
+  * @param actor The actor the camera should chase
+  */
+  public setCameraChase(actor: WorldActor): void {
+    this.mGame.mManager.mWorld.mChaseActor = actor;
+  }
+
   // /**
   // * Set the background music for this level
   // *
@@ -918,29 +918,61 @@ class Level {
   //                         }
   //                       };
   //                     }
-  //
-  //                     /**
-  //                     * Create an action for moving an actor in the X and Y directions, with dampening on release.
-  //                     * This action can be used by a Control.
-  //                     *
-  //                     * @param actor     The actor to move
-  //                     * @param xRate     The rate at which the actor should move in the X direction (negative values
-  //                     *                  are allowed)
-  //                     * @param yRate     The rate at which the actor should move in the Y direction (negative values
-  //                     *                  are allowed)
-  //                     * @param dampening The dampening factor
-  //                     * @return The action
-  //                     */
-  //                     public LolAction makeXYDampenedMotionAction(final WorldActor actor, final float xRate,
-  //                       final float yRate, final float dampening) {
-  //                         return new LolAction() {
-  //                           @Override
-  //                           public void go() {
-  //                             actor.updateVelocity(xRate, yRate);
-  //                             actor.mBody.setLinearDamping(dampening);
-  //                           }
-  //                         };
-  //                       }
+
+
+  /**
+  * Let an actor be controlled by arrow keys
+  *
+  * @param actor     The actor to move
+  * @param speed     Speed to move an actor
+  * @param dampening The dampening factor
+  */
+  public setArrowKeyControls(actor: WorldActor, speed: number, dampening: number, ): void {
+    let up = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), speed, 1);
+    let down = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), -speed, 1);
+    let left = this.makeXYDampenedMotionAction(actor, -speed, actor.getYVelocity(), 1);
+    let right = this.makeXYDampenedMotionAction(actor, speed, actor.getYVelocity(), 1);
+
+    document.onkeydown = (e) => {
+      if(e.key == "ArrowUp") {
+        up.go();
+      }
+      else if(e.key == "ArrowDown") {
+        down.go();
+      }
+      else if(e.key == "ArrowLeft") {
+        left.go();
+      }
+      else if(e.key == "ArrowRight") {
+        right.go();
+      }
+    };
+  }
+
+
+  /**
+  * Create an action for moving an actor in the X and Y directions, with dampening on release.
+  * This action can be used by a Control.
+  *
+  * @param actor     The actor to move
+  * @param xRate     The rate at which the actor should move in the X direction (negative values
+  *                  are allowed)
+  * @param yRate     The rate at which the actor should move in the Y direction (negative values
+  *                  are allowed)
+  * @param dampening The dampening factor
+  * @return The action
+  */
+  public makeXYDampenedMotionAction(actor: WorldActor, xRate: number,
+    yRate: number, dampening: number): LolAction {
+       let action = new (class _ extends LolAction {
+        //@Override
+        public go(): void {
+          actor.updateVelocity(xRate, yRate);
+          actor.mBody.SetLinearDamping(dampening);
+        }
+      })();
+      return action;
+    }
   //
   //                       /**
   //                       * Create an action for making a hero either start or stop crawling
@@ -1698,22 +1730,22 @@ class Level {
   //                                                                   return d;
   //                                                                 }
   //
-  //                                                                 /**
-  //                                                                 * Draw an obstacle with an underlying box shape
-  //                                                                 *
-  //                                                                 * @param x       X coordinate of the bottom left corner
-  //                                                                 * @param y       Y coordinate of the bottom left corner
-  //                                                                 * @param width   Width of the obstacle
-  //                                                                 * @param height  Height of the obstacle
-  //                                                                 * @param imgName Name of image file to use
-  //                                                                 * @return The obstacle, so that it can be further modified
-  //                                                                 */
-  //                                                                 public Obstacle makeObstacleAsBox(float x, float y, float width, float height, String imgName) {
-  //                                                                   Obstacle o = new Obstacle(mGame, mGame.mManager.mWorld, width, height, imgName);
-  //                                                                   o.setBoxPhysics(BodyDef.BodyType.StaticBody, x, y);
-  //                                                                   mGame.mManager.mWorld.addActor(o, 0);
-  //                                                                   return o;
-  //                                                                 }
+  /**
+  * Draw an obstacle with an underlying box shape
+  *
+  * @param x       X coordinate of the bottom left corner
+  * @param y       Y coordinate of the bottom left corner
+  * @param width   Width of the obstacle
+  * @param height  Height of the obstacle
+  * @param imgName Name of image file to use
+  * @return The obstacle, so that it can be further modified
+  */
+  public makeObstacleAsBox(x: number, y: number, width: number, height: number, imgName: string): Obstacle {
+    let o: Obstacle = new Obstacle(this.mGame, this.mGame.mManager.mWorld, width, height, imgName);
+    o.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, x, y);
+    this.mGame.mManager.mWorld.addActor(o, 0);
+    return o;
+  }
   //
   //                                                                 /**
   //                                                                 * Draw an obstacle with an underlying polygon shape
@@ -1812,64 +1844,64 @@ class Level {
   //                                                                         return g;
   //                                                                       }
   //
-  //                                                                       /**
-  //                                                                       * Make a Hero with an underlying rectangular shape
-  //                                                                       *
-  //                                                                       * @param x       X coordinate of the hero
-  //                                                                       * @param y       Y coordinate of the hero
-  //                                                                       * @param width   width of the hero
-  //                                                                       * @param height  height of the hero
-  //                                                                       * @param imgName File name of the default image to display
-  //                                                                       * @return The hero that was created
-  //                                                                       */
-  //                                                                       public Hero makeHeroAsBox(float x, float y, float width, float height, String imgName) {
-  //                                                                         Hero h = new Hero(mGame, mGame.mManager.mWorld, width, height, imgName);
-  //                                                                         mGame.mManager.mHeroesCreated++;
-  //                                                                         h.setBoxPhysics(BodyDef.BodyType.DynamicBody, x, y);
-  //                                                                         mGame.mManager.mWorld.addActor(h, 0);
-  //                                                                         return h;
-  //                                                                       }
-  //
-  //                                                                       /**
-  //                                                                       * Make a Hero with an underlying circular shape
-  //                                                                       *
-  //                                                                       * @param x       X coordinate of the hero
-  //                                                                       * @param y       Y coordinate of the hero
-  //                                                                       * @param width   width of the hero
-  //                                                                       * @param height  height of the hero
-  //                                                                       * @param imgName File name of the default image to display
-  //                                                                       * @return The hero that was created
-  //                                                                       */
-  //                                                                       public Hero makeHeroAsCircle(float x, float y, float width, float height, String imgName) {
-  //                                                                         float radius = Math.max(width, height);
-  //                                                                         Hero h = new Hero(mGame, mGame.mManager.mWorld, width, height, imgName);
-  //                                                                         mGame.mManager.mHeroesCreated++;
-  //                                                                         h.setCirclePhysics(BodyDef.BodyType.DynamicBody, x, y, radius / 2);
-  //                                                                         mGame.mManager.mWorld.addActor(h, 0);
-  //                                                                         return h;
-  //                                                                       }
-  //
-  //                                                                       /**
-  //                                                                       * Draw a hero with an underlying polygon shape
-  //                                                                       *
-  //                                                                       * @param x       X coordinate of the bottom left corner
-  //                                                                       * @param y       Y coordinate of the bottom left corner
-  //                                                                       * @param width   Width of the obstacle
-  //                                                                       * @param height  Height of the obstacle
-  //                                                                       * @param imgName Name of image file to use
-  //                                                                       * @param verts   Up to 16 coordinates representing the vertexes of this polygon, listed as
-  //                                                                       *                x0,y0,x1,y1,x2,y2,...
-  //                                                                       * @return The hero, so that it can be further modified
-  //                                                                       */
-  //                                                                       public Hero makeHeroAsPolygon(float x, float y, float width, float height, String imgName,
-  //                                                                         float... verts) {
-  //                                                                           Hero h = new Hero(mGame, mGame.mManager.mWorld, width, height, imgName);
-  //                                                                           mGame.mManager.mHeroesCreated++;
-  //                                                                           h.setPolygonPhysics(BodyDef.BodyType.StaticBody, x, y, verts);
-  //                                                                           mGame.mManager.mWorld.addActor(h, 0);
-  //                                                                           return h;
-  //                                                                         }
-  //
+  /**
+  * Make a Hero with an underlying rectangular shape
+  *
+  * @param x       X coordinate of the hero
+  * @param y       Y coordinate of the hero
+  * @param width   width of the hero
+  * @param height  height of the hero
+  * @param imgName File name of the default image to display
+  * @return The hero that was created
+  */
+  public makeHeroAsBox(x: number, y: number, width: number, height: number, imgName: string): Hero {
+    let h: Hero = new Hero(this.mGame, this.mGame.mManager.mWorld, width, height, imgName);
+    this.mGame.mManager.mHeroesCreated++;
+    h.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.DYNAMIC, x, y);
+    this.mGame.mManager.mWorld.addActor(h, 0);
+    return h;
+  }
+
+  // /**
+  // * Make a Hero with an underlying circular shape
+  // *
+  // * @param x       X coordinate of the hero
+  // * @param y       Y coordinate of the hero
+  // * @param width   width of the hero
+  // * @param height  height of the hero
+  // * @param imgName File name of the default image to display
+  // * @return The hero that was created
+  // */
+  // public Hero makeHeroAsCircle(float x, float y, float width, float height, String imgName) {
+  //   float radius = Math.max(width, height);
+  //   Hero h = new Hero(mGame, mGame.mManager.mWorld, width, height, imgName);
+  //   mGame.mManager.mHeroesCreated++;
+  //   h.setCirclePhysics(BodyDef.BodyType.DynamicBody, x, y, radius / 2);
+  //   mGame.mManager.mWorld.addActor(h, 0);
+  //   return h;
+  // }
+
+  // /**
+  // * Draw a hero with an underlying polygon shape
+  // *
+  // * @param x       X coordinate of the bottom left corner
+  // * @param y       Y coordinate of the bottom left corner
+  // * @param width   Width of the obstacle
+  // * @param height  Height of the obstacle
+  // * @param imgName Name of image file to use
+  // * @param verts   Up to 16 coordinates representing the vertexes of this polygon, listed as
+  // *                x0,y0,x1,y1,x2,y2,...
+  // * @return The hero, so that it can be further modified
+  // */
+  // public Hero makeHeroAsPolygon(float x, float y, float width, float height, String imgName,
+  //   float... verts) {
+  //     Hero h = new Hero(mGame, mGame.mManager.mWorld, width, height, imgName);
+  //     mGame.mManager.mHeroesCreated++;
+  //     h.setPolygonPhysics(BodyDef.BodyType.StaticBody, x, y, verts);
+  //     mGame.mManager.mWorld.addActor(h, 0);
+  //     return h;
+  //   }
+
   //                                                                         /**
   //                                                                         * Specify a limit on how far away from the Hero a projectile can go.  Without this, projectiles
   //                                                                         * could keep on traveling forever.
