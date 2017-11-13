@@ -42,6 +42,7 @@ function main(speed: number) {
   //let mainScene = new MainScene(myConfig, myMedia);
   //let hud = new HudScene(myConfig, myMedia);
   let game = new Lol(myConfig);
+  game.create();
   document.body.appendChild(game.mRenderer.view);
 
   //mgr.mHud.addText(400, 0, "Arial", "Blue", 24, "Score: ", "", mgr.mGoodiesCollected[1], 2);
