@@ -259,12 +259,12 @@ class BaseActor extends Renderable {
     */
     setPhysics(density, elasticity, friction) {
         let fixtures = this.mBody.GetFixtures();
-        do {
-            let f = fixtures.Current();
-            f.SetDensity(density);
-            f.SetRestitution(elasticity);
-            f.SetFriction(friction);
-        } while (fixtures.MoveNext());
+        //do {
+        let f = fixtures.Current();
+        f.SetDensity(density);
+        f.SetRestitution(elasticity);
+        f.SetFriction(friction);
+        //} while(fixtures.MoveNext());
         fixtures.Reset();
         this.mBody.ResetMassData();
     }
