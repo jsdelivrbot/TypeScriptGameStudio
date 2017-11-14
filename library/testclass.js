@@ -1687,6 +1687,20 @@ class Level {
                 right.go();
             }
         };
+        document.onkeyup = (e) => {
+            if (e.key == "ArrowUp") {
+                actor.mBody.SetLinearDamping(5);
+            }
+            else if (e.key == "ArrowDown") {
+                actor.mBody.SetLinearDamping(5);
+            }
+            else if (e.key == "ArrowLeft") {
+                actor.mBody.SetLinearDamping(5);
+            }
+            else if (e.key == "ArrowRight") {
+                actor.mBody.SetLinearDamping(5);
+            }
+        };
     }
     /**
     * Create an action for moving an actor in the X and Y directions, with dampening on release.
