@@ -4463,8 +4463,9 @@ class Hero extends WorldActor {
     onCollideWithDestination(destination) {
         // The hero must have enough goodies, and the destination must have room
         let match = true;
-        for (let i = 0; i < 4; ++i)
+        for (let i = 0; i < 4; ++i) {
             match = match && (this.mGame.mManager.mGoodiesCollected[i] >= destination.mActivation[i]);
+        }
         if (match && (destination.mHolding < destination.mCapacity) && this.mEnabled) {
             // hide the hero quietly, since the destination might make a sound
             this.remove(true);
@@ -4535,8 +4536,11 @@ class Hero extends WorldActor {
     onCollideWithObstacle(o, contact) {
         // do we need to play a sound?
         //o.playCollideSound();
+        let fixtures = o.mBody.GetFixtures();
+        fixtures.MoveNext();
+        let f = fixtures.Current();
         // reset rotation of hero if this obstacle is not a sensor
-        if ((this.mCurrentRotation != 0) && !o.mBody.GetFixtures().Current().IsSensor()) {
+        if ((this.mCurrentRotation != 0) && !f.IsSensor()) {
             this.increaseRotation(-this.mCurrentRotation);
         }
         // if there is code attached to the obstacle for modifying the hero's behavior, run it
@@ -4545,7 +4549,7 @@ class Hero extends WorldActor {
         }
         // If this is a wall, then mark us not in the air so we can do more jumps. Note that sensors
         // should not enable jumps for the hero.
-        if ((this.mInAir || this.mAllowMultiJump) && !o.mBody.GetFixtures().Current().IsSensor() &&
+        if ((this.mInAir || this.mAllowMultiJump) && !f.IsSensor() &&
             !o.mNoJumpReenable) {
             this.stopJump();
         }

@@ -53,7 +53,7 @@ function main(speed: number) {
 
   let myHero = game.mManager.mLevel.makeHeroAsBox(100, 100, 25, 25, heroImg);
   game.mManager.mLevel.setCameraChase(myHero);
-
+  game.mManager.mLevel.setArrowKeyControls(myHero, 5, 1);
   //game.mManager.mWorld.mChaseActor = myHero;
 
   // let Obstacle1 = new Obstacle(game, mainScene, 25, 25, obstImg);
