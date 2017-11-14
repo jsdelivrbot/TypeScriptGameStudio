@@ -259,13 +259,12 @@ class BaseActor extends Renderable {
     */
     setPhysics(density, elasticity, friction) {
         let fixtures = this.mBody.GetFixtures();
-        fixtures.MoveNext();
-        //do {
-        let f = fixtures.Current();
-        f.SetDensity(density);
-        f.SetRestitution(elasticity);
-        f.SetFriction(friction);
-        //} while(fixtures.MoveNext());
+        while (fixtures.MoveNext()) {
+            let f = fixtures.Current();
+            f.SetDensity(density);
+            f.SetRestitution(elasticity);
+            f.SetFriction(friction);
+        }
         fixtures.Reset();
         this.mBody.ResetMassData();
     }
@@ -2978,7 +2977,7 @@ class LolScene {
         // set up the containers for holding anything we can render
         this.mRenderables = new Array(5);
         for (let i = 0; i < 5; ++i) {
-            this.mRenderables.push(new Array());
+            this.mRenderables[i] = new Array();
         }
     }
     /**
