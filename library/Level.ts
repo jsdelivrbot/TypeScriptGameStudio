@@ -947,6 +947,21 @@ class Level {
         right.go();
       }
     };
+
+    document.onkeyup = (e) => {
+      if(e.key == "ArrowUp") {
+        actor.mBody.SetLinearDamping(5);
+      }
+      else if(e.key == "ArrowDown") {
+        actor.mBody.SetLinearDamping(5);
+      }
+      else if(e.key == "ArrowLeft") {
+        actor.mBody.SetLinearDamping(5);
+      }
+      else if(e.key == "ArrowRight") {
+        actor.mBody.SetLinearDamping(5);
+      }
+    };
   }
 
 

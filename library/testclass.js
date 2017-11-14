@@ -1602,46 +1602,44 @@ class Level {
     //                     mGame.mManager.mWorld.mRepeatEvents.add(whileDownAction);
     //                     return c;
     //                   }
-    //
-    //                   /**
-    //                   * Create an action for moving an actor in the X direction.  This action can be used by a
-    //                   * Control.
-    //                   *
-    //                   * @param actor The actor to move
-    //                   * @param xRate The rate at which the actor should move in the X direction (negative values are
-    //                   *              allowed)
-    //                   * @return The action
-    //                   */
-    //                   public LolAction makeXMotionAction(final WorldActor actor, final float xRate) {
-    //                     return new LolAction() {
-    //                       @Override
-    //                       public void go() {
-    //                         Vector2 v = actor.mBody.getLinearVelocity();
-    //                         v.x = xRate;
-    //                         actor.updateVelocity(v.x, v.y);
-    //                       }
-    //                     };
-    //                   }
-    //
-    //                   /**
-    //                   * Create an action for moving an actor in the Y direction.  This action can be used by a
-    //                   * Control.
-    //                   *
-    //                   * @param actor The actor to move
-    //                   * @param yRate The rate at which the actor should move in the Y direction (negative values are
-    //                   *              allowed)
-    //                   * @return The action
-    //                   */
-    //                   public LolAction makeYMotionAction(final WorldActor actor, final float yRate) {
-    //                     return new LolAction() {
-    //                       @Override
-    //                       public void go() {
-    //                         Vector2 v = actor.mBody.getLinearVelocity();
-    //                         v.y = yRate;
-    //                         actor.updateVelocity(v.x, v.y);
-    //                       }
-    //                     };
-    //                   }
+    /**
+    * Create an action for moving an actor in the X direction.  This action can be used by a
+    * Control.
+    *
+    * @param actor The actor to move
+    * @param xRate The rate at which the actor should move in the X direction (negative values are
+    *              allowed)
+    * @return The action
+    */
+    makeXMotionAction(actor, xRate) {
+        return new (class _ extends LolAction {
+            //@Override
+            go() {
+                let v = actor.mBody.GetLinearVelocity();
+                v.x = xRate;
+                actor.updateVelocity(v.x, v.y);
+            }
+        })();
+    }
+    /**
+    * Create an action for moving an actor in the Y direction.  This action can be used by a
+    * Control.
+    *
+    * @param actor The actor to move
+    * @param yRate The rate at which the actor should move in the Y direction (negative values are
+    *              allowed)
+    * @return The action
+    */
+    makeYMotionAction(actor, yRate) {
+        return new (class _ extends LolAction {
+            //@Override
+            go() {
+                let v = actor.mBody.GetLinearVelocity();
+                v.y = yRate;
+                actor.updateVelocity(v.x, v.y);
+            }
+        })();
+    }
     //
     //                   /**
     //                   * Create an action for moving an actor in the X and Y directions.  This action can be used by a
@@ -1670,11 +1668,11 @@ class Level {
     * @param speed     Speed to move an actor
     * @param dampening The dampening factor
     */
-    setArrowKeyControls(actor, speed, dampening) {
-        let up = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), -speed, 1);
-        let down = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), speed, 1);
-        let left = this.makeXYDampenedMotionAction(actor, -speed, actor.getYVelocity(), 1);
-        let right = this.makeXYDampenedMotionAction(actor, speed, actor.getYVelocity(), 1);
+    setArrowKeyControls(actor, speed) {
+        let up = this.makeYMotionAction(actor, -speed);
+        let down = this.makeYMotionAction(actor, speed);
+        let left = this.makeXMotionAction(actor, -speed);
+        let right = this.makeXMotionAction(actor, speed);
         document.onkeydown = (e) => {
             if (e.key == "ArrowUp") {
                 up.go();
@@ -4937,7 +4935,7 @@ function main(speed) {
     //myHero.updateVelocity(speed, 0);
     let myHero = game.mManager.mLevel.makeHeroAsBox(100, 100, 25, 25, heroImg);
     game.mManager.mLevel.setCameraChase(myHero);
-    game.mManager.mLevel.setArrowKeyControls(myHero, 25, 1);
+    game.mManager.mLevel.setArrowKeyControls(myHero, 25);
     //game.mManager.mWorld.mChaseActor = myHero;
     // let Obstacle1 = new Obstacle(game, mainScene, 25, 25, obstImg);
     // Obstacle1.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 0, 0);
