@@ -1671,8 +1671,8 @@ class Level {
     * @param dampening The dampening factor
     */
     setArrowKeyControls(actor, speed, dampening) {
-        let up = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), speed, 1);
-        let down = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), -speed, 1);
+        let up = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), -speed, 1);
+        let down = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), speed, 1);
         let left = this.makeXYDampenedMotionAction(actor, -speed, actor.getYVelocity(), 1);
         let right = this.makeXYDampenedMotionAction(actor, speed, actor.getYVelocity(), 1);
         document.onkeydown = (e) => {
@@ -4937,7 +4937,7 @@ function main(speed) {
     //myHero.updateVelocity(speed, 0);
     let myHero = game.mManager.mLevel.makeHeroAsBox(100, 100, 25, 25, heroImg);
     game.mManager.mLevel.setCameraChase(myHero);
-    game.mManager.mLevel.setArrowKeyControls(myHero, 5, 1);
+    game.mManager.mLevel.setArrowKeyControls(myHero, 25, 1);
     //game.mManager.mWorld.mChaseActor = myHero;
     // let Obstacle1 = new Obstacle(game, mainScene, 25, 25, obstImg);
     // Obstacle1.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.KINEMATIC, 0, 0);
