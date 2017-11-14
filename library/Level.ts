@@ -928,8 +928,8 @@ class Level {
   * @param dampening The dampening factor
   */
   public setArrowKeyControls(actor: WorldActor, speed: number, dampening: number, ): void {
-    let up = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), speed, 1);
-    let down = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), -speed, 1);
+    let up = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), -speed, 1);
+    let down = this.makeXYDampenedMotionAction(actor, actor.getXVelocity(), speed, 1);
     let left = this.makeXYDampenedMotionAction(actor, -speed, actor.getYVelocity(), 1);
     let right = this.makeXYDampenedMotionAction(actor, speed, actor.getYVelocity(), 1);
 
