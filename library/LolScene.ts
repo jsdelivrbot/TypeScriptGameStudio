@@ -84,7 +84,7 @@ abstract class LolScene {
     // set up the containers for holding anything we can render
     this.mRenderables = new Array<Array<Renderable>>(5);
     for (let i = 0; i < 5; ++i) {
-      this.mRenderables.push(new Array<Renderable>());
+      this.mRenderables[i] = new Array<Renderable>();
     }
   }
 
