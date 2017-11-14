@@ -3873,9 +3873,9 @@ class LolManager {
         this.resetScores();
         // this.mWorld = world;
         // if (hud) this.mHud = hud;
-        // this.mContainer = new PIXI.Container();
-        // this.mContainer.addChild(this.mWorld.mCamera.mContainer);
-        // if (hud) this.mContainer.addChild(this.mHud.mCamera.mContainer);
+        this.mContainer = new PIXI.Container();
+        this.mContainer.addChild(this.mWorld.mCamera.mContainer);
+        this.mContainer.addChild(this.mHud.mCamera.mContainer);
         //
         // this.mGoodiesCollected = new Array<number>();
     }
