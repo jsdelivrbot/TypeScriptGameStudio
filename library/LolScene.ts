@@ -187,15 +187,14 @@ abstract class LolScene {
       let d: Renderable = new (class _ extends Renderable {
           //@Override
           onRender(): void {
-              //mFont.setColor(mColor);
-              //String txt = prefix + tp.makeText() + suffix;
-              //renderText(x, y, txt, mFont, sb);
-              let newText = new PIXI.Text(text, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
-              newText.position.x = x;
-              newText.position.y = y;
-              this.mText = newText;
+              // let newText = new PIXI.Text("Hello Darkness My Old Friend", {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
+              // newText.position.x = x;
+              // newText.position.y = y;
+              // this.mText = newText;
           }
       })();
+      let newText = new PIXI.Text("Hello Darkness My Old Friend", {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
+      d.mText = newText;
       this.addActor(d, zIndex);
       return d;
   }
