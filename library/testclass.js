@@ -1,3 +1,4 @@
+"use strict";
 /**
 * Renderable is the base of all objects that can be displayed on the screen.  At its most simple
 * level, a Renderable is simply a function (<code>onRender</code>), and a flag to indicate whether
@@ -2177,7 +2178,7 @@ class Level {
     * @param color The color, formatted as a hex number
     */
     setBackgroundColor(color) {
-        this.mGame.mRenderer.backgroundColor = color;
+        //this.mGame.mRenderer.backgroundColor = color;
     }
     //                                 /**
     //                                 * Add a picture that may repeat in the X dimension
@@ -5578,6 +5579,7 @@ class MyConfig extends Config {
 //// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 /// <reference types="pixi.js"/>
 document.addEventListener("DOMContentLoaded", () => {
+    PIXI.utils.sayHello("Hello");
     let myConfig = new MyConfig();
     let game = new Lol(myConfig);
     game.create();
