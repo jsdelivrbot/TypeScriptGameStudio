@@ -303,7 +303,7 @@ app.post("/game/compile", function(req, res){
     console.log(JSON.stringify(postData));
 
     var options = {
-      hostname : "typescript-game-studio-build.herokuapp.com",
+      hostname : "localhost:5000",
       path : "/compile",
       method : "POST",
       headers : {
