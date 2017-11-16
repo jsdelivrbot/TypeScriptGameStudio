@@ -5524,8 +5524,8 @@ class Splash {
         // "doLevel(1)", but check the configuration in MyConfig... there's a
         // field you should change if you don't want the 'back' button to go
         // from that level to the chooser.
-        level.addStaticText(19.2, 9.1, "Arial", 0xFFFF00, 24, "Play", 0);
-        level.addTapControl(19.2, 9.1, 9.3, 5.2, "", new (class _ extends LolAction {
+        level.addStaticText(192, 91, "Arial", 0xFFFF00, 24, "Play", 0);
+        level.addTapControl(192, 91, 93, 52, "", new (class _ extends LolAction {
             go() {
                 level.doChooser(1);
                 return true;
@@ -5533,8 +5533,8 @@ class Splash {
         })());
         // This is the Help button... it switches to the first screen of the
         // help system
-        level.addStaticText(4.8, 9.3, "Arial", 0xFFFF00, 24, "Help", 0);
-        level.addTapControl(4.8, 9.3, 8, 4, "", new (class _ extends LolAction {
+        level.addStaticText(48, 93, "Arial", 0xFFFF00, 24, "Help", 0);
+        level.addTapControl(48, 93, 80, 40, "", new (class _ extends LolAction {
             go() {
                 level.doHelp(1);
                 return true;
