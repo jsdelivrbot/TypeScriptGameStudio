@@ -53,7 +53,7 @@ class BaseActor extends Renderable {
 
     if (imgName === "") {
       this.mSprite = new PIXI.Sprite();
-      this.mSprite.texture = PIXI.Texture.EMPTY;
+      this.mSprite.texture = PIXI.Texture.WHITE;
     } else {
       this.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
     }
