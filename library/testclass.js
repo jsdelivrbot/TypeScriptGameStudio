@@ -1983,7 +1983,7 @@ class Level {
     addImage(x, y, width, height, imgName) {
         let c = new SceneActor(this.mGame.mManager.mHud, imgName, width, height);
         c.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, x, y);
-        this.mGame.mManager.mWorld.addActor(c, 0);
+        this.mGame.mManager.mHud.addActor(c, 0);
         return c;
     }
     //                               /**
@@ -4684,10 +4684,10 @@ class Lol {
         // configure the volume
         //if (getGameFact(mConfig, "volume", 1) == 1)
         //    putGameFact(mConfig, "volume", 1);
-        this.mConfig.mImageNames.forEach((e) => {
-            PIXI.loader.add(e);
-        });
-        PIXI.loader.load();
+        // this.mConfig.mImageNames.forEach( (e) => {
+        //   PIXI.loader.add(e);
+        // } );
+        PIXI.loader.add("./images/fun.jpg").load();
         // Create the level manager, and instruct it to transition to the Splash screen
         this.mManager = new LolManager(this.mConfig, this.mMedia, this);
         this.mManager.doHelp(1);
