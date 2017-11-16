@@ -17,7 +17,7 @@ class Help implements ScreenManager {
         if (index == 1) {
             // set up a basic screen
             level.setBackgroundColor(0x00FFFF);
-            PIXI.loader.add('./images/fun.jpg').load();
+            PIXI.loader.add("./images/OrangeBox.png").load();
             let Obstacle1 = level.makeObstacleAsBox(0, 0, 25, 25, "./images/OrangeBox.png");
 
             level.addImage(400, 490, 150, 150, "./images/OrangeBox.png");
