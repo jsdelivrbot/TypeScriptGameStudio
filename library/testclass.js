@@ -1970,24 +1970,22 @@ class Level {
     //                                 mGame.mManager.mHud.addActor(c, 0);
     //                                 return c;
     //                               }
-    //
-    //                               /**
-    //                               * Add an image to the heads-up display. Touching the image has no effect
-    //                               *
-    //                               * @param x       The X coordinate of the bottom left corner (in pixels)
-    //                               * @param y       The Y coordinate of the bottom left corner (in pixels)
-    //                               * @param width   The width of the image
-    //                               * @param height  The height of the image
-    //                               * @param imgName The name of the image to display. Use "" for an invisible button
-    //                               * @return The image that was created
-    //                               */
-    //                               public SceneActor addImage(int x, int y, int width, int height, String imgName) {
-    //                                 final SceneActor c = new SceneActor(mGame.mManager.mHud, imgName, width, height);
-    //                                 c.setBoxPhysics(BodyDef.BodyType.StaticBody, x, y);
-    //                                 mGame.mManager.mHud.addActor(c, 0);
-    //                                 return c;
-    //                               }
-    //
+    /**
+    * Add an image to the heads-up display. Touching the image has no effect
+    *
+    * @param x       The X coordinate of the bottom left corner (in pixels)
+    * @param y       The Y coordinate of the bottom left corner (in pixels)
+    * @param width   The width of the image
+    * @param height  The height of the image
+    * @param imgName The name of the image to display. Use "" for an invisible button
+    * @return The image that was created
+    */
+    addImage(x, y, width, height, imgName) {
+        let c = new SceneActor(this.mGame.mManager.mHud, imgName, width, height);
+        c.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, x, y);
+        this.mGame.mManager.mHud.addActor(c, 0);
+        return c;
+    }
     //                               /**
     //                               * Add a control with callbacks for down, up, and pan
     //                               *
@@ -4686,6 +4684,9 @@ class Lol {
         // configure the volume
         //if (getGameFact(mConfig, "volume", 1) == 1)
         //    putGameFact(mConfig, "volume", 1);
+        this.mConfig.mImageNames.forEach((e) => {
+            PIXI.loader.add(e);
+        });
         // Create the level manager, and instruct it to transition to the Splash screen
         this.mManager = new LolManager(this.mConfig, this.mMedia, this);
         this.mManager.doHelp(1);
@@ -5431,7 +5432,10 @@ class Help {
         if (index == 1) {
             // set up a basic screen
             level.setBackgroundColor(0x00FFFF);
-            level.addStaticText(100, 100, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
+            level.addImage(700, 490, 150, 150, "../library/images/fun.jpg");
+            level.addStaticText(480, 220, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
+            level.addStaticText(480, 320, "Arial", 0xFFFFFF, 24, "Text and images can be displayed here", 0);
+            level.addStaticText(480, 420, "Arial", 0xFFFFFF, 24, "This game is a side-scroller", 0);
             // set up a control to go to the splash screen on screen press
             level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
                 go() {
@@ -5480,7 +5484,7 @@ class MyConfig extends Config {
         this.mDefaultFontSize = 32;
         this.mDefaultFontColor = "#FFFFFF";
         // list the images that the game will use
-        this.mImageNames = new Array();
+        this.mImageNames = new Array("../library/images/fun.jpg");
         // list the sound effects that the game will use
         //this.mSoundNames = new string[]();
         // list the background music files that the game will use
