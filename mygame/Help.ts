@@ -16,7 +16,7 @@ class Help implements ScreenManager {
         // different entities in the game
         if (index == 1) {
             // set up a basic screen
-            //level.setBackgroundColor(0x00FFFF);
+            level.setBackgroundColor(0x00FFFF);
 
             //set up a control to go to the splash screen on screen press
             level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
