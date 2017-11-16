@@ -22,7 +22,6 @@
   "exclude": [
     "./images/*",
     "./testclass.ts",
-    "./testclass.js",
     "./typedefinitions/*"
   ]
 
