@@ -1,4 +1,4 @@
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 
 /**
 * Level provides a broad, public, declarative interface to the core functionality of LibLOL.
