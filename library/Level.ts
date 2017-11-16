@@ -2130,25 +2130,25 @@ class Level {
   //                                                                                 public boolean getVolume() {
   //                                                                                   return getGameFact("volume", 1) == 1;
   //                                                                                 }
-  //
-  //                                                                                 /**
-  //                                                                                 * Draw a picture on the current level
-  //                                                                                 * <p>
-  //                                                                                 * Note: the order in which this is called relative to other actors will determine whether they
-  //                                                                                 * go under or over this picture.
-  //                                                                                 *
-  //                                                                                 * @param x       X coordinate of bottom left corner
-  //                                                                                 * @param y       Y coordinate of bottom left corner
-  //                                                                                 * @param width   Width of the picture
-  //                                                                                 * @param height  Height of this picture
-  //                                                                                 * @param imgName Name of the picture to display
-  //                                                                                 * @param zIndex  The z index of the image. There are 5 planes: -2, -2, 0, 1, and 2. By default,
-  //                                                                                 *                everything goes to plane 0
-  //                                                                                 */
-  //                                                                                 public void drawPicture(final float x, final float y, final float width, final float height,
-  //                                                                                   final String imgName, int zIndex) {
-  //                                                                                     mGame.mManager.mWorld.makePicture(x, y, width, height, imgName, zIndex);
-  //                                                                                   }
+
+  // /**
+  // * Draw a picture on the current level
+  // * <p>
+  // * Note: the order in which this is called relative to other actors will determine whether they
+  // * go under or over this picture.
+  // *
+  // * @param x       X coordinate of bottom left corner
+  // * @param y       Y coordinate of bottom left corner
+  // * @param width   Width of the picture
+  // * @param height  Height of this picture
+  // * @param imgName Name of the picture to display
+  // * @param zIndex  The z index of the image. There are 5 planes: -2, -2, 0, 1, and 2. By default,
+  // *                everything goes to plane 0
+  // */
+  // public void drawPicture(final float x, final float y, final float width, final float height,
+  //   final String imgName, int zIndex) {
+  //     mGame.mManager.mWorld.makePicture(x, y, width, height, imgName, zIndex);
+  //   }
 
   // /**
   // * Draw some text in the scene, using a bottom-left coordinate

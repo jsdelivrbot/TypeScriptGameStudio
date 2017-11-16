@@ -17,21 +17,23 @@ class Help implements ScreenManager {
         if (index == 1) {
             // set up a basic screen
             level.setBackgroundColor(0x00FFFF);
-            PIXI.loader.add("./images/OrangeBox.png").load();
-            let Obstacle1 = level.makeObstacleAsBox(0, 0, 25, 25, "./images/OrangeBox.png");
 
-            level.addImage(400, 490, 150, 150, "./images/OrangeBox.png");
-            level.addStaticText(280, 220, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
-            level.addStaticText(280, 320, "Arial", 0xFFFFFF, 24, "Text and images can be displayed here", 0);
-            level.addStaticText(280, 420, "Arial", 0xFFFFFF, 24, "This game is a side-scroller", 0);
-
-            // set up a control to go to the splash screen on screen press
+            //set up a control to go to the splash screen on screen press
             level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
                 public go() {
                     level.doSplash();
                     return true;
                 }
             })());
+
+            //PIXI.loader.add("./images/fun.jpg").load();
+            //let Obstacle1 = level.makeObstacleAsBox(0, 0, 25, 25, "./images/fun.jpg");
+
+            level.addStaticText(280, 220, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
+            level.addStaticText(280, 320, "Arial", 0xFFFFFF, 24, "Text and images can be displayed here", 0);
+            level.addStaticText(280, 420, "Arial", 0xFFFFFF, 24, "This game is a side-scroller", 0);
+
+            //level.addImage(400, 490, 150, 150, "./images/fun.jpg");
         }
     }
 }
