@@ -2176,8 +2176,9 @@ class Level {
     * @param color The color, formatted as a hex number
     */
     setBackgroundColor(color) {
-        this.mGame.mRenderer.destroy(false);
+        this.mGame.mRenderer.destroy(true);
         this.mGame.mRenderer = PIXI.autoDetectRenderer(this.mConfig.mWidth, this.mConfig.mHeight, { backgroundColor: color });
+        document.appendChild(this.mGame.mRenderer.view);
     }
     //                                 /**
     //                                 * Add a picture that may repeat in the X dimension
@@ -5432,7 +5433,7 @@ class Help {
         // different entities in the game
         if (index == 1) {
             // set up a basic screen
-            //level.setBackgroundColor(0x00FFFF);
+            level.setBackgroundColor(0x00FFFF);
             //set up a control to go to the splash screen on screen press
             level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
                 go() {
