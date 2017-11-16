@@ -191,6 +191,8 @@ abstract class LolScene {
               //String txt = prefix + tp.makeText() + suffix;
               //renderText(x, y, txt, mFont, sb);
               let newText = new PIXI.Text(text, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
+              newText.position.x = x;
+              newText.position.y = y;
               this.mText = newText;
           }
       })();

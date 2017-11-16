@@ -5432,7 +5432,7 @@ class Help {
             // set up a basic screen
             level.setBackgroundColor(0x00FFFF);
             //level.makeObstacleAsBox(5, 0, 3, 3, "greyball.png");
-            level.addStaticText(100, 100, "Arial", 0x00FFFF, 24, "This is an example Help screen", 0);
+            level.addStaticText(100, 100, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
             // set up a control to go to the splash screen on screen press
             level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
                 go() {

@@ -2178,9 +2178,7 @@ class Level {
   * @param fontName  The name of the font to use
   * @param fontColor The color of the font
   * @param fontSize  The size of the font
-  * @param prefix    Prefix text to put before the generated text
-  * @param suffix    Suffix text to put after the generated text
-  * @param tp        A TextProducer that will generate the text to display
+  * @param text      Text text to put before the generated text
   * @param zIndex    The z index of the text
   * @return A Renderable of the text, so it can be enabled/disabled by program code
   */
