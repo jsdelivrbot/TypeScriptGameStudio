@@ -8,6 +8,7 @@ function Game(name, description, imgURL, lastUpdated, files) {
     this.lastUpdated = lastUpdated; 
     this.files = files;
 }
+
 /*
     Create a game and save to the database
 */ 

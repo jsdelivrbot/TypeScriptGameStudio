@@ -5,32 +5,31 @@ let editor = ace.edit("editor");
 
 $(document).ready(function(){
 
-    /*
-        Parse the query string to retrieve the name of the game being loaded.
-
-        If there is no query string, redirect back to the account page.
-    */
-    currentGame = getParameterByName("game");
-
-    /*
-        TODO: perhaps do this more gracefully? Maybe show an error box
-        and tell the user to return to the account page on a button click? Idk...
-
-        At the very least, this should happen before any parts of the 
-        DOM are loaded.
-    */
-    if(currentGame == null || currentGame == undefined){
-        window.location = "./account";
-    }
-    else{
+    if(currentGame != null || currentGame != undefined){
+        console.log("here");
         loadGameFiles(currentGame);
     }
 });
 
 /*
-    Initial setup for the editor
+    Initial setup for the editor that runs when the page loads.
 */
 function editorSetup() {
+
+    /*
+        Parse the query string to retrieve the name of the game being loaded.
+
+        If there is no query string, redirect back to the account page.
+    */
+
+    currentGame = getParameterByName("game");
+
+    if(currentGame == null || currentGame == undefined){
+
+        alert("Please select a game from the account screen");
+        window.location = "./account";
+    }
+
     editor.setTheme("ace/theme/chrome");
     editor.getSession().setMode("ace/mode/typescript");
     editor.$blockScrolling =  Infinity;
@@ -59,18 +58,23 @@ function compile(){
 
     saveContent();
 
-    var files = [{
-        gfile_name : currentGameFiles[0].gfile_name,
-        gfile_contents : editor.getValue()
-    }];
+    var files = [];
 
+    for(key in currentGameFiles){
+
+        files.push({
+            gfile_name : key,
+            gfile_contents : currentGameFiles[key]
+        });
+    }
+    
     //Save the files to the user's account
     const xhr = new XMLHttpRequest();
     xhr.open('POST', "/game/compile");
     xhr.setRequestHeader("Content-Type", "application/json");
 
     var request = {
-        contents : ace.edit("editor").getValue()
+        contents : files
     };
 
     console.log(JSON.stringify(request));
@@ -85,7 +89,9 @@ function compile(){
             }
         }
     };
+
     xhr.send(JSON.stringify(request)); 
+    
 }
 
 
@@ -105,17 +111,27 @@ function loadGameFiles(gameName) {
 
                     //Load all the files into the DOM
                     var files = JSON.parse(xhr.response);
-                    for (var i = 0; i < files.length; i++){
 
-                        //Set the editor contents equal to the first files's
-                        if(i == 0){
-                            setContentFile(files[i].gfile_contents);
-                            activeFile = files[i].gfile_name;
+                    if(files != "noGame"){
+                        for (var i = 0; i < files.length; i++){
+
+                            //Set the editor contents equal to the first files's
+                            if(i == 0){
+                                setContentFile(files[i].gfile_contents);
+                                activeFile = files[i].gfile_name;
+                            }
+
+                            addFileToPage(files[i].gfile_name);
+                            currentGameFiles[files[i].gfile_name] = files[i].gfile_contents;
                         }
-
-                        addFileToPage(files[i].gfile_name);
-                        currentGameFiles[files[i].gfile_name] = files[i].gfile_contents;
                     }
+                    else{
+
+                        //Game does not exist
+                        alert("This game does not exist");
+                        window.location = "./account";
+                    }
+                    
                 }
                 else{
                     let initialContent = "//Click the plus sign to the left to add a new file to your project and start coding!";

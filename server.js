@@ -292,38 +292,46 @@ app.post("/game/compile", function(req, res){
 
   if(req.user){
 
+  	console.log(req.body);
+
     var postData = {
       email : req.user.email,
       id : req.user.id,
       contents : req.body.contents
     };
 
+    console.log(JSON.stringify(postData));
+
     var options = {
       hostname : "typescript-game-studio-build.herokuapp.com",
       path : "/compile",
       method : "POST",
       headers : {
-         'Content-Type': 'application/x-www-form-urlencoded'
+         'Content-Type' : 'application/json',
+         'Content-Length' : Buffer.byteLength(JSON.stringify(postData)) 
       }
     };
 
-    var req = https.request(options, (res) => {
+    var req = https.request(options, (response) => {
 
       var data = '';
 
-      console.log('statusCode: ', res.statusCode);
+      console.log('statusCode: ', response.statusCode);
 
-      res.on('data', (d) => {
+      response.on('data', (d) => {
         data += d;
       });
 
-      res.on('end', () => {
+      response.on('end', () => {
         console.log(data);
+        res.status(200);
+        res.end();
       });
 
     });
 
     req.write(JSON.stringify(postData));
     req.end();
+
   }
 });
