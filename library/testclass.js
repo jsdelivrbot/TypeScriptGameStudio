@@ -4687,6 +4687,7 @@ class Lol {
         this.mConfig.mImageNames.forEach((e) => {
             PIXI.loader.add(e);
         });
+        PIXI.loader.load();
         // Create the level manager, and instruct it to transition to the Splash screen
         this.mManager = new LolManager(this.mConfig, this.mMedia, this);
         this.mManager.doHelp(1);
