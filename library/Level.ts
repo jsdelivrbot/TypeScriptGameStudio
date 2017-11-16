@@ -1240,7 +1240,7 @@ class Level {
   public addImage(x: number, y: number, width: number, height: number, imgName: string): SceneActor {
     let c: SceneActor = new SceneActor(this.mGame.mManager.mHud, imgName, width, height);
     c.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, x, y);
-    this.mGame.mManager.mHud.addActor(c, 0);
+    this.mGame.mManager.mWorld.addActor(c, 0);
     return c;
   }
 
