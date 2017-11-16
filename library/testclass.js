@@ -4331,9 +4331,6 @@ class LolManager {
         for (let i = 0; i < 5; ++i)
             this.mModeStates[i] = 1;
         this.resetScores();
-        // this.mWorld = world;
-        // if (hud) this.mHud = hud;
-        this.mContainer = new PIXI.Container();
         //
         // this.mGoodiesCollected = new Array<number>();
     }
@@ -4387,6 +4384,7 @@ class LolManager {
                 out_this.repeatLevel();
             }
         })());
+        this.mContainer = new PIXI.Container();
         this.mContainer.addChild(this.mWorld.mCamera.mContainer);
         this.mContainer.addChild(this.mHud.mCamera.mContainer);
         // this.mPreScene = new QuickScene(this.mConfig, this.mMedia, "");
