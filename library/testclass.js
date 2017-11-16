@@ -4687,7 +4687,7 @@ class Lol {
         // this.mConfig.mImageNames.forEach( (e) => {
         //   PIXI.loader.add(e);
         // } );
-        PIXI.loader.add("./images/fun.jpg").load();
+        // PIXI.loader.load();
         // Create the level manager, and instruct it to transition to the Splash screen
         this.mManager = new LolManager(this.mConfig, this.mMedia, this);
         this.mManager.doHelp(1);
@@ -5433,6 +5433,7 @@ class Help {
         if (index == 1) {
             // set up a basic screen
             level.setBackgroundColor(0x00FFFF);
+            PIXI.loader.add('./images/fun.jpg').load();
             level.addImage(400, 490, 150, 150, "./images/fun.jpg");
             level.addStaticText(280, 220, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
             level.addStaticText(280, 320, "Arial", 0xFFFFFF, 24, "Text and images can be displayed here", 0);

@@ -18,6 +18,8 @@ class Help implements ScreenManager {
             // set up a basic screen
             level.setBackgroundColor(0x00FFFF);
             PIXI.loader.add('./images/fun.jpg').load();
+            let Obstacle1 = level.makeObstacleAsBox(0, 0, 25, 25, "./images/fun.jpg");
+
             level.addImage(400, 490, 150, 150, "./images/fun.jpg");
             level.addStaticText(280, 220, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
             level.addStaticText(280, 320, "Arial", 0xFFFFFF, 24, "Text and images can be displayed here", 0);
