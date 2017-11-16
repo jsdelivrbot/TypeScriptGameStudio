@@ -70,7 +70,13 @@ class BaseActor extends Renderable {
         this.mSize = new PhysicsType2d.Vector2(width, height);
         this.mZIndex = 0;
         this.mInfoText = "";
-        this.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
+        if (imgName === "") {
+            this.mSprite = new PIXI.Sprite();
+            this.mSprite.texture = PIXI.Texture.EMPTY;
+        }
+        else {
+            this.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
+        }
         this.mSprite.width = this.mSize.x;
         this.mSprite.height = this.mSize.y;
         this.mSprite.anchor.x = 0.5;

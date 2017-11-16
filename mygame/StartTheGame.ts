@@ -6,12 +6,15 @@
 //// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 /// <reference types="pixi.js"/>
 
+document.addEventListener("DOMContentLoaded", () => {
+
 let myConfig = new MyConfig();
 
 let game = new Lol(myConfig);
 game.create();
 document.body.appendChild(game.mRenderer.view);
 requestAnimationFrame(() => gameLoop(game));
+});
 
 function gameLoop(game: Lol) {
   game.render();
