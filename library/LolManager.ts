@@ -188,7 +188,7 @@ class LolManager {
     this.mContainer = new PIXI.Container();
     this.mContainer.addChild(this.mWorld.mCamera.mContainer);
     this.mContainer.addChild(this.mHud.mCamera.mContainer);
-    this.mContainer.addChild(new PIXI.Text("Hello", {fontFamily: "Arial", fontSize: 24, fill: 0x0000FF, align: 'center'}));
+    this.mWorld.mContainer.addChild(new PIXI.Text("Hello", {fontFamily: "Arial", fontSize: 24, fill: 0x0000FF, align: 'center'}));
     // this.mPreScene = new QuickScene(this.mConfig, this.mMedia, "");
     // this.mPreScene.setShowAction(null);
     // this.mPauseScene = new QuickScene(this.mConfig, this.mMedia, "");
