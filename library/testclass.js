@@ -5495,7 +5495,7 @@ class MyConfig extends Config {
         //this.mLevels = new Levels();
         //this.mChooser = new Chooser();
         this.mHelp = new Help();
-        //this.mSplash = new Splash();
+        this.mSplash = new Splash();
     }
 }
 /// <reference path="../library/ScreenManager.ts"/>
