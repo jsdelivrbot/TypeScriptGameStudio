@@ -2178,6 +2178,7 @@ class Level {
     * @param color The color, formatted as a hex number
     */
     setBackgroundColor(color) {
+        PIXI.settings.RENDER_OPTIONS.backgroundColor = color;
         //this.mGame.mRenderer.backgroundColor = color;
     }
     //                                 /**
