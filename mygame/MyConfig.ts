@@ -50,8 +50,8 @@ class MyConfig extends Config {
     //this.mMusicNames = new string[]();
 
     // don't change these lines unless you know what you are doing
-    //this.mLevels = new Levels();
-    //this.mChooser = new Chooser();
+    this.mLevels = new Levels();
+    this.mChooser = new Chooser();
     this.mHelp = new Help();
     this.mSplash = new Splash();
   }

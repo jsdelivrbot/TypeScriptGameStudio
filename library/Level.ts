@@ -384,16 +384,16 @@ class Level {
   //     public void loseLevel() {
   //       mGame.mManager.endLevel(false);
   //     }
-  //
-  //     /**
-  //     * Change the gravity in a running level
-  //     *
-  //     * @param newXGravity The new X gravity
-  //     * @param newYGravity The new Y gravity
-  //     */
-  //     public void resetGravity(float newXGravity, float newYGravity) {
-  //       mGame.mManager.mWorld.mWorld.setGravity(new Vector2(newXGravity, newYGravity));
-  //     }
+
+  /**
+  * Change the gravity in a running level
+  *
+  * @param newXGravity The new X gravity
+  * @param newYGravity The new Y gravity
+  */
+  public resetGravity(newXGravity: number, newYGravity: number): void {
+    this.mGame.mManager.mWorld.mWorld.SetGravity(new PhysicsType2d.Vector2(newXGravity, newYGravity));
+  }
   //
   //     /**
   //     * Turn on accelerometer support so that tilt can control actors in this level
@@ -1435,7 +1435,7 @@ class Level {
   * @param color The color, formatted as a hex number
   */
   public setBackgroundColor(color: number) {
-    this.mGame.mRenderer = PIXI.autoDetectRenderer(this.mConfig.mWidth, this.mConfig.mHeight, {backgroundColor: color});
+    //this.mGame.mRenderer = PIXI.autoDetectRenderer(this.mConfig.mWidth, this.mConfig.mHeight, {backgroundColor: color});
   }
 
   //                                 /**
@@ -1694,25 +1694,25 @@ class Level {
   //                                                             return e;
   //                                                           }
   //
-  //                                                           /**
-  //                                                           * Make a destination that has an underlying rectangular shape.
-  //                                                           *
-  //                                                           * @param x       The X coordinate of the bottom left corner
-  //                                                           * @param y       The Y coordinate of the bottom right corner
-  //                                                           * @param width   The width of the destination
-  //                                                           * @param height  The height of the destination
-  //                                                           * @param imgName The name of the image to display
-  //                                                           * @return The destination, so that it can be modified further
-  //                                                           */
-  //                                                           public Destination makeDestinationAsBox(float x, float y, float width, float height,
-  //                                                             String imgName) {
-  //                                                               Destination d = new Destination(mGame, mGame.mManager.mWorld, width, height, imgName);
-  //                                                               d.setBoxPhysics(BodyDef.BodyType.StaticBody, x, y);
-  //                                                               d.setCollisionsEnabled(false);
-  //                                                               mGame.mManager.mWorld.addActor(d, 0);
-  //                                                               return d;
-  //                                                             }
-  //
+  /**
+  * Make a destination that has an underlying rectangular shape.
+  *
+  * @param x       The X coordinate of the bottom left corner
+  * @param y       The Y coordinate of the bottom right corner
+  * @param width   The width of the destination
+  * @param height  The height of the destination
+  * @param imgName The name of the image to display
+  * @return The destination, so that it can be modified further
+  */
+  public makeDestinationAsBox(x: number, y: number, width: number,
+    height: number, imgName: string): Destination {
+      let d: Destination = new Destination(this.mGame, this.mGame.mManager.mWorld, width, height, imgName);
+      d.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, x, y);
+      d.setCollisionsEnabled(false);
+      this.mGame.mManager.mWorld.addActor(d, 0);
+      return d;
+    }
+  
   //                                                             /**
   //                                                             * Draw a destination with an underlying polygon shape
   //                                                             *
