@@ -4649,8 +4649,8 @@ class LolManager {
 /// <reference path="./LolManager.ts"/>
 /// <reference path="./LolScene.ts"/>
 /// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+/// <reference types="pixi.js"/>
 class Lol {
     constructor(config) {
         this.mConfig = config;
