@@ -10,7 +10,6 @@ $(document).ready(function(){
 
         If there is no query string, redirect back to the account page.
     */
-
     currentGame = getParameterByName("game");
 
     /*
@@ -28,6 +27,23 @@ $(document).ready(function(){
     }
 });
 
+/*
+    Initial setup for the editor
+*/
+function editorSetup() {
+    editor.setTheme("ace/theme/chrome");
+    editor.getSession().setMode("ace/mode/typescript");
+    editor.$blockScrolling =  Infinity;
+    editor.setOptions({
+        fontSize : "16pt"
+    }); 
+    editor.resize();
+}
+
+/*
+    Retrieve a parameter from a query string. For use when loading the IDE
+    and loading the proper games.
+*/
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -38,7 +54,7 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-/*
+
 function compile(){
 
     saveContent();
@@ -71,9 +87,10 @@ function compile(){
     };
     xhr.send(JSON.stringify(request)); 
 }
-*/
+
 
 function loadGameFiles(gameName) {
+
     let xhr = new XMLHttpRequest(); 
     xhr.open("GET", '/game/getGame' + "?game_name=" + gameName);
 
@@ -81,7 +98,8 @@ function loadGameFiles(gameName) {
         if(xhr.readyState === 4){
             if(xhr.status !== 200){
                 alert('Could not get game files.');
-            }else{
+            }
+            else{
 
                 if(xhr.response !== "None"){
 
@@ -94,10 +112,10 @@ function loadGameFiles(gameName) {
                             setContentFile(files[i].gfile_contents);
                             activeFile = files[i].gfile_name;
                         }
-                        addFileFromAccount(files[i].gfile_name, files[i].gfile_contents);
+
+                        addFileToPage(files[i].gfile_name);
                         currentGameFiles[files[i].gfile_name] = files[i].gfile_contents;
                     }
-                    console.log(currentGameFiles);
                 }
                 else{
                     let initialContent = "//Click the plus sign to the left to add a new file to your project and start coding!";
@@ -110,17 +128,13 @@ function loadGameFiles(gameName) {
     xhr.send();
 }
 
-function editorSetup() {
-    editor.setTheme("ace/theme/chrome");
-    editor.getSession().setMode("ace/mode/typescript");
-    editor.resize();
-}
-
 /*
     Save the contents of all the files to the server
 */
 function saveContent() {
-        
+    
+    console.log(currentGameFiles);
+
     //Push the active file's contents to the currentGameFiles dictionary
     currentGameFiles[activeFile] = editor.getValue();
 
@@ -155,26 +169,11 @@ function saveContent() {
         }
     };
     xhr.send(JSON.stringify(request)); 
-
-    /*    
-    var files = [];
-
-    //Iterate through all of the files for the current project
-    for (var i = 0; i < currentGameFiles.length; i++){
-        addFileFromAccount(currentGameFiles[i].gfile_name, currentGameFiles[i].gfile_contents);
-        files.push({gfile_name : files[i].gfile_name, gfile_contents : files[i].gfile_contents})
-    }
-    */
 }
 
-/*
-editor.on("change", function(data){
-    console.log(data);
-    currentGameFiles[activeFile] = editor.getValue();
-});
-*/
-
 function switchActiveFile(name){
+
+    console.log(name);
 
     if(activeFile != name){
 
@@ -190,55 +189,52 @@ function switchActiveFile(name){
     }
 }
 
-function addFileFromAccount(name, contents){
+function addFileToPage(fileName){
+
     let listItemNode = document.createElement("button");
+
     listItemNode.type = "button";     
     listItemNode.className += "list-group-item";
     listItemNode.className += " text-left";
     listItemNode.id += name;
-    let textNode = document.createTextNode(name); 
+
+    let textNode = document.createTextNode(fileName); 
     listItemNode.appendChild(textNode); 
+    listItemNode.onclick = function(){
+        switchActiveFile(fileName);
+    }
+
     document.getElementById("fileList").appendChild(listItemNode);
-    $(listItemNode).on("click", function(){
-        switchActiveFile($(this).attr('id'));
-    });
 }
 
 function createFile() {
 
     let fileName = document.getElementById("fileName").value; 
-    let listItemNode = document.createElement("button");
-    listItemNode.type = "button";     
-    listItemNode.className += "list-group-item";
-    listItemNode.className += " text-left";
-    listItemNode.id += name;
-
-    setContentNewFile(fileName); 
-    let textNode = document.createTextNode(fileName); 
-    listItemNode.appendChild(textNode); 
-    document.getElementById("fileList").appendChild(listItemNode);
-
-    $(listItemNode).on("click", function(){
-        switchActiveFile($(this).attr('id'));
-    });
 
     //Send the new file off to the server to add to the user's account
     const xhr = new XMLHttpRequest();
     xhr.open('POST', "/game/addNewGameFile");
     xhr.setRequestHeader("Content-Type", "application/json");
 
+    var fileContents = "//" + fileName;
+
     var game = {
         game_name : currentGame,
         file : {
             gfile_name : fileName,
-            gfile_contents : "//" + fileName
+            gfile_contents : fileContents
         }
     };
 
     xhr.onreadystatechange = () => {
+
         if(xhr.readyState === 4){
-            if(xhr.status === 200){
-                console.log("Success");
+
+            if(xhr.status === 200){     
+
+                currentGameFiles[fileName] = fileContents;
+                addFileToPage(fileName);
+                switchActiveFile(fileName);
             }
             else{
                 console.log("Error adding file")
