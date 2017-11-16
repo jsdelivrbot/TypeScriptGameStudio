@@ -1435,7 +1435,7 @@ class Level {
   * @param color The color, formatted as a hex number
   */
   public setBackgroundColor(color: number) {
-    this.mGame.mRenderer.backgroundColor = color;
+    //this.mGame.mRenderer.backgroundColor = color;
   }
 
   //                                 /**

@@ -1,4 +1,3 @@
-"use strict";
 /**
 * Renderable is the base of all objects that can be displayed on the screen.  At its most simple
 * level, a Renderable is simply a function (<code>onRender</code>), and a flag to indicate whether
@@ -5432,7 +5431,7 @@ class Help {
             // set up a basic screen
             level.setBackgroundColor(0x00FFFF);
             //level.makeObstacleAsBox(5, 0, 3, 3, "greyball.png");
-            level.addStaticText(9, 1, "Arial", 0x00FFFF, 24, "This is an example Help screen", 0);
+            level.addStaticText(100, 100, "Arial", 0x00FFFF, 24, "This is an example Help screen", 0);
             // set up a control to go to the splash screen on screen press
             level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
                 go() {
