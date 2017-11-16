@@ -4680,7 +4680,6 @@ class Lol {
         //    putGameFact(mConfig, "volume", 1);
         // Create the level manager, and instruct it to transition to the Splash screen
         this.mManager = new LolManager(this.mConfig, this.mMedia, this);
-        document.body.appendChild(this.mRenderer.view);
         this.mManager.doHelp(1);
     }
     /**
@@ -5574,6 +5573,7 @@ class MyConfig extends Config {
 let myConfig = new MyConfig();
 let game = new Lol(myConfig);
 game.create();
+document.body.appendChild(game.mRenderer.view);
 requestAnimationFrame(() => gameLoop(game));
 function gameLoop(game) {
     game.render();
