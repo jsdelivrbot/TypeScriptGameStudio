@@ -132,8 +132,6 @@ class LolManager {
     // this.mWorld = world;
     // if (hud) this.mHud = hud;
     this.mContainer = new PIXI.Container();
-    this.mContainer.addChild(this.mWorld.mCamera.mContainer);
-    this.mContainer.addChild(this.mHud.mCamera.mContainer);
     //
     // this.mGoodiesCollected = new Array<number>();
   }
@@ -189,13 +187,16 @@ class LolManager {
         out_this.repeatLevel();
       }
     })());
+
+    this.mContainer.addChild(this.mWorld.mCamera.mContainer);
+    this.mContainer.addChild(this.mHud.mCamera.mContainer);
     // this.mPreScene = new QuickScene(this.mConfig, this.mMedia, "");
     // this.mPreScene.setShowAction(null);
     // this.mPauseScene = new QuickScene(this.mConfig, this.mMedia, "");
     // this.mPauseScene.setAsPauseScene();
   }
 
-  
+
 
   /**
   * Before we call programmer code to load a new scene, we call this to ensure that everything is

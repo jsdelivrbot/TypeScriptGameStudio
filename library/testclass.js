@@ -2915,9 +2915,7 @@ class Level {
     * @param fontName  The name of the font to use
     * @param fontColor The color of the font
     * @param fontSize  The size of the font
-    * @param prefix    Prefix text to put before the generated text
-    * @param suffix    Suffix text to put after the generated text
-    * @param tp        A TextProducer that will generate the text to display
+    * @param text      Text text to put before the generated text
     * @param zIndex    The z index of the text
     * @return A Renderable of the text, so it can be enabled/disabled by program code
     */
@@ -3471,6 +3469,8 @@ class LolScene {
                 //String txt = prefix + tp.makeText() + suffix;
                 //renderText(x, y, txt, mFont, sb);
                 let newText = new PIXI.Text(text, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
+                newText.position.x = x;
+                newText.position.y = y;
                 this.mText = newText;
             }
         })();
