@@ -193,7 +193,7 @@ abstract class LolScene {
               // this.mText = newText;
           }
       })();
-      let newText = new PIXI.Text("Hello Darkness My Old Friend", {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
+      let newText = new PIXI.Text(text, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
       d.mText = newText;
       this.addActor(d, zIndex);
       return d;

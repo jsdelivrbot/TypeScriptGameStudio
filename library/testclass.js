@@ -3465,15 +3465,14 @@ class LolScene {
         let d = new (class _ extends Renderable {
             //@Override
             onRender() {
-                //mFont.setColor(mColor);
-                //String txt = prefix + tp.makeText() + suffix;
-                //renderText(x, y, txt, mFont, sb);
-                let newText = new PIXI.Text(text, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
-                newText.position.x = x;
-                newText.position.y = y;
-                this.mText = newText;
+                // let newText = new PIXI.Text("Hello Darkness My Old Friend", {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
+                // newText.position.x = x;
+                // newText.position.y = y;
+                // this.mText = newText;
             }
         })();
+        let newText = new PIXI.Text("Hello Darkness My Old Friend", { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
+        d.mText = newText;
         this.addActor(d, zIndex);
         return d;
     }
@@ -4387,7 +4386,7 @@ class LolManager {
         this.mContainer = new PIXI.Container();
         this.mContainer.addChild(this.mWorld.mCamera.mContainer);
         this.mContainer.addChild(this.mHud.mCamera.mContainer);
-        this.mWorld.mContainer.addChild(new PIXI.Text("Hello", { fontFamily: "Arial", fontSize: 24, fill: 0x0000FF, align: 'center' }));
+        //this.mWorld.mContainer.addChild(new PIXI.Text("Hello", {fontFamily: "Arial", fontSize: 24, fill: 0x0000FF, align: 'center'}));
         // this.mPreScene = new QuickScene(this.mConfig, this.mMedia, "");
         // this.mPreScene.setShowAction(null);
         // this.mPauseScene = new QuickScene(this.mConfig, this.mMedia, "");
@@ -5430,7 +5429,6 @@ class Help {
         if (index == 1) {
             // set up a basic screen
             level.setBackgroundColor(0x00FFFF);
-            //level.makeObstacleAsBox(5, 0, 3, 3, "greyball.png");
             level.addStaticText(100, 100, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
             // set up a control to go to the splash screen on screen press
             level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
