@@ -18,8 +18,10 @@ class Help implements ScreenManager {
             // set up a basic screen
             level.setBackgroundColor(0x00FFFF);
 
-
-            level.addStaticText(100, 100, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
+            level.addImage(700, 490, 150, 150, "../library/images/fun.jpg");
+            level.addStaticText(480, 220, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
+            level.addStaticText(480, 320, "Arial", 0xFFFFFF, 24, "Text and images can be displayed here", 0);
+            level.addStaticText(480, 420, "Arial", 0xFFFFFF, 24, "This game is a side-scroller", 0);
 
             // set up a control to go to the splash screen on screen press
             level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {

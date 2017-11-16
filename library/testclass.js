@@ -3473,6 +3473,8 @@ class LolScene {
         })();
         let newText = new PIXI.Text(text, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
         d.mText = newText;
+        d.mText.position.x = x;
+        d.mText.position.y = y;
         this.addActor(d, zIndex);
         return d;
     }

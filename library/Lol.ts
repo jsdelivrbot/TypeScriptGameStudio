@@ -42,6 +42,9 @@ class Lol {
       //if (getGameFact(mConfig, "volume", 1) == 1)
       //    putGameFact(mConfig, "volume", 1);
 
+      this.mConfig.mImageNames.forEach( (e) => {
+        PIXI.loader.add(e);
+      } );
 
       // Create the level manager, and instruct it to transition to the Splash screen
       this.mManager = new LolManager(this.mConfig, this.mMedia, this);

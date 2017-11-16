@@ -1226,24 +1226,24 @@ class Level {
   //                                 mGame.mManager.mHud.addActor(c, 0);
   //                                 return c;
   //                               }
-  //
-  //                               /**
-  //                               * Add an image to the heads-up display. Touching the image has no effect
-  //                               *
-  //                               * @param x       The X coordinate of the bottom left corner (in pixels)
-  //                               * @param y       The Y coordinate of the bottom left corner (in pixels)
-  //                               * @param width   The width of the image
-  //                               * @param height  The height of the image
-  //                               * @param imgName The name of the image to display. Use "" for an invisible button
-  //                               * @return The image that was created
-  //                               */
-  //                               public SceneActor addImage(int x, int y, int width, int height, String imgName) {
-  //                                 final SceneActor c = new SceneActor(mGame.mManager.mHud, imgName, width, height);
-  //                                 c.setBoxPhysics(BodyDef.BodyType.StaticBody, x, y);
-  //                                 mGame.mManager.mHud.addActor(c, 0);
-  //                                 return c;
-  //                               }
-  //
+
+  /**
+  * Add an image to the heads-up display. Touching the image has no effect
+  *
+  * @param x       The X coordinate of the bottom left corner (in pixels)
+  * @param y       The Y coordinate of the bottom left corner (in pixels)
+  * @param width   The width of the image
+  * @param height  The height of the image
+  * @param imgName The name of the image to display. Use "" for an invisible button
+  * @return The image that was created
+  */
+  public addImage(x: number, y: number, width: number, height: number, imgName: string): SceneActor {
+    let c: SceneActor = new SceneActor(this.mGame.mManager.mHud, imgName, width, height);
+    c.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, x, y);
+    this.mGame.mManager.mHud.addActor(c, 0);
+    return c;
+  }
+
   //                               /**
   //                               * Add a control with callbacks for down, up, and pan
   //                               *
