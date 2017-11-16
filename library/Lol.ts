@@ -45,7 +45,6 @@ class Lol {
 
       // Create the level manager, and instruct it to transition to the Splash screen
       this.mManager = new LolManager(this.mConfig, this.mMedia, this);
-      document.body.appendChild(this.mRenderer.view);
       this.mManager.doHelp(1);
   }
 

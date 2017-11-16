@@ -2172,7 +2172,7 @@ class Level {
     * @param color The color, formatted as a hex number
     */
     setBackgroundColor(color) {
-        this.mGame.mRenderer.backgroundColor = color;
+        //this.mGame.renderer.backgroundColor = color;
     }
     //                                 /**
     //                                 * Add a picture that may repeat in the X dimension

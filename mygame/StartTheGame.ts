@@ -10,6 +10,7 @@ let myConfig = new MyConfig();
 
 let game = new Lol(myConfig);
 game.create();
+document.body.appendChild(game.mRenderer.view);
 requestAnimationFrame(() => gameLoop(game));
 
 function gameLoop(game: Lol) {
