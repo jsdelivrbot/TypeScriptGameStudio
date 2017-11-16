@@ -3378,7 +3378,10 @@ class LolScene {
         zIndex = (zIndex < -2) ? -2 : zIndex;
         zIndex = (zIndex > 2) ? 2 : zIndex;
         this.mRenderables[zIndex + 2].push(actor);
-        this.mContainer.addChild(actor.mSprite);
+        if (actor.mSprite)
+            this.mContainer.addChild(actor.mSprite);
+        if (actor.mText)
+            this.mContainer.addChild(actor.mText);
         this.mCamera.mContainer.addChild(this.mContainer);
     }
     /**
@@ -3455,7 +3458,6 @@ class LolScene {
      */
     addStaticText(x, y, fontName, fontColor, fontSize, text, zIndex) {
         // Create a renderable that updates its text on every render, and add it to the scene
-        var superThis = this;
         let d = new (class _ extends Renderable {
             //@Override
             onRender() {
@@ -3463,7 +3465,7 @@ class LolScene {
                 //String txt = prefix + tp.makeText() + suffix;
                 //renderText(x, y, txt, mFont, sb);
                 let newText = new PIXI.Text(text, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
-                superThis.mContainer.addChild(newText);
+                this.mText = newText;
             }
         })();
         this.addActor(d, zIndex);
