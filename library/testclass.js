@@ -2178,7 +2178,8 @@ class Level {
     * @param color The color, formatted as a hex number
     */
     setBackgroundColor(color) {
-        //this.mGame.renderer.backgroundColor = color;
+        this.mGame.mRenderer = new PIXI.Application({ width: this.mConfig.mWidth, height: this.mConfig.mHeight, backgroundColor: color }).renderer;
+        document.appendChild(this.mGame.mRenderer.view);
     }
     //                                 /**
     //                                 * Add a picture that may repeat in the X dimension
