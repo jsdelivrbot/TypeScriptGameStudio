@@ -4680,10 +4680,10 @@ class Lol {
         // configure the volume
         //if (getGameFact(mConfig, "volume", 1) == 1)
         //    putGameFact(mConfig, "volume", 1);
-        // this.mConfig.mImageNames.forEach( (e) => {
-        //   PIXI.loader.add(e);
-        // } );
-        // PIXI.loader.load();
+        this.mConfig.mImageNames.forEach((e) => {
+            PIXI.loader.add(e);
+        });
+        PIXI.loader.load();
         // Create the level manager, and instruct it to transition to the Splash screen
         this.mManager = new LolManager(this.mConfig, this.mMedia, this);
         this.mManager.doSplash();
@@ -5537,7 +5537,7 @@ class MyConfig extends Config {
         this.mDefaultFontSize = 32;
         this.mDefaultFontColor = "#FFFFFF";
         // list the images that the game will use
-        this.mImageNames = new Array("./images/fun.jpg");
+        this.mImageNames = new Array("./images/fun.jpg", "./images/BlueBox.png", "./images/OrangeBox.png");
         // list the sound effects that the game will use
         //this.mSoundNames = new string[]();
         // list the background music files that the game will use
