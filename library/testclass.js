@@ -5485,7 +5485,7 @@ class MyConfig extends Config {
         this.mDefaultFontSize = 32;
         this.mDefaultFontColor = "#FFFFFF";
         // list the images that the game will use
-        this.mImageNames = new Array("../library/images/fun.jpg");
+        this.mImageNames = new Array("./images/fun.jpg");
         // list the sound effects that the game will use
         //this.mSoundNames = new string[]();
         // list the background music files that the game will use
