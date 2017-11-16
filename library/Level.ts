@@ -1435,7 +1435,8 @@ class Level {
   * @param color The color, formatted as a hex number
   */
   public setBackgroundColor(color: number) {
-    this.mGame.mRenderer = PIXI.autoDetectRenderer(this.mConfig.mWidth, this.mConfig.mHeight, {backgroundColor: color});
+    (this.mGame.mRenderer as PIXI.SystemRenderer)._backgroundColor = color; 
+  //= PIXI.autoDetectRenderer(this.mConfig.mWidth, this.mConfig.mHeight, {backgroundColor: color});
   }
 
   //                                 /**
