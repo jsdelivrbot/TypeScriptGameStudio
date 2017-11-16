@@ -48,3 +48,4 @@ class Levels implements ScreenManager {
       level.setVictoryDestination(1);
     }
   }
+}
