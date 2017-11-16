@@ -777,7 +777,7 @@ class Camera {
 //// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
 //// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 // <reference types="pixi.js"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 /**
 * Level provides a broad, public, declarative interface to the core functionality of LibLOL.
 * <p>
