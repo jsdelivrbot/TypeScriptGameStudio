@@ -135,51 +135,36 @@ app.get('/sign-s3', (req, res) => {
   const fileType = req.query['file-type'];
 
   //Make sure the user is logged in
-  if(req.user != undefined){
+  if(req.user != undefined && fileName != undefined && fileType != undefined){
 
-    if(!database.checkIfExists(connection, {name : fileName}, "file", req.user)){
+  	var url = "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName;
 
-      const s3Params = {
-        Bucket: S3_BUCKET,
-        Key: req.user.email + '/' + fileName,
-        Expires: 60,
-        ContentType: fileType,
-        ACL: 'public-read'
-      };
+	const s3Params = {
+		Bucket: S3_BUCKET,
+		Key: req.user.email + '/' + fileName,
+		Expires: 60,
+		ContentType: fileType,
+		ACL: 'public-read'
+	};
 
-      s3.getSignedUrl('putObject', s3Params, (err, data) => {
-        if(err){
-          console.log(err);
-          return res.end();
-        }
-        const returnData = {
-          signedRequest: data,
-          url: "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName
-        };
+	const returnData = {
+      	signedRequest: data,
+    	url: url
+    };
 
-        /*
-          Add the new file to the user's list of files in the 
-          database
-        */
-        database.addNewFileEntry(connection, fileName, 
-          "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName, req.user, res);        
-      });
-    }
-    else{
-      const returnData = {
-        signedRequest : null,
-        url: "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName
-      };
-      res.status(200);
-      res.write(JSON.stringify(returnData));
-      res.end();
-    }
+	var data = {
+		s3Params : s3Params,
+		returnData : returnData,
+		s3: s3
+	}
+
+	database.checkIfExists(connection, {name : fileName, url: url}, "file", req.user, data, res);
   }
   else{
-    res.status(500);
+    res.status(200);
+    res.write("noLogin");
     return res.end();
   }
-  
 });
 
 /*

@@ -9,24 +9,29 @@ function Game(name, description, imgURL, lastUpdated, files) {
     this.files = files;
 }
 /*
-    Function to create a game amd save to the database
+    Create a game and save to the database
 */ 
 function createGame() {
-    let name = document.getElementById("projectName").value; 
-    let description = document.getElementById("projectDesc").value; 
-    let length = document.getElementById("projectImgUpload").files.length; 
-    let currentTime = new Date();     
-    let img = ""; 
+
+    var name = document.getElementById("projectName").value; 
+    var description = document.getElementById("projectDesc").value; 
+    var length = document.getElementById("projectImgUpload").files.length; 
+    var currentTime = new Date();     
+    var img = ""; 
     var file;
+
     if(length !== 0) {
         file = document.getElementById("projectImgUpload").files[0]; 
     }
-    getSignedRequest(file, name, description, currentTime); 
+
+    createGameStep1(file, name, description, currentTime); 
 }
+
 /*
-    Funciton to load all games a user has
+    Load all games a user has
 */ 
 function loadGames() {
+    
     let xhr = new XMLHttpRequest(); 
     xhr.open('GET', '/game/allGames');
     xhr.setRequestHeader("Content-Type", "application/json");    
@@ -60,49 +65,78 @@ function loadGames() {
             }
         }
     }
+
     xhr.send(); 
 }
 
-function getSignedRequest(file, name, description, currentTime){
+/*
+    Prepare a signed request to Amazon to upload the game's image.
+*/
+function createGameStep1(file, name, description, currentTime){
+    
     const xhr = new XMLHttpRequest();
     xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+
     xhr.onreadystatechange = () => {
+
         if(xhr.readyState === 4){
             if(xhr.status === 200){
-                const response = JSON.parse(xhr.responseText);
+                
+                const response = JSON.parse(xhr.responseText);        
                 let newGame = {game_name : name, description : description, imgURL : response.url, datetime : currentTime};  
-                uploadFile(file, response.signedRequest, response.url, newGame);
+
+                //File has already been uploaded
+                if(response.signedRequest == null){
+                    createGameStep2(newGame)
+                }
+                else{
+                    uploadFile(file, response.signedRequest, response.url, newGame);
+                }
             }
             else{
-                alert('Could not get signed URL.');
+                alert('Error. Could not upload game image. Please try again.');
             }
         }
     };
+
     xhr.send();
 }
 
+/*
+    Execute the upload to Amazon
+*/
 function uploadFile(file, signedRequest, url, newGame){
+
     const xhr = new XMLHttpRequest();
     xhr.open('PUT', signedRequest);
+
     xhr.onreadystatechange = () => {
+
         if(xhr.readyState === 4){
             if(xhr.status !== 200){
-                alert('Could not upload file.');
+                alert('Error. Could not upload game image. Please try again.');
             }
             else{
                 createGameStep2(newGame);
             }
         }
     };
+
     xhr.send(file);
 }
 
+/*
+    After the game's image has been uploaded, we should create a new game
+    in the database for the user and load the IDE once we receive a response
+*/
 function createGameStep2(newGame) {
+
     let xhr = new XMLHttpRequest(); 
     xhr.open('POST', '/game/newGame');
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = () => {
+
         if(xhr.readyState === 4){
             if(xhr.status !== 200){
                 alert('Could not create game.');
@@ -112,5 +146,6 @@ function createGameStep2(newGame) {
             }
         }
     };
+
     xhr.send(JSON.stringify(newGame));
 }   
