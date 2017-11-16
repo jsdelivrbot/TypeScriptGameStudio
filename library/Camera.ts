@@ -28,6 +28,11 @@ class Camera {
     this.mContainer.position.y = y - this.mHeight / 2;
   }
 
+  centerOn(x: number, y: number) {
+    this.mContainer.pivot.x = x - this.mWidth / 2;
+    this.mContainer.pivot.y = y - this.mHeight / 2;
+  }
+
   // updatePosition() {
   //   this.mContainer.pivot = this.mChaseActor.mSprite.position;
   //   this.mContainer.position.x = this.mWidth / 2;

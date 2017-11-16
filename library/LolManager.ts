@@ -195,6 +195,8 @@ class LolManager {
     // this.mPauseScene.setAsPauseScene();
   }
 
+  
+
   /**
   * Before we call programmer code to load a new scene, we call this to ensure that everything is
   * in a clean state.

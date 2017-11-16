@@ -1,4 +1,4 @@
-
+/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 
 /**
 * Level provides a broad, public, declarative interface to the core functionality of LibLOL.
@@ -682,29 +682,29 @@ class Level {
   //         public void setStopwatch(float newVal) {
   //           this.mGame.mManager.mStopWatchProgress = newVal;
   //         }
-  //
-  //         /**
-  //         * Add a button that pauses the game (via a single tap) by causing a PauseScene to be
-  //         * displayed. Note that you must configure a PauseScene, or pressing this button will cause your
-  //         * game to crash.
-  //         *
-  //         * @param x       The X coordinate of the bottom left corner (in pixels)
-  //         * @param y       The Y coordinate of the bottom left corner (in pixels)
-  //         * @param width   The width of the image
-  //         * @param height  The height of the image
-  //         * @param imgName The name of the image to display. Use "" for an invisible button
-  //         * @param action  The action to run in response to a tap
-  //         */
-  //         public SceneActor addTapControl(float x, float y, float width, float height, String imgName,
-  //           final TouchEventHandler action) {
-  //             SceneActor c = new SceneActor(mGame.mManager.mHud, imgName, width, height);
-  //             c.setBoxPhysics(BodyDef.BodyType.StaticBody, x, y);
-  //             c.mTapHandler = action;
-  //             action.mSource = c;
-  //             mGame.mManager.mHud.addActor(c, 0);
-  //             return c;
-  //           }
-  //
+
+  /**
+  * Add a button that performs an action when clicked.
+  *
+  * @param x       The X coordinate of the bottom left corner (in pixels)
+  * @param y       The Y coordinate of the bottom left corner (in pixels)
+  * @param width   The width of the image
+  * @param height  The height of the image
+  * @param imgName The name of the image to display. Use "" for an invisible button
+  * @param action  The action to run in response to a tap
+  */
+  public addTapControl(x: number, y: number, width: number, height: number,
+    imgName: string, action: LolAction): SceneActor {
+      let c: SceneActor = new SceneActor(this.mGame.mManager.mHud, imgName, width, height);
+      c.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, x, y);
+      //c.mTapHandler = action;
+      //action.mSource = c;
+      c.mSprite.interactive = true;
+      c.mSprite.on('click', () => action.go());
+      this.mGame.mManager.mHud.addActor(c, 0);
+      return c;
+  }
+
   //           /**
   //           * An action to pause the game.  This action can be used as the action taken on a Control tap.
   //           */
@@ -1428,7 +1428,16 @@ class Level {
   //                                 public void setBackgroundColor(String color) {
   //                                   mGame.mManager.mBackground.mColor = Color.valueOf(color);
   //                                 }
-  //
+
+  /**
+  * Set the background color for the current level
+  *
+  * @param color The color, formatted as a hex number
+  */
+  public setBackgroundColor(color: number) {
+    this.mGame.mRenderer.backgroundColor = color;
+  }
+
   //                                 /**
   //                                 * Add a picture that may repeat in the X dimension
   //                                 *
@@ -2140,48 +2149,66 @@ class Level {
   //                                                                                   final String imgName, int zIndex) {
   //                                                                                     mGame.mManager.mWorld.makePicture(x, y, width, height, imgName, zIndex);
   //                                                                                   }
-  //
-  //                                                                                   /**
-  //                                                                                   * Draw some text in the scene, using a bottom-left coordinate
-  //                                                                                   *
-  //                                                                                   * @param x         The x coordinate of the bottom left corner
-  //                                                                                   * @param y         The y coordinate of the bottom left corner
-  //                                                                                   * @param fontName  The name of the font to use
-  //                                                                                   * @param fontColor The color of the font
-  //                                                                                   * @param fontSize  The size of the font
-  //                                                                                   * @param prefix    Prefix text to put before the generated text
-  //                                                                                   * @param suffix    Suffix text to put after the generated text
-  //                                                                                   * @param tp        A TextProducer that will generate the text to display
-  //                                                                                   * @param zIndex    The z index of the text
-  //                                                                                   * @return A Renderable of the text, so it can be enabled/disabled by program code
-  //                                                                                   */
-  //                                                                                   public Renderable addText(float x, float y, String fontName, String fontColor, int fontSize,
-  //                                                                                     String prefix, String suffix, TextProducer tp, int zIndex) {
-  //                                                                                       return mGame.mManager.mWorld.addText(x, y, fontName, fontColor, fontSize, prefix, suffix,
-  //                                                                                         tp, zIndex);
-  //                                                                                       }
-  //
-  //                                                                                       /**
-  //                                                                                       * Draw some text in the scene, centering it on a specific point
-  //                                                                                       *
-  //                                                                                       * @param centerX   The x coordinate of the center
-  //                                                                                       * @param centerY   The y coordinate of the center
-  //                                                                                       * @param fontName  The name of the font to use
-  //                                                                                       * @param fontColor The color of the font
-  //                                                                                       * @param fontSize  The size of the font
-  //                                                                                       * @param prefix    Prefix text to put before the generated text
-  //                                                                                       * @param suffix    Suffix text to put after the generated text
-  //                                                                                       * @param tp        A TextProducer that will generate the text to display
-  //                                                                                       * @param zIndex    The z index of the text
-  //                                                                                       * @return A Renderable of the text, so it can be enabled/disabled by program code
-  //                                                                                       */
-  //                                                                                       public Renderable addTextCentered(float centerX, float centerY, String fontName,
-  //                                                                                         String fontColor, int fontSize, String prefix, String suffix,
-  //                                                                                         TextProducer tp, int zIndex) {
-  //                                                                                           return mGame.mManager.mWorld.addTextCentered(centerX, centerY, fontName, fontColor,
-  //                                                                                             fontSize, prefix, suffix, tp, zIndex);
-  //                                                                                           }
-  //
+
+  // /**
+  // * Draw some text in the scene, using a bottom-left coordinate
+  // *
+  // * @param x         The x coordinate of the bottom left corner
+  // * @param y         The y coordinate of the bottom left corner
+  // * @param fontName  The name of the font to use
+  // * @param fontColor The color of the font
+  // * @param fontSize  The size of the font
+  // * @param prefix    Prefix text to put before the generated text
+  // * @param suffix    Suffix text to put after the generated text
+  // * @param tp        A TextProducer that will generate the text to display
+  // * @param zIndex    The z index of the text
+  // * @return A Renderable of the text, so it can be enabled/disabled by program code
+  // */
+  // public Renderable addText(float x, float y, String fontName, String fontColor, int fontSize,
+  //   String prefix, String suffix, TextProducer tp, int zIndex) {
+  //     return mGame.mManager.mWorld.addText(x, y, fontName, fontColor, fontSize, prefix, suffix,
+  //       tp, zIndex);
+  //     }
+
+  /**
+  * Draw some text in the scene, using a bottom-left coordinate
+  *
+  * @param x         The x coordinate of the bottom left corner
+  * @param y         The y coordinate of the bottom left corner
+  * @param fontName  The name of the font to use
+  * @param fontColor The color of the font
+  * @param fontSize  The size of the font
+  * @param prefix    Prefix text to put before the generated text
+  * @param suffix    Suffix text to put after the generated text
+  * @param tp        A TextProducer that will generate the text to display
+  * @param zIndex    The z index of the text
+  * @return A Renderable of the text, so it can be enabled/disabled by program code
+  */
+  public addStaticText(x: number, y: number, fontName: string, fontColor: number, fontSize: number, text: string, zIndex: number): Renderable {
+      return this.mGame.mManager.mWorld.addStaticText(x, y, fontName, fontColor, fontSize, text, zIndex);
+      }
+
+  // /**
+  // * Draw some text in the scene, centering it on a specific point
+  // *
+  // * @param centerX   The x coordinate of the center
+  // * @param centerY   The y coordinate of the center
+  // * @param fontName  The name of the font to use
+  // * @param fontColor The color of the font
+  // * @param fontSize  The size of the font
+  // * @param prefix    Prefix text to put before the generated text
+  // * @param suffix    Suffix text to put after the generated text
+  // * @param tp        A TextProducer that will generate the text to display
+  // * @param zIndex    The z index of the text
+  // * @return A Renderable of the text, so it can be enabled/disabled by program code
+  // */
+  // public Renderable addTextCentered(float centerX, float centerY, String fontName,
+  //   String fontColor, int fontSize, String prefix, String suffix,
+  //   TextProducer tp, int zIndex) {
+  //     return mGame.mManager.mWorld.addTextCentered(centerX, centerY, fontName, fontColor,
+  //       fontSize, prefix, suffix, tp, zIndex);
+  //     }
+
   //                                                                                           /**
   //                                                                                           * Generate a random number x in the range [0,max)
   //                                                                                           *
@@ -2199,42 +2226,42 @@ class Level {
   //                                                                                           public boolean getUnlockMode() {
   //                                                                                             return mConfig.mUnlockAllLevels;
   //                                                                                           }
-  //
-  //                                                                                           /**
-  //                                                                                           * load the splash screen
-  //                                                                                           */
-  //                                                                                           public void doSplash() {
-  //                                                                                             mGame.mManager.doSplash();
-  //                                                                                           }
-  //
-  //                                                                                           /**
-  //                                                                                           * load the level-chooser screen. Note that when the chooser is disabled, we jump straight to
-  //                                                                                           * level 1.
-  //                                                                                           *
-  //                                                                                           * @param whichChooser The chooser screen to create
-  //                                                                                           */
-  //                                                                                           public void doChooser(int whichChooser) {
-  //                                                                                             mGame.mManager.doChooser(whichChooser);
-  //                                                                                           }
-  //
-  //                                                                                           /**
-  //                                                                                           * load a playable level.
-  //                                                                                           *
-  //                                                                                           * @param which The index of the level to load
-  //                                                                                           */
-  //                                                                                           public void doLevel(int which) {
-  //                                                                                             mGame.mManager.doPlay(which);
-  //                                                                                           }
-  //
-  //                                                                                           /**
-  //                                                                                           * load a help level.
-  //                                                                                           *
-  //                                                                                           * @param which The index of the help level to load
-  //                                                                                           */
-  //                                                                                           public void doHelp(int which) {
-  //                                                                                             mGame.mManager.doHelp(which);
-  //                                                                                           }
-  //
+
+  /**
+  * load the splash screen
+  */
+  public doSplash(): void {
+    this.mGame.mManager.doSplash();
+  }
+
+  /**
+  * load the level-chooser screen. Note that when the chooser is disabled, we jump straight to
+  * level 1.
+  *
+  * @param whichChooser The chooser screen to create
+  */
+  public doChooser(whichChooser: number) {
+    this.mGame.mManager.doChooser(whichChooser);
+  }
+
+  /**
+  * load a playable level.
+  *
+  * @param which The index of the level to load
+  */
+  public doLevel(which: number) {
+    this.mGame.mManager.doPlay(which);
+  }
+
+  /**
+  * load a help level.
+  *
+  * @param which The index of the help level to load
+  */
+  public doHelp(which: number) {
+    this.mGame.mManager.doHelp(which);
+  }
+
   //                                                                                           /**
   //                                                                                           * load a screen of the store.
   //                                                                                           *

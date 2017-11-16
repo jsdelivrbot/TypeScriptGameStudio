@@ -168,6 +168,37 @@ abstract class LolScene {
   // }
 
   /**
+   * Draw some text in the scene, using a bottom-left coordinate
+   *
+   * @param x         The x coordinate of the bottom left corner
+   * @param y         The y coordinate of the bottom left corner
+   * @param fontName  The name of the font to use
+   * @param fontColor The color of the font
+   * @param fontSize  The size of the font
+   * @param text      Text to put on screen
+   * @param zIndex    The z index of the text
+   * @return A Renderable of the text, so it can be enabled/disabled by program code
+   */
+  public addStaticText(x: number, y: number, fontName: string, fontColor: number,
+                fontSize: number, text: string, zIndex: number): Renderable {
+
+      // Create a renderable that updates its text on every render, and add it to the scene
+      var superThis = this;
+      let d: Renderable = new (class _ extends Renderable {
+          //@Override
+          onRender(): void {
+              //mFont.setColor(mColor);
+              //String txt = prefix + tp.makeText() + suffix;
+              //renderText(x, y, txt, mFont, sb);
+              let newText = new PIXI.Text(text, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
+              superThis.mContainer.addChild(newText);
+          }
+      })();
+      this.addActor(d, zIndex);
+      return d;
+  }
+
+  /**
    * Render this scene
    *
    * @param sb    The SpriteBatch used to render the scene

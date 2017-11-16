@@ -411,7 +411,8 @@ class MainScene extends LolScene {
     }
 
     // update the camera position
-    this.mCamera.setPosition(x, y);
+    this.mCamera.centerOn(x, y);
+    this.mCamera.setPosition(this.mConfig.mWidth/2, this.mConfig.mHeight/2);
   }
 
   // /**
