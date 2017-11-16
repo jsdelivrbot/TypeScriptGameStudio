@@ -2176,9 +2176,8 @@ class Level {
     * @param color The color, formatted as a hex number
     */
     setBackgroundColor(color) {
-        this.mGame.mRenderer.destroy(true);
+        this.mGame.mRenderer.destroy(false);
         this.mGame.mRenderer = PIXI.autoDetectRenderer(this.mConfig.mWidth, this.mConfig.mHeight, { backgroundColor: color });
-        document.appendChild(this.mGame.mRenderer.view);
     }
     //                                 /**
     //                                 * Add a picture that may repeat in the X dimension
