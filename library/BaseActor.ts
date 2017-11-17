@@ -254,9 +254,11 @@ class BaseActor extends Renderable {
   setCollisionsEnabled(state: boolean): void {
     // The default is for all fixtures of a actor have the same sensor state
     let fixtures = this.mBody.GetFixtures();
-    do {
+
+    while(fixtures.MoveNext()) {
       fixtures.Current().SetSensor(!state);
-    } while(fixtures.MoveNext());
+    }
+    
     fixtures.Reset();
   }
 
