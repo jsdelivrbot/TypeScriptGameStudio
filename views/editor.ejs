@@ -17,8 +17,8 @@
                     <button class="btn btn-sm bg-white my-2 my-sm-0" type="submit">Back to Workspace</button> 
                 </a>                   
                 <button onclick="saveContent()" class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Save</button>
-                <button class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Run</button>
-                <button onclick="compile()" class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Publish</button>
+                <button onclick="compile(0)" class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Compile &amp; Run</button>
+                <button onclick="compile(1)" class="btn btn-sm bg-white my-2 my-sm-0 ml-2" type="submit">Publish</button>
             </div>
         </nav>
 
@@ -34,10 +34,7 @@
                         <div class="col-1">
                             <ul class="nav nav-tabs tabs-left vertical-text d-flex flex-column">
                                 <li class="active"><a class="text-dark" href="#home-v" data-toggle="tab">Projects</a></li>
-                                <li><a class="text-dark" href="#profile-v" data-toggle="tab">Reference</a></li>
-                                <li><a class="text-dark" href="#messages-v" data-toggle="tab">Library</a></li>
-                                <li><a class="text-dark" href="#search-v" data-toggle="tab">Search</a></li>
-                                <li><a class="text-dark" href="#settings-v" data-toggle="tab">Setting</a></li>
+                                <li><a class="text-dark" href="#profile-v" data-toggle="tab">Resources</a></li>
                             </ul>
                         </div>
 
@@ -56,17 +53,23 @@
                                     <br>
                                     Project Files
                                     <div class="list-group" id="fileList">
-                                        <!-- <button type="button" onclick="setContent()" class="list-group-item text-left">File 1</button>
-                                        <button type="button" class="list-group-item text-left">File 2</button>
-                                        <button type="button" class="list-group-item text-left">File 3</button>
-                                        <button type="button" class="list-group-item text-left">File 4</button>
-                                        <button type="button" class="list-group-item text-left">File 5</button> -->
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="profile-v">Reference Tab.</div>
-                                <div class="tab-pane" id="messages-v">Library Tab.</div>
-                                <div class="tab-pane" id="search-v">Search Tab.</div>
-                                <div class="tab-pane" id="settings-v">Setting Tab.</div>
+                                <div class="tab-pane" id="profile-v">
+                                    <span class="pull-right">
+                                        <a data-toggle="modal" data-target="#uploadFileModal">
+                                            <i class="fa fa-plus mr-1" aria-hidden="true"></i>
+                                        </a>
+                                        <a data-toggle="modal" data-target="#uploadModal" onclick="hideUploadSucessMsg()">
+                                            <i class="fa fa-upload" aria-hidden="true"></i>
+                                        </a>
+                                    </span>
+                                    <br>
+                                    Resources
+                                    <div class="list-group" id="fileList">
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
 
@@ -127,6 +130,16 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Game test modal -->
+                        <div class="modal fade" id="runGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
     
@@ -141,7 +154,9 @@
             </div>
         </div>
         
-        <% include partials/jsdefaults.ejs %>                
+        <% include partials/jsdefaults.ejs %>      
+        <% include partials/gamedefaults.ejs %>                
+          
         <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
         <script src="js/ace/mode-typescript.js" type="text/javascript" charset="utf-8"></script>    
         <script src="js/editor.js" type="text/javascript" charset="utf-8"></script>

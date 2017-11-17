@@ -27,13 +27,14 @@
   ]*/
 
   "include": [
-    "./library/dependencyfiles/*",
-    "./library/*.ts"
+    "../library/dependencyfiles/*",
+    "../library/*.ts",
+    "*.ts"
   ],
 
   "exclude": [
-    "./library/images/*",
-    "./library/typedefinitions/*"
+    "../library/images/*",
+    "../library/typedefinitions/*"
   ]
 
 

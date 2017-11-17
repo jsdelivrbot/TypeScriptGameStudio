@@ -149,7 +149,7 @@ app.get('/sign-s3', (req, res) => {
 	};
 
 	const returnData = {
-      	signedRequest: data,
+      	signedRequest: null,
     	url: url
     };
 
@@ -158,7 +158,7 @@ app.get('/sign-s3', (req, res) => {
 		returnData : returnData,
 		s3: s3
 	}
-
+	console.log(data);
 	database.checkIfExists(connection, {name : fileName, url: url}, "file", req.user, data, res);
   }
   else{
@@ -295,7 +295,7 @@ app.post("/game/compile", function(req, res){
 
   if(req.user){
 
-  	console.log(req.body);
+  	//console.log(req.body);
 
     var postData = {
       email : req.user.email,
@@ -304,9 +304,9 @@ app.post("/game/compile", function(req, res){
       contents : req.body.contents
     };
 
-    console.log(JSON.stringify(postData));
+    //console.log(JSON.stringify(postData));
 
-    /*
+    
     var options = {
       hostname : "localhost",
       port : 5001,
@@ -317,8 +317,8 @@ app.post("/game/compile", function(req, res){
          'Content-Length' : Buffer.byteLength(JSON.stringify(postData)) 
       }
     };
-	*/
-
+	
+    /*
     var options = {
       hostname : "typescript-game-studio-build.herokuapp.com",
       path : "/compile",
@@ -328,8 +328,9 @@ app.post("/game/compile", function(req, res){
          'Content-Length' : Buffer.byteLength(JSON.stringify(postData)) 
       }
     };
+	*/
 
-    var req = https.request(options, (response) => {
+    var req = http.request(options, (response) => {
 
       var data = '';
 
@@ -340,7 +341,7 @@ app.post("/game/compile", function(req, res){
       });
 
       response.on('end', () => {
-        console.log(data);
+        //console.log(data);
         res.write(data);
         res.status(200);
         res.end();

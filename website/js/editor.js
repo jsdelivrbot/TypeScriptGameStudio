@@ -34,7 +34,7 @@ function editorSetup() {
     editor.getSession().setMode("ace/mode/typescript");
     editor.$blockScrolling =  Infinity;
     editor.setOptions({
-        fontSize : "16pt"
+        fontSize : "8pt"
     }); 
     editor.resize();
 }
@@ -54,7 +54,7 @@ function getParameterByName(name, url) {
 }
 
 
-function compile(){
+function compile(arg){
 
     saveContent();
 
@@ -75,7 +75,8 @@ function compile(){
 
     var request = {
         game_name : currentGame,
-        contents : files
+        contents : files,
+        publish : arg
     };
 
     console.log(JSON.stringify(request));
@@ -83,7 +84,20 @@ function compile(){
     xhr.onreadystatechange = () => {
         if(xhr.readyState === 4){
             if(xhr.status === 200){
-                console.log("Success");
+                
+                var res = JSON.parse(xhr.response);
+
+                if(res.error == 1){
+                    alert("Error\n" + res.contents);
+                }
+                else{
+                    alert("Successfully compiled.");
+                    console.log(res.contents);
+                    var script = document.createElement('script');
+                    script.type = "text/javascript";
+                    script.innerHTML = res.contents;
+                    document.body.appendChild(script);
+                }
             }
             else{
                 console.log("Error adding file")

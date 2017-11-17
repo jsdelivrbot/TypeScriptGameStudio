@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@types/pixi.js": "^4.5.4",
+    "async": "^2.6.0",
     "aws-sdk": "^2.122.0",
     "body-parser": "^1.18.2",
     "boostrap": "^1.0.0",
