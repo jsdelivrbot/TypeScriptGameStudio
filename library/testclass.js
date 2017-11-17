@@ -75,7 +75,7 @@ class BaseActor extends Renderable {
             this.mSprite.texture = PIXI.Texture.EMPTY;
         }
         else {
-            this.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
+            this.mSprite = PIXI.Sprite.fromImage(imgName);
         }
         this.mSprite.width = this.mSize.x;
         this.mSprite.height = this.mSize.y;
@@ -4680,10 +4680,10 @@ class Lol {
         // configure the volume
         //if (getGameFact(mConfig, "volume", 1) == 1)
         //    putGameFact(mConfig, "volume", 1);
-        this.mConfig.mImageNames.forEach((e) => {
-            PIXI.loader.add(e);
-        });
-        PIXI.loader.load();
+        // this.mConfig.mImageNames.forEach( (e) => {
+        //   PIXI.loader.add(e);
+        // } );
+        // PIXI.loader.load();
         // Create the level manager, and instruct it to transition to the Splash screen
         this.mManager = new LolManager(this.mConfig, this.mMedia, this);
         this.mManager.doSplash();
