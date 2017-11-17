@@ -371,6 +371,7 @@ class LolManager {
     // check if the level is complete
     this.mDestinationArrivals++;
     if ((this.mVictoryType == VictoryType.DESTINATION) && (this.mDestinationArrivals >= this.mVictoryHeroCount)) {
+      console.log("Win");
       this.endLevel(true);
     }
   }
