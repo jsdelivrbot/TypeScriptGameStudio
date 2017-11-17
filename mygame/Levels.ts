@@ -43,7 +43,7 @@ class Levels implements ScreenManager {
 
       // draw a destination, and indicate that the level is won
       // when the hero reaches the level.
-      level.makeDestinationAsBox(960/2 + 55, 640/2 + 155, 20, 20, "./images/BlueBox.png");
+      level.makeDestinationAsBox(960/2 + 55, 640/2 + 155, 20, 20, "./images/fun.jpg");
       level.setVictoryDestination(1);
     }
   }

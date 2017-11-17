@@ -24,8 +24,8 @@ class Camera {
   // }
 
   setPosition(x: number, y: number) {
-    this.mContainer.position.x = x - this.mWidth / 2;
-    this.mContainer.position.y = y - this.mHeight / 2;
+    this.mContainer.position.x = x;// - this.mWidth / 2;
+    this.mContainer.position.y = y;// - this.mHeight / 2;
   }
 
   centerOn(x: number, y: number) {
