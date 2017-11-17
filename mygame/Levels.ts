@@ -39,7 +39,7 @@ class Levels implements ScreenManager {
       level.setCameraChase(h);
       level.setArrowKeyControls(h, 50);
 
-      let o: Obstacle = level.makeObstacleAsBox(0, 300, 960, 1, "./images/BlueBox.png");
+      let o: Obstacle = level.makeObstacleAsBox(0, 0, 960, 1, "./images/BlueBox.png");
 
       // draw a circular destination, and indicate that the level is won
       // when the hero reaches the level. "mustardball.png" must be
