@@ -2374,24 +2374,23 @@ class Level {
     //                                                         public QuickScene getWinScene() {
     //                                                           return mGame.mManager.mWinScene;
     //                                                         }
-    //
-    //                                                         /**
-    //                                                         * Make an enemy that has an underlying rectangular shape.
-    //                                                         *
-    //                                                         * @param x       The X coordinate of the bottom left corner
-    //                                                         * @param y       The Y coordinate of the bottom right corner
-    //                                                         * @param width   The width of the enemy
-    //                                                         * @param height  The height of the enemy
-    //                                                         * @param imgName The name of the image to display
-    //                                                         * @return The enemy, so that it can be modified further
-    //                                                         */
-    //                                                         public Enemy makeEnemyAsBox(float x, float y, float width, float height, String imgName) {
-    //                                                           Enemy e = new Enemy(mGame, mGame.mManager.mWorld, width, height, imgName);
-    //                                                           mGame.mManager.mEnemiesCreated++;
-    //                                                           e.setBoxPhysics(BodyDef.BodyType.StaticBody, x, y);
-    //                                                           mGame.mManager.mWorld.addActor(e, 0);
-    //                                                           return e;
-    //                                                         }
+    /**
+    * Make an enemy that has an underlying rectangular shape.
+    *
+    * @param x       The X coordinate of the bottom left corner
+    * @param y       The Y coordinate of the bottom right corner
+    * @param width   The width of the enemy
+    * @param height  The height of the enemy
+    * @param imgName The name of the image to display
+    * @return The enemy, so that it can be modified further
+    */
+    makeEnemyAsBox(x, y, width, height, imgName) {
+        let e = new Enemy(this.mGame, this.mGame.mManager.mWorld, width, height, imgName);
+        this.mGame.mManager.mEnemiesCreated++;
+        e.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, x, y);
+        this.mGame.mManager.mWorld.addActor(e, 0);
+        return e;
+    }
     //
     //                                                         /**
     //                                                         * Draw an enemy with an underlying polygon shape
@@ -5317,101 +5316,6 @@ class SceneActor extends BaseActor {
 * loops and basic geometry.
 */
 class Chooser {
-    //   /**
-    //   * This is a helper function for drawing a level button. If the level is
-    //   * locked, the button isn't playable. Otherwise, the player can tap the
-    //   * button to start a level.
-    //   *
-    //   * @param x      X coordinate of the bottom left corner of the button
-    //   * @param y      Y coordinate of the bottom left corner of the button
-    //   * @param width  width of the button
-    //   * @param height height of the button
-    //   * @param whichLevel  which level to play when the button is tapped
-    //   */
-    //   private void drawLevelButton(final Level level, float x, float y, float width, float height, final int whichLevel) {
-    //     // figure out the last unlocked level
-    //     int unlocked = level.getGameFact("unlocked", 1);
-    //
-    //     // for each button, start by drawing an obstacle
-    //     Obstacle tile = level.makeObstacleAsBox(x, y, width, height, "leveltile.png");
-    //
-    //     // if this level is unlocked, or if we are in unlocked mode, then attach
-    //     // a callback and print the level number with a touchCallback, and then
-    //     // put text on top of it
-    //     if (whichLevel <= unlocked || level.getUnlockMode()) {
-    //       tile.setTapCallback(new TouchEventHandler() {
-    //         //@Override
-    //         public boolean go(float eventPositionX, float eventPositionY) {
-    //           level.doLevel(whichLevel);
-    //           return true;
-    //         }
-    //       });
-    //       level.addTextCentered(x+width/2, y+width/2, "arial.ttf", "#FFFFFF", 56, "", "", level.DisplayFixedText(""+whichLevel), 0);
-    //     }
-    //     // otherwise, just print an X
-    //     else {
-    //       level.addTextCentered(x+width/2, y+width/2, "arial.ttf", "#FFFFFF", 56, "", "", level.DisplayFixedText("X"), 0);
-    //     }
-    //   }
-    //
-    // /**
-    // * This helper function is for drawing the button that takes us to the previous chooser screen
-    // *
-    // * @param x            X coordinate of bottom left corner of the button
-    // * @param y            Y coordinate of bottom left corner of the button
-    // * @param width        width of the button
-    // * @param height       height of the button
-    // * @param chooserLevel The chooser screen to create
-    // */
-    // private void drawPrevButton(final Level level, float x, float y, float width, float height, final int chooserLevel) {
-    //   Obstacle prev = level.makeObstacleAsBox(x, y, width, height, "leftarrow.png");
-    //   prev.setTapCallback(new TouchEventHandler() {
-    //     @Override
-    //     public boolean go(float eventPositionX, float eventPositionY) {
-    //       level.doChooser(chooserLevel);
-    //       return true;
-    //     }
-    //   });
-    // }
-    //
-    // /**
-    // * This helper function is for drawing the button that takes us to the next chooser screen
-    // *
-    // * @param x            X coordinate of bottom left corner of the button
-    // * @param y            Y coordinate of bottom left corner of the button
-    // * @param width        width of the button
-    // * @param height       height of the button
-    // * @param chooserLevel The chooser screen to create
-    // */
-    // private void drawNextButton(final Level level, float x, float y, float width, float height, final int chooserLevel) {
-    //   Obstacle prev = level.makeObstacleAsBox(x, y, width, height, "rightarrow.png");
-    //   prev.setTapCallback(new TouchEventHandler() {
-    //     @Override
-    //     public boolean go(float eventPositionX, float eventPositionY) {
-    //       level.doChooser(chooserLevel);
-    //       return true;
-    //     }
-    //   });
-    // }
-    //
-    // /**
-    // * This helper function is for drawing the button that takes us back to the splash screen
-    // *
-    // * @param x      X coordinate of bottom left corner of the button
-    // * @param y      Y coordinate of bottom left corner of the button
-    // * @param width  width of the button
-    // * @param height height of the button
-    // */
-    // private void drawSplashButton(final Level level, float x, float y, float width, float height) {
-    //   Obstacle prev = level.makeObstacleAsBox(x, y, width, height, "backarrow.png");
-    //   prev.setTapCallback(new TouchEventHandler() {
-    //     //@Override
-    //     public boolean go(float eventPositionX, float eventPositionY) {
-    //       level.doSplash();
-    //       return true;
-    //     }
-    //   });
-    // }
     /**
     * Describe how to draw each level of the chooser. Our chooser will have 15
     * levels per screen, so we need 7 screens.
@@ -5424,30 +5328,21 @@ class Chooser {
         // variables.
         if (index == 1) {
             // Back to splash
-            level.addStaticText(200, 100, "Arial", 0xFFFF00, 24, "Back to Menu", 0);
-            level.addTapControl(200, 100, 100, 50, "", new (class _ extends LolAction {
+            level.addStaticText(300, 200, "Arial", 0xFFFF00, 24, "Back to Menu", 0);
+            level.addTapControl(300, 200, 100, 50, "", new (class _ extends LolAction {
                 go() {
                     level.doSplash();
                     return true;
                 }
             })());
             // Play level 1
-            level.addStaticText(400, 100, "Arial", 0xFFFF00, 24, "Play Level 1", 0);
-            level.addTapControl(400, 100, 100, 50, "", new (class _ extends LolAction {
+            level.addStaticText(500, 200, "Arial", 0xFFFF00, 24, "Play Level 1", 0);
+            level.addTapControl(500, 200, 100, 50, "", new (class _ extends LolAction {
                 go() {
                     level.doLevel(1);
                     return true;
                 }
             })());
-            // set up background and music
-            //level.drawPicture(0, 0, 48, 32, "chooser.png", 0);
-            // for each button, draw an obstacle with a touchCallback, and then
-            // put text on top of it. Our buttons are 5x5, we have 1.5 meters
-            // between buttons, there's an 8.5 meter border on the left and
-            // right, and there's an 11 meter border on the top
-            // drawLevelButton(level, 8.5, 16, 5, 5, 1);
-            //
-            // drawSplashButton(level, 0, 0, 5, 5);
         }
     }
 }
@@ -5516,13 +5411,14 @@ class Levels {
             // tilting the phone. "greenball.png" must be registered in
             // the registerMedia() method, which is also in this file. It must
             // also be in your android game's assets folder.
-            let h = level.makeHeroAsBox(960 / 2, 640 / 2, 50, 50, "./images/OrangeBox.png");
+            let h = level.makeHeroAsBox(960 / 2, 640 / 2, 30, 30, "./images/OrangeBox.png");
             level.setCameraChase(h);
             level.setArrowKeyControls(h, 50);
+            let e = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 100, 30, 30, "./images/BlueBox.png");
             //let o: Obstacle = level.makeObstacleAsBox(0, 500, 960, 1, "./images/BlueBox.png");
             // draw a destination, and indicate that the level is won
             // when the hero reaches the level.
-            level.makeDestinationAsBox(960 / 2 + 55, 640 / 2 + 155, 20, 20, "./images/fun.jpg");
+            level.makeDestinationAsBox(960 / 2 + 55, 640 / 2 + 155, 100, 100, "./images/fun.jpg");
             level.setVictoryDestination(1);
         }
     }
