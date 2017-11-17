@@ -753,8 +753,8 @@ class Camera {
     //   this.mContainer.addChild(scene.mContainer);
     // }
     setPosition(x, y) {
-        this.mContainer.position.x = x - this.mWidth / 2;
-        this.mContainer.position.y = y - this.mHeight / 2;
+        this.mContainer.position.x = x; // - this.mWidth / 2;
+        this.mContainer.position.y = y; // - this.mHeight / 2;
     }
     centerOn(x, y) {
         this.mContainer.pivot.x = x; // - this.mWidth / 2;
@@ -5522,7 +5522,7 @@ class Levels {
             //let o: Obstacle = level.makeObstacleAsBox(0, 500, 960, 1, "./images/BlueBox.png");
             // draw a destination, and indicate that the level is won
             // when the hero reaches the level.
-            level.makeDestinationAsBox(960 / 2 + 55, 640 / 2 + 155, 20, 20, "./images/BlueBox.png");
+            level.makeDestinationAsBox(960 / 2 + 55, 640 / 2 + 155, 20, 20, "./images/fun.jpg");
             level.setVictoryDestination(1);
         }
     }
@@ -5634,8 +5634,8 @@ class Splash {
         // "doLevel(1)", but check the configuration in MyConfig... there's a
         // field you should change if you don't want the 'back' button to go
         // from that level to the chooser.
-        level.addStaticText(200, 100, "Arial", 0xFFFF00, 24, "Play", 0);
-        level.addTapControl(200, 100, 100, 50, "", new (class _ extends LolAction {
+        level.addStaticText(300, 200, "Arial", 0xFFFF00, 24, "Play", 0);
+        level.addTapControl(300, 200, 100, 50, "", new (class _ extends LolAction {
             go() {
                 level.doChooser(1);
                 return true;
@@ -5643,8 +5643,8 @@ class Splash {
         })());
         // This is the Help button... it switches to the first screen of the
         // help system
-        level.addStaticText(400, 100, "Arial", 0xFFFF00, 24, "Help", 0);
-        level.addTapControl(400, 100, 100, 50, "", new (class _ extends LolAction {
+        level.addStaticText(500, 200, "Arial", 0xFFFF00, 24, "Help", 0);
+        level.addTapControl(500, 200, 100, 50, "", new (class _ extends LolAction {
             go() {
                 level.doHelp(1);
                 return true;

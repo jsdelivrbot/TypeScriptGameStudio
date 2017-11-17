@@ -1635,24 +1635,24 @@ class Level {
   //                                                         public QuickScene getWinScene() {
   //                                                           return mGame.mManager.mWinScene;
   //                                                         }
-  //
-  //                                                         /**
-  //                                                         * Make an enemy that has an underlying rectangular shape.
-  //                                                         *
-  //                                                         * @param x       The X coordinate of the bottom left corner
-  //                                                         * @param y       The Y coordinate of the bottom right corner
-  //                                                         * @param width   The width of the enemy
-  //                                                         * @param height  The height of the enemy
-  //                                                         * @param imgName The name of the image to display
-  //                                                         * @return The enemy, so that it can be modified further
-  //                                                         */
-  //                                                         public Enemy makeEnemyAsBox(float x, float y, float width, float height, String imgName) {
-  //                                                           Enemy e = new Enemy(mGame, mGame.mManager.mWorld, width, height, imgName);
-  //                                                           mGame.mManager.mEnemiesCreated++;
-  //                                                           e.setBoxPhysics(BodyDef.BodyType.StaticBody, x, y);
-  //                                                           mGame.mManager.mWorld.addActor(e, 0);
-  //                                                           return e;
-  //                                                         }
+
+  /**
+  * Make an enemy that has an underlying rectangular shape.
+  *
+  * @param x       The X coordinate of the bottom left corner
+  * @param y       The Y coordinate of the bottom right corner
+  * @param width   The width of the enemy
+  * @param height  The height of the enemy
+  * @param imgName The name of the image to display
+  * @return The enemy, so that it can be modified further
+  */
+  public makeEnemyAsBox(x: number, y: number, width: number, height: number, imgName: string): Enemy {
+    let e: Enemy = new Enemy(this.mGame, this.mGame.mManager.mWorld, width, height, imgName);
+    this.mGame.mManager.mEnemiesCreated++;
+    e.setBoxPhysics(PhysicsType2d.Dynamics.BodyType.STATIC, x, y);
+    this.mGame.mManager.mWorld.addActor(e, 0);
+    return e;
+  }
   //
   //                                                         /**
   //                                                         * Draw an enemy with an underlying polygon shape
@@ -1712,7 +1712,7 @@ class Level {
       this.mGame.mManager.mWorld.addActor(d, 0);
       return d;
     }
-  
+
   //                                                             /**
   //                                                             * Draw a destination with an underlying polygon shape
   //                                                             *
