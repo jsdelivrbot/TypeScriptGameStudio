@@ -3114,6 +3114,9 @@ class Destination extends WorldActor {
         this.mCapacity = 1;
         this.mHolding = 0;
         this.mActivation = new Array(4);
+        for (let i = 0; i < 4; i++) {
+            this.mActivation[i] = 0;
+        }
     }
     /**
      * Code to run when a Destination collides with a WorldActor.
@@ -4551,6 +4554,7 @@ class LolManager {
         // check if the level is complete
         this.mDestinationArrivals++;
         if ((this.mVictoryType == VictoryType.DESTINATION) && (this.mDestinationArrivals >= this.mVictoryHeroCount)) {
+            console.log("Win");
             this.endLevel(true);
         }
     }

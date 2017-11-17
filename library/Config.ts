@@ -62,6 +62,10 @@ class Config {
   /* protected */ mSplash: ScreenManager;
   /// An object to draw the store screens
   /* protected */ mStore: ScreenManager;
+  /// An object to draw the victory screen
+  /* protected */ mWin: ScreenManager;
+  /// An object to draw the lose screen
+  /* protected */ mLose: ScreenManager;
 
   constructor() {}
 }

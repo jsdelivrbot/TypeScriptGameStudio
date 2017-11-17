@@ -56,5 +56,7 @@ class MyConfig extends Config {
     this.mChooser = new Chooser();
     this.mHelp = new Help();
     this.mSplash = new Splash();
+    this.mWin = new WinScene();
+    this.mLose = new LoseScene();
   }
 }

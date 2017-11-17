@@ -36,14 +36,14 @@ class Levels implements ScreenManager {
       // the registerMedia() method, which is also in this file. It must
       // also be in your android game's assets folder.
       let h: Hero = level.makeHeroAsBox(960/2, 640/2, 50, 50, "./images/OrangeBox.png");
-      //level.setCameraChase(h);
+      level.setCameraChase(h);
       level.setArrowKeyControls(h, 50);
 
-      let o: Obstacle = level.makeObstacleAsBox(50, 50, 960, 1, "./images/BlueBox.png");
+      //let o: Obstacle = level.makeObstacleAsBox(0, 500, 960, 1, "./images/BlueBox.png");
 
       // draw a destination, and indicate that the level is won
       // when the hero reaches the level.
-      level.makeDestinationAsBox(960/2 + 55, 640/2 + 55, 20, 20, "./images/BlueBox.png");
+      level.makeDestinationAsBox(960/2 + 55, 640/2 + 155, 20, 20, "./images/BlueBox.png");
       level.setVictoryDestination(1);
     }
   }
