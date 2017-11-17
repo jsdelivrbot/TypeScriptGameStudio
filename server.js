@@ -9,6 +9,7 @@ var express = require('express');
 var app = module.exports = express();
 var bodyParser = require('body-parser');
 var https = require('https');
+var http = require('http');
 
 //Database modules
 var database = require('./lib/database');
@@ -248,6 +249,8 @@ app.post("/game/addNewGameFile", function(req, res){
 
 /*
   Create a new game 
+
+  TODO: LOAD THE DATABASE WITH THE 5 FILES NEEDED TO CREATE A GAME
 */  
 app.post("/game/newGame", function(req, res){
 
@@ -297,13 +300,15 @@ app.post("/game/compile", function(req, res){
     var postData = {
       email : req.user.email,
       id : req.user.id,
+      game_name : req.body.game_name,
       contents : req.body.contents
     };
 
     console.log(JSON.stringify(postData));
 
     var options = {
-      hostname : "typescript-game-studio-build.herokuapp.com",
+      hostname : "localhost",
+      port : 5001,
       path : "/compile",
       method : "POST",
       headers : {
@@ -312,7 +317,7 @@ app.post("/game/compile", function(req, res){
       }
     };
 
-    var req = https.request(options, (response) => {
+    var req = http.request(options, (response) => {
 
       var data = '';
 
@@ -324,6 +329,7 @@ app.post("/game/compile", function(req, res){
 
       response.on('end', () => {
         console.log(data);
+        res.write(data);
         res.status(200);
         res.end();
       });

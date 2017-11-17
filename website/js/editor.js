@@ -74,6 +74,7 @@ function compile(){
     xhr.setRequestHeader("Content-Type", "application/json");
 
     var request = {
+        game_name : currentGame,
         contents : files
     };
 
@@ -225,13 +226,10 @@ function addFileToPage(fileName){
 
 function createFile() {
 
-    let fileName = document.getElementById("fileName").value; 
+    var fileExtension = document.getElementById("fileExtension").options[document.getElementById("fileExtension").selectedIndex].getAttribute("name");
+    var fileName = document.getElementById("fileName").value.trim() + fileExtension; 
 
     //Send the new file off to the server to add to the user's account
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', "/game/addNewGameFile");
-    xhr.setRequestHeader("Content-Type", "application/json");
-
     var fileContents = "//" + fileName;
 
     var game = {
@@ -242,12 +240,19 @@ function createFile() {
         }
     };
 
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', "/game/addNewGameFile");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
     xhr.onreadystatechange = () => {
 
         if(xhr.readyState === 4){
 
             if(xhr.status === 200){     
 
+                /*
+                    TODO: LOAD THE IDE WITH THE FIVE FILES
+                */
                 currentGameFiles[fileName] = fileContents;
                 addFileToPage(fileName);
                 switchActiveFile(fileName);
@@ -257,6 +262,7 @@ function createFile() {
             }
         }
     };
+
     xhr.send(JSON.stringify(game)); 
 }
 
