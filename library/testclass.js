@@ -251,9 +251,9 @@ class BaseActor extends Renderable {
     setCollisionsEnabled(state) {
         // The default is for all fixtures of a actor have the same sensor state
         let fixtures = this.mBody.GetFixtures();
-        do {
+        while (fixtures.MoveNext()) {
             fixtures.Current().SetSensor(!state);
-        } while (fixtures.MoveNext());
+        }
         fixtures.Reset();
     }
     /**
@@ -5482,7 +5482,7 @@ class Levels {
             // need to getLoseScene bigger.
             //
             //level.configureGravity
-            level.resetGravity(0, 90);
+            //level.resetGravity(0, 90);
             // now let's create a hero, and indicate that the hero can move by
             // tilting the phone. "greenball.png" must be registered in
             // the registerMedia() method, which is also in this file. It must
