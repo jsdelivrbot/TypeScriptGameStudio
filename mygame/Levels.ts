@@ -35,7 +35,7 @@ class Levels implements ScreenManager {
       // tilting the phone. "greenball.png" must be registered in
       // the registerMedia() method, which is also in this file. It must
       // also be in your android game's assets folder.
-      let h: Hero = level.makeHeroAsBox(25, 25, 50, 50, "./images/OrangeBox.png");
+      let h: Hero = level.makeHeroAsBox(960/2, 640/2, 50, 50, "./images/OrangeBox.png");
       level.setCameraChase(h);
       level.setArrowKeyControls(h, 50);
 
