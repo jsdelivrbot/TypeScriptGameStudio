@@ -20,7 +20,7 @@ class LoseScene implements ScreenManager {
     // "doLevel(1)", but check the configuration in MyConfig... there's a
     // field you should change if you don't want the 'back' button to go
     // from that level to the chooser.
-    level.addStaticText(960/2, 640/2, "Arial", 0x00FFFF, 32, "Try Again", 0);
+    level.addStaticText(960/2 - 100, 640/2 - 10, "Arial", 0x00FFFF, 32, "Try Again", 0);
 
     level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
       public go(): boolean {

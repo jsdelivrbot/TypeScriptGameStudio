@@ -4367,21 +4367,21 @@ class LolManager {
         //this.mBackground = new ParallaxScene(this.mConfig);
         //this.mForeground = new ParallaxScene(this.mConfig);
         // the win/lose/pre/pause scenes are a little bit complicated
-        this.mWinScene = new QuickScene(this.mConfig, this.mMedia, this.mConfig.mDefaultWinText);
-        let out_this = this;
-        this.mWinScene.setDismissAction(new (class _ extends LolAction {
-            //@Override
-            go() {
-                out_this.advanceLevel();
-            }
-        })());
-        this.mLoseScene = new QuickScene(this.mConfig, this.mMedia, this.mConfig.mDefaultLoseText);
-        this.mLoseScene.setDismissAction(new (class _ extends LolAction {
-            //@Override
-            go() {
-                out_this.repeatLevel();
-            }
-        })());
+        // this.mWinScene = new QuickScene(this.mConfig, this.mMedia, this.mConfig.mDefaultWinText);
+        // let out_this = this;
+        // this.mWinScene.setDismissAction(new (class _ extends LolAction {
+        //   //@Override
+        //   public go(): void {
+        //     out_this.doChooser(1);
+        //   }
+        // })());
+        // this.mLoseScene = new QuickScene(this.mConfig, this.mMedia, this.mConfig.mDefaultLoseText);
+        // this.mLoseScene.setDismissAction(new (class _ extends LolAction {
+        //   //@Override
+        //   public go(): void {
+        //     out_this.repeatLevel();
+        //   }
+        // })());
         this.mContainer = new PIXI.Container();
         this.mContainer.addChild(this.mWorld.mCamera.mContainer);
         this.mContainer.addChild(this.mHud.mCamera.mContainer);
@@ -4490,6 +4490,24 @@ class LolManager {
         this.mConfig.mHelp.display(index, this.mLevel);
     }
     /**
+    * Load a lose scene
+    *
+    * @param index The index of the help level to load
+    */
+    doLose(index) {
+        this.onScreenChange();
+        this.mConfig.mLose.display(index, this.mLevel);
+    }
+    /**
+    * Load a win scene
+    *
+    * @param index The index of the help level to load
+    */
+    doWin(index) {
+        this.onScreenChange();
+        this.mConfig.mWin.display(index, this.mLevel);
+    }
+    /**
     * Load a screen of the store.
     *
     * @param index The index of the help level to load
@@ -4586,42 +4604,49 @@ class LolManager {
     * @param win true if the level was won, false otherwise
     */
     endLevel(win) {
-        if (this.mEndGameEvent == null) {
-            let out_this = this;
-            this.mEndGameEvent = new (class _ extends LolAction {
-                //@Override
-                go() {
-                    // Safeguard: only call this method once per level
-                    if (out_this.mGameOver) {
-                        return;
-                    }
-                    out_this.mGameOver = true;
-                    // Run the level-complete callback
-                    if (win && out_this.mWinCallback != null) {
-                        out_this.mWinCallback.go();
-                    }
-                    else if (!win && out_this.mLoseCallback != null) {
-                        out_this.mLoseCallback.go();
-                    }
-                    // if we won, unlock the next level
-                    // if (win){
-                    //   out_this.mGame.mManager.unlockNext();
-                    // }
-                    // drop everything from the hud
-                    out_this.mGame.mManager.mHud.reset();
-                    //TODO: clear setInterval calls or create a timer class
-                    // clear any pending timers
-                    //PhysicsType2d.Timer.clear();
-                    // display the PostScene before we retry/start the next level
-                    if (win) {
-                        out_this.mGame.mManager.mWinScene.show();
-                    }
-                    else {
-                        out_this.mGame.mManager.mLoseScene.show();
-                    }
-                }
-            })();
+        if (win) {
+            this.doWin(this.mModeStates[this.PLAY]);
         }
+        else {
+            this.doLose(this.mModeStates[this.PLAY]);
+        }
+        // if (this.mEndGameEvent == null) {
+        //   let out_this = this;
+        //   this.mEndGameEvent = new (class _ extends LolAction {
+        //     //@Override
+        //     public go(): void {
+        //       // Safeguard: only call this method once per level
+        //       if (out_this.mGameOver){
+        //         return;
+        //       }
+        //       out_this.mGameOver = true;
+        //
+        //       // Run the level-complete callback
+        //       if (win && out_this.mWinCallback != null){
+        //         out_this.mWinCallback.go();
+        //       } else if (!win && out_this.mLoseCallback != null){
+        //         out_this.mLoseCallback.go();
+        //       }
+        //       // if we won, unlock the next level
+        //       // if (win){
+        //       //   out_this.mGame.mManager.unlockNext();
+        //       // }
+        //       // drop everything from the hud
+        //       out_this.mGame.mManager.mHud.reset();
+        //
+        //       //TODO: clear setInterval calls or create a timer class
+        //       // clear any pending timers
+        //       //PhysicsType2d.Timer.clear();
+        //
+        //       // display the PostScene before we retry/start the next level
+        //       if (win) {
+        //         out_this.mGame.mManager.mWinScene.show();
+        //       } else {
+        //         out_this.mGame.mManager.mLoseScene.show();
+        //       }
+        //     }
+        //   })();
+        //}
     }
     /**
     * Update all timer counters associated with the current level
@@ -5492,14 +5517,43 @@ class Levels {
             // the registerMedia() method, which is also in this file. It must
             // also be in your android game's assets folder.
             let h = level.makeHeroAsBox(960 / 2, 640 / 2, 50, 50, "./images/OrangeBox.png");
-            //level.setCameraChase(h);
+            level.setCameraChase(h);
             level.setArrowKeyControls(h, 50);
-            let o = level.makeObstacleAsBox(50, 50, 960, 1, "./images/BlueBox.png");
+            //let o: Obstacle = level.makeObstacleAsBox(0, 500, 960, 1, "./images/BlueBox.png");
             // draw a destination, and indicate that the level is won
             // when the hero reaches the level.
-            level.makeDestinationAsBox(960 / 2 + 55, 640 / 2 + 55, 20, 20, "./images/BlueBox.png");
+            level.makeDestinationAsBox(960 / 2 + 55, 640 / 2 + 155, 20, 20, "./images/BlueBox.png");
             level.setVictoryDestination(1);
         }
+    }
+}
+/// <reference path="../library/ScreenManager.ts"/>
+/**
+* Splash encapsulates the code that will be run to configure the opening screen of the game.
+* Typically this has buttons for playing, getting help, and quitting.
+*/
+class LoseScene {
+    /**
+    * There is usually only one splash screen. However, the ScreenManager interface requires
+    * display() to take a parameter for which screen to display.  We ignore it.
+    *
+    * @param index Which splash screen should be displayed (typically you can ignore this)
+    * @param level The physics-based world that comprises the splash screen
+    */
+    display(index, level) {
+        // Configure our win screen
+        // This is the Play button... it switches to the first screen of the
+        // level chooser. You could jump straight to the first level by using
+        // "doLevel(1)", but check the configuration in MyConfig... there's a
+        // field you should change if you don't want the 'back' button to go
+        // from that level to the chooser.
+        level.addStaticText(960 / 2, 640 / 2, "Arial", 0x00FFFF, 32, "Try Again", 0);
+        level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
+            go() {
+                level.doLevel(index);
+                return true;
+            }
+        })());
     }
 }
 /// <reference path="../library/Config.ts"/>
@@ -5550,6 +5604,8 @@ class MyConfig extends Config {
         this.mChooser = new Chooser();
         this.mHelp = new Help();
         this.mSplash = new Splash();
+        this.mWin = new WinScene();
+        this.mLose = new LoseScene();
     }
 }
 /// <reference path="../library/ScreenManager.ts"/>
@@ -5614,4 +5670,33 @@ document.addEventListener("DOMContentLoaded", () => {
 function gameLoop(game) {
     game.render();
     requestAnimationFrame(() => gameLoop(game));
+}
+/// <reference path="../library/ScreenManager.ts"/>
+/**
+* Splash encapsulates the code that will be run to configure the opening screen of the game.
+* Typically this has buttons for playing, getting help, and quitting.
+*/
+class WinScene {
+    /**
+    * There is usually only one splash screen. However, the ScreenManager interface requires
+    * display() to take a parameter for which screen to display.  We ignore it.
+    *
+    * @param index Which splash screen should be displayed (typically you can ignore this)
+    * @param level The physics-based world that comprises the splash screen
+    */
+    display(index, level) {
+        // Configure our win screen
+        // This is the Play button... it switches to the first screen of the
+        // level chooser. You could jump straight to the first level by using
+        // "doLevel(1)", but check the configuration in MyConfig... there's a
+        // field you should change if you don't want the 'back' button to go
+        // from that level to the chooser.
+        level.addStaticText(960 / 2, 640 / 2, "Arial", 0x00FFFF, 32, "You Win!!", 0);
+        level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
+            go() {
+                level.doChooser(1);
+                return true;
+            }
+        })());
+    }
 }

@@ -29,8 +29,8 @@ class Camera {
   }
 
   centerOn(x: number, y: number) {
-    this.mContainer.pivot.x = x - this.mWidth / 2;
-    this.mContainer.pivot.y = y - this.mHeight / 2;
+    this.mContainer.pivot.x = x;// - this.mWidth / 2;
+    this.mContainer.pivot.y = y;// - this.mHeight / 2;
   }
 
   // updatePosition() {
