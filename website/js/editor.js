@@ -93,10 +93,22 @@ function compile(arg){
                 else{
                     alert("Successfully compiled.");
                     console.log(res.contents);
+
+                    //Clear the contents of the modal
+                    $("#runGameModalContent").empty();
+
+                    //Create a new script element and add it to the page
                     var script = document.createElement('script');
                     script.type = "text/javascript";
                     script.innerHTML = res.contents;
-                    document.body.appendChild(script)
+                    document.body.appendChild(script);
+
+                    //Run the game in a pop up window
+                    runGame('runGameModalContent');
+
+                    //Show the game window
+                    $("#runGameModal").modal('show');
+
                 }
             }
             else{
