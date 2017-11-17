@@ -5487,14 +5487,14 @@ class Levels {
             // tilting the phone. "greenball.png" must be registered in
             // the registerMedia() method, which is also in this file. It must
             // also be in your android game's assets folder.
-            let h = level.makeHeroAsBox(25, 25, 50, 50, "./images/OrangeBox.png");
-            level.setCameraChase(h);
+            let h = level.makeHeroAsBox(960 / 2, 640 / 2, 50, 50, "./images/OrangeBox.png");
+            //level.setCameraChase(h);
             level.setArrowKeyControls(h, 50);
             let o = level.makeObstacleAsBox(0, 0, 960, 1, "./images/BlueBox.png");
             // draw a circular destination, and indicate that the level is won
             // when the hero reaches the level. "mustardball.png" must be
             // registered in registerMedia()
-            level.makeDestinationAsBox(50, 50, 2, 2, "./images/fun.jpg");
+            level.makeDestinationAsBox(50, 50, 2, 2, "./images/BlueBox.png");
             level.setVictoryDestination(1);
         }
     }

@@ -29,7 +29,7 @@ class Levels implements ScreenManager {
 
       //level.configureGravity
 
-      level.resetGravity(0, 90);
+      //level.resetGravity(0, 90);
 
       // now let's create a hero, and indicate that the hero can move by
       // tilting the phone. "greenball.png" must be registered in
