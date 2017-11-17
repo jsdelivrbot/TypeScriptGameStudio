@@ -5490,11 +5490,10 @@ class Levels {
             let h = level.makeHeroAsBox(960 / 2, 640 / 2, 50, 50, "./images/OrangeBox.png");
             //level.setCameraChase(h);
             level.setArrowKeyControls(h, 50);
-            let o = level.makeObstacleAsBox(0, 0, 960, 1, "./images/BlueBox.png");
-            // draw a circular destination, and indicate that the level is won
-            // when the hero reaches the level. "mustardball.png" must be
-            // registered in registerMedia()
-            level.makeDestinationAsBox(50, 50, 2, 2, "./images/BlueBox.png");
+            let o = level.makeObstacleAsBox(50, 50, 960, 1, "./images/BlueBox.png");
+            // draw a destination, and indicate that the level is won
+            // when the hero reaches the level.
+            level.makeDestinationAsBox(960 / 2 + 55, 640 / 2 + 55, 20, 20, "./images/BlueBox.png");
             level.setVictoryDestination(1);
         }
     }
