@@ -306,6 +306,7 @@ app.post("/game/compile", function(req, res){
 
     console.log(JSON.stringify(postData));
 
+    /*
     var options = {
       hostname : "localhost",
       port : 5001,
@@ -316,8 +317,19 @@ app.post("/game/compile", function(req, res){
          'Content-Length' : Buffer.byteLength(JSON.stringify(postData)) 
       }
     };
+	*/
 
-    var req = http.request(options, (response) => {
+    var options = {
+      hostname : "typescript-game-studio-build.herokuapp.com",
+      path : "/compile",
+      method : "POST",
+      headers : {
+         'Content-Type' : 'application/json',
+         'Content-Length' : Buffer.byteLength(JSON.stringify(postData)) 
+      }
+    };
+
+    var req = https.request(options, (response) => {
 
       var data = '';
 
