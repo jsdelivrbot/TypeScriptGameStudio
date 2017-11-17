@@ -96,7 +96,7 @@ function compile(arg){
                     var script = document.createElement('script');
                     script.type = "text/javascript";
                     script.innerHTML = res.contents;
-                    document.body.appendChild(script);
+                    document.body.appendChild(script)
                 }
             }
             else{
