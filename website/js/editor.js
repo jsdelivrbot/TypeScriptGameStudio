@@ -8,6 +8,9 @@ $(document).ready(function(){
     if(currentGame != null || currentGame != undefined){
         console.log("here");
         loadGameFiles(currentGame);
+
+        //Set the Project Name
+        $(".site-title").text("TypeScript Game Studio - " + currentGame);
     }
 });
 
@@ -34,7 +37,7 @@ function editorSetup() {
     editor.getSession().setMode("ace/mode/typescript");
     editor.$blockScrolling =  Infinity;
     editor.setOptions({
-        fontSize : "8pt"
+        fontSize : "12pt"
     }); 
     editor.resize();
 }
@@ -56,7 +59,7 @@ function getParameterByName(name, url) {
 
 function compile(arg){
 
-    saveContent();
+    saveContent('save');
 
     var files = [];
 
@@ -68,9 +71,18 @@ function compile(arg){
         });
     }
     
-    //Save the files to the user's account
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', "/game/compile");
+
+    //Compile and run
+    if(!arg){
+        xhr.open('POST', "/game/compile");
+    }
+    //Publish game
+    else{
+        xhr.open('POST', "/game/publish");
+    }
+
+    //Save the files to the user's account
     xhr.setRequestHeader("Content-Type", "application/json");
 
     var request = {
@@ -88,27 +100,42 @@ function compile(arg){
                 var res = JSON.parse(xhr.response);
 
                 if(res.error == 1){
-                    alert("Error\n" + res.contents);
+
+                    if(!arg) showPopup("compile");
+                    else showPopup("publish")
+                    
+                    //TODO: DISPLAY COMPILOR ERROR ON PAGE
                 }
                 else{
+
                     alert("Successfully compiled.");
                     console.log(res.contents);
 
-                    //Clear the contents of the modal
-                    $("#runGameModalContent").empty();
+                    //Run the game in a window
+                    if(!arg){
 
-                    //Create a new script element and add it to the page
-                    var script = document.createElement('script');
-                    script.type = "text/javascript";
-                    script.innerHTML = res.contents;
-                    document.body.appendChild(script);
+                        //Clear the contents of the modal
+                        $("#runGameModalContent").empty();
 
-                    //Run the game in a pop up window
-                    runGame('runGameModalContent');
+                        //Create a new script element and add it to the page
+                        var script = document.createElement('script');
+                        script.type = "text/javascript";
+                        script.innerHTML = res.contents;
+                        document.body.appendChild(script);
 
-                    //Show the game window
-                    $("#runGameModal").modal('show');
+                        //Run the game in a pop up window
+                        runGame('runGameModalContent');
 
+                        //Show the game window
+                        $("#runGameModal").modal('show');
+
+                    }
+
+                    //Publish game and show the url to the user
+                    else{
+
+                        alert("Game published");
+                    }
                 }
             }
             else{
@@ -174,7 +201,7 @@ function loadGameFiles(gameName) {
 /*
     Save the contents of all the files to the server
 */
-function saveContent() {
+function saveContent(id) {
     
     console.log(currentGameFiles);
 
@@ -205,6 +232,7 @@ function saveContent() {
         if(xhr.readyState === 4){
             if(xhr.status === 200){
                 console.log("Success");
+                showPopup(id);
             }
             else{
                 console.log("Error adding file")
@@ -290,6 +318,11 @@ function createFile() {
     };
 
     xhr.send(JSON.stringify(game)); 
+}
+
+function showPopup(id){
+    var popup = document.getElementById(id + "Popup");
+    popup.classList.toggle("show");
 }
 
 function setContentNewFile(fileName) {

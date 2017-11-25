@@ -51,8 +51,8 @@ function loadGames() {
                     <div class="card-block container">
                         <h4 class="card-title">${games[i].game_name}</h4>
                         <p class="card-text">${games[i].game_description}</p>
-                        <a href="./editor?game=${games[i].game_name}" class="btn btn-sm btn-primary tgsmb10 mr-3">Open Project</a>
-                        <button class="btn btn-sm btn-primary tgsmb10" data-toggle="modal" data-target="#settingModal" type="button">Project Settings</button>
+                        <a href="./editor?game=${games[i].game_name}" class="btn btn-sm tgsmb10 mr-3">Open Project</a>
+                        <a class="btn btn-sm tgsmb10" data-toggle="modal" data-target="#settingModal" type="button">Project Settings</a>
                     </div>
                     <div class="card-footer text-muted">Last updated ${games[i].game_lastUpdated}</div>
                     </div>   

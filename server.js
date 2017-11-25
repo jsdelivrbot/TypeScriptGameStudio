@@ -294,8 +294,45 @@ app.get("/game/allGames", function(req, res){
 app.post("/game/compile", function(req, res){
 
   if(req.user){
+  	//console.log(req.body);
+    compile(req, res, function(data){
+		//console.log(data);
+		res.write(data);
+		res.status(200);
+		res.end();
+    });
+  }
+});
+
+/*
+  Send a game's files off for compilation on the build server and then publish the game for public access.
+
+  Return game URL to user
+*/
+app.post("/game/publish", function(req, res){
+
+  if(req.user){
 
   	//console.log(req.body);
+  	compile(req, res, function(data){
+
+  		//Publish the game and return the url to the user
+
+  		//console.log(data);
+		res.write(data);
+		res.status(200);
+		res.end();
+  	});
+  }
+});
+
+/*============
+  
+  Server Functions
+
+==============*/
+
+function compile(req, res, callback){
 
     var postData = {
       email : req.user.email,
@@ -328,28 +365,23 @@ app.post("/game/compile", function(req, res){
          'Content-Length' : Buffer.byteLength(JSON.stringify(postData)) 
       }
     };
-	
-    var req = http.request(options, (response) => {
 
-      var data = '';
+	var req = http.request(options, (response) => {
 
-      console.log('statusCode: ', response.statusCode);
+	  	var data = '';
 
-      response.on('data', (d) => {
-        data += d;
-      });
+	  	console.log('statusCode: ', response.statusCode);
 
-      response.on('end', () => {
-        //console.log(data);
-        res.write(data);
-        res.status(200);
-        res.end();
-      });
+	  	response.on('data', (d) => {
+	    	data += d;
+	  	});
 
-    });
+		response.on('end', () => {
+			callback(data);
+		});
 
-    req.write(JSON.stringify(postData));
-    req.end();
+	});
 
-  }
-});
+	req.write(JSON.stringify(postData));
+	req.end();
+}
