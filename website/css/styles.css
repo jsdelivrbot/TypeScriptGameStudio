@@ -38,6 +38,10 @@ a.btn:active{
 button{
 	cursor: pointer;
 }
+
+.hidden{
+	display: none;
+}
 /*===========
 
 	Homepage
@@ -47,6 +51,35 @@ button{
 .signin-btn{
 	margin-right: 10px;
 }
+
+.card{
+	margin-bottom: 20px;
+}
+
+.card-block.container{
+	padding: 15px;
+}
+
+.card img{
+	display: block;
+	width: 320px;
+	height: 190px;
+}
+/*===========
+
+	Account Page
+
+============*/
+
+
+.project-select{
+	margin-top: 150px;
+}
+
+.text-error{
+	color: red;
+}
+
 
 /*===========
 

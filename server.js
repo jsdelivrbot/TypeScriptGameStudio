@@ -69,15 +69,15 @@ mongodb.MongoClient.connect(database_url, function(err, db) {
 
 	connection = db;
 
-  //Export the database connection and the database module for use throughout the app
-  module.exports.connection = connection;
-  module.exports.database = database;
+	//Export the database connection and the database module for use throughout the app
+	module.exports.connection = connection;
+	module.exports.database = database;
 
 	console.log("We are connected to the database");
 
 	var server = app.listen(process.env.PORT || 5000, function () {
-    	var port = server.address().port;
-    	console.log("App now running on port", port);
+		var port = server.address().port;
+		console.log("App now running on port", port);
 	});
 });
 
@@ -158,8 +158,10 @@ app.get('/sign-s3', (req, res) => {
 		returnData : returnData,
 		s3: s3
 	}
+
 	console.log(data);
 	database.checkIfExists(connection, {name : fileName, url: url}, "file", req.user, data, res);
+	
   }
   else{
     res.status(200);

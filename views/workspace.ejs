@@ -34,7 +34,9 @@
                             <br>
                             <label for="imgUpload">Upload Project Image</label>
                             <input type="file" class="form-control-file" id="projectImgUpload" aria-describedby="fileHelp" accept=".jpg, .jpeg, .png">
-                            <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png format!</small>                            
+                            <small id="projectImgTypeError" class="form-text text-error hidden">Image must be a .jpg, .jpeg, or .png</small> 
+                            <small id="projectImgSizeError" class="form-text text-error hidden">Image must be less than 10 MB</small>   
+                            <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png format!<br>Image dimensions 320x190 perferred.<br>Image size < 10 MB.</small>                             
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -46,7 +48,7 @@
         </div>
 
 
-        <div class="container">
+        <div class="container project-select">
             <!-- Card Decks: a list of card each containing information for one project -->
             <div class="card-deck justify-content-center align-items-center" id="card-deck">
             </div>

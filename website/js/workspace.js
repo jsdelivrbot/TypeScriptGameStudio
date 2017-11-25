@@ -1,12 +1,28 @@
-/*
-    Object Game prototype
-*/ 
-function Game(name, description, imgURL, lastUpdated, files) {
-    this.name = name; 
-    this.description = description; 
-    this.imgURL = imgURL; 
-    this.lastUpdated = lastUpdated; 
-    this.files = files;
+function verifyInputs(file, name, description, currentTime) {
+
+    var imgSizeGood = false;
+    var imgTypeGood = false;
+
+    $("#projectImgSizeError").toggleClass("hidden");
+    $("#projectImgTypeError").toggleClass("hidden");
+
+    if(file.size <= 1024 * 1024 * 10){
+        imgSizeGood = true;
+    }
+    else{
+        $("#projectImgSizeError").toggleClass("hidden");
+    }
+
+    if((/\.(jpg|jpeg|png)$/i).test(file.name)){
+        imgTypeGood = true;
+    }
+    else{
+        $("#projectImgTypeError").toggleClass("hidden");
+    }
+
+    if(imgSizeGood && imgTypeGood){
+        createGameStep1(file, name, description, currentTime); 
+    }
 }
 
 /*
@@ -25,7 +41,9 @@ function createGame() {
         file = document.getElementById("projectImgUpload").files[0]; 
     }
 
-    createGameStep1(file, name, description, currentTime); 
+    //Verify the name and make sure the image specs are fine
+    verifyInputs(file, name.trim(), description.trim(), currentTime); 
+
 }
 
 /*
@@ -59,6 +77,7 @@ function loadGames() {
                     `;
 
                     let div = document.createElement('div');
+                    div.className += "col-lg-4";
                     let cards = document.getElementById("card-deck"); 
                     div.innerHTML = template; 
                     cards.appendChild(div);
