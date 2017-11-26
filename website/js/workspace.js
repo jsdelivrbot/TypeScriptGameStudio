@@ -1,3 +1,45 @@
+/*
+    Display the old settings of the project being edited
+
+    Also contains two event handlers for dealing with project settings functionalities.
+    One for deleting and the other for editing.
+*/
+$("#settingsModal").on('show.bs.modal', function(event) {
+
+    var button = $(event.relatedTarget);
+
+    var name = button.data('name');
+    var description = button.data('description');
+
+    var modal = $(this);
+
+    modal.find(".modal-body input[id='projectName']").val(name);
+    modal.find(".modal-body textarea[id='projectDesc']").val(description);
+    modal.find(".modal-footer a[id='submit-update']").attr("data-origName", name);
+    modal.find(".modal-footer a[id='submit-delete']").attr("data-origName", name);
+
+    /*
+        Update project event handler
+
+        TODO: Complete this function
+    */
+    modal.find(".modal-footer a[id='submit-update']").on('click', function(){
+        console.log($(this).attr('data-origName'));
+    });
+
+    /*
+        Delete project event handler
+
+        TODO: Complete this function
+    */
+    modal.find(".modal-footer a[id='submit-delete']").on('click', function(){
+        console.log($(this).attr('data-origName'));
+    });
+});
+
+/*
+    Verify the image's size and type are okay for upload.  
+*/
 function verifyInputs(file, name, description, currentTime) {
 
     var imgSizeGood = false;
@@ -26,28 +68,7 @@ function verifyInputs(file, name, description, currentTime) {
 }
 
 /*
-    Create a game and save to the database
-*/ 
-function createGame() {
-
-    var name = document.getElementById("projectName").value; 
-    var description = document.getElementById("projectDesc").value; 
-    var length = document.getElementById("projectImgUpload").files.length; 
-    var currentTime = new Date();     
-    var img = ""; 
-    var file;
-
-    if(length !== 0) {
-        file = document.getElementById("projectImgUpload").files[0]; 
-    }
-
-    //Verify the name and make sure the image specs are fine
-    verifyInputs(file, name.trim(), description.trim(), currentTime); 
-
-}
-
-/*
-    Load all games a user has
+    Load all of a user's games onto the page
 */ 
 function loadGames() {
     
@@ -61,7 +82,11 @@ function loadGames() {
             if(response != "No Games"){
                 let games = []; 
                 for(let i = 0; i < response.length; i++){
-                    games[i] = {game_name: response[i].game_name, game_description:response[i].game_description, game_imgURL: response[i].game_imgURL, game_lastUpdated: response[i].game_lastUpdated };
+
+                    //Prepare the date to be shown in a readible fashion
+                    var newDate = new Date(response[i].game_lastUpdated);
+
+                    games[i] = {game_name: response[i].game_name, game_description:response[i].game_description, game_imgURL: response[i].game_imgURL, game_lastUpdated: newDate };
                     
                     let template = `
                     <div class="card">
@@ -70,7 +95,7 @@ function loadGames() {
                         <h4 class="card-title">${games[i].game_name}</h4>
                         <p class="card-text">${games[i].game_description}</p>
                         <a href="./editor?game=${games[i].game_name}" class="btn btn-sm tgsmb10 mr-3">Open Project</a>
-                        <a class="btn btn-sm tgsmb10" data-toggle="modal" data-target="#settingModal" type="button">Project Settings</a>
+                        <a class="btn btn-sm tgsmb10" data-toggle="modal" data-target="#settingsModal" data-name="${games[i].game_name}" data-description="${games[i].game_description}" type="button">Project Settings</a>
                     </div>
                     <div class="card-footer text-muted">Last updated ${games[i].game_lastUpdated}</div>
                     </div>   
@@ -87,6 +112,32 @@ function loadGames() {
     }
 
     xhr.send(); 
+}
+
+/*==============
+
+    Functions involved in creating a new game project
+
+================*/
+
+/*
+    Initiate the game project creation
+*/ 
+function createGame() {
+
+    var name = document.getElementById("projectName").value; 
+    var description = document.getElementById("projectDesc").value; 
+    var length = document.getElementById("projectImgUpload").files.length; 
+    var currentTime = new Date();     
+    var img = ""; 
+    var file;
+
+    if(length !== 0) {
+        file = document.getElementById("projectImgUpload").files[0]; 
+    }
+
+    //Verify the name and make sure the image specs are fine
+    verifyInputs(file, name.trim(), description.trim(), currentTime); 
 }
 
 /*
@@ -168,4 +219,4 @@ function createGameStep2(newGame) {
     };
 
     xhr.send(JSON.stringify(newGame));
-}   
+}  

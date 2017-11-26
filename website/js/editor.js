@@ -24,7 +24,6 @@ function editorSetup() {
 
         If there is no query string, redirect back to the account page.
     */
-
     currentGame = getParameterByName("game");
 
     if(currentGame == null || currentGame == undefined){
@@ -41,21 +40,6 @@ function editorSetup() {
     }); 
     editor.resize();
 }
-
-/*
-    Retrieve a parameter from a query string. For use when loading the IDE
-    and loading the proper games.
-*/
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
 
 function compile(arg){
 
@@ -171,7 +155,7 @@ function loadGameFiles(gameName) {
 
                             //Set the editor contents equal to the first files's
                             if(i == 0){
-                                setContentFile(files[i].gfile_contents);
+                                editor.setValue(files[i].gfile_contents);
                                 activeFile = files[i].gfile_name;
                             }
 
@@ -320,16 +304,7 @@ function createFile() {
     xhr.send(JSON.stringify(game)); 
 }
 
-function showPopup(id){
-    var popup = document.getElementById(id + "Popup");
-    popup.classList.toggle("show");
-}
-
 function setContentNewFile(fileName) {
     let initialContent = "//" + fileName;
     editor.setValue(initialContent); 
-}
-
-function setContentFile(contents) {
-    editor.setValue(contents);
 }

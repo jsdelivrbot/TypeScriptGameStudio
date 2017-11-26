@@ -35,6 +35,14 @@ a.btn:active{
 	cursor: pointer;
 }
 
+.btn-bad{
+	background-color: red;
+	color: white;
+}
+
+.btn-bad:hover{
+	background-color: #d10606;
+}
 button{
 	cursor: pointer;
 }
@@ -42,6 +50,7 @@ button{
 .hidden{
 	display: none;
 }
+
 /*===========
 
 	Homepage
@@ -65,9 +74,10 @@ button{
 	width: 320px;
 	height: 190px;
 }
+
 /*===========
 
-	Account Page
+	Account/Project Selection Page
 
 ============*/
 
@@ -87,7 +97,7 @@ button{
 
 ============*/
 
-.popup {
+.popup, .perm-popup{
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -98,7 +108,7 @@ button{
 }
 
 /* The actual popup */
-.popup .popuptext {
+.popup .popuptext, .perm-popup .popuptext{
     visibility: hidden;
     width: 160px;
     background-color: #555;
@@ -114,7 +124,7 @@ button{
 }
 
 /* Popup arrow */
-.popup .popuptext::after {
+.popup .popuptext::after, .perm-popup .popuptext::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -132,13 +142,28 @@ button{
     animation: fadeInOut 3s linear forwards;
 }
 
-/* Add animation (fade in the popup) */
+.perm-popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+
 @-webkit-keyframes fadeInOut {
-    0%,100% {opacity: 0;} 
-    50% {opacity: 1;}
+  0%,100% { opacity: 0 }
+  50% { opacity: 1 }
 }
 
 @keyframes fadeInOut {
-    0%,100% {opacity: 0;} 
-    50% {opacity: 1;}
+  0%,100% { opacity: 0 }
+  50% { opacity: 1 }
 }

@@ -49,17 +49,17 @@
 
 
         <div class="container project-select">
+
             <!-- Card Decks: a list of card each containing information for one project -->
             <div class="card-deck justify-content-center align-items-center" id="card-deck">
             </div>
 
-
             <!-- Modal: project setting -->
-            <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Project Setting</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Project Settings</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
@@ -77,8 +77,18 @@
                             </form>
                         </div>
                         <div class="modal-footer">
+                            <div class="perm-popup">
+                                <button type="button" class="btn btn-bad" onclick="showPopup('delete')">Delete Project</button>
+                                <span class="popuptext" id="deletePopup">Are you sure?<br>
+                                <a class="btn btn-sm" type="button" id="submit-delete">Yes</a>
+                                <a class="btn btn-sm" type="button" onclick="showPopup('delete')">No</a>
+                                </span>
+                            </div>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <a href="./editor"><button type="button" class="btn btn-primary text-capitalize">update setting</button></a>
+                            <div class="popup">
+                                <a id="submit-update"><button type="button" class="btn btn-primary text-capitalize">Update settings</button></a>
+                                <span class="popuptext" id="updatePopup">Error publishing project</span>
+                            </div>
                         </div>
                     </div>
                 </div>
