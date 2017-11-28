@@ -251,8 +251,6 @@ app.post("/game/addNewGameFile", function(req, res){
 
 /*
   Create a new game 
-
-  TODO: LOAD THE DATABASE WITH THE 5 FILES NEEDED TO CREATE A GAME
 */  
 app.post("/game/newGame", function(req, res){
 

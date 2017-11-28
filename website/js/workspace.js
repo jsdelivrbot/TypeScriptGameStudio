@@ -24,46 +24,61 @@ $("#settingsModal").on('show.bs.modal', function(event) {
         TODO: Complete this function
     */
     modal.find(".modal-footer a[id='submit-update']").on('click', function(){
+
         console.log($(this).attr('data-origName'));
+
+        var settings = {
+            origName : $(this).attr('data-origName'),
+            name : $("#projectSettingsName").val(),
+            description : $("#projectSettingsDescription").val(),
+            file : document.getElementById("projectSettingsFile").files[0],
+            dateTime : new Date()
+        } 
+
+        if(settings.file !== undefined){
+            verifyInputs(settings, updateProjectSettings);
+        }
+        else{
+            updateProjectSettings(settings);
+        }
     });
 
     /*
         Delete project event handler
-
-        TODO: Complete this function
     */
     modal.find(".modal-footer a[id='submit-delete']").on('click', function(){
         console.log($(this).attr('data-origName'));
+        deleteProject($(this).attr('data-origName'), $(this));
     });
 });
+
+/*==============
+
+    Page General Functions
+
+================*/
 
 /*
     Verify the image's size and type are okay for upload.  
 */
-function verifyInputs(file, name, description, currentTime) {
+function verifyInputs(settings, callback) {
 
     var imgSizeGood = false;
     var imgTypeGood = false;
 
-    $("#projectImgSizeError").toggleClass("hidden");
-    $("#projectImgTypeError").toggleClass("hidden");
+    $("#projectImgSizeError").addClass("hidden");
+    $("#projectImgTypeError").addClass("hidden");
 
-    if(file.size <= 1024 * 1024 * 10){
-        imgSizeGood = true;
-    }
-    else{
-        $("#projectImgSizeError").toggleClass("hidden");
-    }
+    //Verify the uploaded image is less than 10 MB
+    if(settings.file.size <= 1024 * 1024 * 10) imgSizeGood = true;
+    else $("#projectImgSizeError").toggleClass("hidden");
 
-    if((/\.(jpg|jpeg|png)$/i).test(file.name)){
-        imgTypeGood = true;
-    }
-    else{
-        $("#projectImgTypeError").toggleClass("hidden");
-    }
+    //Verify the uploaded image is of types jpg, jpeg, or png
+    if((/\.(jpg|jpeg|png)$/i).test(settings.file.name)) imgTypeGood = true;
+    else $("#projectImgTypeError").toggleClass("hidden");
 
     if(imgSizeGood && imgTypeGood){
-        createGameStep1(file, name, description, currentTime); 
+        callback(settings); 
     }
 }
 
@@ -103,6 +118,8 @@ function loadGames() {
 
                     let div = document.createElement('div');
                     div.className += "col-lg-4";
+                    div.className += " card-container"
+                    div.setAttribute("projectName", games[i].game_name);
                     let cards = document.getElementById("card-deck"); 
                     div.innerHTML = template; 
                     cards.appendChild(div);
@@ -116,6 +133,48 @@ function loadGames() {
 
 /*==============
 
+    Functions involved in changing project settings and project deletion
+
+================*/
+
+/*
+    Submit changed project settings to the server
+*/
+function updateProjectSettings(settings) {
+    
+    //TODO : Complete this function
+    
+}
+
+function deleteProject(name, modal) {
+    
+    //Save the files to the user's account
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', "/game/updateGameFiles");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    var request = {
+        game_name : name,
+        files : null
+    };
+
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
+                console.log("Success");
+                $(".card-container[projectname=" + name + "]").remove();
+
+            }
+            else{
+                console.log("Error adding file")
+            }
+        }
+    };
+    xhr.send(JSON.stringify(request)); 
+}
+
+/*==============
+
     Functions involved in creating a new game project
 
 ================*/
@@ -125,28 +184,47 @@ function loadGames() {
 */ 
 function createGame() {
 
-    var name = document.getElementById("projectName").value; 
-    var description = document.getElementById("projectDesc").value; 
-    var length = document.getElementById("projectImgUpload").files.length; 
-    var currentTime = new Date();     
-    var img = ""; 
-    var file;
+    var inputName = document.getElementById("projectName").value,
+        inputDescription = document.getElementById("projectDesc").value;
 
-    if(length !== 0) {
-        file = document.getElementById("projectImgUpload").files[0]; 
+    var nameGood, descriptionGood, fileGood = false
+
+    $("#projectNoNameError").addClass("hidden");
+    $("#projectNoDescriptionError").addClass("hidden");
+    $("#projectNoImgError").addClass("hidden");
+
+    //Verify the user has entered a project name
+    if(inputName.length !== 0) nameGood = true;
+    else $("#projectNoNameError").toggleClass("hidden");
+
+    //Verify the user has entered a project description
+    if(inputDescription.length !== 0) descriptionGood = true;
+    else $("#projectNoDescriptionError").toggleClass("hidden");
+
+    //Verify the user has uploaded a project image
+    if(document.getElementById("projectImgUpload").files.length !== 0) fileGood = true;
+    else $("#projectNoImgError").toggleClass("hidden");
+
+    if(nameGood && descriptionGood && fileGood){
+
+        var settings = {
+            name : inputName,
+            description : inputDescription,
+            file : document.getElementById("projectImgUpload").files[0],
+            dateTime : new Date()
+        } 
+
+        verifyInputs(settings, createGameStep1); 
     }
-
-    //Verify the name and make sure the image specs are fine
-    verifyInputs(file, name.trim(), description.trim(), currentTime); 
 }
 
 /*
     Prepare a signed request to Amazon to upload the game's image.
 */
-function createGameStep1(file, name, description, currentTime){
+function createGameStep1(settings){
     
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+    xhr.open('GET', `/sign-s3?file-name=${settings.file.name}&file-type=${settings.file.type}`);
 
     xhr.onreadystatechange = () => {
 
@@ -154,7 +232,7 @@ function createGameStep1(file, name, description, currentTime){
             if(xhr.status === 200){
                 
                 const response = JSON.parse(xhr.responseText);        
-                let newGame = {game_name : name, description : description, imgURL : response.url, datetime : currentTime};  
+                let newGame = {game_name : settings.name, description : settings.description, imgURL : response.url, datetime : settings.dateTime};  
 
                 //File has already been uploaded
                 if(response.signedRequest == null){

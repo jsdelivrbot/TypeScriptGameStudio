@@ -28,20 +28,23 @@
                         <form>
                             <label for="projectName">Project Name</label>
                             <input class="form-control" id="projectName" aria-describedby="projectName" required>
+                            <small id="projectNoNameError" class="form-text text-error hidden">Please enter a project name</small>  
                             <br>
                             <label for="projectDesc">Project Description</label>
-                            <textarea class="form-control" id="projectDesc" rows="5"></textarea>  
+                            <textarea class="form-control" id="projectDesc" rows="5"></textarea>
+                            <small id="projectNoDescriptionError" class="form-text text-error hidden">Please enter a project description</small>   
                             <br>
                             <label for="imgUpload">Upload Project Image</label>
                             <input type="file" class="form-control-file" id="projectImgUpload" aria-describedby="fileHelp" accept=".jpg, .jpeg, .png">
+                            <small id="projectNoImgError" class="form-text text-error hidden">Please add an image</small> 
                             <small id="projectImgTypeError" class="form-text text-error hidden">Image must be a .jpg, .jpeg, or .png</small> 
                             <small id="projectImgSizeError" class="form-text text-error hidden">Image must be less than 10 MB</small>   
-                            <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png format!<br>Image dimensions 320x190 perferred.<br>Image size < 10 MB.</small>                             
+                            <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png format!<br>Image dimensions 320x190 preferred.<br>Image size < 10 MB.</small>                             
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary text-capitalize" onclick="createGame()">start coding!</button>
+                        <button type="button" class="btn btn-primary text-capitalize" onclick="createGame()">Create Project</button>
                     </div>
                 </div>
             </div>
@@ -66,21 +69,24 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <label for="projectName">Project Name</label>
-                                <input class="form-control" id="projectName" aria-describedby="projectName">
+                                <label for="projectSettingsName">Project Name</label>
+                                <input class="form-control" id="projectSettingsName" aria-describedby="projectName">
                                 <br>
-                                <label for="projectDesc">Project Description</label>
-                                <textarea class="form-control" id="projectDesc" rows="5"></textarea> 
+                                <label for="projectSettingsDesc">Project Description</label>
+                                <textarea class="form-control" id="projectSettingsDesc" rows="5"></textarea> 
                                 <br>
-                                <label for="exampleInputFile">Upload Project Image</label>
-                                <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">                            
+                                <label for="projectSettingsFile">Upload Project Image</label>
+                                <input type="file" class="form-control-file" id="projectSettingsFile" aria-describedby="fileHelp">  
+                                <small id="projectImgTypeError" class="form-text text-error hidden">Image must be a .jpg, .jpeg, or .png</small> 
+                                <small id="projectImgSizeError" class="form-text text-error hidden">Image must be less than 10 MB</small>   
+                                <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png format!<br>Image dimensions 320x190 preferred.<br>Image size < 10 MB.</small>                            
                             </form>
                         </div>
                         <div class="modal-footer">
                             <div class="perm-popup">
                                 <button type="button" class="btn btn-bad" onclick="showPopup('delete')">Delete Project</button>
                                 <span class="popuptext" id="deletePopup">Are you sure?<br>
-                                <a class="btn btn-sm" type="button" id="submit-delete">Yes</a>
+                                <a class="btn btn-sm" data-dismiss="modal" type="button" id="submit-delete">Yes</a>
                                 <a class="btn btn-sm" type="button" onclick="showPopup('delete')">No</a>
                                 </span>
                             </div>
