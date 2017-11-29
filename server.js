@@ -159,7 +159,6 @@ app.get('/sign-s3', (req, res) => {
 		s3: s3
 	}
 
-	console.log(data);
 	database.checkIfExists(connection, {name : fileName, url: url}, "file", req.user, data, res);
 	
   }
@@ -211,7 +210,6 @@ app.get("/account/files", function(req, res){
       }).toArray(function(err, object){
         if(object){
           if(!err){ 
-            console.log(object);
             res.write(JSON.stringify(object[0].files));
             res.status(200);
             res.end();
@@ -294,12 +292,10 @@ app.get("/game/allGames", function(req, res){
 app.post("/game/compile", function(req, res){
 
   if(req.user){
-  	//console.log(req.body);
     compile(req, res, function(data){
-		//console.log(data);
-		res.write(data);
-		res.status(200);
-		res.end();
+  		res.write(data);
+  		res.status(200);
+  		res.end();
     });
   }
 });
@@ -313,16 +309,24 @@ app.post("/game/publish", function(req, res){
 
   if(req.user){
 
-  	//console.log(req.body);
   	compile(req, res, function(data){
 
   		//Publish the game and return the url to the user
 
-  		//console.log(data);
-		res.write(data);
-		res.status(200);
-		res.end();
+  		res.write(data);
+  		res.status(200);
+  		res.end();
   	});
+  }
+});
+
+/*
+  Update a project's settings
+*/
+app.post("/game/updateSettings", function(req, res){
+
+  if(req.user){
+    database.updateProjectSettings(connection, req.body, req.user, res);  
   }
 });
 
@@ -340,8 +344,6 @@ function compile(req, res, callback){
       game_name : req.body.game_name,
       contents : req.body.contents
     };
-
-    //console.log(JSON.stringify(postData));
 
     /*
     var options = {

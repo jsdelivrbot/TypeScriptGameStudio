@@ -45,7 +45,7 @@ function compile(arg){
 
     saveContent('save');
 
-    var files = [];
+    let files = [];
 
     for(key in currentGameFiles){
 
@@ -69,7 +69,7 @@ function compile(arg){
     //Save the files to the user's account
     xhr.setRequestHeader("Content-Type", "application/json");
 
-    var request = {
+    let request = {
         game_name : currentGame,
         contents : files,
         publish : arg
@@ -81,7 +81,7 @@ function compile(arg){
         if(xhr.readyState === 4){
             if(xhr.status === 200){
                 
-                var res = JSON.parse(xhr.response);
+                let res = JSON.parse(xhr.response);
 
                 if(res.error == 1){
 
@@ -102,7 +102,7 @@ function compile(arg){
                         $("#runGameModalContent").empty();
 
                         //Create a new script element and add it to the page
-                        var script = document.createElement('script');
+                        let script = document.createElement('script');
                         script.type = "text/javascript";
                         script.innerHTML = res.contents;
                         document.body.appendChild(script);
@@ -148,10 +148,10 @@ function loadGameFiles(gameName) {
                 if(xhr.response !== "None"){
 
                     //Load all the files into the DOM
-                    var files = JSON.parse(xhr.response);
+                    let files = JSON.parse(xhr.response);
 
                     if(files != "noGame"){
-                        for (var i = 0; i < files.length; i++){
+                        for (let i = 0; i < files.length; i++){
 
                             //Set the editor contents equal to the first files's
                             if(i == 0){
@@ -192,7 +192,7 @@ function saveContent(id) {
     //Push the active file's contents to the currentGameFiles dictionary
     currentGameFiles[activeFile] = editor.getValue();
 
-    var files = [];
+    let files = [];
 
     for(key in currentGameFiles){
 
@@ -207,7 +207,7 @@ function saveContent(id) {
     xhr.open('POST', "/game/updateGameFiles");
     xhr.setRequestHeader("Content-Type", "application/json");
 
-    var request = {
+    let request = {
         game_name : currentGame,
         files : files
     };
@@ -264,13 +264,13 @@ function addFileToPage(fileName){
 
 function createFile() {
 
-    var fileExtension = document.getElementById("fileExtension").options[document.getElementById("fileExtension").selectedIndex].getAttribute("name");
-    var fileName = document.getElementById("fileName").value.trim() + fileExtension; 
+    let fileExtension = document.getElementById("fileExtension").options[document.getElementById("fileExtension").selectedIndex].getAttribute("name");
+    let fileName = document.getElementById("fileName").value.trim() + fileExtension; 
 
     //Send the new file off to the server to add to the user's account
-    var fileContents = "//" + fileName;
+    let fileContents = "//" + fileName;
 
-    var game = {
+    let game = {
         game_name : currentGame,
         file : {
             gfile_name : fileName,

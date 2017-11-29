@@ -69,13 +69,15 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <label for="projectSettingsName">Project Name</label>
+                                <label for="projectSettingsName">Change Project Name</label>
                                 <input class="form-control" id="projectSettingsName" aria-describedby="projectName">
+                                <small id="projectSettingsNoNameError" class="form-text text-error hidden">Please enter a project name</small>  
                                 <br>
-                                <label for="projectSettingsDesc">Project Description</label>
+                                <label for="projectSettingsDesc">Change Project Description</label>
                                 <textarea class="form-control" id="projectSettingsDesc" rows="5"></textarea> 
+                                <small id="projectSettingsNoDescriptionError" class="form-text text-error hidden">Please enter a project description</small>  
                                 <br>
-                                <label for="projectSettingsFile">Upload Project Image</label>
+                                <label for="projectSettingsFile">Change Project Image</label>
                                 <input type="file" class="form-control-file" id="projectSettingsFile" aria-describedby="fileHelp">  
                                 <small id="projectImgTypeError" class="form-text text-error hidden">Image must be a .jpg, .jpeg, or .png</small> 
                                 <small id="projectImgSizeError" class="form-text text-error hidden">Image must be less than 10 MB</small>   
