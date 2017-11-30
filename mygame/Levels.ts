@@ -19,25 +19,12 @@ class Levels implements ScreenManager {
     * configured to use tilt to control the level.
     */
     if (index == 1) {
-      // set the screen to 48 meters wide by 32 meters high... this is
-      // important, because Config.java says the screen is 480x320, and
-      // LOL likes a 20:1 pixel to meter ratio. If we went smaller than
-      // 48x32, things would getLoseScene really weird. And, of course, if you make
-      // your screen resolution higher in Config.java, these numbers would
-      // need to getLoseScene bigger.
-      //
 
-      level.resetGravity(0, 9.8);
+      //level.resetGravity(0, 9.8);
 
       level.drawPicture(0, 0, 960, 640, "./images/BlueBox.png", -2)
       level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
 
-      level.setZoom(0.5);
-      //level.setCameraBounds(960, 640);
-      // now let's create a hero, and indicate that the hero can move by
-      // tilting the phone. "greenball.png" must be registered in
-      // the registerMedia() method, which is also in this file. It must
-      // also be in your android game's assets folder.
       let h: Hero = level.makeHeroAsBox(960/2, 640/2, 30, 30, "./images/OrangeBox.png");
       level.setCameraChase(h);
       level.setArrowKeyControls(h, 50);
@@ -47,6 +34,7 @@ class Levels implements ScreenManager {
 
       let e: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 100, 30, 30, "./images/OrangeBox.png")
 
+      e.setRoute((new Route(3)).to(960/2 - 80, 640/2 + 100).to(960/2 - 40, 640/2 + 50).to(960/2, 640/2), 5, true)
       //let o: Obstacle = level.makeObstacleAsBox(0, 500, 960, 1, "./images/BlueBox.png");
 
       // draw a destination, and indicate that the level is won

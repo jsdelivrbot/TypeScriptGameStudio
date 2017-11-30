@@ -796,7 +796,7 @@ class Level {
   */
   public setKeyAction(key: string, action: LolAction, repeat: boolean): void {
     document.onkeydown = (e) => {
-      if(e.key == key) {
+      if(e.key === key) {
           action.go();
       }
     };
@@ -880,7 +880,7 @@ class Level {
     velocityX: number, velocityY: number): LolAction {
       let out_this = this;
       return new (class _ extends LolAction {
-        mLastThrow: number;
+        mLastThrow: number = 0;
 
         //@Override
         public go(): void {
