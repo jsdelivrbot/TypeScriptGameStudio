@@ -3548,21 +3548,21 @@ class MainScene extends LolScene {
         let y = this.mChaseActor.mBody.GetWorldCenter().y + this.mChaseActor.mCameraOffset.y;
         if (this.mCamBound) {
             // if x or y is too close to MAX,MAX, stick with max acceptable values
-            if (x > this.mCamBound.x - this.mConfig.mWidth * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
-                x = this.mCamBound.x - this.mConfig.mWidth * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
+            if (x > this.mCamBound.x) {
+                x = this.mCamBound.x; //- this.mConfig.mWidth * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
             }
-            if (y > this.mCamBound.y - this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
-                y = this.mCamBound.y - this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
+            if (y > this.mCamBound.y) {
+                y = this.mCamBound.y; //- this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
             }
             // if x or y is too close to 0,0, stick with minimum acceptable values
             //
             // NB: we do MAX before MIN, so that if we're zoomed out, we show extra
             // space at the top instead of the bottom
-            if (x < this.mConfig.mWidth * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
-                x = this.mConfig.mWidth * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
+            if (x < 0) {
+                x = 0; // this.mConfig.mWidth //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
             }
-            if (y < this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
-                y = this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
+            if (y < 0) {
+                y = 0; //= this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
             }
         }
         // update the camera position

@@ -34,7 +34,7 @@ class Levels implements ScreenManager {
       level.drawPicture(0, 0, 960, 640, "./images/BlueBox.png", -2)
       level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
 
-      level.setCameraBounds(960, 640);
+      //level.setCameraBounds(960, 640);
       // now let's create a hero, and indicate that the hero can move by
       // tilting the phone. "greenball.png" must be registered in
       // the registerMedia() method, which is also in this file. It must
@@ -43,6 +43,8 @@ class Levels implements ScreenManager {
       level.setCameraChase(h);
       level.setArrowKeyControls(h, 50);
 
+      level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
+      level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), true)
 
       let e: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 100, 30, 30, "./images/OrangeBox.png")
 
