@@ -3547,21 +3547,21 @@ class MainScene extends LolScene {
         let x = this.mChaseActor.mBody.GetWorldCenter().x + this.mChaseActor.mCameraOffset.x;
         let y = this.mChaseActor.mBody.GetWorldCenter().y + this.mChaseActor.mCameraOffset.y;
         // if x or y is too close to MAX,MAX, stick with max acceptable values
-        if (x > this.mCamBound.x - (this.mConfig.mWidth / 2) * this.mCamera.getZoom()) {
-            x = this.mCamBound.x - (this.mConfig.mWidth / 2) * this.mCamera.getZoom(); //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
+        if (x > this.mCamBound.x - ((this.mConfig.mWidth / 2) * this.mCamera.getZoom())) {
+            x = this.mCamBound.x - ((this.mConfig.mWidth / 2) * this.mCamera.getZoom()); //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
         }
-        if (y > this.mCamBound.y - (this.mConfig.mHeight / 2) * this.mCamera.getZoom()) {
-            y = this.mCamBound.y - (this.mConfig.mHeight / 2) * this.mCamera.getZoom(); //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
+        if (y > this.mCamBound.y - ((this.mConfig.mHeight / 2) * this.mCamera.getZoom())) {
+            y = this.mCamBound.y - ((this.mConfig.mHeight / 2) * this.mCamera.getZoom()); //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
         }
         // if x or y is too close to 0,0, stick with minimum acceptable values
         //
         // NB: we do MAX before MIN, so that if we're zoomed out, we show extra
         // space at the top instead of the bottom
-        if (x < this.mConfig.mWidth / 2 * this.mCamera.getZoom()) {
-            x = this.mConfig.mWidth / 2 * this.mCamera.getZoom(); // * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
+        if (x < (this.mConfig.mWidth / 2) * this.mCamera.getZoom()) {
+            x = (this.mConfig.mWidth / 2) * this.mCamera.getZoom(); // * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
         }
         if (y < this.mConfig.mHeight / 2) {
-            y = this.mConfig.mHeight / 2 * this.mCamera.getZoom(); // * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
+            y = (this.mConfig.mHeight / 2) * this.mCamera.getZoom(); // * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
         }
         // update the camera position
         this.mCamera.centerOn(x, y);
@@ -5510,7 +5510,7 @@ class Levels {
             let h = level.makeHeroAsBox(960 / 2, 640 / 2, 30, 30, "./images/OrangeBox.png");
             level.setCameraChase(h);
             level.setArrowKeyControls(h, 50);
-            //level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
+            level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
             //level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), false)
             let e = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 100, 30, 30, "./images/OrangeBox.png");
             //let o: Obstacle = level.makeObstacleAsBox(0, 500, 960, 1, "./images/BlueBox.png");
