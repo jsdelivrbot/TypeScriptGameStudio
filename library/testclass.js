@@ -219,6 +219,8 @@ class BaseActor extends Renderable {
     */
     //@Override
     onRender() {
+        if (this.mRoute)
+            this.mRoute.drive();
         if (this.mBody)
             this.mSprite.position.x = this.mBody.GetPosition().x;
         if (this.mBody)
