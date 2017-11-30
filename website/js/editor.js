@@ -3,19 +3,11 @@ var currentGameFiles = [];
 var activeFile;
 let editor = ace.edit("editor"); 
 
-$(document).ready(function(){
-
-    if(currentGame != null || currentGame != undefined){
-        console.log("here");
-        loadGameFiles(currentGame);
-
-        //Set the Project Name
-        $(".site-title").text("TypeScript Game Studio - " + currentGame);
-    }
-});
+$(document).ready(editorSetup());
 
 /*
-    Initial setup for the editor that runs when the page loads.
+    Initial setup for the editor that runs when the page loads. Also loads the game files into
+    the editor
 */
 function editorSetup() {
 
@@ -39,6 +31,12 @@ function editorSetup() {
         fontSize : "12pt"
     }); 
     editor.resize();
+
+    loadGameFiles(currentGame);
+
+    //Set the Project Name
+    $(".site-title").text("TypeScript Game Studio - " + currentGame);
+
 }
 
 function compile(arg){
@@ -114,17 +112,10 @@ function compile(arg){
                     }
 
                     else{
-                        
+
                         if(res.error == 0){
 
-                            let gameURL;
-
-                            if(window.location.hostname == "localhost"){
-                                gameURL = "http://localhost:5000/play?id=" + res.game_ID;
-                            }
-                            else{
-                                gameURL = "https://typescript-game-studio.herokuapp.com/play?id=" + res.game_ID;
-                            }
+                            let gameURL = assembleURL(res.game_ID);
 
                             $("#projectPublishURL").empty();
                             $("#projectPublishURL").val(gameURL);
@@ -167,7 +158,7 @@ function loadGameFiles(gameName) {
 
                             //Set the editor contents equal to the first files's
                             if(i == 0){
-                                editor.setValue(files[i].gfile_contents);
+                                editor.setValue(files[i].gfile_contents, 1);
                                 activeFile = files[i].gfile_name;
                             }
 
@@ -251,7 +242,7 @@ function switchActiveFile(name){
         currentGameFiles[activeFile] = editor.getValue();
 
         //Swap the contents of the editor
-        editor.setValue(currentGameFiles[name]);
+        editor.setValue(currentGameFiles[name], 1);
         activeFile = name;
     }
 }
@@ -314,9 +305,4 @@ function createFile() {
     };
 
     xhr.send(JSON.stringify(game)); 
-}
-
-function setContentNewFile(fileName) {
-    let initialContent = "//" + fileName;
-    editor.setValue(initialContent); 
 }

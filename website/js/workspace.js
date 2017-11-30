@@ -115,7 +115,7 @@ function loadGames() {
                     //Prepare the date to be shown in a readible fashion
                     let newDate = new Date(response[i].game_lastUpdated);
 
-                    games[i] = {game_name: response[i].game_name, game_description:response[i].game_description, game_imgURL: response[i].game_imgURL, game_lastUpdated: newDate };
+                    games[i] = {game_name: response[i].game_name, game_description:response[i].game_description, game_imgURL: response[i].game_imgURL, game_lastUpdated: newDate, game_URL :  assembleURL(response[i].game_ID)};
                     
                     let template = `
                     <div class="card">
@@ -125,6 +125,8 @@ function loadGames() {
                         <p class="card-text">${games[i].game_description}</p>
                         <a href="./editor?game=${games[i].game_name}" class="btn btn-sm tgsmb10 mr-3 load-project-btn">Open Project</a>
                         <a class="btn btn-sm tgsmb10" data-toggle="modal" data-target="#settingsModal" data-name="${games[i].game_name}" data-description="${games[i].game_description}" type="button">Project Settings</a>
+                        <br><label style="${games[i].game_URL != null ? 'display: initial' : 'display : none'}">Project URL</label>
+                        <input class="form-control" style="${games[i].game_URL != null ? 'display: initial' : 'display : none'}" value="${games[i].game_URL}">
                     </div>
                     <div class="card-footer text-muted">Last updated ${games[i].game_lastUpdated}</div>
                     </div>   

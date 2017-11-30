@@ -16,3 +16,10 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
+function assembleURL(game_ID){
+
+    if(game_ID == null) return null;
+    else if(window.location.hostname == "localhost") return "http://localhost:5000/play?id=" + game_ID;
+    else return "https://typescript-game-studio.herokuapp.com/play?id=" + game_ID;
+}
