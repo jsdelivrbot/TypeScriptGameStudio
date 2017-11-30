@@ -73,6 +73,7 @@ namespace Route {
       this.mRouteVelocity = velocity;
       this.mRouteLoop = loop;
       this.mActor = actor;
+      this.mRouteVec = new PhysicsType2d.Vector2(0, 0);
       // kick off the route, indicate that we aren't all done yet
       this.startRoute();
       this.mRouteDone = false;
