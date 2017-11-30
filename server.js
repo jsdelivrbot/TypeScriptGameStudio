@@ -311,11 +311,19 @@ app.post("/game/publish", function(req, res){
 
   	compile(req, res, function(data){
 
-  		//Publish the game and return the url to the user
+      let readableData = JSON.parse(data);
 
-  		res.write(data);
-  		res.status(200);
-  		res.end();
+  		//Publish the game and return the url to the user
+      if(readableData.error == null){
+
+        //TODO: ADD PUBLISH URL TO ENTRY IN GAME COLLECTION
+        database.publishGame(connection, req.body.game_name, readableData.contents, req.user, res);
+      }
+      else{
+        res.write(data);
+        res.status(200);
+        res.end();
+      }
   	});
   }
 });

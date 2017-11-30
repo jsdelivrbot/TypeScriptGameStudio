@@ -71,14 +71,15 @@ function compile(arg){
 
     let request = {
         game_name : currentGame,
-        contents : files,
-        publish : arg
+        contents : files
     };
 
-    console.log(JSON.stringify(request));
+    //console.log(JSON.stringify(request));
 
     xhr.onreadystatechange = () => {
+
         if(xhr.readyState === 4){
+
             if(xhr.status === 200){
                 
                 let res = JSON.parse(xhr.response);
@@ -91,9 +92,6 @@ function compile(arg){
                     //TODO: DISPLAY COMPILOR ERROR ON PAGE
                 }
                 else{
-
-                    alert("Successfully compiled.");
-                    console.log(res.contents);
 
                     //Run the game in a window
                     if(!arg){
@@ -115,10 +113,26 @@ function compile(arg){
 
                     }
 
-                    //Publish game and show the url to the user
                     else{
+                        
+                        if(res.error == 0){
 
-                        alert("Game published");
+                            let gameURL;
+
+                            if(window.location.hostname == "localhost"){
+                                gameURL = "http://localhost:5000/play?id=" + res.game_ID;
+                            }
+                            else{
+                                gameURL = "https://typescript-game-studio.herokuapp.com/play?id=" + res.game_ID;
+                            }
+
+                            $("#projectPublishURL").empty();
+                            $("#projectPublishURL").val(gameURL);
+                            $("#publishedGameModal").modal('show');
+                        }
+                        else{
+                            alert("Error publishing game.")
+                        }
                     }
                 }
             }
@@ -127,9 +141,7 @@ function compile(arg){
             }
         }
     };
-
     xhr.send(JSON.stringify(request)); 
-    
 }
 
 
