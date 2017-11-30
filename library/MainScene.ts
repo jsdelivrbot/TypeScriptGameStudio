@@ -390,20 +390,20 @@ class MainScene extends LolScene {
 
     if(this.mCamBound) {
       // if x or y is too close to MAX,MAX, stick with max acceptable values
-      if (x > this.mCamBound.x) { // - this.mConfig.mWidth * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
+      if (x > (this.mCamBound.x / 2))  {// - this.mConfig.mWidth * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
         x = this.mCamBound.x;//- this.mConfig.mWidth * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
       }
-      if (y > this.mCamBound.y) { // - this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
+      if (y > this.mCamBound.y / 2) { // - this.mConfig.mHeight) { //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
         y = this.mCamBound.y; //- this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
       }
     // if x or y is too close to 0,0, stick with minimum acceptable values
     //
     // NB: we do MAX before MIN, so that if we're zoomed out, we show extra
     // space at the top instead of the bottom
-      if (x < 0) { //this.mConfig.mWidth * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
+      if (x < this.mConfig.mWidth / 2) { // * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
         x = 0; // this.mConfig.mWidth //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
       }
-      if (y < 0) { //this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
+      if (y < this.mConfig.mHeight / 2) //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
         y = 0; //= this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
       }
     }
