@@ -157,7 +157,7 @@ abstract class LolScene {
       r.mSprite.position.y = y;
       r.mSprite.height = height;
       r.mSprite.width = width;
-
+      
       this.addActor(r, zIndex);
       return r;
     }
