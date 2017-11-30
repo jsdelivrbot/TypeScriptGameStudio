@@ -5582,9 +5582,9 @@ class MyConfig extends Config {
         // list the images that the game will use
         this.mImageNames = new Array("./images/fun.jpg", "./images/BlueBox.png", "./images/OrangeBox.png");
         // list the sound effects that the game will use
-        //this.mSoundNames = new string[]();
+        this.mSoundNames = new Array();
         // list the background music files that the game will use
-        //this.mMusicNames = new string[]();
+        this.mMusicNames = new Array();
         // don't change these lines unless you know what you are doing
         this.mLevels = new Levels();
         this.mChooser = new Chooser();

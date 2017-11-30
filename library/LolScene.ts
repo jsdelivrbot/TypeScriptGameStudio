@@ -153,6 +153,11 @@ abstract class LolScene {
         }
       })();
       r.mSprite = PIXI.Sprite.fromImage(imgName);
+      r.mSprite.position.x = x;
+      r.mSprite.position.y = y;
+      r.mSprite.height = height;
+      r.mSprite.width = width;
+
       this.addActor(r, zIndex);
       return r;
     }
