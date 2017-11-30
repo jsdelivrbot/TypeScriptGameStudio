@@ -403,7 +403,7 @@ class MainScene extends LolScene {
       if (x < this.mConfig.mWidth / 2) { // * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
         x = 0; // this.mConfig.mWidth //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
       }
-      if (y < this.mConfig.mHeight / 2) //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
+      if (y < this.mConfig.mHeight / 2) { //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
         y = 0; //= this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
       }
     }
