@@ -3561,157 +3561,156 @@ class MainScene extends LolScene {
             if (x < this.mConfig.mWidth / 2) {
                 x = 0; // this.mConfig.mWidth //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
             }
-            if (y < this.mConfig.mHeight / 2)
+            if (y < this.mConfig.mHeight / 2) {
                 y = 0; //= this.mConfig.mHeight * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
+            }
         }
+        // update the camera position
+        this.mCamera.centerOn(x, y);
+        this.mCamera.setPosition(this.mConfig.mWidth / 2, this.mConfig.mHeight / 2);
     }
-}
-// update the camera position
-this.mCamera.centerOn(x, y);
-this.mCamera.setPosition(this.mConfig.mWidth / 2, this.mConfig.mHeight / 2);
-// /**
-// * Respond to a fling gesture
-// *
-// * @param velocityX The X velocity of the fling
-// * @param velocityY The Y velocity of the fling
-// * @return True if the gesture was handled
-// */
-// handleFling(velocityX: number, velocityY: number): boolean {
-//   // we only fling at the whole-level layer
-//   mCamera.unproject(mTouchVec.set(velocityX, velocityY, 0));
-//   for (TouchEventHandler ga : mFlingHandlers) {
-//     if (ga.go(mTouchVec.x, mTouchVec.y))
-//     return true;
-//   }
-//   return false;
-// }
-// /**
-// * Respond to a Pan gesture
-// *
-// * @param x      The screen X of the pan
-// * @param y      The screen Y of the pan
-// * @param deltaX The change in X since last pan
-// * @param deltaY The change in Y since last pan
-// * @return True if the pan was handled, false otherwise
-// */
-// boolean handlePan(float x, float y, float deltaX, float deltaY) {
-//   mCamera.unproject(mTouchVec.set(x, y, 0));
-//   for (PanEventHandler ga : mPanHandlers) {
-//     if (ga.go(mTouchVec.x, mTouchVec.y, deltaX, deltaY))
-//     return true;
-//   }
-//   return false;
-// }
-// /**
-// * Respond to a pan stop event
-// *
-// * @param x The screen X of the pan stop event
-// * @param y The screen Y of the pan stop event
-// * @return True if the pan stop was handled, false otherwise
-// */
-// boolean handlePanStop(float x, float y) {
-//   // go panstop on level
-//   mCamera.unproject(mTouchVec.set(x, y, 0));
-//   for (TouchEventHandler ga : mPanStopHandlers)
-//   if (ga.go(mTouchVec.x, mTouchVec.y))
-//   return true;
-//   return false;
-// }
-// /**
-// * Respond to a Down screenpress
-// *
-// * @param screenX The screen X coordinate of the Down
-// * @param screenY The screen Y coordinate of the Down
-// * @return True if the Down was handled, false otherwise
-// */
-// handleDown(screenX: number, screenY: number): boolean {
-//   // check for actor touch by looking at gameCam coordinates... on touch, hitActor will change
-//   this.mHitActor = null;
-//   //this.mCamera.unproject(mTouchVec.set(screenX, screenY, 0));
-//   this.mWorld.QueryAABB(this.mTouchCallback, new PhysicsType2d.Collision.AxisAlignedBoundingBox(this.mTouchVec.x - 0.1, this.mTouchVec.y - 0.1,
-//     this.mTouchVec.x + 0.1, this.mTouchVec.y + 0.1));
-//
-//     // actors don't respond to DOWN... if it's a down on an actor, we are supposed to remember
-//     // the most recently touched actor, and that's it
-//     if (this.mHitActor != null) {
-//       if (this.mHitActor.mToggleHandler != null) {
-//         if (this.mHitActor.mToggleHandler.go(false, this.mTouchVec.x, this.mTouchVec.y)) {
-//           return true;
-//         }
-//       }
-//     }
-//
-//     // forward to the level's handler
-//     for (TouchEventHandler ga : mDownHandlers) {
-//       if (ga.go(mTouchVec.x, mTouchVec.y)) {
-//         return true;
-//       }
-//     }
-//     return false;
-//   }
-// /**
-//  * Respond to a Up screen event
-//  *
-//  * @param screenX The screen X coordinate of the Up
-//  * @param screenY The screen Y coordinate of the Up
-//  * @return True if the Up was handled, false otherwise
-//  */
-// boolean handleUp(float screenX, float screenY) {
-//     mCamera.unproject(mTouchVec.set(screenX, screenY, 0));
-//     if (mHitActor != null) {
-//         if (mHitActor.mToggleHandler != null) {
-//             if (mHitActor.mToggleHandler.go(true, mTouchVec.x, mTouchVec.y)) {
-//                 mHitActor = null;
-//                 return true;
-//             }
-//         }
-//     }
-//     return false;
-// }
-// /**
-//  * Respond to a Drag screen event
-//  *
-//  * @param screenX The screen X coordinate of the Drag
-//  * @param screenY The screen Y coordinate of the Drag
-//  * @return True if the Drag was handled, false otherwise
-//  */
-// boolean handleDrag(float screenX, float screenY) {
-//     if (mHitActor != null && ((WorldActor) mHitActor).mDragHandler != null) {
-//         mCamera.unproject(mTouchVec.set(screenX, screenY, 0));
-//         return ((WorldActor) mHitActor).mDragHandler.go(mTouchVec.x, mTouchVec.y);
-//     }
-//     return false;
-// }
-//
-// /**
-//  * A hack for stopping events when a pause screen is opened
-//  *
-//  * @param touchX The x coordinate of the touch that is being lifted
-//  * @param touchY The y coordinate of the touch that is being lifted
-//  */
-// void liftAllButtons(float touchX, float touchY) {
-//     for (TouchEventHandler ga : mPanStopHandlers) {
-//         ga.go(touchX, touchY);
-//     }
-//     for (TouchEventHandler ga : mUpHandlers) {
-//         ga.go(touchX, touchY);
-//     }
-// }
-/**
-* Draw the actors in this world
-*
-* @param sb    The spritebatch to use when drawing
-* @param delta The time since the last render
-*/
-render();
-boolean;
-{
-    for (let zA of this.mRenderables) {
-        for (let r of zA) {
-            r.render();
+    // /**
+    // * Respond to a fling gesture
+    // *
+    // * @param velocityX The X velocity of the fling
+    // * @param velocityY The Y velocity of the fling
+    // * @return True if the gesture was handled
+    // */
+    // handleFling(velocityX: number, velocityY: number): boolean {
+    //   // we only fling at the whole-level layer
+    //   mCamera.unproject(mTouchVec.set(velocityX, velocityY, 0));
+    //   for (TouchEventHandler ga : mFlingHandlers) {
+    //     if (ga.go(mTouchVec.x, mTouchVec.y))
+    //     return true;
+    //   }
+    //   return false;
+    // }
+    // /**
+    // * Respond to a Pan gesture
+    // *
+    // * @param x      The screen X of the pan
+    // * @param y      The screen Y of the pan
+    // * @param deltaX The change in X since last pan
+    // * @param deltaY The change in Y since last pan
+    // * @return True if the pan was handled, false otherwise
+    // */
+    // boolean handlePan(float x, float y, float deltaX, float deltaY) {
+    //   mCamera.unproject(mTouchVec.set(x, y, 0));
+    //   for (PanEventHandler ga : mPanHandlers) {
+    //     if (ga.go(mTouchVec.x, mTouchVec.y, deltaX, deltaY))
+    //     return true;
+    //   }
+    //   return false;
+    // }
+    // /**
+    // * Respond to a pan stop event
+    // *
+    // * @param x The screen X of the pan stop event
+    // * @param y The screen Y of the pan stop event
+    // * @return True if the pan stop was handled, false otherwise
+    // */
+    // boolean handlePanStop(float x, float y) {
+    //   // go panstop on level
+    //   mCamera.unproject(mTouchVec.set(x, y, 0));
+    //   for (TouchEventHandler ga : mPanStopHandlers)
+    //   if (ga.go(mTouchVec.x, mTouchVec.y))
+    //   return true;
+    //   return false;
+    // }
+    // /**
+    // * Respond to a Down screenpress
+    // *
+    // * @param screenX The screen X coordinate of the Down
+    // * @param screenY The screen Y coordinate of the Down
+    // * @return True if the Down was handled, false otherwise
+    // */
+    // handleDown(screenX: number, screenY: number): boolean {
+    //   // check for actor touch by looking at gameCam coordinates... on touch, hitActor will change
+    //   this.mHitActor = null;
+    //   //this.mCamera.unproject(mTouchVec.set(screenX, screenY, 0));
+    //   this.mWorld.QueryAABB(this.mTouchCallback, new PhysicsType2d.Collision.AxisAlignedBoundingBox(this.mTouchVec.x - 0.1, this.mTouchVec.y - 0.1,
+    //     this.mTouchVec.x + 0.1, this.mTouchVec.y + 0.1));
+    //
+    //     // actors don't respond to DOWN... if it's a down on an actor, we are supposed to remember
+    //     // the most recently touched actor, and that's it
+    //     if (this.mHitActor != null) {
+    //       if (this.mHitActor.mToggleHandler != null) {
+    //         if (this.mHitActor.mToggleHandler.go(false, this.mTouchVec.x, this.mTouchVec.y)) {
+    //           return true;
+    //         }
+    //       }
+    //     }
+    //
+    //     // forward to the level's handler
+    //     for (TouchEventHandler ga : mDownHandlers) {
+    //       if (ga.go(mTouchVec.x, mTouchVec.y)) {
+    //         return true;
+    //       }
+    //     }
+    //     return false;
+    //   }
+    // /**
+    //  * Respond to a Up screen event
+    //  *
+    //  * @param screenX The screen X coordinate of the Up
+    //  * @param screenY The screen Y coordinate of the Up
+    //  * @return True if the Up was handled, false otherwise
+    //  */
+    // boolean handleUp(float screenX, float screenY) {
+    //     mCamera.unproject(mTouchVec.set(screenX, screenY, 0));
+    //     if (mHitActor != null) {
+    //         if (mHitActor.mToggleHandler != null) {
+    //             if (mHitActor.mToggleHandler.go(true, mTouchVec.x, mTouchVec.y)) {
+    //                 mHitActor = null;
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
+    // /**
+    //  * Respond to a Drag screen event
+    //  *
+    //  * @param screenX The screen X coordinate of the Drag
+    //  * @param screenY The screen Y coordinate of the Drag
+    //  * @return True if the Drag was handled, false otherwise
+    //  */
+    // boolean handleDrag(float screenX, float screenY) {
+    //     if (mHitActor != null && ((WorldActor) mHitActor).mDragHandler != null) {
+    //         mCamera.unproject(mTouchVec.set(screenX, screenY, 0));
+    //         return ((WorldActor) mHitActor).mDragHandler.go(mTouchVec.x, mTouchVec.y);
+    //     }
+    //     return false;
+    // }
+    //
+    // /**
+    //  * A hack for stopping events when a pause screen is opened
+    //  *
+    //  * @param touchX The x coordinate of the touch that is being lifted
+    //  * @param touchY The y coordinate of the touch that is being lifted
+    //  */
+    // void liftAllButtons(float touchX, float touchY) {
+    //     for (TouchEventHandler ga : mPanStopHandlers) {
+    //         ga.go(touchX, touchY);
+    //     }
+    //     for (TouchEventHandler ga : mUpHandlers) {
+    //         ga.go(touchX, touchY);
+    //     }
+    // }
+    /**
+    * Draw the actors in this world
+    *
+    * @param sb    The spritebatch to use when drawing
+    * @param delta The time since the last render
+    */
+    render() {
+        for (let zA of this.mRenderables) {
+            for (let r of zA) {
+                r.render();
+            }
         }
+        return true;
     }
-    return true;
 }
 /// <reference path="./LolScene.ts"/>
 class QuickScene extends LolScene {

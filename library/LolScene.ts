@@ -61,8 +61,8 @@ abstract class LolScene {
     this.mConfig = config;
     this.mMedia = media;
 
-    let w = config.mWidth; /// config.mPixelMeterRatio;
-    let h = config.mHeight; /// config.mPixelMeterRatio;
+    let w = config.mWidth / config.mPixelMeterRatio;
+    let h = config.mHeight / config.mPixelMeterRatio;
 
     this.mContainer.position.x = 0;
     this.mContainer.position.y = 0;
