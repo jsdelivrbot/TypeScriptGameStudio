@@ -795,18 +795,9 @@ class Level {
   * @param repeat     Whether holding the button repeats the action
   */
   public setKeyAction(key: string, action: LolAction, repeat: boolean): void {
-    let loop = repeat;
     document.onkeydown = (e) => {
       if(e.key == key) {
-        do {
           action.go();
-        } while(loop);
-      }
-    };
-
-    document.onkeyup = (e) => {
-      if(e.key == key) {
-        loop = false;
       }
     };
   }
