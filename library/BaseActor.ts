@@ -1,8 +1,4 @@
 /// <reference path="./Renderable.ts"/>
-/// <reference path="./ToggleEventHandler.ts"/>
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
 
 /**
 * BaseActor is the parent of all Actor types.
@@ -30,6 +26,13 @@ class BaseActor extends Renderable {
   /// The z index of this actor. Valid range is [-2, 2]
   private mZIndex: number;
 
+  /// Does this WorldActor follow a route? If so, the Driver will be used to advance the
+  /// actor along its route.
+  mRoute: Route.Driver;
+
+  /// Sound to play when the actor disappears
+  mDisappearSound: Sound;
+
   /// Text that game designer can modify to hold additional information about the actor
   private mInfoText: string;
   /// Integer that the game designer can modify to hold additional information about the actor
@@ -38,7 +41,7 @@ class BaseActor extends Renderable {
   /// Code to run when this actor is tapped
   mTapHandler: TouchEventHandler | null;
   /// Code to run when this actor is held or released
-  mToggleHandler: ToggleEventHandler | null;
+  //mToggleHandler: ToggleEventHandler | null;
 
   /// A temporary vertex that we use when resizing
   private mTempVector: PhysicsType2d.Vector2;
@@ -250,7 +253,6 @@ class BaseActor extends Renderable {
   * @param state True or false, depending on whether the actor will participate in physics
   *              collisions or not
   */
-  //TODO: This needs to be tested
   setCollisionsEnabled(state: boolean): void {
     // The default is for all fixtures of a actor have the same sensor state
     let fixtures = this.mBody.GetFixtures();
@@ -258,7 +260,7 @@ class BaseActor extends Renderable {
     while(fixtures.MoveNext()) {
       fixtures.Current().SetSensor(!state);
     }
-    
+
     fixtures.Reset();
   }
 
@@ -488,8 +490,8 @@ class BaseActor extends Renderable {
     this.mBody.SetActive(false);
 
     // play a sound when we remove this actor?
-    //  if (mDisappearSound != null && !quiet)
-    //      mDisappearSound.play(Lol.getGameFact(mScene.mConfig, "volume", 1));
+     if (this.mDisappearSound != null && !quiet)
+         this.mDisappearSound.play();
 
     // To do a disappear animation after we've removed the actor, we draw an actor, so that
     // we have a clean hook into the animation system, but we disable its physics
@@ -609,21 +611,22 @@ class BaseActor extends Renderable {
   //      mScene.mRepeatEvents.add(whileDownAction);
   //  }
 
-  //  /**
-  //   * Request that this actor moves according to a fixed route
-  //   *
-  //   * @param route    The route to follow
-  //   * @param velocity speed at which to travel along the route
-  //   * @param loop     When the route completes, should we start it over again?
-  //   */
-  //  public void setRoute(Route route, float velocity, boolean loop) {
-  //      // This must be a KinematicBody or a Dynamic Body!
-  //      if (mBody.getType() == BodyDef.BodyType.StaticBody)
-  //          mBody.setType(BodyDef.BodyType.KinematicBody);
-  //
-  //      // Create a Driver to advance the actor's position according to the route
-  //      mRoute = new Route.Driver(route, velocity, loop, this);
-  //  }
+  /**
+  * Request that this actor moves according to a fixed route
+  *
+  * @param route    The route to follow
+  * @param velocity speed at which to travel along the route
+  * @param loop     When the route completes, should we start it over again?
+  */
+  public setRoute(route: Route, velocity: number, loop: boolean): void {
+    // This must be a KinematicBody or a Dynamic Body!
+    if (this.mBody.GetType() == PhysicsType2d.Dynamics.BodyType.STATIC) {
+      this.mBody.SetType(PhysicsType2d.Dynamics.BodyType.KINEMATIC);
+    }
+
+    // Create a Driver to advance the actor's position according to the route
+    this.mRoute = new Route.Driver(route, velocity, loop, this);
+  }
 
   //  /**
   //   * Request that a sound plays whenever the player touches this actor
@@ -634,14 +637,14 @@ class BaseActor extends Renderable {
   //      mTouchSound = mScene.mMedia.getSound(sound);
   //  }
 
-  //  /**
-  //   * Request that a sound plays whenever this actor disappears
-  //   *
-  //   * @param soundName The name of the sound file to play
-  //   */
-  //  public void setDisappearSound(String soundName) {
-  //      mDisappearSound = mScene.mMedia.getSound(soundName);
-  //  }
+   /**
+    * Request that a sound plays whenever this actor disappears
+    *
+    * @param soundName The name of the sound file to play
+    */
+   public setDisappearSound(soundName: string): void {
+       this.mDisappearSound = this.mScene.mMedia.getSound(soundName);
+   }
 
   /**
   * Change the image being used to display the actor
@@ -706,7 +709,7 @@ class BaseActor extends Renderable {
   *
   * @param delay How long to wait before displaying the actor, in milliseconds
   */
-  //TODO: Timer vs setTimeout
+  //TODO: Timer vs setTimeout?
   public setAppearDelay(delay: number): void {
     this.mEnabled = false;
     this.mBody.SetActive(false);

@@ -31,6 +31,8 @@ class Levels implements ScreenManager {
 
       //level.resetGravity(0, 90);
 
+      level.drawPicture(0, 0, 960, 640, "./images/BlueBox.png", -2)
+
       // now let's create a hero, and indicate that the hero can move by
       // tilting the phone. "greenball.png" must be registered in
       // the registerMedia() method, which is also in this file. It must
@@ -40,7 +42,7 @@ class Levels implements ScreenManager {
       level.setArrowKeyControls(h, 50);
 
 
-      let e: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 100, 30, 30, "./images/BlueBox.png")
+      let e: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 100, 30, 30, "./images/OrangeBox.png")
 
       //let o: Obstacle = level.makeObstacleAsBox(0, 500, 960, 1, "./images/BlueBox.png");
 

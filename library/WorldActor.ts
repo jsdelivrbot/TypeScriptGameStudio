@@ -1,9 +1,5 @@
 /// <reference path="./BaseActor.ts"/>
-/// <reference path="./TouchEventHandler.ts"/>
-//// <reference path="./Lol.ts"/>
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
+
 
 abstract class WorldActor extends BaseActor {
   /// A reference to the top-level Lol object
@@ -402,24 +398,24 @@ abstract class WorldActor extends BaseActor {
   //     };
   //   }
 
-  // /**
-  // * Indicate that this obstacle only registers collisions on one side.
-  // *
-  // * @param side The side that registers collisions. 0 is top, 1 is right, 2 is bottom, 3 is left,
-  // *             -1 means "none"
-  // */
-  // public void setOneSided(int side) {
-  //   mIsOneSided = side;
-  // }
-  //
-  // /**
-  // * Indicate that this actor should not have collisions with any other actor that has the same ID
-  // *
-  // * @param id The number for this class of non-interacting actors
-  // */
-  // public void setPassThrough(int id) {
-  //   mPassThroughId = id;
-  // }
+  /**
+  * Indicate that this obstacle only registers collisions on one side.
+  *
+  * @param side The side that registers collisions. 0 is top, 1 is right, 2 is bottom, 3 is left,
+  *             -1 means "none"
+  */
+  public setOneSided(side: number): void {
+    this.mIsOneSided = side;
+  }
+
+  /**
+  * Indicate that this actor should not have collisions with any other actor that has the same ID
+  *
+  * @param id The number for this class of non-interacting actors
+  */
+  public setPassThrough(id: number): void {
+    this.mPassThroughId = id;
+  }
 
   // /**
   // * Specify that this actor is supposed to chase another actor
