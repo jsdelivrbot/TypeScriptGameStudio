@@ -5499,7 +5499,7 @@ class Levels {
             //level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
             //level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), false)
             let e = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 100, 30, 30, "./images/OrangeBox.png");
-            e.setRoute((new Route(3)).to(960 / 2 - 80, 640 / 2 + 100).to(960 / 2 - 40, 640 / 2 + 50).to(960 / 2, 640 / 2), 5, true);
+            e.setRoute((new Route(3)).to(960 / 2 - 80, 640 / 2 + 100).to(960 / 2 - 40, 640 / 2 + 50).to(960 / 2, 640 / 2), 150, true);
             //let o: Obstacle = level.makeObstacleAsBox(0, 500, 960, 1, "./images/BlueBox.png");
             // draw a destination, and indicate that the level is won
             // when the hero reaches the level.
