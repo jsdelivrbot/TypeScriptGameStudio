@@ -20,6 +20,8 @@ class Route {
   */
   constructor(numberOfPoints: number) {
     this.mPoints = 0;
+    this.mXIndices = [];
+    this.mXIndices = [];
   }
 
   /**
