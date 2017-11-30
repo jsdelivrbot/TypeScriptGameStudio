@@ -90,7 +90,20 @@ button{
 	color: red;
 }
 
+/*===========
 
+    Play Page
+
+============*/
+
+#player-container{
+    margin: auto;
+    text-align: center;
+}
+
+#game-title{
+    font-size: 30px;
+}
 /*===========
 
 	Popups

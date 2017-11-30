@@ -119,6 +119,7 @@ app.get('/home', (req, res) => res.render('index'));
 app.get('/account', auth.required, (req, res) => res.render('workspace'));
 app.get('/editor', auth.required, (req, res) => res.render('editor'));
 app.get('/template', (req, res) => res.render('template'));
+app.get('/play', (req, res) => res.render('play'));
 
 /*============
   
@@ -271,6 +272,16 @@ app.get("/game/getGame", function(req, res){
 
   if(req.user){
     database.getGamefiles(connection, req.query['game_name'], req.user, res);  
+  }
+});
+
+/*
+  Retrieve all of a game's files
+*/
+app.get("/game/loadGame", function(req, res){
+
+  if(req.user){
+    database.getPublishedGame(connection, req.query['game_ID'], req.user, res);  
   }
 });
 
