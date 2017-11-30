@@ -1,5 +1,5 @@
 /// <reference path="./BaseActor.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
 
 /**
 * A Route specifies a set of points that an actor will move between at a fixed speed.
