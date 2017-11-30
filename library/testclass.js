@@ -5240,6 +5240,8 @@ class Route {
     */
     constructor(numberOfPoints) {
         this.mPoints = 0;
+        this.mXIndices = [];
+        this.mXIndices = [];
     }
     /**
     * Add a new point to a path by giving (coordinates for where the center of the actor goes next

@@ -6,9 +6,9 @@
 */
 class Route {
   /// The X coordinates of the points in the route
-  mXIndices: number[];
+  mXIndices: Array<number>;
   /// The Y coordinates of the points in the route
-  mYIndices: number[];
+  mYIndices: Array<number>;
   /// The current number of points that have been set
   mPoints: number;
 
@@ -20,8 +20,8 @@ class Route {
   */
   constructor(numberOfPoints: number) {
     this.mPoints = 0;
-    this.mXIndices = [];
-    this.mXIndices = [];
+    this.mXIndices = new Array<number>();
+    this.mXIndices = new Array<number>();
   }
 
   /**
