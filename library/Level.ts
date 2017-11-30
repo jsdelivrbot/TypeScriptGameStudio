@@ -773,16 +773,16 @@ class Level {
 
     document.onkeyup = (e) => {
       if(e.key == "ArrowUp") {
-        actor.updateVelocity(actor.mBody.GetLinearVelocity().x, 0);
+        actor.setDamping(1);
       }
       else if(e.key == "ArrowDown") {
-        actor.updateVelocity(actor.mBody.GetLinearVelocity().x, 0);
+        actor.setDamping(1);
       }
       else if(e.key == "ArrowLeft") {
-        actor.updateVelocity(0, actor.mBody.GetLinearVelocity().y);
+        actor.setDamping(1);
       }
       else if(e.key == "ArrowRight") {
-        actor.updateVelocity(0, actor.mBody.GetLinearVelocity().y);
+        actor.setDamping(1);
       }
     };
   }

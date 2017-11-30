@@ -33,6 +33,8 @@ class Levels implements ScreenManager {
 
       level.drawPicture(0, 0, 960, 640, "./images/BlueBox.png", -2)
       level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
+
+      level.setCameraBounds(960, 640);
       // now let's create a hero, and indicate that the hero can move by
       // tilting the phone. "greenball.png" must be registered in
       // the registerMedia() method, which is also in this file. It must
