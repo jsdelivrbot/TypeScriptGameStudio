@@ -5510,8 +5510,8 @@ class Levels {
             let h = level.makeHeroAsBox(960 / 2, 640 / 2, 30, 30, "./images/OrangeBox.png");
             level.setCameraChase(h);
             level.setArrowKeyControls(h, 50);
-            level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
-            level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), true);
+            //level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
+            //level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), true)
             let e = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 100, 30, 30, "./images/OrangeBox.png");
             //let o: Obstacle = level.makeObstacleAsBox(0, 500, 960, 1, "./images/BlueBox.png");
             // draw a destination, and indicate that the level is won

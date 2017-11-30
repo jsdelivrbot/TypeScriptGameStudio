@@ -43,8 +43,8 @@ class Levels implements ScreenManager {
       level.setCameraChase(h);
       level.setArrowKeyControls(h, 50);
 
-      //level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
-      //level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), true)
+      level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
+      level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), false)
 
       let e: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 100, 30, 30, "./images/OrangeBox.png")
 
