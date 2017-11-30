@@ -1502,16 +1502,16 @@ class Level {
         };
         document.onkeyup = (e) => {
             if (e.key == "ArrowUp") {
-                actor.updateVelocity(actor.mBody.GetLinearVelocity().x, 0);
+                actor.setDamping(1);
             }
             else if (e.key == "ArrowDown") {
-                actor.updateVelocity(actor.mBody.GetLinearVelocity().x, 0);
+                actor.setDamping(1);
             }
             else if (e.key == "ArrowLeft") {
-                actor.updateVelocity(0, actor.mBody.GetLinearVelocity().y);
+                actor.setDamping(1);
             }
             else if (e.key == "ArrowRight") {
-                actor.updateVelocity(0, actor.mBody.GetLinearVelocity().y);
+                actor.setDamping(1);
             }
         };
     }
@@ -5502,6 +5502,7 @@ class Levels {
             //level.resetGravity(0, 90);
             level.drawPicture(0, 0, 960, 640, "./images/BlueBox.png", -2);
             level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
+            level.setCameraBounds(960, 640);
             // now let's create a hero, and indicate that the hero can move by
             // tilting the phone. "greenball.png" must be registered in
             // the registerMedia() method, which is also in this file. It must
