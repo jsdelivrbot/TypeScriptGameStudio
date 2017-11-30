@@ -46,10 +46,10 @@ class MyConfig extends Config {
     );
 
     // list the sound effects that the game will use
-    //this.mSoundNames = new string[]();
+    this.mSoundNames = new Array<string>();
 
     // list the background music files that the game will use
-    //this.mMusicNames = new string[]();
+    this.mMusicNames = new Array<string>();
 
     // don't change these lines unless you know what you are doing
     this.mLevels = new Levels();

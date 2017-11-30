@@ -4395,7 +4395,7 @@ class Lol {
 /// <reference path="./Lol.ts"/>
 /// <reference path="./Level.ts"/>
 //// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-/// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
 //// <reference types="pixi.js"/>
 /**
  * Obstacles are usually walls, except they can move, and can be used to run all sorts of arbitrary
@@ -5227,7 +5227,7 @@ class ProjectilePool {
     }
 }
 /// <reference path="./BaseActor.ts"/>
-/// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
 /**
 * A Route specifies a set of points that an actor will move between at a fixed speed.
 */
