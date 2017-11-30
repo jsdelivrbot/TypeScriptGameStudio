@@ -21,7 +21,7 @@ class Route {
   constructor(numberOfPoints: number) {
     this.mPoints = 0;
     this.mXIndices = new Array<number>();
-    this.mXIndices = new Array<number>();
+    this.mYIndices = new Array<number>();
   }
 
   /**
