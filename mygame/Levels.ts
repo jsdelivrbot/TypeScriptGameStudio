@@ -23,17 +23,19 @@ class Levels implements ScreenManager {
       //level.resetGravity(0, 9.8);
       level.setMusic("./GameAssets/ThemeMusic.mp3");
 
-      level.drawPicture(0, 0, 960, 640, "./images/BlueBox.png", -2);
+
+
+      level.drawPicture(0, 0, 960, 640, "./GameAssets/sky1.png", -2);
       level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
 
-      let h: Hero = level.makeHeroAsBox(960/2, 640/2, 30, 30, "./images/OrangeBox.png");
+      let h: Hero = level.makeHeroAsBox(960/2, 640/2, 32, 32, "./GameAssets/Angel.png");
       level.setCameraChase(h);
       level.setArrowKeyControls(h, 50);
 
       //level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
       //level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), false)
 
-      let e: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 100, 30, 30, "./images/OrangeBox.png")
+      let e: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 100, 32, 32, "./GameAssets/BatSprite.png")
 
       e.setRoute((new Route(3)).to(960/2 - 80, 640/2 + 100).to(960/2 - 80, 640/2 + 50).to(960/2, 640/2), 500, true)
       //let o: Obstacle = level.makeObstacleAsBox(0, 500, 960, 1, "./images/BlueBox.png");
