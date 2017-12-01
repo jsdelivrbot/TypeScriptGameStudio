@@ -3068,6 +3068,8 @@ class Media {
      */
     constructor(config) {
         this.mConfig = config;
+        this.mSounds = new Map();
+        this.mTunes = new Map();
         // for (String imgName : config.mImageNames) {
         //     TextureRegion tr = new TextureRegion(new Texture(Gdx.files.internal(imgName)));
         //     mImages.put(imgName, tr);

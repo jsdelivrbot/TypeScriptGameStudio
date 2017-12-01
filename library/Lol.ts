@@ -76,6 +76,10 @@ class Lol {
    */
   render() {
     this.mManager.mWorld.mWorld.Step(1/45, 8, 3);
+
+    // Make sure the music is playing... Note that we start music before the PreScene shows
+    this.mManager.mWorld.playMusic();
+
     this.mManager.mWorld.adjustCamera();
     //this.mManager.mWorld.mCamera.updatePosition();
     this.mManager.mWorld.render();
