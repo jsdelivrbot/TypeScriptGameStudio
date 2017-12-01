@@ -21,8 +21,9 @@ class Levels implements ScreenManager {
     if (index == 1) {
 
       //level.resetGravity(0, 9.8);
+      level.setMusic("./GameAssets/ThemeMusic.mp3");
 
-      level.drawPicture(0, 0, 960, 640, "./images/BlueBox.png", -2)
+      level.drawPicture(0, 0, 960, 640, "./images/BlueBox.png", -2);
       level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
 
       let h: Hero = level.makeHeroAsBox(960/2, 640/2, 30, 30, "./images/OrangeBox.png");

@@ -46,10 +46,14 @@ class MyConfig extends Config {
     );
 
     // list the sound effects that the game will use
-    this.mSoundNames = new Array<string>();
+    this.mSoundNames = new Array<string>(
+    "./GameAssets/Shooting.ogg", "./GameAssets/EnemyKilled.wav"
+    );
 
     // list the background music files that the game will use
-    this.mMusicNames = new Array<string>();
+    this.mMusicNames = new Array<string>(
+    "./GameAssets/ThemeMusic.mp3"
+    );
 
     // don't change these lines unless you know what you are doing
     this.mLevels = new Levels();
