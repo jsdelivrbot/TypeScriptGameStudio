@@ -72,6 +72,7 @@ abstract class LolScene {
 
     // set up the game camera, with (0, 0) in the bottom left
     this.mCamera = new Camera(w, h);
+    this.mCamera.centerOn(w / 2, h / 2);
     this.mCamera.setPosition(w / 2, h / 2);
     this.mCamera.setZoom(1);
 
