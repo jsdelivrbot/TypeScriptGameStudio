@@ -4658,7 +4658,8 @@ class Hero extends WorldActor {
             return;
         }
         let v = this.mBody.GetLinearVelocity();
-        v.Add(this.mJumpImpulses);
+        v.x = v.x + this.mJumpImpulses.x;
+        v.y = v.y + this.mJumpImpulses.y;
         this.updateVelocity(v.x, v.y);
         if (!this.mAllowMultiJump) {
             this.mInAir = true;
@@ -5504,12 +5505,14 @@ class Levels {
             let h = level.makeHeroAsBox(960 / 2, 640 / 2, 32, 32, "./GameAssets/Angel.png");
             level.setCameraChase(h);
             level.setArrowKeyControls(h, 50);
-            //  level.setKeyAction(32, level.JumpAction(h), false);
-            //  h.setJumpImpulses(0, 10);
+            level.setKeyAction(32, level.JumpAction(h), false);
+            h.setJumpImpulses(0, 10);
             //level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
             //level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), false)
-            let e = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 100, 32, 32, "./GameAssets/BatSprite.png");
-            e.setRoute((new Route(3)).to(960 / 2 - 80, 640 / 2 + 100).to(960 / 2 - 80, 640 / 2 + 50).to(960 / 2, 640 / 2), 500, true);
+            let e1 = level.makeEnemyAsBox(960 / 2 + 180, 640 / 2 + 100, 32, 32, "./GameAssets/BatSprite.png");
+            let e2 = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 50, 32, 32, "./GameAssets/BatSprite.png");
+            let e3 = level.makeEnemyAsBox(960 / 2 + 300, 640 / 2 - 150, 32, 32, "./GameAssets/BatSprite.png");
+            //e.setRoute((new Route(3)).to(960/2 - 80, 640/2 + 100).to(960/2 - 80, 640/2 + 50).to(960/2, 640/2), 500, true)
             let o = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
             o.setPhysics(1, 3, 1);
             // draw a destination, and indicate that the level is won

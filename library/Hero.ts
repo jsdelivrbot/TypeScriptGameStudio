@@ -307,7 +307,7 @@ class Hero extends WorldActor {
 
     // reset rotation of hero if this obstacle is not a sensor
     if ((this.mCurrentRotation != 0) && !f.IsSensor()) {
-      this.increaseRotation(-this.mCurrentRotation);
+      //this.increaseRotation(-this.mCurrentRotation);
     }
     // if there is code attached to the obstacle for modifying the hero's behavior, run it
     if (o.mHeroCollision != null) {
