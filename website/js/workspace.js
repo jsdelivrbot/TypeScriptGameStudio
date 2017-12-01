@@ -58,7 +58,6 @@ $("#settingsModal").on('show.bs.modal', function(event) {
         Delete project event handler
     */
     modal.find(".modal-footer a[id='submit-delete']").on('click', function(){
-        console.log($(this).attr('data-origName'));
         deleteProject($(this).attr('data-origName'), $(this));
     });
 });
@@ -103,8 +102,11 @@ function loadGames() {
     xhr.setRequestHeader("Content-Type", "application/json");    
     
     xhr.onreadystatechange = function() {
+
         if(this.readyState === 4 && this.status === 200){
+
             let response = JSON.parse(this.responseText); 
+            
             if(response != "No Games"){
 
                 let games = []; 
@@ -144,66 +146,6 @@ function loadGames() {
     }
 
     xhr.send(); 
-}
-
-/*
-    Get a signed request to Amazon
-*/
-function signS3(settings, callback) { 
-
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `/sign-s3?file-name=${settings.file.name}&file-type=${settings.file.type}`);
-
-    xhr.onreadystatechange = () => {
-
-        if(xhr.readyState === 4){
-
-            if(xhr.status === 200){
-                
-                const response = JSON.parse(xhr.responseText);        
-                settings.imgURL = response.url;
-
-                //File has already been uploaded
-                if(response.signedRequest == null){
-                    callback(settings)
-                }
-                else{
-                    uploadFile(response.signedRequest, response.url, settings, callback);
-                }
-            }
-            else{
-                alert('Error. Could not upload game image. Please try again.');
-            }
-        }
-    };
-
-    xhr.send();
-}
-
-/*
-    Execute the upload to Amazon
-*/
-function uploadFile(signedRequest, url, game_settings, callback){
-
-    const xhr = new XMLHttpRequest();
-    xhr.open('PUT', signedRequest);
-
-    xhr.onreadystatechange = () => {
-
-        if(xhr.readyState === 4){
-
-            if(xhr.status !== 200){
-
-                alert('Error. Could not upload game image. Please try again.');
-            
-            }
-            else{
-                callback(game_settings);
-            }
-        }
-    };
-
-    xhr.send(game_settings.file);
 }
 
 /*==============

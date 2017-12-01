@@ -202,25 +202,10 @@ app.get("/account/data", function(req, res){
 /*
   Retrieve account files uploaded to Amazon
 */  
-app.get("/account/files", function(req, res){
+app.get("/account/getFiles", function(req, res){
 
   if(req.user){
-      connection.collection('files').find({
-        user_id : req.user.id,
-        user_email : req.user.email
-      }).toArray(function(err, object){
-        if(object){
-          if(!err){ 
-            res.write(JSON.stringify(object[0].files));
-            res.status(200);
-            res.end();
-          }
-          else{
-            res.status(500);
-            res.end();
-          }
-        }
-      });
+      database.getResourceFiles(connection, req.user, res);
   }
 });
 

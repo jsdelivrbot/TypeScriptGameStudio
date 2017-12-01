@@ -56,13 +56,13 @@
                                         <a data-toggle="modal" data-target="#createFileModal">
                                             <i class="fa fa-plus mr-1" aria-hidden="true"></i>
                                         </a>
-                                        <a data-toggle="modal" data-target="#uploadModal" onclick="hideUploadSucessMsg()">
+                                        <a data-toggle="modal" data-target="#uploadModal">
                                             <i class="fa fa-upload" aria-hidden="true"></i>
                                         </a>
                                     </span>
                                     <br>
                                     Project Files
-                                    <div class="list-group" id="fileList">
+                                    <div class="list-group" id="gameFileList">
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="profile-v">
@@ -70,13 +70,13 @@
                                         <a data-toggle="modal" data-target="#uploadFileModal">
                                             <i class="fa fa-plus mr-1" aria-hidden="true"></i>
                                         </a>
-                                        <a data-toggle="modal" data-target="#uploadModal" onclick="hideUploadSucessMsg()">
+                                        <a data-toggle="modal" data-target="#uploadModal">
                                             <i class="fa fa-upload" aria-hidden="true"></i>
                                         </a>
                                     </span>
                                     <br>
                                     Resources
-                                    <div class="list-group" id="fileList">
+                                    <div class="list-group" id="resourceFileList">
                                     </div>
 
                                 </div>
@@ -95,17 +95,17 @@
                                     </div>
                                     <div class="modal-body">
                                         <form>
-                                            <input type="file" class="form-control-file" id="file_upload" aria-describedby="fileHelp" onclick="hideUploadSucessMsg()">
-                                            <br>  
-                                            <div id="file_upload_successMsg"> 
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                                <small id="fileHelp" class="form-text text-muted d-inline">File uploaded successfully!</small>  
-                                            </div>                                          
+                                            <input type="file" class="form-control-file" id="file_upload" aria-describedby="fileHelp">
+                                            <small id="#projectImgTypeError" class="form-text text-error hidden">Image must be a .jpg, .jpeg, or .png</small> 
+                                            <small id="#projectSoundTypeError" class="form-text text-error hidden">Sound must be .mp3 or .oog</small> 
+                                            <small id="#projectImgSizeError" class="form-text text-error hidden">Image must be less than 10 MB</small>  
+                                            <small id="noFileError" class="form-text text-error hidden">Please add a file</small>
+                                            <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png images and .mp3 and .oog for sounds!<br>Image size < 10 MB.</small> 
                                         </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button id="file_upload_button" onclick="initUpload()" type="button" class="btn btn-primary text-capitalize">Upload</button>
+                                        <button id="file_upload_button" onclick="uploadResourceFile()" type="button" class="btn btn-primary text-capitalize">Upload</button>
                                     </div>
                                 </div>
                             </div>
@@ -192,6 +192,5 @@
         <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
         <script src="js/ace/mode-typescript.js" type="text/javascript" charset="utf-8"></script>    
         <script src="js/editor.js" type="text/javascript" charset="utf-8"></script>
-        <script src="js/fileUpload.js" type="text/javascript" charset="utf-8"></script>                
     </body>
 </html>

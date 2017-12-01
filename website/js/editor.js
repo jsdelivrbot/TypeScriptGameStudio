@@ -33,6 +33,7 @@ function editorSetup() {
     editor.resize();
 
     loadGameFiles(currentGame);
+    loadResourceFiles();
 
     //Set the Project Name
     $(".site-title").text("TypeScript Game Studio - " + currentGame);
@@ -185,6 +186,41 @@ function loadGameFiles(gameName) {
     xhr.send();
 }
 
+function loadResourceFiles() {
+
+    $("#resourceFileList").empty();
+
+    let xhr = new XMLHttpRequest(); 
+    xhr.open("GET", '/account/getFiles');
+
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState === 4){
+            if(xhr.status !== 200){
+                alert('Could not get resource files.');
+            }
+            else{
+
+                if(xhr.response !== "none"){
+
+                    //Load all the files into the DOM
+                    let files = JSON.parse(xhr.response);                    
+                    console.log(files);
+
+                    for (let i = 0; i < files.length; i++){
+
+                        addResourceToPage(files[i].file_name, files[i].file_url, files[i].file_type);
+                    }
+                }
+                else{
+
+                }
+            }
+        }
+    };
+
+    xhr.send();
+}
+
 /*
     Save the contents of all the files to the server
 */
@@ -262,7 +298,35 @@ function addFileToPage(fileName){
         switchActiveFile(fileName);
     }
 
-    document.getElementById("fileList").appendChild(listItemNode);
+    document.getElementById("gameFileList").appendChild(listItemNode);
+}
+
+function addResourceToPage(fileName, url, type){
+
+    let template;
+
+    if(type == "jpg" || type == 'png' || type == 'jpeg'){
+
+        template =`
+            <span>${fileName}</span>
+            <img class="resourceFile" draggable=true data-url="${url}" src="${url}" alt="Image">
+        `;
+    } 
+    else if(type == '.mp3' || type == '.oog.'){
+        template =`
+            <span class="resourceFile" data-url="${url}" draggable=true>${fileName}</span>
+        `;
+    }
+
+    let div = document.createElement('div');
+    div.className += "resc-item"
+    div.innerHTML = template; 
+
+    div.addEventListener("dragstart", function(ev){
+        ev.dataTransfer.setData("text", $(this).find('.resourceFile').attr("data-url"));
+    });
+
+    document.getElementById("resourceFileList").appendChild(div);
 }
 
 function createFile() {
@@ -290,10 +354,6 @@ function createFile() {
         if(xhr.readyState === 4){
 
             if(xhr.status === 200){     
-
-                /*
-                    TODO: LOAD THE IDE WITH THE FIVE FILES
-                */
                 currentGameFiles[fileName] = fileContents;
                 addFileToPage(fileName);
                 switchActiveFile(fileName);
@@ -305,4 +365,27 @@ function createFile() {
     };
 
     xhr.send(JSON.stringify(game)); 
+}
+
+function uploadResourceFile(){
+
+    const files = document.getElementById('file_upload').files;
+    const file = files[0];
+
+    $("#noFileError").addClass("hidden");
+
+    if(file == null || file == undefined){
+        $("#noFileError").toggleClass("hidden");
+    }
+    else{
+
+        //TODO : HANDLE IMAGES
+
+        verifyInputs({
+            file : file
+        }, function(){
+            $('#uploadModal').modal('hide');
+            loadResourceFiles();
+        });
+    }
 }
