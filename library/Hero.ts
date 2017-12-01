@@ -68,6 +68,7 @@ class Hero extends WorldActor {
   constructor(game: Lol, scene: MainScene, width: number, height: number, imgName: string) {
     super(game, scene, imgName, width, height);
     this.mStrength = 1;
+    this.mJumpImpulses = new PhysicsType2d.Vector2(0, 0);
   }
 
   /**

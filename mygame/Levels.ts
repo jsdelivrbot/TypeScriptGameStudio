@@ -32,6 +32,7 @@ class Levels implements ScreenManager {
       level.setCameraChase(h);
       level.setArrowKeyControls(h, 50);
       level.setKeyAction(32, level.JumpAction(h), false);
+      h.setJumpImpulses(0, 10);
 
       //level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
       //level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), false)

@@ -202,7 +202,7 @@ class LolManager {
   * in a clean state.
   */
   private onScreenChange(): void {
-    //this.mWorld.pauseMusic();
+    this.mWorld.pauseMusic();
     this.createScenes();
     // When debug mode is on, print the frames per second
     // if (this.mConfig.mShowDebugBoxes)
@@ -226,7 +226,7 @@ class LolManager {
   */
   advanceLevel(): void {
     // Make sure to stop the music!
-    //this.mWorld.stopMusic();
+    this.mWorld.stopMusic();
     if (this.mModeStates[this.PLAY] == this.mConfig.mNumLevels) {
       this.doChooser(1);
     } else {
@@ -339,7 +339,7 @@ class LolManager {
   * Quit the game
   */
   doQuit(): void {
-    //this.mWorld.stopMusic();
+    this.mWorld.stopMusic();
     //Gdx.app.exit();
   }
 
