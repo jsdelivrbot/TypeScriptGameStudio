@@ -5504,8 +5504,8 @@ class Levels {
             let h = level.makeHeroAsBox(960 / 2, 640 / 2, 32, 32, "./GameAssets/Angel.png");
             level.setCameraChase(h);
             level.setArrowKeyControls(h, 50);
-            level.setKeyAction(32, level.JumpAction(h), false);
-            h.setJumpImpulses(0, 10);
+            //  level.setKeyAction(32, level.JumpAction(h), false);
+            //  h.setJumpImpulses(0, 10);
             //level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
             //level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), false)
             let e = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 100, 32, 32, "./GameAssets/BatSprite.png");
