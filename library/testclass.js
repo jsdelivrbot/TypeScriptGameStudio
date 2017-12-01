@@ -4043,7 +4043,7 @@ class LolManager {
     * in a clean state.
     */
     onScreenChange() {
-        //this.mWorld.pauseMusic();
+        this.mWorld.pauseMusic();
         this.createScenes();
         // When debug mode is on, print the frames per second
         // if (this.mConfig.mShowDebugBoxes)
@@ -4065,7 +4065,7 @@ class LolManager {
     */
     advanceLevel() {
         // Make sure to stop the music!
-        //this.mWorld.stopMusic();
+        this.mWorld.stopMusic();
         if (this.mModeStates[this.PLAY] == this.mConfig.mNumLevels) {
             this.doChooser(1);
         }
@@ -4171,7 +4171,7 @@ class LolManager {
     * Quit the game
     */
     doQuit() {
-        //this.mWorld.stopMusic();
+        this.mWorld.stopMusic();
         //Gdx.app.exit();
     }
     /**
@@ -4616,6 +4616,7 @@ class Hero extends WorldActor {
     constructor(game, scene, width, height, imgName) {
         super(game, scene, imgName, width, height);
         this.mStrength = 1;
+        this.mJumpImpulses = new PhysicsType2d.Vector2(0, 0);
     }
     /**
     * Code to run when rendering the Hero.
@@ -5504,6 +5505,7 @@ class Levels {
             level.setCameraChase(h);
             level.setArrowKeyControls(h, 50);
             level.setKeyAction(32, level.JumpAction(h), false);
+            h.setJumpImpulses(0, 10);
             //level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
             //level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), false)
             let e = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 100, 32, 32, "./GameAssets/BatSprite.png");
