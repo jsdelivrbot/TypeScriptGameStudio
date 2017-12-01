@@ -794,9 +794,9 @@ class Level {
   * @param action     An action to perform
   * @param repeat     Whether holding the button repeats the action
   */
-  public setKeyAction(key: string, action: LolAction, repeat: boolean): void {
+  public setKeyAction(key: number, action: LolAction, repeat: boolean): void {
     document.onkeydown = (e) => {
-      if(e.key === key) {
+      if(e.keyCode === key) {
           action.go();
       }
     };
