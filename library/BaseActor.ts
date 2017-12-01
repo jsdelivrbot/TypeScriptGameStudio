@@ -246,6 +246,7 @@ class BaseActor extends Renderable {
     if(this.mRoute) this.mRoute.drive();
     if(this.mBody) this.mSprite.position.x = this.mBody.GetPosition().x;
     if(this.mBody) this.mSprite.position.y = this.mBody.GetPosition().y;
+    if(this.mBody) this.mSprite.rotation = this.mBody.GetAngle();
   }
 
   /**
