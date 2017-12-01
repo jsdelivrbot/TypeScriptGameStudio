@@ -225,6 +225,8 @@ class BaseActor extends Renderable {
             this.mSprite.position.x = this.mBody.GetPosition().x;
         if (this.mBody)
             this.mSprite.position.y = this.mBody.GetPosition().y;
+        if (this.mBody)
+            this.mSprite.rotation = this.mBody.GetAngle();
     }
     /**
     * Indicate whether this actor engages in physics collisions or not

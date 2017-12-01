@@ -29,8 +29,8 @@ class Levels implements ScreenManager {
       level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
 
       let h: Hero = level.makeHeroAsBox(960/2, 640/2, 32, 32, "./GameAssets/Angel.png");
-      level.setCameraChase(h);
-      level.setArrowKeyControls(h, 50);
+      //level.setCameraChase(h);
+      //level.setArrowKeyControls(h, 50);
       level.setKeyAction(32, level.JumpAction(h), false);
       h.setJumpImpulses(0, 10);
 
