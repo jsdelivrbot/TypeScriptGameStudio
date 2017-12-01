@@ -4,9 +4,9 @@ class Media {
     /// Store the fonts used by this game
     //private readonly mFonts: Map<String, BitmapFont> = new Map<>();
     /// Store the sounds used by this game
-    private readonly mSounds: Map<String, Sound>;
+    private readonly mSounds: Map<string, Sound>;
     /// Store the music used by this game
-    private readonly mTunes: Map<String, Sound>;
+    private readonly mTunes: Map<string, Sound>;
     /// Store the images used by this game
     //private readonly mImages: Map<String, TextureRegion>;
     /// A copy of the game-wide configuration object
@@ -19,6 +19,8 @@ class Media {
      */
     constructor(config: Config) {
         this.mConfig = config;
+        this.mSounds = new Map<string, Sound>();
+        this.mTunes = new Map<string, Sound>();
         // for (String imgName : config.mImageNames) {
         //     TextureRegion tr = new TextureRegion(new Texture(Gdx.files.internal(imgName)));
         //     mImages.put(imgName, tr);

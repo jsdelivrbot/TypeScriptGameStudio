@@ -5493,6 +5493,7 @@ class Levels {
         */
         if (index == 1) {
             //level.resetGravity(0, 9.8);
+            level.setMusic("./GameAssets/ThemeMusic.mp3");
             level.drawPicture(0, 0, 960, 640, "./images/BlueBox.png", -2);
             level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
             let h = level.makeHeroAsBox(960 / 2, 640 / 2, 30, 30, "./images/OrangeBox.png");
@@ -5579,9 +5580,9 @@ class MyConfig extends Config {
         // list the images that the game will use
         this.mImageNames = new Array("./images/fun.jpg", "./images/BlueBox.png", "./images/OrangeBox.png");
         // list the sound effects that the game will use
-        this.mSoundNames = new Array();
+        this.mSoundNames = new Array("./GameAssets/Shooting.ogg", "./GameAssets/EnemyKilled.wav");
         // list the background music files that the game will use
-        this.mMusicNames = new Array();
+        this.mMusicNames = new Array("./GameAssets/ThemeMusic.mp3");
         // don't change these lines unless you know what you are doing
         this.mLevels = new Levels();
         this.mChooser = new Chooser();
