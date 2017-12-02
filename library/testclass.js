@@ -2983,7 +2983,7 @@ class LolScene {
         this.mContainer.position.y = 0;
         // set up the event lists
         this.mOneTimeEvents = new Array();
-        //this.mRepeatEvents = new ArrayList<>();
+        this.mRepeatEvents = new Array();
         // set up the game camera, with (0, 0) in the bottom left
         this.mCamera = new Camera(w, h);
         this.mCamera.centerOn(w / 2, h / 2);
