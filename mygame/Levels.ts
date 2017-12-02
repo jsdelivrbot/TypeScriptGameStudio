@@ -33,8 +33,8 @@ class Levels implements ScreenManager {
       //h.setJumpImpulses(0, 20);
       //h.setMultiJumpOn();
 
-      //level.configureProjectiles(5, 3, 3, "./images/OrangeBox.png", 2, 0, false);
-      //level.setKeyAction("f", level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), false)
+      level.configureProjectiles(5, 3, 3, "./GameAssets/Bullet.png", 2, 0, false);
+      level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 2, 0, 4, 4), false)
 
       let e1: Enemy = level.makeEnemyAsBox(960/2 + 180, 640/2 + 100, 32, 32, "./GameAssets/BatSprite.png")
       let e2: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 50, 32, 32, "./GameAssets/BatSprite.png")
