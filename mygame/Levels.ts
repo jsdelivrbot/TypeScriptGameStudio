@@ -24,7 +24,6 @@ class Levels implements ScreenManager {
       level.setMusic("./GameAssets/ThemeMusic.mp3");
 
 
-
       level.drawPicture(0, 0, 960, 640, "./GameAssets/sky1.png", -2);
       level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
 
@@ -42,7 +41,7 @@ class Levels implements ScreenManager {
       let e2: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 50, 32, 32, "./GameAssets/BatSprite.png")
       let e3: Enemy = level.makeEnemyAsBox(960/2 + 300, 640/2 - 150, 32, 32, "./GameAssets/BatSprite.png")
 
-      //e.setRoute((new Route(3)).to(960/2 - 80, 640/2 + 100).to(960/2 - 80, 640/2 + 50).to(960/2, 640/2), 500, true)
+      e1.setRoute((new Route(3)).to(960/2 - 80, 640/2 + 100).to(960/2 - 80, 640/2 + 50).to(960/2, 640/2), 500, true)
 
       let o: Obstacle = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
       o.setPhysics(1, 3, 1);

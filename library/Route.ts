@@ -135,10 +135,12 @@ namespace Route {
           }
         } else {
           // advance to next point
+          console.log("advance to next point");
           this.mRouteVec.x = this.mRoute.mXIndices[this.mNextRouteGoal] - this.mActor.getXPosition();
           this.mRouteVec.y = this.mRoute.mYIndices[this.mNextRouteGoal] - this.mActor.getYPosition();
           this.mRouteVec.Normalize();
-          this.mRouteVec.Multiply(this.mRouteVelocity);
+          this.mRouteVec.x = this.mRouteVelocity * this.mRouteVec.x;
+          this.mRouteVec.y = this.mRouteVelocity * this.mRouteVec.y;
           this.mActor.mBody.SetLinearVelocity(this.mRouteVec);
         }
       }
