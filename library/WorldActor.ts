@@ -463,51 +463,50 @@ abstract class WorldActor extends BaseActor {
   //     });
   //   }
   //
-  //   /**
-  //   * Specify that this actor is supposed to chase another actor, but using fixed X/Y velocities
-  //   *
-  //   * @param target     The actor to chase
-  //   * @param xMagnitude The magnitude in the x direction, if ignoreX is false
-  //   * @param yMagnitude The magnitude in the y direction, if ignoreY is false
-  //   * @param ignoreX    False if we should apply xMagnitude, true if we should keep the hero's
-  //   *                   existing X velocity
-  //   * @param ignoreY    False if we should apply yMagnitude, true if we should keep the hero's
-  //   *                   existing Y velocity
-  //   */
-  //   public void setChaseFixedMagnitude(final WorldActor target, final float xMagnitude,
-  //     final float yMagnitude, final boolean ignoreX,
-  //     final boolean ignoreY) {
-  //       mChaseTarget = target;
-  //       mBody.setType(BodyType.DynamicBody);
-  //       mScene.mRepeatEvents.add(new LolAction() {
-  //         @Override
-  //         public void go() {
-  //           // don't chase something that isn't visible
-  //           if (!target.mEnabled)
-  //           return;
-  //           // don't run if this actor isn't visible
-  //           if (!mEnabled)
-  //           return;
-  //           // determine directions for X and Y
-  //           int xDir = (target.getXPosition() > getXPosition()) ? 1 : -1;
-  //           int yDir = (target.getYPosition() > getYPosition()) ? 1 : -1;
-  //           float x = (ignoreX) ? getXVelocity() : xDir * xMagnitude;
-  //           float y = (ignoreY) ? getYVelocity() : yDir * yMagnitude;
-  //           // apply velocity
-  //           updateVelocity(x, y);
-  //         }
-  //       });
-  //     }
-  //
-  //     /**
-  //     * Get the actor being chased by this actor
-  //     *
-  //     * @return The actor being chased
-  //     */
-  //     public WorldActor getChaseactor() {
-  //       return mChaseTarget;
-  //     }
-  //
+  /**
+  * Specify that this actor is supposed to chase another actor, but using fixed X/Y velocities
+  *
+  * @param target     The actor to chase
+  * @param xMagnitude The magnitude in the x direction, if ignoreX is false
+  * @param yMagnitude The magnitude in the y direction, if ignoreY is false
+  * @param ignoreX    False if we should apply xMagnitude, true if we should keep the hero's
+  *                   existing X velocity
+  * @param ignoreY    False if we should apply yMagnitude, true if we should keep the hero's
+  *                   existing Y velocity
+  */
+  public setChaseFixedMagnitude(target: WorldActor, xMagnitude: number,
+    yMagnitude: number, ignoreX: boolean, ignoreY: boolean): void {
+      this.mChaseTarget = target;
+      this.mBody.SetType(PhysicsType2d.Dynamics.BodyType.DYNAMIC);
+      let out_this = this;
+      this.mScene.mRepeatEvents.push(new (class _ extends LolAction {
+        public go(): void {
+          // don't chase something that isn't visible
+          if (!target.mEnabled)
+            return;
+          // don't run if this actor isn't visible
+          if (!out_this.mEnabled)
+            return;
+          // determine directions for X and Y
+          let xDir = (target.getXPosition() > out_this.getXPosition()) ? 1 : -1;
+          let yDir = (target.getYPosition() > out_this.getYPosition()) ? 1 : -1;
+          let x = (ignoreX) ? out_this.getXVelocity() : xDir * xMagnitude;
+          let y = (ignoreY) ? out_this.getYVelocity() : yDir * yMagnitude;
+          // apply velocity
+          out_this.updateVelocity(x, y);
+        }
+      })());
+    }
+
+    /**
+    * Get the actor being chased by this actor
+    *
+    * @return The actor being chased
+    */
+    public getChaseActor(): WorldActor {
+      return this.mChaseTarget;
+    }
+
   //     /**
   //     * Create a revolute joint between this actor and some other actor. Note that both actors need
   //     * to have some mass (density can't be 0) or else this won't work.
