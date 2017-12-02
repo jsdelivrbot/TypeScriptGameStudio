@@ -5344,10 +5344,12 @@ class Route {
                 }
                 else {
                     // advance to next point
+                    console.log("advance to next point");
                     this.mRouteVec.x = this.mRoute.mXIndices[this.mNextRouteGoal] - this.mActor.getXPosition();
                     this.mRouteVec.y = this.mRoute.mYIndices[this.mNextRouteGoal] - this.mActor.getYPosition();
                     this.mRouteVec.Normalize();
-                    this.mRouteVec.Multiply(this.mRouteVelocity);
+                    this.mRouteVec.x = this.mRouteVelocity * this.mRouteVec.x;
+                    this.mRouteVec.y = this.mRouteVelocity * this.mRouteVec.y;
                     this.mActor.mBody.SetLinearVelocity(this.mRouteVec);
                 }
             }
@@ -5516,7 +5518,7 @@ class Levels {
             let e1 = level.makeEnemyAsBox(960 / 2 + 180, 640 / 2 + 100, 32, 32, "./GameAssets/BatSprite.png");
             let e2 = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 50, 32, 32, "./GameAssets/BatSprite.png");
             let e3 = level.makeEnemyAsBox(960 / 2 + 300, 640 / 2 - 150, 32, 32, "./GameAssets/BatSprite.png");
-            //e.setRoute((new Route(3)).to(960/2 - 80, 640/2 + 100).to(960/2 - 80, 640/2 + 50).to(960/2, 640/2), 500, true)
+            e1.setRoute((new Route(3)).to(960 / 2 - 80, 640 / 2 + 100).to(960 / 2 - 80, 640 / 2 + 50).to(960 / 2, 640 / 2), 500, true);
             let o = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
             o.setPhysics(1, 3, 1);
             // draw a destination, and indicate that the level is won
