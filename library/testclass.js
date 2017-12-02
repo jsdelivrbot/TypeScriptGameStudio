@@ -2595,6 +2595,93 @@ class WorldActor extends BaseActor {
     setPassThrough(id) {
         this.mPassThroughId = id;
     }
+    // /**
+    // * Specify that this actor is supposed to chase another actor
+    // *
+    // * @param speed    The speed with which it chases the other actor
+    // * @param target   The actor to chase
+    // * @param chaseInX Should the actor change its x velocity?
+    // * @param chaseInY Should the actor change its y velocity?
+    // */
+    // public void setChaseSpeed(final float speed, final WorldActor target, final boolean chaseInX,
+    //   final boolean chaseInY) {
+    //     mChaseTarget = target;
+    //     mBody.setType(BodyType.DynamicBody);
+    //     mScene.mRepeatEvents.add(new LolAction() {
+    //       @Override
+    //       public void go() {
+    //         // don't chase something that isn't visible
+    //         if (!target.mEnabled)
+    //         return;
+    //         // don't run if this actor isn't visible
+    //         if (!mEnabled)
+    //         return;
+    //         // compute vector between actors, and normalize it
+    //         float x = target.mBody.getPosition().x - mBody.getPosition().x;
+    //         float y = target.mBody.getPosition().y - mBody.getPosition().y;
+    //         float denom = (float) Math.sqrt(x * x + y * y);
+    //         x /= denom;
+    //         y /= denom;
+    //         // multiply by speed
+    //         x *= speed;
+    //         y *= speed;
+    //         // remove changes for disabled directions, and boost the other
+    //         // dimension a little bit
+    //         if (!chaseInX) {
+    //           x = mBody.getLinearVelocity().x;
+    //           y *= 2;
+    //         }
+    //         if (!chaseInY) {
+    //           y = mBody.getLinearVelocity().y;
+    //           x *= 2;
+    //         }
+    //         // apply velocity
+    //         updateVelocity(x, y);
+    //       }
+    //     });
+    //   }
+    //
+    /**
+    * Specify that this actor is supposed to chase another actor, but using fixed X/Y velocities
+    *
+    * @param target     The actor to chase
+    * @param xMagnitude The magnitude in the x direction, if ignoreX is false
+    * @param yMagnitude The magnitude in the y direction, if ignoreY is false
+    * @param ignoreX    False if we should apply xMagnitude, true if we should keep the hero's
+    *                   existing X velocity
+    * @param ignoreY    False if we should apply yMagnitude, true if we should keep the hero's
+    *                   existing Y velocity
+    */
+    setChaseFixedMagnitude(target, xMagnitude, yMagnitude, ignoreX, ignoreY) {
+        this.mChaseTarget = target;
+        this.mBody.SetType(PhysicsType2d.Dynamics.BodyType.DYNAMIC);
+        let out_this = this;
+        this.mScene.mRepeatEvents.push(new (class _ extends LolAction {
+            go() {
+                // don't chase something that isn't visible
+                if (!target.mEnabled)
+                    return;
+                // don't run if this actor isn't visible
+                if (!out_this.mEnabled)
+                    return;
+                // determine directions for X and Y
+                let xDir = (target.getXPosition() > out_this.getXPosition()) ? 1 : -1;
+                let yDir = (target.getYPosition() > out_this.getYPosition()) ? 1 : -1;
+                let x = (ignoreX) ? out_this.getXVelocity() : xDir * xMagnitude;
+                let y = (ignoreY) ? out_this.getYVelocity() : yDir * yMagnitude;
+                // apply velocity
+                out_this.updateVelocity(x, y);
+            }
+        })());
+    }
+    /**
+    * Get the actor being chased by this actor
+    *
+    * @return The actor being chased
+    */
+    getChaseActor() {
+        return this.mChaseTarget;
+    }
 }
 /// <reference path="./WorldActor.ts"/>
 /**
@@ -5505,7 +5592,7 @@ class Levels {
         * configured to use tilt to control the level.
         */
         if (index == 1) {
-            level.resetGravity(0, 9.8);
+            level.resetGravity(0, 98);
             level.setMusic("./GameAssets/ThemeMusic.mp3");
             level.drawPicture(0, 0, 960, 640, "./GameAssets/sky1.png", -2);
             level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
@@ -5521,6 +5608,7 @@ class Levels {
             let e2 = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 50, 32, 32, "./GameAssets/BatSprite.png");
             let e3 = level.makeEnemyAsBox(960 / 2 + 300, 640 / 2 - 150, 32, 32, "./GameAssets/BatSprite.png");
             e1.setRoute((new Route(3)).to(960 / 2 - 80, 640 / 2 + 100).to(960 / 2 - 80, 640 / 2 + 50).to(960 / 2, 640 / 2).to(960 / 2 - 80, 640 / 2 + 100), 50, true);
+            e2.setChaseFixedMagnitude(h, 25, 25, false, false);
             let o = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
             o.setPhysics(1, 3, 1);
             // draw a destination, and indicate that the level is won
