@@ -492,10 +492,9 @@ class BaseActor extends Renderable {
     this.mEnabled = false;
     this.mBody.SetActive(false);
     this.mSprite.visible = false;
-    this.mSprite.renderable = false;
 
     // play a sound when we remove this actor?
-     if (this.mDisappearSound != null && !quiet)
+     if (this.mDisappearSound && !quiet)
          this.mDisappearSound.play();
 
     // To do a disappear animation after we've removed the actor, we draw an actor, so that
