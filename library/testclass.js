@@ -5596,7 +5596,7 @@ class MyConfig extends Config {
         this.mDefaultFontSize = 32;
         this.mDefaultFontColor = "#FFFFFF";
         // list the images that the game will use
-        this.mImageNames = new Array("./images/fun.jpg", "./images/BlueBox.png", "./images/OrangeBox.png");
+        this.mImageNames = new Array("./images/fun.jpg", "./images/BlueBox.png", "./images/OrangeBox.png", "./GameAssets/Angel.png", "./GameAssets/sky1.png", "./GameAssets/Bullet.png", "./GameAssets/CloudBall.png", "./GameAssets/BatSprite.png");
         // list the sound effects that the game will use
         this.mSoundNames = new Array("./GameAssets/Shooting.ogg", "./GameAssets/EnemyKilled.wav");
         // list the background music files that the game will use
