@@ -5058,7 +5058,7 @@ class Projectile extends WorldActor {
         // if this is an obstacle, check if it is a projectile callback, and if so, do the callback
         if (other instanceof Obstacle) {
             let o = other;
-            if (o.mProjectileCollision != null) {
+            if (o.mProjectileCollision) {
                 o.mProjectileCollision.go(o, this, contact);
                 // return... don't remove the projectile
                 return;
@@ -5520,18 +5520,28 @@ class Levels {
             //h.setJumpImpulses(0, 20);
             //h.setMultiJumpOn();
             level.configureProjectiles(5, 8, 8, "./GameAssets/Bullet.png", 2, 0, false);
-            level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 8, 0, 20, 0), false);
+            level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), false);
+            level.setThrowSound("./GameAssets/Shooting.ogg");
+            level.setProjectileVectorDampeningFactor(0.8);
+            level.setProjectileRange(100);
+            //level.setProjectileGravityOn();
             let e1 = level.makeEnemyAsBox(960 / 2 + 180, 640 / 2 + 100, 32, 32, "./GameAssets/BatSprite.png");
             let e2 = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 50, 32, 32, "./GameAssets/BatSprite.png");
             let e3 = level.makeEnemyAsBox(960 / 2 + 300, 640 / 2 - 150, 32, 32, "./GameAssets/BatSprite.png");
+            e1.setDamage(2);
+            e2.setDamage(4);
+            e3.setDamage(6);
             e1.setRoute((new Route(3)).to(960 / 2 - 80, 640 / 2 + 100).to(960 / 2 - 80, 640 / 2 + 50).to(960 / 2, 640 / 2).to(960 / 2 - 80, 640 / 2 + 100), 50, true);
             e2.setChaseFixedMagnitude(h, 25, 25, false, false);
-            let o = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
-            o.setPhysics(1, 3, 1);
+            let o1 = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
+            o1.setPhysics(1, 3, 1);
+            let o2 = level.makeObstacleAsCircle(532, 500, 32, 32, "./GameAssets/CloudBall.png");
+            o2.setPhysics(1, 3, 1);
+            level.setVictoryEnemyCount(-1);
             // draw a destination, and indicate that the level is won
             // when the hero reaches the level.
-            level.makeDestinationAsBox(960 / 2 + 55, 640 / 2 + 155, 100, 100, "./images/fun.jpg");
-            level.setVictoryDestination(1);
+            //level.makeDestinationAsBox(960/2 + 55, 640/2 + 155, 100, 100, "./images/fun.jpg");
+            //level.setVictoryDestination(1);
         }
     }
 }

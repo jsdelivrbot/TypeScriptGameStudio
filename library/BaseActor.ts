@@ -491,6 +491,8 @@ class BaseActor extends Renderable {
     // set it invisible immediately, so that future calls know to ignore this actor
     this.mEnabled = false;
     this.mBody.SetActive(false);
+    this.mSprite.visible = false;
+    this.mSprite.renderable = false;
 
     // play a sound when we remove this actor?
      if (this.mDisappearSound != null && !quiet)

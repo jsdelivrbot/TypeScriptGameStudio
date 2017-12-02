@@ -118,6 +118,9 @@ abstract class LolScene {
     zIndex = (zIndex > 2) ? 2 : zIndex;
     let i = this.mRenderables[zIndex + 2].indexOf(actor);
     this.mRenderables[zIndex + 2].splice(i, 1);
+    if(actor.mSprite) this.mContainer.removeChild(actor.mSprite);
+    if(actor.mText) this.mContainer.removeChild(actor.mText);
+    this.mCamera.mContainer.addChild(this.mContainer);
   }
 
   /**
