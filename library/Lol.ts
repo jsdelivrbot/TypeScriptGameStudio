@@ -89,5 +89,9 @@ class Lol {
        pe.go();
     });
     this.mManager.mWorld.mOneTimeEvents.length = 0;
+
+    this.mManager.mWorld.mRepeatEvents.forEach((pe) => {
+       pe.go();
+    });
   }
 }
