@@ -445,6 +445,8 @@ class BaseActor extends Renderable {
         // set it invisible immediately, so that future calls know to ignore this actor
         this.mEnabled = false;
         this.mBody.SetActive(false);
+        this.mSprite.visible = false;
+        this.mSprite.renderable = false;
         // play a sound when we remove this actor?
         if (this.mDisappearSound != null && !quiet)
             this.mDisappearSound.play();
@@ -2943,6 +2945,11 @@ class LolScene {
         zIndex = (zIndex > 2) ? 2 : zIndex;
         let i = this.mRenderables[zIndex + 2].indexOf(actor);
         this.mRenderables[zIndex + 2].splice(i, 1);
+        if (actor.mSprite)
+            this.mContainer.removeChild(actor.mSprite);
+        if (actor.mText)
+            this.mContainer.removeChild(actor.mText);
+        this.mCamera.mContainer.addChild(this.mContainer);
     }
     /**
     * Reset a scene by clearing all of its lists

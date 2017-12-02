@@ -95,7 +95,6 @@ class Projectile extends WorldActor {
         let dy = Math.abs(this.mBody.GetPosition().y - this.mRangeFrom.y);
         if (dx * dx + dy * dy > this.mRange * this.mRange) {
            this.remove(true);
-           this.mBody.SetActive(false);
            return;
         }
         super.onRender();

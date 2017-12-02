@@ -44,6 +44,10 @@ class Levels implements ScreenManager {
       let e2: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 50, 32, 32, "./GameAssets/BatSprite.png")
       let e3: Enemy = level.makeEnemyAsBox(960/2 + 300, 640/2 - 150, 32, 32, "./GameAssets/BatSprite.png")
 
+      e1.setDisappearSound("./GameAssets/EnemyKilled");
+      e2.setDisappearSound("./GameAssets/EnemyKilled");
+      e3.setDisappearSound("./GameAssets/EnemyKilled");
+
       e1.setDamage(2);
       e2.setDamage(4);
       e3.setDamage(6);
