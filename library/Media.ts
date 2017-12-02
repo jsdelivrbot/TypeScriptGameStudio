@@ -26,6 +26,7 @@ class Media {
             PIXI.loader.add(imgName);
             //this.mImages.set(imgName, texture);
         }
+        PIXI.loader.load();
         for (let soundName of config.mSoundNames) {
             let s: Sound = new Sound(soundName);
             this.mSounds.set(soundName, s);

@@ -5519,7 +5519,7 @@ class Levels {
             let e1 = level.makeEnemyAsBox(960 / 2 + 180, 640 / 2 + 100, 32, 32, "./GameAssets/BatSprite.png");
             let e2 = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 50, 32, 32, "./GameAssets/BatSprite.png");
             let e3 = level.makeEnemyAsBox(960 / 2 + 300, 640 / 2 - 150, 32, 32, "./GameAssets/BatSprite.png");
-            e1.setRoute((new Route(3)).to(960 / 2 - 80, 640 / 2 + 100).to(960 / 2 - 80, 640 / 2 + 50).to(960 / 2, 640 / 2).to(960 / 2 - 80, 640 / 2 + 100), 500, true);
+            e1.setRoute((new Route(3)).to(960 / 2 - 80, 640 / 2 + 100).to(960 / 2 - 80, 640 / 2 + 50).to(960 / 2, 640 / 2).to(960 / 2 - 80, 640 / 2 + 100), 50, true);
             let o = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
             o.setPhysics(1, 3, 1);
             // draw a destination, and indicate that the level is won
