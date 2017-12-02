@@ -8,7 +8,7 @@ class Media {
     /// Store the music used by this game
     private readonly mTunes: Map<string, Sound>;
     /// Store the images used by this game
-    //private readonly mImages: Map<String, TextureRegion>;
+    private readonly mImages: Map<string, PIXI.Texture>;
     /// A copy of the game-wide configuration object
     private mConfig: Config;
 
@@ -21,10 +21,11 @@ class Media {
         this.mConfig = config;
         this.mSounds = new Map<string, Sound>();
         this.mTunes = new Map<string, Sound>();
-        // for (String imgName : config.mImageNames) {
-        //     TextureRegion tr = new TextureRegion(new Texture(Gdx.files.internal(imgName)));
-        //     mImages.put(imgName, tr);
-        // }
+        for (let imgName of config.mImageNames) {
+            //let texture: PIXI.Texture
+            PIXI.loader.add(imgName);
+            //this.mImages.set(imgName, texture);
+        }
         for (let soundName of config.mSoundNames) {
             let s: Sound = new Sound(soundName);
             this.mSounds.set(soundName, s);

@@ -58,7 +58,7 @@ class BaseActor extends Renderable {
       this.mSprite = new PIXI.Sprite();
       this.mSprite.texture = PIXI.Texture.EMPTY;
     } else {
-      this.mSprite = PIXI.Sprite.fromImage(imgName);
+      this.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
     }
     this.mSprite.width = this.mSize.x;
     this.mSprite.height = this.mSize.y;
@@ -206,8 +206,9 @@ class BaseActor extends Renderable {
   updateVelocity(x: number, y: number) {
     // make sure it is not static... heroes are already Dynamic, let's just set everything else
     // that is static to kinematic... that's probably safest.
-    if (this.mBody.GetType() == PhysicsType2d.Dynamics.BodyType.STATIC)
-    this.mBody.SetType(PhysicsType2d.Dynamics.BodyType.KINEMATIC);
+    if (this.mBody.GetType() == PhysicsType2d.Dynamics.BodyType.STATIC) {
+      this.mBody.SetType(PhysicsType2d.Dynamics.BodyType.KINEMATIC);
+    }
     this.breakJoints();
     this.mBody.SetLinearVelocity(new PhysicsType2d.Vector2(x, y));
   }
