@@ -756,7 +756,7 @@ class Level {
     let left = this.makeXMotionAction(actor, -speed);
     let right = this.makeXMotionAction(actor, speed);
 
-    document.onkeydown = (e) => {
+    document.addEventListener("keydown", (e) => {
       if(e.key == "ArrowUp") {
         up.go();
       }
@@ -769,9 +769,9 @@ class Level {
       else if(e.key == "ArrowRight") {
         right.go();
       }
-    };
+    });
 
-    document.onkeyup = (e) => {
+    document.addEventListener("keyup", (e) => {
       if(e.key == "ArrowUp") {
         actor.updateVelocity(actor.mBody.GetLinearVelocity().x, 0);
       }
@@ -784,7 +784,7 @@ class Level {
       else if(e.key == "ArrowRight") {
         actor.updateVelocity(0, actor.mBody.GetLinearVelocity().y);
       }
-    };
+    });
   }
 
   /**
@@ -795,11 +795,11 @@ class Level {
   * @param repeat     Whether holding the button repeats the action
   */
   public setKeyAction(key: number, action: LolAction, repeat: boolean): void {
-    document.onkeydown = (e) => {
+    document.addEventListener("keydown", (e) => {
       if(e.keyCode === key) {
           action.go();
       }
-    };
+    });
   }
 
 
@@ -869,9 +869,9 @@ class Level {
   * @param milliDelay A delay between throws, so that holding doesn't lead to too many throws at
   *                   once
   * @param offsetX    specifies the x distance between the bottom left of the projectile and the
-  *                   bottom left of the hero throwing the projectile
+  *                   top left of the hero throwing the projectile
   * @param offsetY    specifies the y distance between the bottom left of the projectile and the
-  *                   bottom left of the hero throwing the projectile
+  *                   top left of the hero throwing the projectile
   * @param velocityX  The X velocity of the projectile when it is thrown
   * @param velocityY  The Y velocity of the projectile when it is thrown
   * @return The action object
@@ -882,7 +882,6 @@ class Level {
       return new (class _ extends LolAction {
         mLastThrow: number = 0;
 
-        //@Override
         public go(): void {
         let now = new Date().getTime();
         if (this.mLastThrow + milliDelay < now) {
@@ -893,86 +892,12 @@ class Level {
     })();
   }
 
-//   /**
-//   * The default behavior for throwing is to throw in a straight line. If we instead desire that
-//   * the projectiles have some sort of aiming to them, we need to use this method, which throws
-//   * toward where the screen was pressed
-//   * <p>
-//   * Note: you probably want to use an invisible button that covers the screen...
-//   *
-//   * @param x          The X coordinate of the bottom left corner (in pixels)
-//   * @param y          The Y coordinate of the bottom left corner (in pixels)
-//   * @param width      The width of the image
-//   * @param height     The height of the image
-//   * @param imgName    The name of the image to display. Use "" for an invisible button
-//   * @param h          The hero who should throw the projectile
-//   * @param milliDelay A delay between throws, so that holding doesn't lead to too many throws at
-//   *                   once
-//   * @param offsetX    specifies the x distance between the bottom left of the projectile and the
-//   *                   bottom left of the hero throwing the projectile
-//   * @param offsetY    specifies the y distance between the bottom left of the projectile and the
-//   *                   bottom left of the hero throwing the projectile
-//   * @return The button that was created
-//   */
-//   public SceneActor addDirectionalThrowButton(int x, int y, int width, int height, String imgName,
-//     final Hero h, final long milliDelay,
-//     final float offsetX, final float offsetY) {
-//       final SceneActor c = new SceneActor(mGame.mManager.mHud, imgName, width, height);
-//       c.setBoxPhysics(BodyDef.BodyType.StaticBody, x, y);
-//       final Vector2 v = new Vector2();
-//       c.mToggleHandler = new ToggleEventHandler() {
-//         public boolean go(boolean isUp, float worldX, float worldY) {
-//           if (isUp) {
-//             isHolding = false;
-//           } else {
-//             isHolding = true;
-//             v.x = worldX;
-//             v.y = worldY;
-//           }
-//           return true;
-//         }
-//       };
-//       c.mPanHandler = new PanEventHandler() {
-//         public boolean go(float worldX, float worldY, float deltaX, float deltaY) {
-//           if (c.mToggleHandler.isHolding) {
-//             v.x = worldX;
-//             v.y = worldY;
-//           }
-//           return c.mToggleHandler.isHolding;
-//         }
-//       };
-//       mGame.mManager.mHud.addActor(c, 0);
-//       // on toggle, we start or stop throwing; on pan, we change throw direction
-//       mGame.mManager.mHud.mToggleControls.add(c);
-//
-//       c.mToggleHandler.mSource = c;
-//       c.mPanHandler.mSource = c;
-//
-//       mGame.mManager.mWorld.mRepeatEvents.add(new LolAction() {
-//         long mLastThrow;
-//
-//         @Override
-//         public void go() {
-//           if (c.mToggleHandler.isHolding) {
-//             long now = System.currentTimeMillis();
-//             if (mLastThrow + milliDelay < now) {
-//               mLastThrow = now;
-//               mGame.mManager.mWorld.mProjectilePool.throwAt(h.mBody.getPosition().x,
-//               h.mBody.getPosition().y, v.x, v.y, h, offsetX, offsetY);
-//             }
-//           }
-//         }
-//       });
-//       return c;
-//     }
-//
-//
 
   /**
   * Add an image to the heads-up display. Touching the image has no effect
   *
-  * @param x       The X coordinate of the bottom left corner (in pixels)
-  * @param y       The Y coordinate of the bottom left corner (in pixels)
+  * @param x       The X coordinate of the top left corner (in pixels)
+  * @param y       The Y coordinate of the top left corner (in pixels)
   * @param width   The width of the image
   * @param height  The height of the image
   * @param imgName The name of the image to display. Use "" for an invisible button
@@ -986,23 +911,11 @@ class Level {
   }
 
 
-  // /**
-  // * Set the background color for the current level
-  // *
-  // * @param color The color, formatted as a hex number
-  // */
-  // public setBackgroundColor(color: number) {
-  //   //this.mGame.mRenderer = PIXI.autoDetectRenderer(this.mConfig.mWidth, this.mConfig.mHeight, {backgroundColor: color});
-  //   //mGame.mManager.mBackground.mColor = Color.valueOf(color);
-  //
-  // }
-
-
   /**
   * Make an enemy that has an underlying rectangular shape.
   *
-  * @param x       The X coordinate of the bottom left corner
-  * @param y       The Y coordinate of the bottom right corner
+  * @param x       The X coordinate of the top left corner
+  * @param y       The Y coordinate of the top right corner
   * @param width   The width of the enemy
   * @param height  The height of the enemy
   * @param imgName The name of the image to display
@@ -1019,8 +932,8 @@ class Level {
   /**
   * Draw an enemy with an underlying polygon shape
   *
-  * @param x       X coordinate of the bottom left corner
-  * @param y       Y coordinate of the bottom left corner
+  * @param x       X coordinate of the top left corner
+  * @param y       Y coordinate of the top left corner
   * @param width   Width of the obstacle
   * @param height  Height of the obstacle
   * @param imgName Name of image file to use
@@ -1040,8 +953,8 @@ class Level {
   /**
   * Make an enemy that has an underlying circular shape.
   *
-  * @param x       The X coordinate of the bottom left corner
-  * @param y       The Y coordinate of the bottom right corner
+  * @param x       The X coordinate of the top left corner
+  * @param y       The Y coordinate of the top right corner
   * @param width   The width of the enemy
   * @param height  The height of the enemy
   * @param imgName The name of the image to display
@@ -1056,12 +969,11 @@ class Level {
     return e;
   }
 
-
   /**
   * Make a destination that has an underlying rectangular shape.
   *
-  * @param x       The X coordinate of the bottom left corner
-  * @param y       The Y coordinate of the bottom right corner
+  * @param x       The X coordinate of the top left corner
+  * @param y       The Y coordinate of the top right corner
   * @param width   The width of the destination
   * @param height  The height of the destination
   * @param imgName The name of the image to display
@@ -1116,7 +1028,6 @@ class Level {
       this.mGame.mManager.mWorld.addActor(d, 0);
       return d;
   }
-
 
   /**
   * Draw an obstacle with an underlying box shape
@@ -1308,8 +1219,6 @@ class Level {
     for (let p of this.mGame.mManager.mWorld.mProjectilePool.mPool)
       p.mBody.SetGravityScale(1);
   }
-
-
 
   /**
   * The "directional projectile" mechanism might lead to the projectiles moving too fast. This

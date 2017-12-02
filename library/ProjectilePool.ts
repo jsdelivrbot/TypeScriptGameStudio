@@ -71,11 +71,11 @@ class ProjectilePool {
      * Throw a projectile. This is for throwing in a single, predetermined direction
      *
      * @param h         The hero who is performing the throw
-     * @param offsetX   specifies the x distance between the bottom left of the
-     *                  projectile and the bottom left of the hero throwing the
+     * @param offsetX   specifies the x distance between the top left of the
+     *                  projectile and the top left of the hero throwing the
      *                  projectile
-     * @param offsetY   specifies the y distance between the bottom left of the
-     *                  projectile and the bottom left of the hero throwing the
+     * @param offsetY   specifies the y distance between the top left of the
+     *                  projectile and the top left of the hero throwing the
      *                  projectile
      * @param velocityX The X velocity of the projectile when it is thrown
      * @param velocityY The Y velocity of the projectile when it is thrown
@@ -114,8 +114,7 @@ class ProjectilePool {
     }
 
     /**
-     * Throw a projectile. This is for throwing in an arbitrary direction, based on the location of
-     * a touch
+     * Throw a projectile. This is for throwing in the direction of a specified point
      *
      * @param heroX   x coordinate of the bottom left corner of the thrower
      * @param heroY   y coordinate of the bottom left corner of the thrower
