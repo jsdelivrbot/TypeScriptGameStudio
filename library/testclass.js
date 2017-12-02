@@ -5310,7 +5310,7 @@ class Route {
             this.mRouteVec.y = this.mRoute.mYIndices[this.mNextRouteGoal] - this.mActor.getYPosition();
             // normalize and scale the vector, then apply the velocity
             this.mRouteVec.Normalize();
-            this.mRouteVec.Multiply(this.mRouteVelocity);
+            this.mRouteVec = this.mRouteVec.Multiply(this.mRouteVelocity);
             this.mActor.mBody.SetLinearVelocity(this.mRouteVec);
         }
         /**
@@ -5348,8 +5348,7 @@ class Route {
                     this.mRouteVec.x = this.mRoute.mXIndices[this.mNextRouteGoal] - this.mActor.getXPosition();
                     this.mRouteVec.y = this.mRoute.mYIndices[this.mNextRouteGoal] - this.mActor.getYPosition();
                     this.mRouteVec.Normalize();
-                    this.mRouteVec.x = this.mRouteVelocity * this.mRouteVec.x;
-                    this.mRouteVec.y = this.mRouteVelocity * this.mRouteVec.y;
+                    this.mRouteVec = this.mRouteVec.Multiply(this.mRouteVelocity);
                     this.mActor.mBody.SetLinearVelocity(this.mRouteVec);
                 }
             }
