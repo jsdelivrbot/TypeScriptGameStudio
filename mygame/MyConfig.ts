@@ -42,7 +42,9 @@ class MyConfig extends Config {
 
     // list the images that the game will use
     this.mImageNames = new Array<string>(
-    "./images/fun.jpg", "./images/BlueBox.png", "./images/OrangeBox.png"
+     "./images/fun.jpg", "./images/BlueBox.png", "./images/OrangeBox.png",
+     "./GameAssets/Angel.png", "./GameAssets/sky1.png", "./GameAssets/Bullet.png",
+     "./GameAssets/CloudBall.png", "./GameAssets/BatSprite.png"
     );
 
     // list the sound effects that the game will use

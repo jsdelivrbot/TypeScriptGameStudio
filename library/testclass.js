@@ -58,7 +58,7 @@ class BaseActor extends Renderable {
             this.mSprite.texture = PIXI.Texture.EMPTY;
         }
         else {
-            this.mSprite = PIXI.Sprite.fromImage(imgName);
+            this.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
         }
         this.mSprite.width = this.mSize.x;
         this.mSprite.height = this.mSize.y;
@@ -187,8 +187,9 @@ class BaseActor extends Renderable {
     updateVelocity(x, y) {
         // make sure it is not static... heroes are already Dynamic, let's just set everything else
         // that is static to kinematic... that's probably safest.
-        if (this.mBody.GetType() == PhysicsType2d.Dynamics.BodyType.STATIC)
+        if (this.mBody.GetType() == PhysicsType2d.Dynamics.BodyType.STATIC) {
             this.mBody.SetType(PhysicsType2d.Dynamics.BodyType.KINEMATIC);
+        }
         this.breakJoints();
         this.mBody.SetLinearVelocity(new PhysicsType2d.Vector2(x, y));
     }
@@ -3073,10 +3074,11 @@ class Media {
         this.mConfig = config;
         this.mSounds = new Map();
         this.mTunes = new Map();
-        // for (String imgName : config.mImageNames) {
-        //     TextureRegion tr = new TextureRegion(new Texture(Gdx.files.internal(imgName)));
-        //     mImages.put(imgName, tr);
-        // }
+        for (let imgName of config.mImageNames) {
+            //let texture: PIXI.Texture
+            PIXI.loader.add(imgName);
+            //this.mImages.set(imgName, texture);
+        }
         for (let soundName of config.mSoundNames) {
             let s = new Sound(soundName);
             this.mSounds.set(soundName, s);
