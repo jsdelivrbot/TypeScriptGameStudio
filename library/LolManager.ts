@@ -188,7 +188,6 @@ class LolManager {
     this.mContainer = new PIXI.Container();
     this.mContainer.addChild(this.mWorld.mCamera.mContainer);
     this.mContainer.addChild(this.mHud.mCamera.mContainer);
-    //this.mWorld.mContainer.addChild(new PIXI.Text("Hello", {fontFamily: "Arial", fontSize: 24, fill: 0x0000FF, align: 'center'}));
     // this.mPreScene = new QuickScene(this.mConfig, this.mMedia, "");
     // this.mPreScene.setShowAction(null);
     // this.mPauseScene = new QuickScene(this.mConfig, this.mMedia, "");
@@ -304,7 +303,7 @@ class LolManager {
   /**
   * Load a lose scene
   *
-  * @param index The index of the help level to load
+  * @param index The index of the level that was lost
   */
   doLose(index: number): void {
     this.onScreenChange();
@@ -314,7 +313,7 @@ class LolManager {
   /**
   * Load a win scene
   *
-  * @param index The index of the help level to load
+  * @param index The index of the level that was won
   */
   doWin(index: number): void {
     this.onScreenChange();

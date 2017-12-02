@@ -76,8 +76,12 @@ class Projectile extends WorldActor {
                 return;
         }
         // only disappear if other is not a sensor
-        if (other.mBody.GetFixtures().Current().IsSensor()) //previously .getFixtureList.get(0) which may be different
-            return;
+        let f = other.mBody.GetFixtures();
+        f.MoveNext();
+        if (f.Current().IsSensor()) {
+          f.Reset();
+          return;
+        }
         this.remove(false);
     }
 

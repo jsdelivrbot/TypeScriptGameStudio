@@ -446,9 +446,8 @@ class BaseActor extends Renderable {
         this.mEnabled = false;
         this.mBody.SetActive(false);
         this.mSprite.visible = false;
-        this.mSprite.renderable = false;
         // play a sound when we remove this actor?
-        if (this.mDisappearSound != null && !quiet)
+        if (this.mDisappearSound && !quiet)
             this.mDisappearSound.play();
         // To do a disappear animation after we've removed the actor, we draw an actor, so that
         // we have a clean hook into the animation system, but we disable its physics
@@ -5171,11 +5170,12 @@ class ProjectilePool {
         b.mRangeFrom.x = h.getXPosition() + offsetX;
         b.mRangeFrom.y = h.getYPosition() + offsetY;
         b.mBody.SetActive(true);
+        b.mSprite.visible = true;
         b.mBody.SetTransform(b.mRangeFrom, 0);
         // give the projectile velocity, show it, play sound, animate the hero
         b.updateVelocity(velocityX, velocityY);
         b.mEnabled = true;
-        if (this.mThrowSound != null)
+        if (this.mThrowSound)
             this.mThrowSound.play();
         b.mDisappearSound = this.mProjectileDisappearSound;
         //h.doThrowAnimation();
@@ -5215,6 +5215,7 @@ class ProjectilePool {
         b.mRangeFrom.x = heroX + offsetX;
         b.mRangeFrom.y = heroY + offsetY;
         b.mBody.SetActive(true);
+        b.mSprite.visible = true;
         b.mBody.SetTransform(b.mRangeFrom, 0);
         // give the projectile velocity
         if (this.mEnableFixedVectorVelocity) {
@@ -5244,7 +5245,7 @@ class ProjectilePool {
         }
         // show the projectile, play sound, and animate the hero
         b.mEnabled = true;
-        if (this.mThrowSound != null)
+        if (this.mThrowSound)
             this.mThrowSound.play();
         b.mDisappearSound = this.mProjectileDisappearSound;
         //h.doThrowAnimation();
