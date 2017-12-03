@@ -795,12 +795,14 @@ class Level {
   * @param repeat     Whether holding the button repeats the action
   */
   public setKeyAction(keyCode: number, action: LolAction, repeat: boolean): void {
+    if (repeat)
+      this.mGame.mManager.mWorld.mRepeatEvents.push(action);
+    else
+      this.mGame.mManager.mWorld.mOneTimeEvents.push(action);
+
     let func = (e: KeyboardEvent) => {
       if(e.keyCode === keyCode) {
-        if (repeat)
-          this.mGame.mManager.mWorld.mRepeatEvents.push(action);
-        else
-          this.mGame.mManager.mWorld.mOneTimeEvents.push(action);
+        action.mIsActive = true;
       }
     };
     this.mGame.mManager.mFunctions.push(func);
@@ -810,7 +812,7 @@ class Level {
     if(repeat) {
       let func2 = (e: KeyboardEvent) => {
         if(e.keyCode === keyCode) {
-          this.mGame.mManager.mWorld.mRepeatEvents.splice(this.mGame.mManager.mWorld.mRepeatEvents.indexOf(action), 1);
+          action.mIsActive = false;
         }
       };
       this.mGame.mManager.mFunctions.push(func2);

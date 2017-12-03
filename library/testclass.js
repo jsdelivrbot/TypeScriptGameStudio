@@ -1530,13 +1530,26 @@ class Level {
     */
     setKeyAction(keyCode, action, repeat) {
         let func = (e) => {
-            if (e.which === keyCode) {
-                action.go();
+            if (e.keyCode === keyCode) {
+                if (repeat)
+                    this.mGame.mManager.mWorld.mRepeatEvents.push(action);
+                else
+                    this.mGame.mManager.mWorld.mOneTimeEvents.push(action);
             }
         };
         this.mGame.mManager.mFunctions.push(func);
         this.mGame.mManager.mEventTypes.push("keydown");
         document.addEventListener("keydown", func);
+        if (repeat) {
+            let func2 = (e) => {
+                if (e.keyCode === keyCode) {
+                    this.mGame.mManager.mWorld.mRepeatEvents.splice(this.mGame.mManager.mWorld.mRepeatEvents.indexOf(action), 1);
+                }
+            };
+            this.mGame.mManager.mFunctions.push(func2);
+            this.mGame.mManager.mEventTypes.push("keyup");
+            document.addEventListener("keyup", func2);
+        }
     }
     /**
     * Create an action for moving an actor in the X and Y directions, with dampening on release.
@@ -5534,7 +5547,7 @@ class Levels {
             // Add a background
             level.drawPicture(0, 0, 960, 640, "./GameAssets/sky1.png", -2);
             // Place a box around the arena to limit the play area
-            level.drawBoundingBox(0, 0, 960, 640, "./GameAssets/CloudBall.png", 1, 1, 1);
+            level.drawBoundingBox(0, 0, 960, 640, "", 1, 1, 1);
             // Create a hero and assign it to the variable "h"
             // (Here we explicitly state the type of the variable: "Hero")
             let h = level.makeHeroAsBox(960 / 2, 640 / 2, 32, 32, "./GameAssets/Angel.png");
@@ -5555,8 +5568,8 @@ class Levels {
             level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
             level.setThrowSound("./GameAssets/Shooting.ogg");
             level.setProjectileVectorDampeningFactor(0.8);
-            level.setProjectileRange(100);
-            //level.setProjectileGravityOn();
+            //level.setProjectileRange(500);
+            level.setProjectileGravityOn();
             let e1 = level.makeEnemyAsBox(960 / 2 + 180, 640 / 2 + 100, 32, 32, "./GameAssets/BatSprite.png");
             let e2 = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 50, 32, 32, "./GameAssets/BatSprite.png");
             let e3 = level.makeEnemyAsBox(960 / 2 + 300, 640 / 2 - 150, 32, 32, "./GameAssets/BatSprite.png");
@@ -5568,10 +5581,24 @@ class Levels {
             e3.setDamage(6);
             e1.setRoute((new Route(3)).to(960 / 2 - 80, 640 / 2 + 100).to(960 / 2 - 80, 640 / 2 + 50).to(960 / 2, 640 / 2).to(960 / 2 - 80, 640 / 2 + 100), 50, true);
             e2.setChaseFixedMagnitude(h, 25, 25, false, false);
-            let o1 = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
-            o1.setPhysics(1, 3, 1);
-            let o2 = level.makeObstacleAsCircle(532, 500, 32, 32, "./GameAssets/CloudBall.png");
-            o2.setPhysics(1, 3, 1);
+            let o11 = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
+            o11.setPhysics(1, 3, 1);
+            o11.setPassThrough(1);
+            let o12 = level.makeObstacleAsCircle(525, 500, 32, 32, "./GameAssets/CloudBall.png");
+            o12.setPhysics(1, 3, 1);
+            o12.setPassThrough(1);
+            let o13 = level.makeObstacleAsCircle(550, 500, 32, 32, "./GameAssets/CloudBall.png");
+            o13.setPhysics(1, 3, 1);
+            o13.setPassThrough(1);
+            let o21 = level.makeObstacleAsCircle(200, 200, 32, 32, "./GameAssets/CloudBall.png");
+            o21.setPhysics(1, 3, 1);
+            o21.setPassThrough(1);
+            let o22 = level.makeObstacleAsCircle(225, 200, 32, 32, "./GameAssets/CloudBall.png");
+            o22.setPhysics(1, 3, 1);
+            o22.setPassThrough(1);
+            let o23 = level.makeObstacleAsCircle(250, 200, 32, 32, "./GameAssets/CloudBall.png");
+            o23.setPhysics(1, 3, 1);
+            o23.setPassThrough(1);
             // Must kill all enemies
             level.setVictoryEnemyCount(-1);
         }
