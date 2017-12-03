@@ -210,7 +210,6 @@ class MainScene extends LolScene {
       */
       //@Override
       public BeginContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
-        console.log("Begin Contact");
         // Get the bodies, make sure both are actors
         let a = contact.GetFixtureA().GetBody().GetUserData(); //any type
         let b = contact.GetFixtureB().GetBody().GetUserData(); //any type
@@ -267,7 +266,6 @@ class MainScene extends LolScene {
       */
       //@Override
       public EndContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
-        console.log("End Contact");
       }
 
       /**
@@ -287,7 +285,6 @@ class MainScene extends LolScene {
          let gfoA = a as WorldActor;
          let gfoB = b as WorldActor;
 
-        //TODO: This stuff here
         //  // go sticky obstacles... only do something if at least one actor is a sticky actor
         //  if (gfoA.mIsSticky[0] || gfoA.mIsSticky[1] || gfoA.mIsSticky[2] || gfoA.mIsSticky[3]) {
         //      handleSticky(gfoA, gfoB, contact);
@@ -350,7 +347,7 @@ class MainScene extends LolScene {
    * If the level has music attached to it, this starts playing it
    */
   playMusic(): void {
-      if (!this.mMusicPlaying && this.mMusic != null) {
+      if (!this.mMusicPlaying && this.mMusic) {
           this.mMusicPlaying = true;
           this.mMusic.play();
       }

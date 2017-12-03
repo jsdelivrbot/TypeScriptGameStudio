@@ -4046,7 +4046,6 @@ class LolManager {
         this.mContainer = new PIXI.Container();
         this.mContainer.addChild(this.mWorld.mCamera.mContainer);
         this.mContainer.addChild(this.mHud.mCamera.mContainer);
-        //this.mWorld.mContainer.addChild(new PIXI.Text("Hello", {fontFamily: "Arial", fontSize: 24, fill: 0x0000FF, align: 'center'}));
         // this.mPreScene = new QuickScene(this.mConfig, this.mMedia, "");
         // this.mPreScene.setShowAction(null);
         // this.mPauseScene = new QuickScene(this.mConfig, this.mMedia, "");
@@ -4153,7 +4152,7 @@ class LolManager {
     /**
     * Load a lose scene
     *
-    * @param index The index of the help level to load
+    * @param index The index of the level that was lost
     */
     doLose(index) {
         this.onScreenChange();
@@ -4162,7 +4161,7 @@ class LolManager {
     /**
     * Load a win scene
     *
-    * @param index The index of the help level to load
+    * @param index The index of the level that was won
     */
     doWin(index) {
         this.onScreenChange();
@@ -5075,8 +5074,12 @@ class Projectile extends WorldActor {
                 return;
         }
         // only disappear if other is not a sensor
-        if (other.mBody.GetFixtures().Current().IsSensor())
+        let f = other.mBody.GetFixtures();
+        f.MoveNext();
+        if (f.Current().IsSensor()) {
+            f.Reset();
             return;
+        }
         this.remove(false);
     }
     /**
@@ -5557,24 +5560,17 @@ class Levels {
 }
 /// <reference path="../library/ScreenManager.ts"/>
 /**
-* Splash encapsulates the code that will be run to configure the opening screen of the game.
-* Typically this has buttons for playing, getting help, and quitting.
+* This is the scene that is displayed when you lose a level
 */
 class LoseScene {
     /**
-    * There is usually only one splash screen. However, the ScreenManager interface requires
-    * display() to take a parameter for which screen to display.  We ignore it.
+    * Implement the display function
     *
-    * @param index Which splash screen should be displayed (typically you can ignore this)
+    * @param index The level you lost on
     * @param level The physics-based world that comprises the splash screen
     */
     display(index, level) {
         // Configure our win screen
-        // This is the Play button... it switches to the first screen of the
-        // level chooser. You could jump straight to the first level by using
-        // "doLevel(1)", but check the configuration in MyConfig... there's a
-        // field you should change if you don't want the 'back' button to go
-        // from that level to the chooser.
         level.addStaticText(960 / 2 - 100, 640 / 2 - 10, "Arial", 0x00FFFF, 32, "Try Again", 0);
         level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
             go() {
@@ -5701,24 +5697,17 @@ function gameLoop(game) {
 }
 /// <reference path="../library/ScreenManager.ts"/>
 /**
-* Splash encapsulates the code that will be run to configure the opening screen of the game.
-* Typically this has buttons for playing, getting help, and quitting.
+* This is the scene that is displayed when you win a level
 */
 class WinScene {
     /**
-    * There is usually only one splash screen. However, the ScreenManager interface requires
-    * display() to take a parameter for which screen to display.  We ignore it.
+    * Implement the display function
     *
-    * @param index Which splash screen should be displayed (typically you can ignore this)
-    * @param level The physics-based world that comprises the splash screen
+    * @param index Which level you won
+    * @param level The public api
     */
     display(index, level) {
         // Configure our win screen
-        // This is the Play button... it switches to the first screen of the
-        // level chooser. You could jump straight to the first level by using
-        // "doLevel(1)", but check the configuration in MyConfig... there's a
-        // field you should change if you don't want the 'back' button to go
-        // from that level to the chooser.
         level.addStaticText(960 / 2 - 100, 640 / 2 - 10, "Arial", 0x00FFFF, 32, "You Win!!", 0);
         level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
             go() {
