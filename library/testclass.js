@@ -1528,15 +1528,28 @@ class Level {
     * @param action     An action to perform
     * @param repeat     Whether holding the button repeats the action
     */
-    setKeyAction(key, action) {
-        let func = function (e) {
-            if (e.keyCode === key) {
-                action.go();
+    setKeyAction(keyCode, action, repeat) {
+        let func = (e) => {
+            if (e.keyCode === keyCode) {
+                if (repeat)
+                    this.mGame.mManager.mWorld.mRepeatEvents.push(action);
+                else
+                    this.mGame.mManager.mWorld.mOneTimeEvents.push(action);
             }
         };
         this.mGame.mManager.mFunctions.push(func);
         this.mGame.mManager.mEventTypes.push("keydown");
         document.addEventListener("keydown", func);
+        if (repeat) {
+            let func2 = (e) => {
+                if (e.keyCode === keyCode) {
+                    this.mGame.mManager.mWorld.mRepeatEvents.splice(this.mGame.mManager.mWorld.mRepeatEvents.indexOf(action), 1);
+                }
+            };
+            this.mGame.mManager.mFunctions.push(func);
+            this.mGame.mManager.mEventTypes.push("keyup");
+            document.addEventListener("keyup", func2);
+        }
     }
     /**
     * Create an action for moving an actor in the X and Y directions, with dampening on release.

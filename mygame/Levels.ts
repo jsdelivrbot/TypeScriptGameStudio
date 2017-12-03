@@ -41,21 +41,21 @@ class Levels implements ScreenManager {
       // Set 'w' to jump (this involves using keycode)
       // Find the keycode of any key by going to www.keycode.info
       //level.setKeyAction(32, level.JumpAction(h), false);
-      level.setKeyAction(87, level.JumpAction(h));
+      level.setKeyAction(87, level.JumpAction(h), false);
       // The jumps will give 100 pixels of up velocity
       h.setJumpImpulses(0, 100);
       // Let the hero jump in the air to simulate flying
       h.setMultiJumpOn();
 
       // 'a' key to move left
-      level.setKeyAction(65, level.makeXMotionAction(h, -50));
+      level.setKeyAction(65, level.makeXMotionAction(h, -50), true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeXMotionAction(h, 50));
+      level.setKeyAction(68, level.makeXMotionAction(h, 50), true);
 
 
       level.configureProjectiles(5, 8, 8, "./GameAssets/Bullet.png", 2, 0, false);
       // spacebar to shoot
-      level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0));
+      level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
       level.setThrowSound("./GameAssets/Shooting.ogg");
       level.setProjectileVectorDampeningFactor(0.8);
       level.setProjectileRange(100);
