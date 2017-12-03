@@ -1441,6 +1441,7 @@ class Level {
                 let v = actor.mBody.GetLinearVelocity();
                 v.x = xRate;
                 actor.updateVelocity(v.x, v.y);
+                actor.mBody.SetLinearDamping(100);
             }
         })();
     }
@@ -5582,7 +5583,6 @@ class Levels {
             level.setKeyAction(65, level.makeXMotionAction(h, -80), true);
             // 'd' key to move right
             level.setKeyAction(68, level.makeXMotionAction(h, 80), true);
-            h.setDamping(1);
             level.configureProjectiles(5, 8, 8, "./GameAssets/Bullet.png", 2, 0, false);
             // spacebar to shoot
             //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);

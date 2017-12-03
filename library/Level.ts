@@ -699,7 +699,7 @@ class Level {
         let v = actor.mBody.GetLinearVelocity();
         v.x = xRate;
         actor.updateVelocity(v.x, v.y);
-        actor.mBody.SetLinearDamping(100);
+        actor.mBody.SetLinearDamping(5);
       }
     })();
   }
