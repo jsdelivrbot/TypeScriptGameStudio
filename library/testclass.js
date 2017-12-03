@@ -1530,19 +1530,21 @@ class Level {
     * @param repeat     Whether holding the button repeats the action
     */
     setKeyAction(keyCode, action, repeat) {
-        // action.mIsActive = false;
-        // if (repeat)
-        //   this.mGame.mManager.mWorld.mRepeatEvents.push(action);
-        // else
-        //   this.mGame.mManager.mWorld.mOneTimeEvents.push(action);
         let func = (e) => {
-            if (e.keyCode === keyCode) {
+            this.mGame.mManager.mKeysPressed[e.keyCode] = true;
+            if (this.mGame.mManager.mKeysPressed[e.keyCode]) {
                 action.go();
             }
         };
         this.mGame.mManager.mFunctions.push(func);
         this.mGame.mManager.mEventTypes.push("keydown");
         document.addEventListener("keydown", func);
+        let func2 = (e) => {
+            this.mGame.mManager.mKeysPressed[e.keyCode] = false;
+        };
+        this.mGame.mManager.mFunctions.push(func2);
+        this.mGame.mManager.mEventTypes.push("keyup");
+        document.addEventListener("keyup", func2);
     }
     /**
     * Do an action when the mouse is clicked
@@ -4001,8 +4003,10 @@ class LolManager {
         /// The level within each mode (e.g., we are in PLAY scene 4, and will return to CHOOSER 2)
         this.mModeStates = new Array(5);
         /// The events placed on the webpage
-        this.mFunctions = Array();
-        this.mEventTypes = Array();
+        this.mFunctions = new Array();
+        this.mEventTypes = new Array();
+        /// Keys being pressed
+        this.mKeysPressed = new Array();
         this.mGame = game;
         this.mConfig = config;
         this.mMedia = media;
@@ -5580,7 +5584,7 @@ class Levels {
             // spacebar to shoot
             //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
             // click to shoot
-            level.setClickAction(level.ThrowDirectionalAction(h, 24, 16));
+            level.setClickAction(level.ThrowDirectionalAction(h, 16, 16));
             level.setThrowSound("./GameAssets/Shooting.ogg");
             level.setProjectileVectorDampeningFactor(0.8);
             //level.setProjectileRange(500);
