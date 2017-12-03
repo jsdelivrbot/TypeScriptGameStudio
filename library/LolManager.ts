@@ -107,6 +107,9 @@ class LolManager {
   mWinCallback: LolAction | null;
   /// Code to run when a level is lost
   mLoseCallback: LolAction | null;
+  /// The events placed on the webpage
+  mFunctions = Array<Function>();
+  mEventTypes = Array<string>();
 
   /**
   * Construct the LolManager, build the scenes, set up the state machine, and clear the scores.
@@ -201,6 +204,12 @@ class LolManager {
   * in a clean state.
   */
   private onScreenChange(): void {
+    for(let i=0; i < this.mFunctions.length; i++) {
+      document.removeEventListener(this.mEventTypes[i], this.mFunctions[i]);
+    }
+    this.mFunctions.length = 0;
+    this.mEventTypes.length = 0;
+
     this.mWorld.pauseMusic();
     this.createScenes();
     // When debug mode is on, print the frames per second

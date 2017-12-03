@@ -3388,7 +3388,6 @@ class MainScene extends LolScene {
             */
             //@Override
             BeginContact(contact) {
-                console.log("Begin Contact");
                 // Get the bodies, make sure both are actors
                 let a = contact.GetFixtureA().GetBody().GetUserData(); //any type
                 let b = contact.GetFixtureB().GetBody().GetUserData(); //any type
@@ -3448,7 +3447,6 @@ class MainScene extends LolScene {
             */
             //@Override
             EndContact(contact) {
-                console.log("End Contact");
             }
             /**
             * Presolve is a hook for disabling certain collisions. We use it
@@ -3466,7 +3464,6 @@ class MainScene extends LolScene {
                     return;
                 let gfoA = a;
                 let gfoB = b;
-                //TODO: This stuff here
                 //  // go sticky obstacles... only do something if at least one actor is a sticky actor
                 //  if (gfoA.mIsSticky[0] || gfoA.mIsSticky[1] || gfoA.mIsSticky[2] || gfoA.mIsSticky[3]) {
                 //      handleSticky(gfoA, gfoB, contact);
@@ -3526,7 +3523,7 @@ class MainScene extends LolScene {
      * If the level has music attached to it, this starts playing it
      */
     playMusic() {
-        if (!this.mMusicPlaying && this.mMusic != null) {
+        if (!this.mMusicPlaying && this.mMusic) {
             this.mMusicPlaying = true;
             this.mMusic.play();
         }

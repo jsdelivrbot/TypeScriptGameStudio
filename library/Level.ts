@@ -795,11 +795,14 @@ class Level {
   * @param repeat     Whether holding the button repeats the action
   */
   public setKeyAction(key: number, action: LolAction, repeat: boolean): void {
-    document.addEventListener("keydown", (e) => {
+    let func = function(e: KeyboardEvent) {
       if(e.keyCode === key) {
           action.go();
       }
-    });
+    };
+    this.mGame.mManager.mFunctions.push(func);
+    this.mGame.mManager.mEventTypes.push("keydown");
+    document.addEventListener("keydown", func);
   }
 
 
