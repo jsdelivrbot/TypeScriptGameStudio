@@ -48,9 +48,9 @@ class Levels implements ScreenManager {
       h.setMultiJumpOn();
 
       // 'a' key to move left
-      level.setKeyAction(65, level.makeXMotionAction(h, -50), true);
+      level.setKeyAction(65, level.makeXYDampenedMotionAction(h, -50, 0, 1), true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeXMotionAction(h, 50), true);
+      level.setKeyAction(68, level.makeXYDampenedMotionAction(h, -50, 0, 1), true);
 
 
       level.configureProjectiles(5, 8, 8, "./GameAssets/Bullet.png", 2, 0, false);

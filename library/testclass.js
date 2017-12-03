@@ -1529,6 +1529,7 @@ class Level {
     * @param repeat     Whether holding the button repeats the action
     */
     setKeyAction(keyCode, action, repeat) {
+        action.mIsActive = false;
         if (repeat)
             this.mGame.mManager.mWorld.mRepeatEvents.push(action);
         else
@@ -4426,11 +4427,13 @@ class Lol {
         this.mManager.mHud.render();
         this.mRenderer.render(this.mManager.mContainer);
         this.mManager.mWorld.mOneTimeEvents.forEach((pe) => {
-            pe.go();
+            if (pe.mIsActive)
+                pe.go();
         });
         this.mManager.mWorld.mOneTimeEvents.length = 0;
         this.mManager.mWorld.mRepeatEvents.forEach((pe) => {
-            pe.go();
+            if (pe.mIsActive)
+                pe.go();
         });
     }
 }
