@@ -796,13 +796,13 @@ class Level {
   */
   public setKeyAction(keyCode: number, action: LolAction, repeat: boolean): void {
     let func = (e: KeyboardEvent) => {
-      if(e.keyCode === keyCode) {
+      if(e.which === keyCode) {
         action.go();
       }
     };
     this.mGame.mManager.mFunctions.push(func);
-    this.mGame.mManager.mEventTypes.push("keypress");
-    document.addEventListener("keypress", func)
+    this.mGame.mManager.mEventTypes.push("keydown");
+    document.addEventListener("keydown", func)
   }
 
 
