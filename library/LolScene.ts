@@ -156,7 +156,7 @@ abstract class LolScene {
         public onRender(): void {
         }
       })();
-      r.mSprite = PIXI.Sprite.fromImage(imgName);
+      r.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
       r.mSprite.position.x = x;
       r.mSprite.position.y = y;
       r.mSprite.height = height;

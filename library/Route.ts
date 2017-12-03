@@ -135,7 +135,6 @@ namespace Route {
           }
         } else {
           // advance to next point
-          console.log("advance to next point");
           this.mRouteVec.x = this.mRoute.mXIndices[this.mNextRouteGoal] - this.mActor.getXPosition();
           this.mRouteVec.y = this.mRoute.mYIndices[this.mNextRouteGoal] - this.mActor.getYPosition();
           this.mRouteVec.Normalize();

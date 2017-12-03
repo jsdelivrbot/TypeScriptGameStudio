@@ -794,7 +794,7 @@ class Level {
   * @param action     An action to perform
   * @param repeat     Whether holding the button repeats the action
   */
-  public setKeyAction(key: number, action: LolAction, repeat: boolean): void {
+  public setKeyAction(key: number, action: LolAction): void {
     let func = function(e: KeyboardEvent) {
       if(e.keyCode === key) {
           action.go();
