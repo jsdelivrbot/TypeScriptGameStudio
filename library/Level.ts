@@ -576,6 +576,7 @@ class Level {
       //action.mSource = c;
       c.mSprite.interactive = true;
       c.mSprite.on('click', () => action.go());
+      c.mSprite.on('tap', () => action.go());
       this.mGame.mManager.mHud.addActor(c, 0);
       return c;
   }
@@ -809,19 +810,24 @@ class Level {
     this.mGame.mManager.mFunctions.push(func);
     this.mGame.mManager.mEventTypes.push("keydown");
     document.addEventListener("keydown", func);
-
-    // if(repeat) {
-    //   let func2 = (e: KeyboardEvent) => {
-    //     if(e.keyCode === keyCode) {
-    //       action.mIsActive = false;
-    //     }
-    //   };
-    //   this.mGame.mManager.mFunctions.push(func2);
-    //   this.mGame.mManager.mEventTypes.push("keyup");
-    //   document.addEventListener("keyup", func2);
-    // }
   }
 
+  /**
+  * Do an action when the mouse is clicked
+  *
+  * @param action The action to take when the mouse is clicked
+  */
+  public setClickAction(action: TouchEventHandler): void {
+    let func = (e: MouseEvent) => {
+      action.go(e.pageX, e.pageY);
+    };
+    this.mGame.mManager.mFunctions.push(func);
+    this.mGame.mManager.mEventTypes.push("mousedown");
+    document.addEventListener("mousedown", func);
+    this.mGame.mManager.mFunctions.push(func);
+    this.mGame.mManager.mEventTypes.push("touchstart");
+    document.addEventListener("touchstart", func);
+  }
 
   /**
   * Create an action for moving an actor in the X and Y directions, with dampening on release.

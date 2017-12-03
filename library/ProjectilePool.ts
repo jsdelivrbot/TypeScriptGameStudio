@@ -53,7 +53,8 @@ class ProjectilePool {
         for (let i = 0; i < size; ++i) {
             this.mPool[i] = new Projectile(game, level, width, height, imgName, -100 - i * width,
                     -100 - i * height, zIndex, isCircle);
-            this.mPool[i].mEnabled= false;
+            this.mPool[i].mEnabled = false;
+            this.mPool[i].mSprite.visible = false;
             this.mPool[i].mBody.SetBullet(true);
             this.mPool[i].mBody.SetActive(false);
             this.mPool[i].mDamage = strength;
