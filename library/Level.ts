@@ -796,10 +796,12 @@ class Level {
   * @param repeat     Whether holding the button repeats the action
   */
   public setKeyAction(keyCode: number, action: LolAction, repeat: boolean): void {
+    action.mIsActive = false;
+    this.mGame.mManager.mWorld.mRepeatEvents.push(action);
+
     let func = (e: KeyboardEvent) => {
-      this.mGame.mManager.mKeysPressed[e.keyCode] = true;
-      if(this.mGame.mManager.mKeysPressed[keyCode] === true) {
-        action.go();
+      if (e.keyCode == keyCode) {
+        action.mIsActive = true;
       }
     };
     this.mGame.mManager.mFunctions.push(func);
@@ -807,7 +809,9 @@ class Level {
     document.addEventListener("keydown", func);
 
     let func2 = (e: KeyboardEvent) => {
-      this.mGame.mManager.mKeysPressed[e.keyCode] = false;
+      if (e.keyCode == keyCode) {
+        action.mIsActive = false;
+      }
     };
     this.mGame.mManager.mFunctions.push(func2);
     this.mGame.mManager.mEventTypes.push("keyup");
