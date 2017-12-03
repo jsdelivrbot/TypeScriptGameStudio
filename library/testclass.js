@@ -1328,6 +1328,7 @@ class Level {
         //action.mSource = c;
         c.mSprite.interactive = true;
         c.mSprite.on('click', () => action.go());
+        c.mSprite.on('tap', () => action.go());
         this.mGame.mManager.mHud.addActor(c, 0);
         return c;
     }
@@ -1542,16 +1543,22 @@ class Level {
         this.mGame.mManager.mFunctions.push(func);
         this.mGame.mManager.mEventTypes.push("keydown");
         document.addEventListener("keydown", func);
-        // if(repeat) {
-        //   let func2 = (e: KeyboardEvent) => {
-        //     if(e.keyCode === keyCode) {
-        //       action.mIsActive = false;
-        //     }
-        //   };
-        //   this.mGame.mManager.mFunctions.push(func2);
-        //   this.mGame.mManager.mEventTypes.push("keyup");
-        //   document.addEventListener("keyup", func2);
-        // }
+    }
+    /**
+    * Do an action when the mouse is clicked
+    *
+    * @param action The action to take when the mouse is clicked
+    */
+    setClickAction(action) {
+        let func = (e) => {
+            action.go(e.pageX, e.pageY);
+        };
+        this.mGame.mManager.mFunctions.push(func);
+        this.mGame.mManager.mEventTypes.push("mousedown");
+        document.addEventListener("mousedown", func);
+        this.mGame.mManager.mFunctions.push(func);
+        this.mGame.mManager.mEventTypes.push("touchstart");
+        document.addEventListener("touchstart", func);
     }
     /**
     * Create an action for moving an actor in the X and Y directions, with dampening on release.
@@ -5153,6 +5160,7 @@ class ProjectilePool {
         for (let i = 0; i < size; ++i) {
             this.mPool[i] = new Projectile(game, level, width, height, imgName, -100 - i * width, -100 - i * height, zIndex, isCircle);
             this.mPool[i].mEnabled = false;
+            this.mPool[i].mSprite.visible = false;
             this.mPool[i].mBody.SetBullet(true);
             this.mPool[i].mBody.SetActive(false);
             this.mPool[i].mDamage = strength;
@@ -5567,9 +5575,12 @@ class Levels {
             level.setKeyAction(65, level.makeXMotionAction(h, -50), true);
             // 'd' key to move right
             level.setKeyAction(68, level.makeXMotionAction(h, 50), true);
+            h.setDamping(1);
             level.configureProjectiles(5, 8, 8, "./GameAssets/Bullet.png", 2, 0, false);
             // spacebar to shoot
-            level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
+            //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
+            // click to shoot
+            level.setClickAction(level.ThrowDirectionalAction(h, 24, 16));
             level.setThrowSound("./GameAssets/Shooting.ogg");
             level.setProjectileVectorDampeningFactor(0.8);
             //level.setProjectileRange(500);

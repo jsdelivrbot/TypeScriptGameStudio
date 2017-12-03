@@ -57,7 +57,7 @@ class Levels implements ScreenManager {
       // spacebar to shoot
       //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
       // click to shoot
-      level.setClickAction(level.ThrowDirectionalAction(h, 24, 16));
+      level.setClickAction(level.ThrowDirectionalAction(h, 16, 16));
       level.setThrowSound("./GameAssets/Shooting.ogg");
       level.setProjectileVectorDampeningFactor(0.8);
       //level.setProjectileRange(500);

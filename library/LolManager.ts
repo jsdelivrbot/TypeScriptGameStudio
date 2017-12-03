@@ -108,8 +108,10 @@ class LolManager {
   /// Code to run when a level is lost
   mLoseCallback: LolAction | null;
   /// The events placed on the webpage
-  mFunctions = Array<EventListener | EventListenerObject>();
-  mEventTypes = Array<string>();
+  mFunctions = new Array<EventListener | EventListenerObject>();
+  mEventTypes = new Array<string>();
+  /// Keys being pressed
+  mKeysPressed = new Array<boolean>();
 
   /**
   * Construct the LolManager, build the scenes, set up the state machine, and clear the scores.
