@@ -1530,17 +1530,20 @@ class Level {
     * @param repeat     Whether holding the button repeats the action
     */
     setKeyAction(keyCode, action, repeat) {
+        action.mIsActive = false;
+        this.mGame.mManager.mWorld.mRepeatEvents.push(action);
         let func = (e) => {
-            this.mGame.mManager.mKeysPressed[e.keyCode] = true;
-            if (this.mGame.mManager.mKeysPressed[keyCode] === true) {
-                action.go();
+            if (e.keyCode == keyCode) {
+                action.mIsActive = true;
             }
         };
         this.mGame.mManager.mFunctions.push(func);
         this.mGame.mManager.mEventTypes.push("keydown");
         document.addEventListener("keydown", func);
         let func2 = (e) => {
-            this.mGame.mManager.mKeysPressed[e.keyCode] = false;
+            if (e.keyCode == keyCode) {
+                action.mIsActive = false;
+            }
         };
         this.mGame.mManager.mFunctions.push(func2);
         this.mGame.mManager.mEventTypes.push("keyup");
