@@ -1530,13 +1530,13 @@ class Level {
     */
     setKeyAction(keyCode, action, repeat) {
         let func = (e) => {
-            if (e.keyCode === keyCode) {
+            if (e.which === keyCode) {
                 action.go();
             }
         };
         this.mGame.mManager.mFunctions.push(func);
-        this.mGame.mManager.mEventTypes.push("keypress");
-        document.addEventListener("keypress", func);
+        this.mGame.mManager.mEventTypes.push("keydown");
+        document.addEventListener("keydown", func);
     }
     /**
     * Create an action for moving an actor in the X and Y directions, with dampening on release.

@@ -32,7 +32,7 @@ class Levels implements ScreenManager {
       level.drawPicture(0, 0, 960, 640, "./GameAssets/sky1.png", -2);
 
       // Place a box around the arena to limit the play area
-      level.drawBoundingBox(0, 0, 960, 640, "./GameAssets/CloudBall.png", 1, 1, 1);
+      level.drawBoundingBox(0, 0, 960, 640, "", 1, 1, 1);
 
       // Create a hero and assign it to the variable "h"
       // (Here we explicitly state the type of the variable: "Hero")
@@ -58,8 +58,8 @@ class Levels implements ScreenManager {
       level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
       level.setThrowSound("./GameAssets/Shooting.ogg");
       level.setProjectileVectorDampeningFactor(0.8);
-      level.setProjectileRange(100);
-      //level.setProjectileGravityOn();
+      //level.setProjectileRange(500);
+      level.setProjectileGravityOn();
 
       let e1: Enemy = level.makeEnemyAsBox(960/2 + 180, 640/2 + 100, 32, 32, "./GameAssets/BatSprite.png")
       let e2: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 50, 32, 32, "./GameAssets/BatSprite.png")
@@ -76,10 +76,25 @@ class Levels implements ScreenManager {
       e1.setRoute((new Route(3)).to(960/2 - 80, 640/2 + 100).to(960/2 - 80, 640/2 + 50).to(960/2, 640/2).to(960/2 - 80, 640/2 + 100), 50, true)
       e2.setChaseFixedMagnitude(h, 25, 25, false, false);
 
-      let o1: Obstacle = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
-      o1.setPhysics(1, 3, 1);
-      let o2: Obstacle = level.makeObstacleAsCircle(532, 500, 32, 32, "./GameAssets/CloudBall.png");
-      o2.setPhysics(1, 3, 1);
+      let o11: Obstacle = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
+      o11.setPhysics(1, 3, 1);
+      o11.setPassThrough(1);
+      let o12: Obstacle = level.makeObstacleAsCircle(525, 500, 32, 32, "./GameAssets/CloudBall.png");
+      o12.setPhysics(1, 3, 1);
+      o12.setPassThrough(1);
+      let o13: Obstacle = level.makeObstacleAsCircle(550, 500, 32, 32, "./GameAssets/CloudBall.png");
+      o13.setPhysics(1, 3, 1);
+      o13.setPassThrough(1);
+
+      let o21: Obstacle = level.makeObstacleAsCircle(200, 200, 32, 32, "./GameAssets/CloudBall.png");
+      o21.setPhysics(1, 3, 1);
+      o21.setPassThrough(1);
+      let o22: Obstacle = level.makeObstacleAsCircle(225, 200, 32, 32, "./GameAssets/CloudBall.png");
+      o22.setPhysics(1, 3, 1);
+      o22.setPassThrough(1);
+      let o23: Obstacle = level.makeObstacleAsCircle(250, 200, 32, 32, "./GameAssets/CloudBall.png");
+      o23.setPhysics(1, 3, 1);
+      o23.setPassThrough(1);
 
       // Must kill all enemies
       level.setVictoryEnemyCount(-1);
