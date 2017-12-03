@@ -32,7 +32,7 @@ class Levels implements ScreenManager {
       level.drawPicture(0, 0, 960, 640, "./GameAssets/sky1.png", -2);
 
       // Place a box around the arena to limit the play area
-      level.drawBoundingBox(0, 0, 960, 640, "./images/CloudBall.png", 1, 1, 1);
+      level.drawBoundingBox(0, 0, 960, 640, "./GameAssets/CloudBall.png", 1, 1, 1);
 
       // Create a hero and assign it to the variable "h"
       // (Here we explicitly state the type of the variable: "Hero")
@@ -81,11 +81,8 @@ class Levels implements ScreenManager {
       let o2: Obstacle = level.makeObstacleAsCircle(532, 500, 32, 32, "./GameAssets/CloudBall.png");
       o2.setPhysics(1, 3, 1);
 
+      // Must kill all enemies
       level.setVictoryEnemyCount(-1);
-      // draw a destination, and indicate that the level is won
-      // when the hero reaches the level.
-      //level.makeDestinationAsBox(960/2 + 55, 640/2 + 155, 100, 100, "./images/fun.jpg");
-      //level.setVictoryDestination(1);
     }
 
     // LEVEL 2: This is going to be a platformer game

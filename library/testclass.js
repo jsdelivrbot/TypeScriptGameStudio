@@ -1528,7 +1528,7 @@ class Level {
     * @param action     An action to perform
     * @param repeat     Whether holding the button repeats the action
     */
-    setKeyAction(key, action, repeat) {
+    setKeyAction(key, action) {
         let func = function (e) {
             if (e.keyCode === key) {
                 action.go();
@@ -2984,7 +2984,7 @@ class LolScene {
             onRender() {
             }
         })();
-        r.mSprite = PIXI.Sprite.fromImage(imgName);
+        r.mSprite = new PIXI.Sprite(PIXI.loader.resources[imgName].texture);
         r.mSprite.position.x = x;
         r.mSprite.position.y = y;
         r.mSprite.height = height;
@@ -5369,7 +5369,6 @@ class Route {
                 }
                 else {
                     // advance to next point
-                    console.log("advance to next point");
                     this.mRouteVec.x = this.mRoute.mXIndices[this.mNextRouteGoal] - this.mActor.getXPosition();
                     this.mRouteVec.y = this.mRoute.mYIndices[this.mNextRouteGoal] - this.mActor.getYPosition();
                     this.mRouteVec.Normalize();
@@ -5526,19 +5525,34 @@ class Levels {
         * make it to the destination (a mustard colored ball). The game is
         * configured to use tilt to control the level.
         */
+        // LEVEL 1: the first demo game
         if (index == 1) {
-            //level.resetGravity(0, 98);
+            // Set the gravity of the game
+            level.resetGravity(0, 98);
+            // Add some quality theme music
             level.setMusic("./GameAssets/ThemeMusic.mp3");
+            // Add a background
             level.drawPicture(0, 0, 960, 640, "./GameAssets/sky1.png", -2);
-            level.drawBoundingBox(0, 0, 960, 640, "./images/OrangeBox.png", 1, 1, 1);
+            // Place a box around the arena to limit the play area
+            level.drawBoundingBox(0, 0, 960, 640, "./images/CloudBall.png", 1, 1, 1);
+            // Create a hero and assign it to the variable "h"
+            // (Here we explicitly state the type of the variable: "Hero")
             let h = level.makeHeroAsBox(960 / 2, 640 / 2, 32, 32, "./GameAssets/Angel.png");
-            //level.setCameraChase(h);
-            level.setArrowKeyControls(h, 50);
+            // Set 'w' to jump (this involves using keycode)
+            // Find the keycode of any key by going to www.keycode.info
             //level.setKeyAction(32, level.JumpAction(h), false);
-            //h.setJumpImpulses(0, 20);
-            //h.setMultiJumpOn();
+            level.setKeyAction(87, level.JumpAction(h));
+            // The jumps will give 100 pixels of up velocity
+            h.setJumpImpulses(0, 100);
+            // Let the hero jump in the air to simulate flying
+            h.setMultiJumpOn();
+            // 'a' key to move left
+            level.setKeyAction(65, level.makeXMotionAction(h, -50));
+            // 'd' key to move right
+            level.setKeyAction(68, level.makeXMotionAction(h, 50));
             level.configureProjectiles(5, 8, 8, "./GameAssets/Bullet.png", 2, 0, false);
-            level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), false);
+            // spacebar to shoot
+            level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0));
             level.setThrowSound("./GameAssets/Shooting.ogg");
             level.setProjectileVectorDampeningFactor(0.8);
             level.setProjectileRange(100);
@@ -5546,9 +5560,9 @@ class Levels {
             let e1 = level.makeEnemyAsBox(960 / 2 + 180, 640 / 2 + 100, 32, 32, "./GameAssets/BatSprite.png");
             let e2 = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 50, 32, 32, "./GameAssets/BatSprite.png");
             let e3 = level.makeEnemyAsBox(960 / 2 + 300, 640 / 2 - 150, 32, 32, "./GameAssets/BatSprite.png");
-            e1.setDisappearSound("./GameAssets/EnemyKilled");
-            e2.setDisappearSound("./GameAssets/EnemyKilled");
-            e3.setDisappearSound("./GameAssets/EnemyKilled");
+            e1.setDisappearSound("./GameAssets/EnemyKilled.wav");
+            e2.setDisappearSound("./GameAssets/EnemyKilled.wav");
+            e3.setDisappearSound("./GameAssets/EnemyKilled.wav");
             e1.setDamage(2);
             e2.setDamage(4);
             e3.setDamage(6);
@@ -5563,6 +5577,10 @@ class Levels {
             // when the hero reaches the level.
             //level.makeDestinationAsBox(960/2 + 55, 640/2 + 155, 100, 100, "./images/fun.jpg");
             //level.setVictoryDestination(1);
+        }
+        else if (index == 2) {
+        }
+        else if (index == 3) {
         }
     }
 }
