@@ -51,7 +51,6 @@ class Levels implements ScreenManager {
       level.setKeyAction(65, level.makeXMotionAction(h, -80), true);
       // 'd' key to move right
       level.setKeyAction(68, level.makeXMotionAction(h, 80), true);
-      h.setDamping(1);
 
       level.configureProjectiles(5, 8, 8, "./GameAssets/Bullet.png", 2, 0, false);
       // spacebar to shoot
