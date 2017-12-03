@@ -1529,11 +1529,14 @@ class Level {
     * @param repeat     Whether holding the button repeats the action
     */
     setKeyAction(key, action, repeat) {
-        document.addEventListener("keydown", (e) => {
+        let func = function (e) {
             if (e.keyCode === key) {
                 action.go();
             }
-        });
+        };
+        this.mGame.mManager.mFunctions.push(func);
+        this.mGame.mManager.mEventTypes.push("keydown");
+        document.addEventListener("keydown", func);
     }
     /**
     * Create an action for moving an actor in the X and Y directions, with dampening on release.
@@ -3975,6 +3978,9 @@ class LolManager {
         this.PLAY = 4;
         /// The level within each mode (e.g., we are in PLAY scene 4, and will return to CHOOSER 2)
         this.mModeStates = new Array(5);
+        /// The events placed on the webpage
+        this.mFunctions = Array();
+        this.mEventTypes = Array();
         this.mGame = game;
         this.mConfig = config;
         this.mMedia = media;
@@ -4053,6 +4059,11 @@ class LolManager {
     * in a clean state.
     */
     onScreenChange() {
+        for (let i = 0; i < this.mFunctions.length; i++) {
+            document.removeEventListener(this.mEventTypes[i], this.mFunctions[i]);
+        }
+        this.mFunctions.length = 0;
+        this.mEventTypes.length = 0;
         this.mWorld.pauseMusic();
         this.createScenes();
         // When debug mode is on, print the frames per second

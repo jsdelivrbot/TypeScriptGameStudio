@@ -108,7 +108,7 @@ class LolManager {
   /// Code to run when a level is lost
   mLoseCallback: LolAction | null;
   /// The events placed on the webpage
-  mFunctions = Array<Function>();
+  mFunctions = Array<EventListener | EventListenerObject>();
   mEventTypes = Array<string>();
 
   /**
