@@ -5564,9 +5564,9 @@ class Levels {
             // Let the hero jump in the air to simulate flying
             h.setMultiJumpOn();
             // 'a' key to move left
-            level.setKeyAction(65, level.makeXYDampenedMotionAction(h, -50, 0, 1), true);
+            level.setKeyAction(65, level.makeXMotionAction(h, -50), true);
             // 'd' key to move right
-            level.setKeyAction(68, level.makeXYDampenedMotionAction(h, -50, 0, 1), true);
+            level.setKeyAction(68, level.makeXMotionAction(h, 50), true);
             level.configureProjectiles(5, 8, 8, "./GameAssets/Bullet.png", 2, 0, false);
             // spacebar to shoot
             level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
