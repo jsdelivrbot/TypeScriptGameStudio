@@ -798,7 +798,7 @@ class Level {
   public setKeyAction(keyCode: number, action: LolAction, repeat: boolean): void {
     let func = (e: KeyboardEvent) => {
       this.mGame.mManager.mKeysPressed[e.keyCode] = true;
-      if(this.mGame.mManager.mKeysPressed[e.keyCode] === true) {
+      if(this.mGame.mManager.mKeysPressed[keyCode] === true) {
         action.go();
       }
     };

@@ -1532,7 +1532,7 @@ class Level {
     setKeyAction(keyCode, action, repeat) {
         let func = (e) => {
             this.mGame.mManager.mKeysPressed[e.keyCode] = true;
-            if (this.mGame.mManager.mKeysPressed[e.keyCode]) {
+            if (this.mGame.mManager.mKeysPressed[e.keyCode] === true) {
                 action.go();
             }
         };
