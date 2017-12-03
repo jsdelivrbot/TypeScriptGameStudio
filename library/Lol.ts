@@ -86,12 +86,14 @@ class Lol {
     this.mManager.mHud.render();
     this.mRenderer.render(this.mManager.mContainer);
     this.mManager.mWorld.mOneTimeEvents.forEach((pe) => {
-       pe.go();
+      if(pe.mIsActive)
+        pe.go();
     });
     this.mManager.mWorld.mOneTimeEvents.length = 0;
 
     this.mManager.mWorld.mRepeatEvents.forEach((pe) => {
-       pe.go();
+      if(pe.mIsActive)
+        pe.go();
     });
   }
 }

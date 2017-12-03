@@ -795,6 +795,7 @@ class Level {
   * @param repeat     Whether holding the button repeats the action
   */
   public setKeyAction(keyCode: number, action: LolAction, repeat: boolean): void {
+    action.mIsActive = false;
     if (repeat)
       this.mGame.mManager.mWorld.mRepeatEvents.push(action);
     else
