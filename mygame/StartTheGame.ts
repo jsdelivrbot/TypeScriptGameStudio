@@ -8,8 +8,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-PIXI.utils.sayHello("Hello");
-
 let myConfig = new MyConfig();
 
 let game = new Lol(myConfig);
