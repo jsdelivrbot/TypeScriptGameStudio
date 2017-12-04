@@ -28,7 +28,7 @@ class MyConfig extends Config {
     super();
     // The size of the screen, and some game behavior configuration
     this.mWidth = 960;
-    this.mHeight = 540;
+    this.mHeight = 640;
     this.mPixelMeterRatio = 20;
     this.mEnableVibration = true;
     this.mGameTitle = "Micah's Basic Game";
