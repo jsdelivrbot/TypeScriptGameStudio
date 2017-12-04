@@ -1,6 +1,7 @@
 /// <reference path="./HudScene.ts"/>
 /// <reference path="./MainScene.ts"/>
 /// <reference path="./Enemy.ts"/>
+/// <reference path="./Hero.ts"/>
 /// <reference path="./Goodie.ts"/>
 /// <reference path="./QuickScene.ts"/>
 /// <reference path="./Media.ts"/>

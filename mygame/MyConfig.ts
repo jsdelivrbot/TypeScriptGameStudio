@@ -1,4 +1,10 @@
 /// <reference path="../library/Config.ts"/>
+/// <reference path="./Levels.ts"/>
+/// <reference path="./Chooser.ts"/>
+/// <reference path="./Help.ts"/>
+/// <reference path="./Splash.ts"/>
+/// <reference path="./WinScene.ts"/>
+/// <reference path="./LoseScene.ts"/>
 
 /**
 * Any configuration that the programmer needs to provide to Lol should go here.
