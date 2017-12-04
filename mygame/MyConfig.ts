@@ -48,33 +48,19 @@ class MyConfig extends Config {
 
     // list the images that the game will use
     this.mImageNames = new Array<string>(
-     "./GameAssets/button.png",
-     "./GameAssets/AngelGame/Angel.png", "./GameAssets/AngelGame/Bat.png", "./GameAssets/AngelGame/Bullet.png",
-     "./GameAssets/AngelGame/CloudBall.png", "./GameAssets/AngelGame/SkyBack.png",
-     "./GameAssets/ChristmasGame/ArrowSign.png", "./GameAssets/ChristmasGame/ChristmasBack.png",
-     "./GameAssets/ChristmasGame/Crate.png", "./GameAssets/ChristmasGame/GoldCoin.png",
-     "./GameAssets/ChristmasGame/IceBox.png", "./GameAssets/ChristmasGame/Igloo.png",
-     "./GameAssets/ChristmasGame/LeftEndPlat.png", "./GameAssets/ChristmasGame/MiddlePlat.png",
-     "./GameAssets/ChristmasGame/Miser.png", "./GameAssets/ChristmasGame/OneTree.png",
-     "./GameAssets/ChristmasGame/RightEndPlat.png", "./GameAssets/ChristmasGame/Santa.png",
-     "./GameAssets/ChristmasGame/SnowMan.png", "./GameAssets/ChristmasGame/Stone.png",
-     "./GameAssets/ChristmasGame/ThreeTrees.png",
-     "./GameAssets/PlaneGame/Plane.png", "./GameAssets/PlaneGame/PlaneBack.png",
-     "./GameAssets/PlaneGame/RockUp.png", "./GameAssets/PlaneGame/RockDown.png"
+     "./images/fun.jpg", "./images/BlueBox.png", "./images/OrangeBox.png",
+     "./GameAssets/Angel.png", "./GameAssets/sky1.png", "./GameAssets/Bullet.png",
+     "./GameAssets/CloudBall.png", "./GameAssets/BatSprite.png"
     );
 
     // list the sound effects that the game will use
     this.mSoundNames = new Array<string>(
-    "./GameAssets/AngelGame/Shooting.ogg", "./GameAssets/AngelGame/EnemyKilled.wav",
-    "./GameAssets/ChristmasGame/MoneyGet.wav",
-    "./GameAssets/PlaneGame/Crash.ogg"
+    "./GameAssets/Shooting.ogg", "./GameAssets/EnemyKilled.wav"
     );
 
     // list the background music files that the game will use
     this.mMusicNames = new Array<string>(
-    "./GameAssets/AngelGame/AngelTheme.mp3",
-    "./GameAssets/ChristmasGame/ChristmasTheme.mp3",
-    "./GameAssets/PlaneGame/PlaneTheme.ogg"
+    "./GameAssets/ThemeMusic.mp3"
     );
 
     // don't change these lines unless you know what you are doing

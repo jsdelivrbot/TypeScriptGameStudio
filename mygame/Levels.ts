@@ -26,17 +26,17 @@ class Levels implements ScreenManager {
       level.resetGravity(0, 98);
 
       // Add some quality theme music
-      level.setMusic("./GameAssets/AngelGame/AngelTheme.mp3");
+      level.setMusic("./GameAssets/ThemeMusic.mp3");
 
       // Add a background
-      level.drawPicture(0, 0, 960, 640, "./GameAssets/AngelGame/SkyBack.png", -2);
+      level.drawPicture(0, 0, 960, 640, "./GameAssets/sky1.png", -2);
 
       // Place a box around the arena to limit the play area
       level.drawBoundingBox(0, 0, 960, 640, "", 1, 1, 1);
 
       // Create a hero and assign it to the variable "h"
       // (Here we explicitly state the type of the variable: "Hero")
-      let h: Hero = level.makeHeroAsBox(960/2, 640/2, 32, 32, "./GameAssets/AngelGame/Angel.png");
+      let h: Hero = level.makeHeroAsBox(960/2, 640/2, 32, 32, "./GameAssets/Angel.png");
 
       // Set 'w' to jump (this involves using keycode)
       // Find the keycode of any key by going to www.keycode.info
@@ -52,12 +52,12 @@ class Levels implements ScreenManager {
       // 'd' key to move right
       level.setKeyAction(68, level.makeXMotionAction(h, 80), true);
 
-      level.configureProjectiles(5, 8, 8, "./GameAssets/AngelGame/Bullet.png", 2, 0, false);
+      level.configureProjectiles(5, 8, 8, "./GameAssets/Bullet.png", 2, 0, false);
       // spacebar to shoot
       //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
       // click to shoot
       level.setClickAction(level.ThrowDirectionalAction(h, 16, 16));
-      level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
+      level.setThrowSound("./GameAssets/Shooting.ogg");
       level.setProjectileVectorDampeningFactor(0.8);
       //level.setProjectileRange(500);
       level.setProjectileGravityOn();
@@ -66,9 +66,9 @@ class Levels implements ScreenManager {
       let e2: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 50, 32, 32, "./GameAssets/BatSprite.png")
       let e3: Enemy = level.makeEnemyAsBox(960/2 + 300, 640/2 - 150, 32, 32, "./GameAssets/BatSprite.png")
 
-      e1.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
-      e2.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
-      e3.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
+      e1.setDisappearSound("./GameAssets/EnemyKilled.wav");
+      e2.setDisappearSound("./GameAssets/EnemyKilled.wav");
+      e3.setDisappearSound("./GameAssets/EnemyKilled.wav");
 
       e1.setDamage(2);
       e2.setDamage(4);
@@ -103,15 +103,13 @@ class Levels implements ScreenManager {
 
     // LEVEL 2: This is going to be a platformer game
     else if (index == 2) {
-      // Add some quality theme music
-      level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
+      
 
     }
 
     // LEVEL 3: This is going to be a flappy bird type game
     else if (index == 3) {
-      // Add some quality theme music
-      level.setMusic("./GameAssets/PlaneGame/PlaneTheme.mp3");
+
     }
   }
 }
