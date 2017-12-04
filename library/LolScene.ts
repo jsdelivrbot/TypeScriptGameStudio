@@ -61,8 +61,8 @@ abstract class LolScene {
     this.mConfig = config;
     this.mMedia = media;
 
-    let w = config.mWidth / config.mPixelMeterRatio;
-    let h = config.mHeight / config.mPixelMeterRatio;
+    let w = config.mWidth; // config.mPixelMeterRatio;
+    let h = config.mHeight; // config.mPixelMeterRatio;
 
     this.mContainer.position.x = 0;
     this.mContainer.position.y = 0;
@@ -70,10 +70,10 @@ abstract class LolScene {
     this.mOneTimeEvents = new Array<LolAction>();
     this.mRepeatEvents = new Array<LolAction>();
 
-    // set up the game camera, with (0, 0) in the bottom left
+    // set up the game camera, with (0, 0) in the top left
     this.mCamera = new Camera(w, h);
     this.mCamera.centerOn(w / 2, h / 2);
-    this.mCamera.setPosition(w / 2, h / 2);
+    this.mCamera.setPosition(0, 0);
     this.mCamera.setZoom(1);
 
     // set default camera bounds

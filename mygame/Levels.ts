@@ -47,7 +47,6 @@ class Levels implements ScreenManager {
       // Let the hero jump in the air to simulate flying
       h.setMultiJumpOn();
 
-      h.mBody.SetGravityScale(5);
       // 'a' key to move left
       level.setKeyAction(65, level.makeXMotionAction(h, -80), true);
       // 'd' key to move right

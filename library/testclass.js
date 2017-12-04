@@ -1441,7 +1441,6 @@ class Level {
                 let v = actor.mBody.GetLinearVelocity();
                 v.x = xRate;
                 actor.updateVelocity(v.x, v.y);
-                actor.mBody.SetLinearDamping(5);
             }
         })();
     }
@@ -5579,6 +5578,7 @@ class Levels {
             h.setJumpImpulses(0, 100);
             // Let the hero jump in the air to simulate flying
             h.setMultiJumpOn();
+            h.mBody.SetGravityScale(5);
             // 'a' key to move left
             level.setKeyAction(65, level.makeXMotionAction(h, -80), true);
             // 'd' key to move right
