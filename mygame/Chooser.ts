@@ -25,7 +25,7 @@ class Chooser implements ScreenManager {
       // Back to splash
       level.addStaticText(midX - 50, midY + 100, "Arial", 0xFFFF00, 24, "Back to Menu", 0);
 
-      level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+      level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
         public go(): boolean {
           level.doSplash();
           return true;
@@ -35,7 +35,7 @@ class Chooser implements ScreenManager {
       // Play level 1 button
       level.addStaticText(midX - 400, midY - 100, "Arial", 0xFFFF00, 24, "Play Sky Fighter", 0);
 
-      level.addTapControl(midX - 400, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+      level.addTapControl(midX - 400, midY - 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
         public go(): boolean {
           level.doLevel(1);
           return true;
@@ -45,7 +45,7 @@ class Chooser implements ScreenManager {
       // Play level 2 button
       level.addStaticText(midX, midY - 100, "Arial", 0xFFFF00, 24, "Play Christmas Scramble", 0);
 
-      level.addTapControl(midX, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+      level.addTapControl(midX, midY - 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
         public go(): boolean {
           level.doLevel(2);
           return true;

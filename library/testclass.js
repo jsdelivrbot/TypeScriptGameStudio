@@ -2932,8 +2932,8 @@ class LolScene {
         this.mRepeatEvents = new Array();
         // set up the game camera, with (0, 0) in the top left
         this.mCamera = new Camera(w, h);
-        this.mCamera.centerOn(w / 2, h / 2);
-        this.mCamera.setPosition(w, h);
+        //this.mCamera.centerOn(w / 2, h / 2);
+        this.mCamera.setPosition(0, 0);
         this.mCamera.setZoom(1);
         // set default camera bounds
         this.mCamBound = new PhysicsType2d.Vector2(w, h);
