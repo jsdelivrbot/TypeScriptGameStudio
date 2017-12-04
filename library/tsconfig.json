@@ -16,7 +16,7 @@
   "include": [
     "./dependencyfiles/*",
     "./*.ts",
-    "../GameFiles/*.ts"
+    "../mygame/*.ts"
   ],
 
   "exclude": [
