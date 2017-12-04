@@ -2923,17 +2923,17 @@ class LolScene {
         this.mContainer = new PIXI.Container();
         this.mConfig = config;
         this.mMedia = media;
-        let w = config.mWidth / config.mPixelMeterRatio;
-        let h = config.mHeight / config.mPixelMeterRatio;
+        let w = config.mWidth; // config.mPixelMeterRatio;
+        let h = config.mHeight; // config.mPixelMeterRatio;
         this.mContainer.position.x = 0;
         this.mContainer.position.y = 0;
         // set up the event lists
         this.mOneTimeEvents = new Array();
         this.mRepeatEvents = new Array();
-        // set up the game camera, with (0, 0) in the bottom left
+        // set up the game camera, with (0, 0) in the top left
         this.mCamera = new Camera(w, h);
         this.mCamera.centerOn(w / 2, h / 2);
-        this.mCamera.setPosition(w / 2, h / 2);
+        this.mCamera.setPosition(0, 0);
         this.mCamera.setZoom(1);
         // set default camera bounds
         this.mCamBound = new PhysicsType2d.Vector2(w, h);
@@ -3968,6 +3968,7 @@ class QuickScene extends LolScene {
 /// <reference path="./HudScene.ts"/>
 /// <reference path="./MainScene.ts"/>
 /// <reference path="./Enemy.ts"/>
+/// <reference path="./Hero.ts"/>
 /// <reference path="./Goodie.ts"/>
 /// <reference path="./QuickScene.ts"/>
 /// <reference path="./Media.ts"/>
@@ -5487,19 +5488,38 @@ class Chooser {
         // we draw each button with its own line of code, and we don't use any
         // variables.
         if (index == 1) {
+            // Set variables for easy placement of objects
+            let midX = 960 / 2;
+            let midY = 540 / 2;
             // Back to splash
-            level.addStaticText(300, 200, "Arial", 0xFFFF00, 24, "Back to Menu", 0);
-            level.addTapControl(300, 200, 100, 50, "", new (class _ extends LolAction {
+            level.addStaticText(midX - 50, midY + 100, "Arial", 0xFFFF00, 24, "Back to Menu", 0);
+            level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
                 go() {
                     level.doSplash();
                     return true;
                 }
             })());
-            // Play level 1
-            level.addStaticText(500, 200, "Arial", 0xFFFF00, 24, "Play Level 1", 0);
-            level.addTapControl(500, 200, 100, 50, "", new (class _ extends LolAction {
+            // Play level 1 button
+            level.addStaticText(midX - 400, midY - 100, "Arial", 0xFFFF00, 24, "Play Sky Fighter", 0);
+            level.addTapControl(midX - 400, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(1);
+                    return true;
+                }
+            })());
+            // Play level 2 button
+            level.addStaticText(midX, midY - 100, "Arial", 0xFFFF00, 24, "Play Christmas Scramble", 0);
+            level.addTapControl(midX, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+                go() {
+                    level.doLevel(2);
+                    return true;
+                }
+            })());
+            // Play level 3 button
+            level.addStaticText(midX + 400, midY - 100, "Arial", 0xFFFF00, 24, "Play Dodgy Plane", 0);
+            level.addTapControl(midX + 400, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+                go() {
+                    level.doLevel(3);
                     return true;
                 }
             })());
@@ -5562,14 +5582,14 @@ class Levels {
             // Set the gravity of the game
             level.resetGravity(0, 98);
             // Add some quality theme music
-            level.setMusic("./GameAssets/ThemeMusic.mp3");
+            level.setMusic("./GameAssets/AngelGame/AngelTheme.mp3");
             // Add a background
-            level.drawPicture(0, 0, 960, 640, "./GameAssets/sky1.png", -2);
+            level.drawPicture(0, 0, 960, 640, "./GameAssets/AngelGame/SkyBack.png", -2);
             // Place a box around the arena to limit the play area
             level.drawBoundingBox(0, 0, 960, 640, "", 1, 1, 1);
             // Create a hero and assign it to the variable "h"
             // (Here we explicitly state the type of the variable: "Hero")
-            let h = level.makeHeroAsBox(960 / 2, 640 / 2, 32, 32, "./GameAssets/Angel.png");
+            let h = level.makeHeroAsBox(960 / 2, 640 / 2, 32, 32, "./GameAssets/AngelGame/Angel.png");
             // Set 'w' to jump (this involves using keycode)
             // Find the keycode of any key by going to www.keycode.info
             //level.setKeyAction(32, level.JumpAction(h), false);
@@ -5578,26 +5598,25 @@ class Levels {
             h.setJumpImpulses(0, 100);
             // Let the hero jump in the air to simulate flying
             h.setMultiJumpOn();
-            h.mBody.SetGravityScale(5);
             // 'a' key to move left
             level.setKeyAction(65, level.makeXMotionAction(h, -80), true);
             // 'd' key to move right
             level.setKeyAction(68, level.makeXMotionAction(h, 80), true);
-            level.configureProjectiles(5, 8, 8, "./GameAssets/Bullet.png", 2, 0, false);
+            level.configureProjectiles(5, 8, 8, "./GameAssets/AngelGame/Bullet.png", 2, 0, false);
             // spacebar to shoot
             //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
             // click to shoot
             level.setClickAction(level.ThrowDirectionalAction(h, 16, 16));
-            level.setThrowSound("./GameAssets/Shooting.ogg");
+            level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
             level.setProjectileVectorDampeningFactor(0.8);
             //level.setProjectileRange(500);
             level.setProjectileGravityOn();
             let e1 = level.makeEnemyAsBox(960 / 2 + 180, 640 / 2 + 100, 32, 32, "./GameAssets/BatSprite.png");
             let e2 = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 50, 32, 32, "./GameAssets/BatSprite.png");
             let e3 = level.makeEnemyAsBox(960 / 2 + 300, 640 / 2 - 150, 32, 32, "./GameAssets/BatSprite.png");
-            e1.setDisappearSound("./GameAssets/EnemyKilled.wav");
-            e2.setDisappearSound("./GameAssets/EnemyKilled.wav");
-            e3.setDisappearSound("./GameAssets/EnemyKilled.wav");
+            e1.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
+            e2.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
+            e3.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
             e1.setDamage(2);
             e2.setDamage(4);
             e3.setDamage(6);
@@ -5625,8 +5644,12 @@ class Levels {
             level.setVictoryEnemyCount(-1);
         }
         else if (index == 2) {
+            // Add some quality theme music
+            level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
         }
         else if (index == 3) {
+            // Add some quality theme music
+            level.setMusic("./GameAssets/PlaneGame/PlaneTheme.mp3");
         }
     }
 }
@@ -5650,58 +5673,6 @@ class LoseScene {
                 return true;
             }
         })());
-    }
-}
-/// <reference path="../library/Config.ts"/>
-/**
-* Any configuration that the programmer needs to provide to Lol should go here.
-* <p/>
-* Config stores things like screen dimensions, default text and font configuration,
-* and the names of all the assets (images and sounds) used by the game.
-* <p/>
-* Be sure to look at the Levels.java file for how each level of the game is
-* drawn, as well as Splash.ts, Chooser.ts, Help.ts.
-*/
-class MyConfig extends Config {
-    /**
-    * The MyConfig object is used to pass configuration information to the LOL
-    * system.
-    * <p/>
-    * To see documentation for any of these variables, hover your mouse
-    * over the word on the left side of the equals sign.
-    */
-    constructor() {
-        super();
-        // The size of the screen, and some game behavior configuration
-        this.mWidth = 960;
-        this.mHeight = 640;
-        this.mPixelMeterRatio = 20;
-        this.mEnableVibration = true;
-        this.mGameTitle = "Micah's Basic Game";
-        this.mDefaultWinText = "Good Job";
-        this.mDefaultLoseText = "Try Again";
-        //this.mShowDebugBoxes = true;
-        // Chooser configuration
-        this.mNumLevels = 1;
-        this.mEnableChooser = true;
-        this.mUnlockAllLevels = true;
-        // Font configuration
-        this.mDefaultFontFace = "Arial";
-        this.mDefaultFontSize = 32;
-        this.mDefaultFontColor = "#FFFFFF";
-        // list the images that the game will use
-        this.mImageNames = new Array("./images/fun.jpg", "./images/BlueBox.png", "./images/OrangeBox.png", "./GameAssets/Angel.png", "./GameAssets/sky1.png", "./GameAssets/Bullet.png", "./GameAssets/CloudBall.png", "./GameAssets/BatSprite.png");
-        // list the sound effects that the game will use
-        this.mSoundNames = new Array("./GameAssets/Shooting.ogg", "./GameAssets/EnemyKilled.wav");
-        // list the background music files that the game will use
-        this.mMusicNames = new Array("./GameAssets/ThemeMusic.mp3");
-        // don't change these lines unless you know what you are doing
-        this.mLevels = new Levels();
-        this.mChooser = new Chooser();
-        this.mHelp = new Help();
-        this.mSplash = new Splash();
-        this.mWin = new WinScene();
-        this.mLose = new LoseScene();
     }
 }
 /// <reference path="../library/ScreenManager.ts"/>
@@ -5748,25 +5719,6 @@ class Splash {
         })());
     }
 }
-/// <reference path="../library/Config.ts"/>
-/// <reference path="../library/Lol.ts"/>
-/// <reference path="../library/Level.ts"/>
-/// <reference path="./MyConfig.ts"/>
-/// <reference path="../library/typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-/// <reference types="pixi.js"/>
-document.addEventListener("DOMContentLoaded", () => {
-    PIXI.utils.sayHello("Hello");
-    let myConfig = new MyConfig();
-    let game = new Lol(myConfig);
-    game.create();
-    document.body.appendChild(game.mRenderer.view);
-    requestAnimationFrame(() => gameLoop(game));
-});
-function gameLoop(game) {
-    game.render();
-    requestAnimationFrame(() => gameLoop(game));
-}
 /// <reference path="../library/ScreenManager.ts"/>
 /**
 * This is the scene that is displayed when you win a level
@@ -5788,4 +5740,81 @@ class WinScene {
             }
         })());
     }
+}
+/// <reference path="../library/Config.ts"/>
+/// <reference path="./Levels.ts"/>
+/// <reference path="./Chooser.ts"/>
+/// <reference path="./Help.ts"/>
+/// <reference path="./Splash.ts"/>
+/// <reference path="./WinScene.ts"/>
+/// <reference path="./LoseScene.ts"/>
+/**
+* Any configuration that the programmer needs to provide to Lol should go here.
+* <p/>
+* Config stores things like screen dimensions, default text and font configuration,
+* and the names of all the assets (images and sounds) used by the game.
+* <p/>
+* Be sure to look at the Levels.java file for how each level of the game is
+* drawn, as well as Splash.ts, Chooser.ts, Help.ts.
+*/
+class MyConfig extends Config {
+    /**
+    * The MyConfig object is used to pass configuration information to the LOL
+    * system.
+    * <p/>
+    * To see documentation for any of these variables, hover your mouse
+    * over the word on the left side of the equals sign.
+    */
+    constructor() {
+        super();
+        // The size of the screen, and some game behavior configuration
+        this.mWidth = 960;
+        this.mHeight = 540;
+        this.mPixelMeterRatio = 20;
+        this.mEnableVibration = true;
+        this.mGameTitle = "Micah's Basic Game";
+        this.mDefaultWinText = "Good Job";
+        this.mDefaultLoseText = "Try Again";
+        //this.mShowDebugBoxes = true;
+        // Chooser configuration
+        this.mNumLevels = 1;
+        this.mEnableChooser = true;
+        this.mUnlockAllLevels = true;
+        // Font configuration
+        this.mDefaultFontFace = "Arial";
+        this.mDefaultFontSize = 32;
+        this.mDefaultFontColor = "#FFFFFF";
+        // list the images that the game will use
+        this.mImageNames = new Array("./GameAssets/button.png", "./GameAssets/AngelGame/Angel.png", "./GameAssets/AngelGame/Bat.png", "./GameAssets/AngelGame/Bullet.png", "./GameAssets/AngelGame/CloudBall.png", "./GameAssets/AngelGame/SkyBack.png", "./GameAssets/ChristmasGame/ArrowSign.png", "./GameAssets/ChristmasGame/ChristmasBack.png", "./GameAssets/ChristmasGame/Crate.png", "./GameAssets/ChristmasGame/GoldCoin.png", "./GameAssets/ChristmasGame/IceBox.png", "./GameAssets/ChristmasGame/Igloo.png", "./GameAssets/ChristmasGame/LeftEndPlat.png", "./GameAssets/ChristmasGame/MiddlePlat.png", "./GameAssets/ChristmasGame/Miser.png", "./GameAssets/ChristmasGame/OneTree.png", "./GameAssets/ChristmasGame/RightEndPlat.png", "./GameAssets/ChristmasGame/Santa.png", "./GameAssets/ChristmasGame/SnowMan.png", "./GameAssets/ChristmasGame/Stone.png", "./GameAssets/ChristmasGame/ThreeTrees.png", "./GameAssets/PlaneGame/Plane.png", "./GameAssets/PlaneGame/PlaneBack.png", "./GameAssets/PlaneGame/RockUp.png", "./GameAssets/PlaneGame/RockDown.png");
+        // list the sound effects that the game will use
+        this.mSoundNames = new Array("./GameAssets/AngelGame/Shooting.ogg", "./GameAssets/AngelGame/EnemyKilled.wav", "./GameAssets/ChristmasGame/MoneyGet.wav", "./GameAssets/PlaneGame/Crash.ogg");
+        // list the background music files that the game will use
+        this.mMusicNames = new Array("./GameAssets/AngelGame/AngelTheme.mp3", "./GameAssets/ChristmasGame/ChristmasTheme.mp3", "./GameAssets/PlaneGame/PlaneTheme.ogg");
+        // don't change these lines unless you know what you are doing
+        this.mLevels = new Levels();
+        this.mChooser = new Chooser();
+        this.mHelp = new Help();
+        this.mSplash = new Splash();
+        this.mWin = new WinScene();
+        this.mLose = new LoseScene();
+    }
+}
+/// <reference path="../library/Config.ts"/>
+/// <reference path="../library/Lol.ts"/>
+/// <reference path="../library/Level.ts"/>
+/// <reference path="./MyConfig.ts"/>
+/// <reference path="../library/typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
+//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
+/// <reference types="pixi.js"/>
+document.addEventListener("DOMContentLoaded", () => {
+    PIXI.utils.sayHello("Hello");
+    let myConfig = new MyConfig();
+    let game = new Lol(myConfig);
+    game.create();
+    document.body.appendChild(game.mRenderer.view);
+    requestAnimationFrame(() => gameLoop(game));
+});
+function gameLoop(game) {
+    game.render();
+    requestAnimationFrame(() => gameLoop(game));
 }
