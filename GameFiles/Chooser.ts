@@ -18,23 +18,46 @@ class Chooser implements ScreenManager {
     // we draw each button with its own line of code, and we don't use any
     // variables.
     if (index == 1) {
+      // Set variables for easy placement of objects
+      let midX = 960 / 2;
+      let midY = 540 / 2;
 
       // Back to splash
-      level.addStaticText(300, 200, "Arial", 0xFFFF00, 24, "Back to Menu", 0);
+      level.addStaticText(midX - 50, midY + 100, "Arial", 0xFFFF00, 24, "Back to Menu", 0);
 
-      level.addTapControl(300, 200, 100, 50, "", new (class _ extends LolAction {
+      level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
         public go(): boolean {
           level.doSplash();
           return true;
         }
       })());
 
-      // Play level 1
-      level.addStaticText(500, 200, "Arial", 0xFFFF00, 24, "Play Level 1", 0);
+      // Play level 1 button
+      level.addStaticText(midX - 400, midY - 100, "Arial", 0xFFFF00, 24, "Play Sky Fighter", 0);
 
-      level.addTapControl(500, 200, 100, 50, "", new (class _ extends LolAction {
+      level.addTapControl(midX - 400, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
         public go(): boolean {
           level.doLevel(1);
+          return true;
+        }
+      })());
+
+      // Play level 2 button
+      level.addStaticText(midX, midY - 100, "Arial", 0xFFFF00, 24, "Play Christmas Scramble", 0);
+
+      level.addTapControl(midX, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+        public go(): boolean {
+          level.doLevel(2);
+          return true;
+        }
+      })());
+
+      // Play level 3 button
+      level.addStaticText(midX + 400, midY - 100, "Arial", 0xFFFF00, 24, "Play Dodgy Plane", 0);
+
+      level.addTapControl(midX + 400, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+        public go(): boolean {
+          level.doLevel(3);
           return true;
         }
       })());
