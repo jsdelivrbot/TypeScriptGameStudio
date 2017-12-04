@@ -5493,7 +5493,7 @@ class Chooser {
             let midY = 540 / 2;
             // Back to splash
             level.addStaticText(midX - 50, midY + 100, "Arial", 0xFFFF00, 24, "Back to Menu", 0);
-            level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+            level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doSplash();
                     return true;
@@ -5501,7 +5501,7 @@ class Chooser {
             })());
             // Play level 1 button
             level.addStaticText(midX - 400, midY - 100, "Arial", 0xFFFF00, 24, "Play Sky Fighter", 0);
-            level.addTapControl(midX - 400, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+            level.addTapControl(midX - 400, midY - 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(1);
                     return true;
@@ -5509,7 +5509,7 @@ class Chooser {
             })());
             // Play level 2 button
             level.addStaticText(midX, midY - 100, "Arial", 0xFFFF00, 24, "Play Christmas Scramble", 0);
-            level.addTapControl(midX, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+            level.addTapControl(midX, midY - 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(2);
                     return true;

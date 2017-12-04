@@ -62,9 +62,9 @@ class Levels implements ScreenManager {
       //level.setProjectileRange(500);
       level.setProjectileGravityOn();
 
-      let e1: Enemy = level.makeEnemyAsBox(960/2 + 180, 640/2 + 100, 32, 32, "./GameAssets/BatSprite.png")
-      let e2: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 50, 32, 32, "./GameAssets/BatSprite.png")
-      let e3: Enemy = level.makeEnemyAsBox(960/2 + 300, 640/2 - 150, 32, 32, "./GameAssets/BatSprite.png")
+      let e1: Enemy = level.makeEnemyAsBox(960/2 + 180, 640/2 + 100, 32, 32, "./GameAssets/AngelGame/Bat.png")
+      let e2: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 50, 32, 32, "./GameAssets/AngelGame/Bat.png")
+      let e3: Enemy = level.makeEnemyAsBox(960/2 + 300, 640/2 - 150, 32, 32, "./GameAssets/AngelGame/Bat.png")
 
       e1.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
       e2.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
@@ -77,23 +77,23 @@ class Levels implements ScreenManager {
       e1.setRoute((new Route(3)).to(960/2 - 80, 640/2 + 100).to(960/2 - 80, 640/2 + 50).to(960/2, 640/2).to(960/2 - 80, 640/2 + 100), 50, true)
       e2.setChaseFixedMagnitude(h, 25, 25, false, false);
 
-      let o11: Obstacle = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/CloudBall.png");
+      let o11: Obstacle = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
       o11.setPhysics(1, 3, 1);
       o11.setPassThrough(1);
-      let o12: Obstacle = level.makeObstacleAsCircle(525, 500, 32, 32, "./GameAssets/CloudBall.png");
+      let o12: Obstacle = level.makeObstacleAsCircle(525, 500, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
       o12.setPhysics(1, 3, 1);
       o12.setPassThrough(1);
-      let o13: Obstacle = level.makeObstacleAsCircle(550, 500, 32, 32, "./GameAssets/CloudBall.png");
+      let o13: Obstacle = level.makeObstacleAsCircle(550, 500, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
       o13.setPhysics(1, 3, 1);
       o13.setPassThrough(1);
 
-      let o21: Obstacle = level.makeObstacleAsCircle(200, 200, 32, 32, "./GameAssets/CloudBall.png");
+      let o21: Obstacle = level.makeObstacleAsCircle(200, 200, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
       o21.setPhysics(1, 3, 1);
       o21.setPassThrough(1);
-      let o22: Obstacle = level.makeObstacleAsCircle(225, 200, 32, 32, "./GameAssets/CloudBall.png");
+      let o22: Obstacle = level.makeObstacleAsCircle(225, 200, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
       o22.setPhysics(1, 3, 1);
       o22.setPassThrough(1);
-      let o23: Obstacle = level.makeObstacleAsCircle(250, 200, 32, 32, "./GameAssets/CloudBall.png");
+      let o23: Obstacle = level.makeObstacleAsCircle(250, 200, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
       o23.setPhysics(1, 3, 1);
       o23.setPassThrough(1);
 
