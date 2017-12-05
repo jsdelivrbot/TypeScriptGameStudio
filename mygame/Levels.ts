@@ -48,9 +48,9 @@ class Levels implements ScreenManager {
       h.setMultiJumpOn();
 
       // 'a' key to move left
-      level.setKeyAction(65, level.makeXMotionAction(h, -80), true);
+      level.setKeyAction(65, level.makeXMotionAction(h, -60), true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeXMotionAction(h, 80), true);
+      level.setKeyAction(68, level.makeXMotionAction(h, 60), true);
 
       // Three projectiles at a time, each has 1 power
       level.configureProjectiles(3, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);

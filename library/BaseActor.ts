@@ -355,7 +355,7 @@ class BaseActor extends Renderable {
   /**
   * Returns the X coordinate of this actor
   *
-  * @return x coordinate of bottom left corner, in meters
+  * @return x coordinate of top left corner, in pixels
   */
   public getXPosition(): number {
     return this.mBody.GetPosition().x - this.mSize.x / 2;
@@ -364,7 +364,7 @@ class BaseActor extends Renderable {
   /**
   * Returns the Y coordinate of this actor
   *
-  * @return y coordinate of bottom left corner, in meters
+  * @return y coordinate of top left corner, in pixels
   */
   public getYPosition(): number {
     return this.mBody.GetPosition().y - this.mSize.y / 2;

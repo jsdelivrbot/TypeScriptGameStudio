@@ -118,8 +118,8 @@ class ProjectilePool {
     /**
      * Throw a projectile. This is for throwing in the direction of a specified point
      *
-     * @param heroX   x coordinate of the bottom left corner of the thrower
-     * @param heroY   y coordinate of the bottom left corner of the thrower
+     * @param heroX   x coordinate of the top left corner of the thrower
+     * @param heroY   y coordinate of the top left corner of the thrower
      * @param toX     x coordinate of the point at which to throw
      * @param toY     y coordinate of the point at which to throw
      * @param h       The hero who is performing the throw

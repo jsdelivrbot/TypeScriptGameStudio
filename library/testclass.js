@@ -4305,19 +4305,19 @@ class LolManager {
     updateTimeCounts() {
         // Check the countdown timers
         if (this.mLoseCountDownRemaining != -100) {
-            this.mLoseCountDownRemaining -= PIXI.ticker.shared.deltaTime; //Gdx.graphics.getDeltaTime();
+            this.mLoseCountDownRemaining -= (PIXI.ticker.shared.deltaTime / 1000); //Gdx.graphics.getDeltaTime();
             if (this.mLoseCountDownRemaining < 0) {
                 this.endLevel(false);
             }
         }
         if (this.mWinCountRemaining != -100) {
-            this.mWinCountRemaining -= PIXI.ticker.shared.deltaTime; //Gdx.graphics.getDeltaTime();
+            this.mWinCountRemaining -= PIXI.ticker.shared.deltaTime / 1000; //Gdx.graphics.getDeltaTime();
             if (this.mWinCountRemaining < 0) {
                 this.endLevel(true);
             }
         }
         if (this.mStopWatchProgress != -100) {
-            this.mStopWatchProgress += PIXI.ticker.shared.deltaTime; //Gdx.graphics.getDeltaTime();
+            this.mStopWatchProgress += PIXI.ticker.shared.deltaTime / 1000; //Gdx.graphics.getDeltaTime();
         }
     }
 }

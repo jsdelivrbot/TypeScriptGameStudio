@@ -623,9 +623,9 @@ class Level {
   * screen was touched
   *
   * @param hero    The hero who should throw the projectile
-  * @param offsetX specifies the x distance between the bottom left of the projectile and the
+  * @param offsetX specifies the x distance between the top left of the projectile and the
   *                bottom left of the hero throwing the projectile
-  * @param offsetY specifies the y distance between the bottom left of the projectile and the
+  * @param offsetY specifies the y distance between the top left of the projectile and the
   *                bottom left of the hero throwing the projectile
   * @return The action object
   */
@@ -633,8 +633,8 @@ class Level {
       let out_this = this;
       return new (class _ extends TouchEventHandler {
         public go(worldX: number, worldY: number): boolean {
-          out_this.mGame.mManager.mWorld.mProjectilePool.throwAt(hero.mBody.GetPosition().x,
-          hero.mBody.GetPosition().y, worldX, worldY, hero, offsetX, offsetY);
+          out_this.mGame.mManager.mWorld.mProjectilePool.throwAt(hero.getXPosition(),
+          hero.getYPosition(), worldX, worldY, hero, offsetX, offsetY);
           return true;
         }
       })();
