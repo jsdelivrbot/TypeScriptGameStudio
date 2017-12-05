@@ -5609,9 +5609,9 @@ class Levels {
             eArray[1].setChaseFixedMagnitude(h, 30, 30, false, false);
             eArray[2].setRoute((new Route(3)).to(500, 120).to(800, 250).to(500, 120), 50, true);
             eArray[3].setRoute((new Route(8)).to(880, 160)
-                .to(800, 200)
-                .to(750, 420)
-                .to(250, 340)
+                .to(780, 200)
+                .to(710, 420)
+                .to(150, 360)
                 .to(120, 200)
                 .to(300, 100)
                 .to(340, 250)
@@ -5671,7 +5671,7 @@ class Levels {
                 // So our clouds can be fit together
                 o.setPassThrough(1);
             }
-            level.setLoseCountdown(10);
+            level.setLoseCountdown(180);
             level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
             level.addDisplay(25, 50, "Arial", "0x000000", 24, "Seconds left: ", "", level.DisplayLoseCountdown(), 0);
             // Must kill all enemies to win
