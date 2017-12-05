@@ -143,7 +143,7 @@ class Levels implements ScreenManager {
       }
 
 
-      level.setLoseCountdown(180);
+      level.setLoseCountdown(10);
       level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
       level.addDisplay(25, 50, "Arial", "0x000000", 24, "Seconds left: ", "", level.DisplayLoseCountdown(), 0);
       // Must kill all enemies to win
