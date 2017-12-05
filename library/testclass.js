@@ -5594,7 +5594,7 @@ class Levels {
             eArray[1] = level.makeEnemyAsBox(100, 270, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[2] = level.makeEnemyAsBox(500, 120, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[3] = level.makeEnemyAsBox(850, 210, 45, 30, "./GameAssets/AngelGame/Bat.png");
-            eArray[4] = level.makeEnemyAsBox(350, 190, 45, 30, "./GameAssets/AngelGame/Bat.png");
+            eArray[4] = level.makeEnemyAsBox(350, 170, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[5] = level.makeEnemyAsBox(650, 350, 45, 30, "./GameAssets/AngelGame/Bat.png");
             // Loop through the elements of the array
             for (let e of eArray) {
@@ -5604,23 +5604,28 @@ class Levels {
                 // Enemies can fly through each other
                 e.setPassThrough(2);
             }
+            // Three of the enemies chase the hero
             eArray[0].setChaseFixedMagnitude(h, 25, 25, false, false);
             eArray[1].setChaseFixedMagnitude(h, 30, 30, false, false);
-            eArray[2].setRoute((new Route(3)).to(500, 120).to(800, 250).to(500, 120), 50, true);
+            eArray[5].setChaseFixedMagnitude(h, 15, 15, false, false);
+            // While the other three follow a set route
+            eArray[2].setRoute((new Route(4)).to(500, 120)
+                .to(550, 250)
+                .to(800, 300)
+                .to(500, 120), 50, true);
             eArray[3].setRoute((new Route(8)).to(850, 210)
                 .to(780, 200)
-                .to(710, 420)
-                .to(150, 360)
+                .to(710, 430)
+                .to(150, 380)
                 .to(120, 200)
                 .to(300, 100)
                 .to(400, 250)
                 .to(850, 210), 70, true);
-            eArray[4].setRoute((new Route(5)).to(350, 190)
-                .to(360, 250)
-                .to(340, 320)
+            eArray[4].setRoute((new Route(5)).to(350, 170)
+                .to(380, 250)
+                .to(330, 380)
                 .to(370, 220)
-                .to(350, 190), 70, true);
-            eArray[5].setChaseFixedMagnitude(h, 15, 15, false, false);
+                .to(350, 170), 70, true);
             /// Making the cloud obstacles
             // Array for the obstacles
             let oArray = new Array();

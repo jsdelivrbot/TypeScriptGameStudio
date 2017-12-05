@@ -36,7 +36,7 @@ class Levels implements ScreenManager {
 
       // Create a hero and assign it to the variable "h"
       // (Here we explicitly state the type of the variable: "Hero")
-      let h: Hero = level.makeHeroAsBox(960/2, 540/2, 48, 48, "./GameAssets/AngelGame/Angel.png");
+      let h: Hero = level.makeHeroAsBox(600, 400, 48, 48, "./GameAssets/AngelGame/Angel.png");
       h.setStrength(1);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
@@ -54,7 +54,7 @@ class Levels implements ScreenManager {
       // Three projectiles at a time, each has 1 power
       level.configureProjectiles(10, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
       // spacebar to shoot
-      level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 24, 0, 10), true);
+      level.setKeyAction(32, level.makeRepeatThrow(h, 800, 24, 24, 0, 10), true);
       // click to shoot
       //level.setFixedVectorThrowVelocityForProjectiles(150);
       //level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
@@ -84,27 +84,26 @@ class Levels implements ScreenManager {
 
       // Three of the enemies chase the hero
       eArray[0].setChaseFixedMagnitude(h, 25, 25, false, false);
-      eArray[1].setChaseFixedMagnitude(h, 30, 30, false, false);
+      eArray[1].setChaseFixedMagnitude(h, 35, 30, false, false);
       eArray[5].setChaseFixedMagnitude(h, 15, 15, false, false);
 
       // While the other three follow a set route
       eArray[2].setRoute((new Route(4)).to(500, 120)
                                       .to(550, 250)
                                       .to(800, 300)
-                                      .to(500, 120), 50, true);
-      eArray[3].setRoute((new Route(8)).to(850, 210)
-                                      .to(780, 200)
+                                      .to(500, 120), 20, true);
+      eArray[3].setRoute((new Route(7)).to(850, 210)
                                       .to(710, 430)
                                       .to(150, 380)
                                       .to(120, 200)
                                       .to(300, 100)
                                       .to(400, 250)
-                                      .to(850, 210), 70, true);
+                                      .to(850, 210), 20, true);
       eArray[4].setRoute((new Route(5)).to(350, 170)
                                       .to(380, 250)
-                                      .to(330, 380)
+                                      .to(330, 410)
                                       .to(370, 220)
-                                      .to(350, 170), 70, true);
+                                      .to(350, 170), 20, true);
 
       /// Making the cloud obstacles
       // Array for the obstacles
