@@ -5567,17 +5567,17 @@ class Levels {
             h.setStrength(1);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
-            level.setKeyAction(87, level.JumpAction(h, 800), false);
+            level.setKeyAction(87, level.JumpAction(h, 1000), false);
             // The jumps will give 120 pixels of up velocity
-            h.setJumpImpulses(0, 120);
+            h.setJumpImpulses(0, 150);
             // Let the hero jump in the air to simulate flying
             h.setMultiJumpOn();
             // 'a' key to move left
-            level.setKeyAction(65, level.makeXMotionAction(h, -60), true);
+            level.setKeyAction(65, level.makeXMotionAction(h, -50), true);
             // 'd' key to move right
-            level.setKeyAction(68, level.makeXMotionAction(h, 60), true);
+            level.setKeyAction(68, level.makeXMotionAction(h, 50), true);
             // Three projectiles at a time, each has 1 power
-            level.configureProjectiles(5, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
+            level.configureProjectiles(10, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
             // spacebar to shoot
             level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 24, 0, 10), true);
             // click to shoot
@@ -5585,7 +5585,7 @@ class Levels {
             //level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
             level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
             //level.setProjectileVectorDampeningFactor(0.5);
-            level.setProjectileRange(300);
+            level.setProjectileRange(540);
             level.setProjectileGravityOn();
             /// Creating the enemies
             // Here we set up an array to make things easier:
@@ -5605,16 +5605,26 @@ class Levels {
                 // Enemies can fly through each other
                 e.setPassThrough(2);
             }
-            //eArray[1].setRoute((new Route(3)).to(960/2 - 80, 540/2 + 100).to(960/2 - 80, 540/2 + 50).to(960/2, 540/2).to(960/2 - 80, 540/2 + 100), 50, true)
-            //eArray[0].setChaseFixedMagnitude(h, 25, 25, false, false);
+            eArray[0].setChaseFixedMagnitude(h, 25, 25, false, false);
+            eArray[1].setChaseFixedMagnitude(h, 30, 30, false, false);
+            eArray[2].setRoute((new Route(3)).to(500, 120).to(800, 150).to(500, 120), 50, true);
+            eArray[3].setRoute((new Route(8)).to(880, 160)
+                .to(800, 200)
+                .to(750, 500)
+                .to(250, 440)
+                .to(120, 200)
+                .to(300, 100)
+                .to(340, 250)
+                .to(880, 160), 70, true);
             /// Making the cloud obstacles
             // Array for the obstacles
             let oArray = new Array();
             // Some variables to size them
             let oSize = 48;
             // Cloud 1
-            oArray[1] = level.makeObstacleAsCircle(0, 220, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[2] = level.makeObstacleAsCircle(24, 220, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[0] = level.makeObstacleAsCircle(0, 220, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[1] = level.makeObstacleAsCircle(24, 220, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[2] = level.makeObstacleAsCircle(48, 220, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 2
             oArray[3] = level.makeObstacleAsCircle(150, 0, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             oArray[4] = level.makeObstacleAsCircle(174, 0, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
@@ -5654,7 +5664,7 @@ class Levels {
             oArray[32] = level.makeObstacleAsCircle(932, 380, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 9
             oArray[33] = level.makeObstacleAsCircle(700, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[0] = level.makeObstacleAsCircle(724, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[34] = level.makeObstacleAsCircle(724, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Set the cloud physics
             for (let o of oArray) {
                 o.setPhysics(1, 5, 1);
