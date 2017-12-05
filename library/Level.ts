@@ -594,6 +594,7 @@ class Level {
       public go(): void {
         let now = new Date().getTime();
         if (this.mLastJump + milliDelay < now) {
+          this.mLastJump = now;
           hero.jump();
         }
       }

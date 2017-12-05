@@ -5563,9 +5563,10 @@ class Levels {
             // spacebar to shoot
             //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
             // click to shoot
+            level.setFixedVectorThrowVelocityForProjectiles(50);
             level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
             level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
-            //level.setProjectileVectorDampeningFactor(0.5);
+            level.setProjectileVectorDampeningFactor(0.5);
             level.setProjectileRange(200);
             level.setProjectileGravityOn();
             /// Creating the enemies
