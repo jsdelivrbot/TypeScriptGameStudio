@@ -192,16 +192,24 @@ abstract class LolScene {
                    fontColor: string, fontSize: number, prefix: string,
                    suffix: string, tp: TextProducer, zIndex: number): Renderable {
 
+      let out_this = this;
       // Create a renderable that updates its text on every render, and add it to the scene
       let d: Renderable = new (class _ extends Renderable {
-          //@Override
-          onRender(): void {}
+        //@Override
+        onRender(): void {
+          let txt: string = prefix + tp.makeText() + suffix;
+          let newText = new PIXI.Text(txt, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
+          this.mText = newText;
+          this.mText.position.x = x;
+          this.mText.position.y = y;
+          out_this.mContainer.addChild(this.mText);
+        }
       })();
-      let txt: string = prefix + tp.makeText() + suffix;
-      let newText = new PIXI.Text(txt, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
-      d.mText = newText;
-      d.mText.position.x = x;
-      d.mText.position.y = y;
+      // let txt: string = prefix + tp.makeText() + suffix;
+      // let newText = new PIXI.Text(txt, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
+      // d.mText = newText;
+      // d.mText.position.x = x;
+      // d.mText.position.y = y;
       this.addActor(d, zIndex);
       return d;
   }

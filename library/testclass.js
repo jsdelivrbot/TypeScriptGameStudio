@@ -1240,12 +1240,13 @@ class Level {
         return new (class _ {
             //@Override
             makeText() {
-                return "" + out_this.mGame.mManager.mEnemiesDefeated;
+                let ed = out_this.mGame.mManager.getEnemiesDefeated();
+                return "" + ed;
             }
         })();
     }
     /**
-    * Generate text indicating the number of defeated enemies
+    * Generate text indicating the number of remaining projectiles
     */
     DisplayRemainingProjectiles() {
         let out_this = this;
@@ -4292,6 +4293,12 @@ class LolManager {
             this.endLevel(true);
         }
     }
+    /*
+     *  Returns number of enemies defeated
+     */
+    getEnemiesDefeated() {
+        return this.mEnemiesDefeated;
+    }
     /**
     * When a level ends, we run this code to shut it down, print a message, and
     * then let the user resume play
@@ -5577,9 +5584,9 @@ class Levels {
             eArray[1] = level.makeEnemyAsBox(100, 270, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[2] = level.makeEnemyAsBox(500, 120, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[3] = level.makeEnemyAsBox(880, 160, 45, 30, "./GameAssets/AngelGame/Bat.png");
-            eArray[4] = level.makeEnemyAsBox(75, 400, 45, 30, "./GameAssets/AngelGame/Bat.png");
+            eArray[4] = level.makeEnemyAsBox(150, 200, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[5] = level.makeEnemyAsBox(820, 380, 45, 30, "./GameAssets/AngelGame/Bat.png");
-            eArray[6] = level.makeEnemyAsBox(900, 500, 45, 30, "./GameAssets/AngelGame/Bat.png");
+            eArray[6] = level.makeEnemyAsBox(700, 400, 45, 30, "./GameAssets/AngelGame/Bat.png");
             // Loop through the elements of the array
             for (let e of eArray) {
                 e.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
@@ -5636,8 +5643,8 @@ class Levels {
             oArray[31] = level.makeObstacleAsCircle(908, 384, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             oArray[32] = level.makeObstacleAsCircle(932, 380, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 9
-            oArray[33] = level.makeObstacleAsCircle(756, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[0] = level.makeObstacleAsCircle(780, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[33] = level.makeObstacleAsCircle(700, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[0] = level.makeObstacleAsCircle(724, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Set the cloud physics
             for (let o of oArray) {
                 o.setPhysics(1, 5, 1);
