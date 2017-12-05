@@ -4420,7 +4420,7 @@ class Lol {
         // Create the level manager, and instruct it to transition to the Splash screen
         this.mManager = new LolManager(this.mConfig, this.mMedia, this);
         // Make sure all textures are loaded
-        PIXI.loader.load(this.mManager.doSplash);
+        PIXI.loader.load(() => this.mManager.doSplash());
     }
     /**
      * This code is called every 1/45th of a second to update the game state and re-draw the screen
