@@ -18,6 +18,11 @@ class Chooser implements ScreenManager {
     // we draw each button with its own line of code, and we don't use any
     // variables.
     if (index == 1) {
+      // Put in some catchy background muzak
+      level.setMusic("./GameAssets/TitleTheme.mp3");
+      // Add a background
+      level.drawPicture(0, 0, 960, 640, "./GameAssets/TitleBack.png", -2);
+
       // Set variables for easy placement of objects
       let midX = 960 / 2;
       let midY = 540 / 2;

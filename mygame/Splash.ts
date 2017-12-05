@@ -13,6 +13,11 @@ class Splash implements ScreenManager {
   * @param level The physics-based world that comprises the splash screen
   */
   public display(index: number, level: Level): void {
+    // Put in some catchy background muzak
+    level.setMusic("./GameAssets/TitleTheme.mp3");
+    // Add a background
+    level.drawPicture(0, 0, 960, 640, "./GameAssets/TitleBack.png", -2);
+
     // Set up variables for the middle of the page to aid placement
     let midX = 960 / 2;
     let midY = 540 / 2;

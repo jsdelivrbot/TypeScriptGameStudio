@@ -5752,7 +5752,7 @@ class Splash {
         let midY = 540 / 2;
         // Add a button for level select (text, button, and image are separate)
         // The text is centered so the x and y will be of the center of the text
-        level.addStaticTextCentered(midX, midY - 50, "Arial", 0xFFFF00, 24, "Play", 0);
+        level.addStaticTextCentered(midX, midY - 50, "Arial", 0x0000FF, 24, "Play", 0);
         // This control however will use cooridinates starting in the top left corner
         level.addTapControl(midX - 50, midY - 75, 100, 50, "", new (class _ extends LolAction {
             go() {
@@ -5763,7 +5763,7 @@ class Splash {
         // The picture is also drawn from the top left corner
         level.drawPicture(midX - 50, midY - 75, 100, 50, "./GameAssets/button.png", -1);
         // This button is for the help screen
-        level.addStaticTextCentered(midX, midY + 50, "Arial", 0xFFFF00, 24, "Help", 0);
+        level.addStaticTextCentered(midX, midY + 50, "Arial", 0x0000FF, 24, "Help", 0);
         level.addTapControl(midX - 50, midY + 25, 100, 50, "", new (class _ extends LolAction {
             go() {
                 level.doHelp(1);
