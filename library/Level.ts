@@ -537,12 +537,10 @@ class Level {
   * Indicate that the level will end in defeat if it is not completed in a given amount of time.
   *
   * @param timeout The amount of time until the level will end in defeat
-  * @param text    The text to display when the level ends in defeat
   */
-  public setLoseCountdown(timeout: number, text: string): void {
+  public setLoseCountdown(timeout: number): void {
     // Once the Lose CountDown is not -100, it will start counting down
     this.mGame.mManager.mLoseCountDownRemaining = timeout;
-    this.mGame.mManager.mLoseCountDownText = text;
   }
 
   /**

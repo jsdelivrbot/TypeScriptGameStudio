@@ -172,32 +172,10 @@ class LolManager {
     // Create the easy scenes
     this.mWorld = new MainScene(this.mConfig, this.mMedia);
     this.mHud = new HudScene(this.mConfig, this.mMedia);
-    //this.mBackground = new ParallaxScene(this.mConfig);
-    //this.mForeground = new ParallaxScene(this.mConfig);
-    // the win/lose/pre/pause scenes are a little bit complicated
-    // this.mWinScene = new QuickScene(this.mConfig, this.mMedia, this.mConfig.mDefaultWinText);
-    // let out_this = this;
-    // this.mWinScene.setDismissAction(new (class _ extends LolAction {
-    //   //@Override
-    //   public go(): void {
-    //     out_this.doChooser(1);
-    //   }
-    // })());
-    // this.mLoseScene = new QuickScene(this.mConfig, this.mMedia, this.mConfig.mDefaultLoseText);
-    // this.mLoseScene.setDismissAction(new (class _ extends LolAction {
-    //   //@Override
-    //   public go(): void {
-    //     out_this.repeatLevel();
-    //   }
-    // })());
 
     this.mContainer = new PIXI.Container();
     this.mContainer.addChild(this.mWorld.mCamera.mContainer);
     this.mContainer.addChild(this.mHud.mCamera.mContainer);
-    // this.mPreScene = new QuickScene(this.mConfig, this.mMedia, "");
-    // this.mPreScene.setShowAction(null);
-    // this.mPauseScene = new QuickScene(this.mConfig, this.mMedia, "");
-    // this.mPauseScene.setAsPauseScene();
   }
 
 
@@ -442,43 +420,6 @@ class LolManager {
     else {
       this.doLose(this.mModeStates[this.PLAY]);
     }
-    // if (this.mEndGameEvent == null) {
-    //   let out_this = this;
-    //   this.mEndGameEvent = new (class _ extends LolAction {
-    //     //@Override
-    //     public go(): void {
-    //       // Safeguard: only call this method once per level
-    //       if (out_this.mGameOver){
-    //         return;
-    //       }
-    //       out_this.mGameOver = true;
-    //
-    //       // Run the level-complete callback
-    //       if (win && out_this.mWinCallback != null){
-    //         out_this.mWinCallback.go();
-    //       } else if (!win && out_this.mLoseCallback != null){
-    //         out_this.mLoseCallback.go();
-    //       }
-    //       // if we won, unlock the next level
-    //       // if (win){
-    //       //   out_this.mGame.mManager.unlockNext();
-    //       // }
-    //       // drop everything from the hud
-    //       out_this.mGame.mManager.mHud.reset();
-    //
-    //       //TODO: clear setInterval calls or create a timer class
-    //       // clear any pending timers
-    //       //PhysicsType2d.Timer.clear();
-    //
-    //       // display the PostScene before we retry/start the next level
-    //       if (win) {
-    //         out_this.mGame.mManager.mWinScene.show();
-    //       } else {
-    //         out_this.mGame.mManager.mLoseScene.show();
-    //       }
-    //     }
-    //   })();
-    //}
   }
 
   /**
@@ -490,18 +431,12 @@ class LolManager {
     if (this.mLoseCountDownRemaining != -100) {
       this.mLoseCountDownRemaining -= PIXI.ticker.shared.deltaTime;  //Gdx.graphics.getDeltaTime();
       if (this.mLoseCountDownRemaining < 0) {
-        if (this.mLoseCountDownText !== "") {
-          this.mLoseScene.setDefaultText(this.mLoseCountDownText);
-        }
         this.endLevel(false);
       }
     }
     if (this.mWinCountRemaining != -100) {
       this.mWinCountRemaining -= PIXI.ticker.shared.deltaTime;  //Gdx.graphics.getDeltaTime();
       if (this.mWinCountRemaining < 0) {
-        if (this.mWinCountText !== "") {
-          this.mWinScene.setDefaultText(this.mWinCountText);
-        }
         this.endLevel(true);
       }
     }

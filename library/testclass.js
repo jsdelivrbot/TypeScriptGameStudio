@@ -5704,7 +5704,7 @@ class Levels {
                 o.setPassThrough(1);
             }
             level.setLoseCountdown(180, "Time Remaining: ");
-            level.addDisplay(25, 25, "Arial", "0x000000", "24", "", "", level.DisplayLoseCountdown(), 0);
+            level.addDisplay(25, 25, "Arial", "0x000000", 24, "", "", level.DisplayLoseCountdown(), 0);
             // Must kill all enemies to win
             level.setVictoryEnemyCount(-1);
         }
