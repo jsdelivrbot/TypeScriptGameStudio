@@ -48,7 +48,7 @@ class MyConfig extends Config {
 
     // list the images that the game will use
     this.mImageNames = new Array<string>(
-     "./GameAssets/button.png",
+     "./GameAssets/button.png", "./GameAssets/TitleBack.png",
      "./GameAssets/AngelGame/Angel.png", "./GameAssets/AngelGame/Bat.png", "./GameAssets/AngelGame/Bullet.png",
      "./GameAssets/AngelGame/CloudBall.png", "./GameAssets/AngelGame/SkyBack.png",
      "./GameAssets/ChristmasGame/ArrowSign.png", "./GameAssets/ChristmasGame/ChristmasBack.png",
@@ -72,6 +72,7 @@ class MyConfig extends Config {
 
     // list the background music files that the game will use
     this.mMusicNames = new Array<string>(
+    "./GameAssets/TitleTheme.mp3",
     "./GameAssets/AngelGame/AngelTheme.mp3",
     "./GameAssets/ChristmasGame/ChristmasTheme.mp3",
     "./GameAssets/PlaneGame/PlaneTheme.ogg"

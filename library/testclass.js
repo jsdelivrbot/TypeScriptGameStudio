@@ -5536,6 +5536,10 @@ class Chooser {
         // we draw each button with its own line of code, and we don't use any
         // variables.
         if (index == 1) {
+            // Put in some catchy background muzak
+            level.setMusic("./GameAssets/TitleTheme.mp3");
+            // Add a background
+            level.drawPicture(0, 0, 960, 640, "./GameAssets/TitleBack.png", -2);
             // Set variables for easy placement of objects
             let midX = 960 / 2;
             let midY = 540 / 2;
@@ -5593,14 +5597,19 @@ class Chooser {
  */
 class Help {
     /**
-     * Describe how to draw each level of help. Our help will have 2 screens
-     */
+   * Describe how to draw each level of help. Our help will have 2 screens
+   */
     display(index, level) {
         // Our first scene describes the color coding that we use for the
         // different entities in the game
         if (index == 1) {
-            // set up a basic screen
-            //level.setBackgroundColor(0x00FFFF);
+            // Put in some catchy background muzak
+            level.setMusic("./GameAssets/TitleTheme.mp3");
+            // Add a background
+            level.drawPicture(0, 0, 960, 640, "./GameAssets/TitleBack.png", -2);
+            // Set up variables for the middle of the page to aid placement
+            let midX = 960 / 2;
+            let midY = 540 / 2;
             //set up a control to go to the splash screen on screen press
             level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
                 go() {
@@ -5608,12 +5617,9 @@ class Help {
                     return true;
                 }
             })());
-            //PIXI.loader.add("./images/fun.jpg").load();
-            //let Obstacle1 = level.makeObstacleAsBox(0, 0, 25, 25, "./images/fun.jpg");
-            level.addStaticText(280, 220, "Arial", 0xFFFFFF, 24, "This is an example Help screen", 0);
-            level.addStaticText(280, 320, "Arial", 0xFFFFFF, 24, "You are the heroic orange box", 0);
-            level.addStaticText(280, 420, "Arial", 0xFFFFFF, 24, "Your enemies are the evil blue boxes", 0);
-            //level.addImage(400, 490, 150, 150, "./images/fun.jpg");
+            level.addStaticText(midX, 100, "Arial", 0xFFFFFF, 24, "In these games, WASD is to move", 0);
+            level.addStaticText(midX, 200, "Arial", 0xFFFFFF, 24, "Point and click to shoot", 0);
+            level.addStaticText(midX, 300, "Arial", 0xFFFFFF, 24, "There are three different games", 0);
         }
     }
 }
@@ -5747,6 +5753,10 @@ class Splash {
     * @param level The physics-based world that comprises the splash screen
     */
     display(index, level) {
+        // Put in some catchy background muzak
+        level.setMusic("./GameAssets/TitleTheme.mp3");
+        // Add a background
+        level.drawPicture(0, 0, 960, 640, "./GameAssets/TitleBack.png", -2);
         // Set up variables for the middle of the page to aid placement
         let midX = 960 / 2;
         let midY = 540 / 2;
