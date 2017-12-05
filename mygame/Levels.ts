@@ -40,7 +40,7 @@ class Levels implements ScreenManager {
       h.setStrength(1);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
-      level.setKeyAction(87, level.JumpAction(h, 500), false);
+      level.setKeyAction(87, level.JumpAction(h, 1000), false);
       // The jumps will give 100 pixels of up velocity
       h.setJumpImpulses(0, 100);
       // Let the hero jump in the air to simulate flying
@@ -58,7 +58,7 @@ class Levels implements ScreenManager {
       // click to shoot
       level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
       level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
-      level.setProjectileVectorDampeningFactor(0.5);
+      //level.setProjectileVectorDampeningFactor(0.5);
       level.setProjectileRange(200);
       level.setProjectileGravityOn();
 

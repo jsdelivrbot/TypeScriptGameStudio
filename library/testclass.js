@@ -1334,13 +1334,20 @@ class Level {
     * Create an action that makes a hero jump.
     *
     * @param hero The hero who we want to jump
+    * @param milliDelay If there should be time between being allowed to jump
     * @return The action object
     */
-    JumpAction(hero) {
+    JumpAction(hero, milliDelay) {
         return new (class _ extends LolAction {
-            //@Override
+            constructor() {
+                super(...arguments);
+                this.mLastJump = 0;
+            }
             go() {
-                hero.jump();
+                let now = new Date().getTime();
+                if (this.mLastJump + milliDelay < now) {
+                    hero.jump();
+                }
             }
         })();
     }
@@ -5539,11 +5546,10 @@ class Levels {
             // Create a hero and assign it to the variable "h"
             // (Here we explicitly state the type of the variable: "Hero")
             let h = level.makeHeroAsBox(960 / 2, 540 / 2, 48, 48, "./GameAssets/AngelGame/Angel.png");
-            // Set strength to 4
             h.setStrength(1);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
-            level.setKeyAction(87, level.JumpAction(h), false);
+            level.setKeyAction(87, level.JumpAction(h, 500), false);
             // The jumps will give 100 pixels of up velocity
             h.setJumpImpulses(0, 100);
             // Let the hero jump in the air to simulate flying
@@ -5559,7 +5565,7 @@ class Levels {
             // click to shoot
             level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
             level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
-            level.setProjectileVectorDampeningFactor(0.8);
+            level.setProjectileVectorDampeningFactor(0.5);
             level.setProjectileRange(200);
             level.setProjectileGravityOn();
             /// Creating the enemies
