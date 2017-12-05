@@ -5601,6 +5601,8 @@ class Levels {
             // Create a hero and assign it to the variable "h"
             // (Here we explicitly state the type of the variable: "Hero")
             let h = level.makeHeroAsBox(960 / 2, 540 / 2, 32, 32, "./GameAssets/AngelGame/Angel.png");
+            // Set strength to 4
+            h.setStrength(4);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
             level.setKeyAction(87, level.JumpAction(h), false);
@@ -5612,7 +5614,8 @@ class Levels {
             level.setKeyAction(65, level.makeXMotionAction(h, -80), true);
             // 'd' key to move right
             level.setKeyAction(68, level.makeXMotionAction(h, 80), true);
-            level.configureProjectiles(3, 8, 8, "./GameAssets/AngelGame/Bullet.png", 2, 0, false);
+            // Three projectiles at a time, each has 1 power
+            level.configureProjectiles(3, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
             // spacebar to shoot
             //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
             // click to shoot
@@ -5621,36 +5624,55 @@ class Levels {
             level.setProjectileVectorDampeningFactor(0.8);
             level.setProjectileRange(500);
             level.setProjectileGravityOn();
-            let e1 = level.makeEnemyAsBox(960 / 2 + 180, 540 / 2 + 100, 32, 32, "./GameAssets/AngelGame/Bat.png");
-            let e2 = level.makeEnemyAsBox(960 / 2 - 80, 540 / 2 + 50, 32, 32, "./GameAssets/AngelGame/Bat.png");
-            let e3 = level.makeEnemyAsBox(960 / 2 + 300, 540 / 2 - 150, 32, 32, "./GameAssets/AngelGame/Bat.png");
-            e1.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
-            e2.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
-            e3.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
-            e1.setDamage(2);
-            e2.setDamage(4);
-            e3.setDamage(6);
-            e1.setRoute((new Route(3)).to(960 / 2 - 80, 540 / 2 + 100).to(960 / 2 - 80, 540 / 2 + 50).to(960 / 2, 540 / 2).to(960 / 2 - 80, 540 / 2 + 100), 50, true);
-            e2.setChaseFixedMagnitude(h, 25, 25, false, false);
-            let o11 = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            o11.setPhysics(1, 3, 1);
-            o11.setPassThrough(1);
-            let o12 = level.makeObstacleAsCircle(525, 500, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            o12.setPhysics(1, 3, 1);
-            o12.setPassThrough(1);
-            let o13 = level.makeObstacleAsCircle(550, 500, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            o13.setPhysics(1, 3, 1);
-            o13.setPassThrough(1);
-            let o21 = level.makeObstacleAsCircle(200, 200, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            o21.setPhysics(1, 3, 1);
-            o21.setPassThrough(1);
-            let o22 = level.makeObstacleAsCircle(225, 200, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            o22.setPhysics(1, 3, 1);
-            o22.setPassThrough(1);
-            let o23 = level.makeObstacleAsCircle(250, 200, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            o23.setPhysics(1, 3, 1);
-            o23.setPassThrough(1);
-            // Must kill all enemies
+            /// Creating the enemies
+            // Here we set up an array to make things easier:
+            let eArray = new Array();
+            eArray[0] = level.makeEnemyAsBox(50, 50, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[1] = level.makeEnemyAsBox(100, 270, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[2] = level.makeEnemyAsBox(500, 120, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[3] = level.makeEnemyAsBox(880, 160, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[4] = level.makeEnemyAsBox(75, 400, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[5] = level.makeEnemyAsBox(820, 380, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[6] = level.makeEnemyAsBox(900, 500, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            // Loop through the elements of the array
+            for (let e of eArray) {
+                e.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
+                // This makes each enemy need to be hit twice to die
+                // while you must also be hit twice
+                e.setDamage(2);
+                // Enemies can fly through each other
+                e.setPassThrough(2);
+            }
+            eArray[1].setRoute((new Route(3)).to(960 / 2 - 80, 540 / 2 + 100).to(960 / 2 - 80, 540 / 2 + 50).to(960 / 2, 540 / 2).to(960 / 2 - 80, 540 / 2 + 100), 50, true);
+            eArray[0].setChaseFixedMagnitude(h, 25, 25, false, false);
+            /// Making the cloud obstacles
+            // Array for the obstacles
+            let oArray = new Array();
+            // Cloud 1
+            oArray[0] = level.makeObstacleAsCircle(0, 220, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[1] = level.makeObstacleAsCircle(24, 220, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            // Cloud 2
+            oArray[3] = level.makeObstacleAsCircle(150, 0, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[4] = level.makeObstacleAsCircle(174, 0, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[5] = level.makeObstacleAsCircle(162, 24, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            // Cloud 3
+            oArray[6] = level.makeObstacleAsCircle(612, 24, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[7] = level.makeObstacleAsCircle(624, 0, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[8] = level.makeObstacleAsCircle(636, 24, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            // Cloud 4
+            oArray[9] = level.makeObstacleAsCircle(764, 64, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[10] = level.makeObstacleAsCircle(788, 72, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[11] = level.makeObstacleAsCircle(802, 80, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[12] = level.makeObstacleAsCircle(768, 88, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[13] = level.makeObstacleAsCircle(792, 96, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[14] = level.makeObstacleAsCircle(806, 104, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            for (let o of oArray) {
+                // Set physics of the clouds
+                o.setPhysics(1, 3, 1);
+                // So our clouds can be fit together
+                o.setPassThrough(1);
+            }
+            // Must kill all enemies to win
             level.setVictoryEnemyCount(-1);
         }
         else if (index == 2) {
@@ -5659,7 +5681,7 @@ class Levels {
         }
         else if (index == 3) {
             // Add some quality theme music
-            level.setMusic("./GameAssets/PlaneGame/PlaneTheme.mp3");
+            level.setMusic("./GameAssets/PlaneGame/PlaneTheme.ogg");
         }
     }
 }

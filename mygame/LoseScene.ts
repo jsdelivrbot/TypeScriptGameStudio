@@ -12,8 +12,12 @@ class LoseScene implements ScreenManager {
   */
   public display(index: number, level: Level): void {
     // Configure our win screen
-    level.addStaticText(960/2 - 100, 640/2 - 10, "Arial", 0x00FFFF, 32, "Try Again", 0);
 
+    // Add a background
+    level.drawPicture(0, 0, 960, 640, "./GameAssets/TitleBack.png", -2);
+    // Add a degrading message to make the player feel bad about themself
+    level.addStaticText(960/2 - 100, 640/2 - 10, "Arial", 0x0000FF, 32, "You lost, try being better", 0);
+    // Make it so they can click to go back to the level select screen
     level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
       public go(): boolean {
         level.doLevel(index);

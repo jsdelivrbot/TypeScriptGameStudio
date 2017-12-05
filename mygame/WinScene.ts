@@ -12,9 +12,13 @@ class WinScene implements ScreenManager {
   */
   public display(index: number, level: Level): void {
     // Configure our win screen
-    level.addStaticText(960/2 - 100, 640/2 - 10, "Arial", 0x00FFFF, 32, "You Win!!", 0);
 
-    level.addTapControl(0, 0, 960, 640, "", new (class _ extends LolAction {
+    // Add a background
+    level.drawPicture(0, 0, 960, 540, "./GameAssets/TitleBack.png", -2);
+    // Add an uplifting message
+    level.addStaticTextCentered(960, 540, "Arial", 0x00FFFF, 32, "You Win!! You must be super cool!", 0);
+    // Make it so they can click to go back to the level select screen
+    level.addTapControl(0, 0, 960, 540, "", new (class _ extends LolAction {
       public go(): boolean {
         level.doChooser(1);
         return true;
