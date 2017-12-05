@@ -5498,38 +5498,38 @@ class Chooser {
             let midX = 960 / 2;
             let midY = 540 / 2;
             // Back to splash
+            level.addStaticText(midX - 50, midY + 50, "Arial", 0x00FFFF, 24, "Back to Menu", 1);
             level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doSplash();
                     return true;
                 }
             })());
-            level.addStaticText(midX - 50, midY + 100, "Arial", 0x00FFFF, 24, "Back to Menu", 1);
             // Play level 1 button
+            // Colors are written in hex values
+            level.addStaticText(50, midY - 150, "Arial", 0x00FFFF, 24, "Play Sky Fighter", 1);
             level.addTapControl(50, midY - 100, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(1);
                     return true;
                 }
             })());
-            // Colors are written in hex values
-            level.addStaticText(50, midY - 100, "Arial", 0x00FFFF, 24, "Play Sky Fighter", 1);
             // Play level 2 button
+            level.addStaticText(350, midY - 150, "Arial", 0x00FFFF, 24, "Play Christmas Scramble", 1);
             level.addTapControl(350, midY - 100, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(2);
                     return true;
                 }
             })());
-            level.addStaticText(350, midY - 100, "Arial", 0x00FFFF, 24, "Play Christmas Scramble", 1);
-            // Play level 3 button
+            // Play level 3 tebutton
+            level.addStaticText(650, midY - 150, "Arial", 0x00FFFF, 24, "Play Dodgy Plane", 1);
             level.addTapControl(650, midY - 100, 200, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(3);
                     return true;
                 }
             })());
-            level.addStaticText(650, midY - 100, "Arial", 0x00FFFF, 24, "Play Dodgy Plane", 1);
         }
     }
 }

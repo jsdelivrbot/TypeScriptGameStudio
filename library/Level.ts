@@ -1429,6 +1429,22 @@ class Level {
   }
 
   /**
+  * Draw some text in the scene, centering it
+  *
+  * @param x         The x coordinate of the middle
+  * @param y         The y coordinate of the middle
+  * @param fontName  The name of the font to use
+  * @param fontColor The color of the font
+  * @param fontSize  The size of the font
+  * @param text      Text text to put before the generated text
+  * @param zIndex    The z index of the text
+  * @return A Renderable of the text, so it can be enabled/disabled by program code
+  */
+  public addStaticTextCentered(x: number, y: number, fontName: string, fontColor: number, fontSize: number, text: string, zIndex: number): Renderable {
+      return this.mGame.mManager.mWorld.addStaticTextCentered(x, y, fontName, fontColor, fontSize, text, zIndex);
+  }
+
+  /**
   * Draw some text in the scene, centering it on a specific point
   *
   * @param centerX   The x coordinate of the center

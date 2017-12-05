@@ -207,10 +207,10 @@ abstract class LolScene {
   }
 
   /**
-   * Draw some text in the scene, using a bottom-left coordinate
+   * Draw some text in the scene, using a top-left coordinate
    *
-   * @param x         The x coordinate of the bottom left corner
-   * @param y         The y coordinate of the bottom left corner
+   * @param x         The x coordinate of the top left corner
+   * @param y         The y coordinate of the top left corner
    * @param fontName  The name of the font to use
    * @param fontColor The color of the font
    * @param fontSize  The size of the font
@@ -226,8 +226,38 @@ abstract class LolScene {
           //@Override
           onRender(): void {}
       })();
+      let newText = new PIXI.Text(text, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'left'});
+      d.mText = newText;
+      d.mText.position.x = x;
+      d.mText.position.y = y;
+      this.addActor(d, zIndex);
+      return d;
+  }
+
+  /**
+   * Draw some text in the scene, using the middle coordinate
+   *
+   * @param x         The x coordinate of the middle of the text
+   * @param y         The y coordinate of the middle of the text
+   * @param fontName  The name of the font to use
+   * @param fontColor The color of the font
+   * @param fontSize  The size of the font
+   * @param text      Text to put on screen
+   * @param zIndex    The z index of the text
+   * @return A Renderable of the text, so it can be enabled/disabled by program code
+   */
+  public addStaticTextCentered(x: number, y: number, fontName: string, fontColor: number,
+                fontSize: number, text: string, zIndex: number): Renderable {
+
+      // Create a renderable that updates its text on every render, and add it to the scene
+      let d: Renderable = new (class _ extends Renderable {
+          //@Override
+          onRender(): void {}
+      })();
       let newText = new PIXI.Text(text, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
       d.mText = newText;
+      d.mText.anchor.x = 0.5;
+      d.mText.anchor.y = 0.5;
       d.mText.position.x = x;
       d.mText.position.y = y;
       this.addActor(d, zIndex);
