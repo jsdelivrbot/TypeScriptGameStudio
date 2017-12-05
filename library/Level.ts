@@ -453,7 +453,7 @@ class Level {
     return new (class _ implements TextProducer {
       //@Override
       public makeText(): string {
-        return "" + out_this.mGame.mManager.mLoseCountDownRemaining;
+        return "" + (out_this.mGame.mManager.mLoseCountDownRemaining).toFixed(0);
       }
     })();
   }
@@ -466,7 +466,7 @@ class Level {
     return new (class _ implements TextProducer {
       //@Override
       public makeText(): string {
-        return "" + out_this.mGame.mManager.mWinCountRemaining;
+        return "" + (out_this.mGame.mManager.mWinCountRemaining).toFixed(0);
       }
     })();
   }

@@ -3072,7 +3072,7 @@ class LolScene {
             }
         })();
         let txt = prefix + tp.makeText() + suffix;
-        let newText = new PIXI.Text(txt, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
+        let newText = new PIXI.Text(txt, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'left' });
         d.mText = newText;
         d.mText.position.x = x;
         d.mText.position.y = y;
@@ -3146,10 +3146,14 @@ class LolScene {
      * @return A Renderable of the text, so it can be enabled/disabled by program code
      */
     addTextCentered(centerX, centerY, fontName, fontColor, fontSize, prefix, suffix, tp, zIndex) {
+        let out_this = this;
         // Create a renderable that updates its text on every render, and add it to the scene
         let d = new (class _ extends Renderable {
             //@Override
-            onRender() { }
+            onRender() {
+                let txt = prefix + tp.makeText() + suffix;
+                this.mText.text = txt;
+            }
         })();
         let txt = prefix + tp.makeText() + suffix;
         let newText = new PIXI.Text(txt, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
@@ -5588,9 +5592,9 @@ class Levels {
             eArray[1] = level.makeEnemyAsBox(100, 270, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[2] = level.makeEnemyAsBox(500, 120, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[3] = level.makeEnemyAsBox(880, 160, 45, 30, "./GameAssets/AngelGame/Bat.png");
-            eArray[4] = level.makeEnemyAsBox(150, 200, 45, 30, "./GameAssets/AngelGame/Bat.png");
+            eArray[4] = level.makeEnemyAsBox(350, 200, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[5] = level.makeEnemyAsBox(820, 380, 45, 30, "./GameAssets/AngelGame/Bat.png");
-            eArray[6] = level.makeEnemyAsBox(700, 400, 45, 30, "./GameAssets/AngelGame/Bat.png");
+            eArray[6] = level.makeEnemyAsBox(650, 350, 45, 30, "./GameAssets/AngelGame/Bat.png");
             // Loop through the elements of the array
             for (let e of eArray) {
                 e.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
@@ -5655,8 +5659,9 @@ class Levels {
                 // So our clouds can be fit together
                 o.setPassThrough(1);
             }
-            //level.setLoseCountdown(180);
+            level.setLoseCountdown(180);
             level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
+            level.addDisplay(25, 50, "Arial", "0x000000", 24, "Seconds left: ", "", level.DisplayLoseCountdown(), 0);
             // Must kill all enemies to win
             level.setVictoryEnemyCount(-1);
         }
