@@ -40,9 +40,9 @@ class Levels implements ScreenManager {
       h.setStrength(1);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
-      level.setKeyAction(87, level.JumpAction(h, 1000), false);
-      // The jumps will give 100 pixels of up velocity
-      h.setJumpImpulses(0, 100);
+      level.setKeyAction(87, level.JumpAction(h, 800), false);
+      // The jumps will give 120 pixels of up velocity
+      h.setJumpImpulses(0, 120);
       // Let the hero jump in the air to simulate flying
       h.setMultiJumpOn();
 

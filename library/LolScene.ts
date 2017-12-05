@@ -202,7 +202,7 @@ abstract class LolScene {
           this.mText = newText;
           this.mText.position.x = x;
           this.mText.position.y = y;
-          out_this.mContainer.addChild(this.mText);
+          //out_this.mContainer.addChild(this.mText);
         }
       })();
       // let txt: string = prefix + tp.makeText() + suffix;
