@@ -70,9 +70,9 @@ class Levels implements ScreenManager {
       eArray[1] = level.makeEnemyAsBox(100, 270, 45, 30, "./GameAssets/AngelGame/Bat.png");
       eArray[2] = level.makeEnemyAsBox(500, 120, 45, 30, "./GameAssets/AngelGame/Bat.png");
       eArray[3] = level.makeEnemyAsBox(880, 160, 45, 30, "./GameAssets/AngelGame/Bat.png");
-      eArray[4] = level.makeEnemyAsBox(150, 200, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[4] = level.makeEnemyAsBox(350, 200, 45, 30, "./GameAssets/AngelGame/Bat.png");
       eArray[5] = level.makeEnemyAsBox(820, 380, 45, 30, "./GameAssets/AngelGame/Bat.png");
-      eArray[6] = level.makeEnemyAsBox(700, 400, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[6] = level.makeEnemyAsBox(650, 350, 45, 30, "./GameAssets/AngelGame/Bat.png");
 
       // Loop through the elements of the array
       for (let e of eArray) {
@@ -143,8 +143,9 @@ class Levels implements ScreenManager {
       }
 
 
-      //level.setLoseCountdown(180);
+      level.setLoseCountdown(180);
       level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
+      level.addDisplay(25, 50, "Arial", "0x000000", 24, "Seconds left: ", "", level.DisplayLoseCountdown(), 0);
       // Must kill all enemies to win
       level.setVictoryEnemyCount(-1);
     }

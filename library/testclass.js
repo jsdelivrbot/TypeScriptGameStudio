@@ -3067,21 +3067,16 @@ class LolScene {
         let d = new (class _ extends Renderable {
             //@Override
             onRender() {
-                out_this.removeActor(this, zIndex);
                 let txt = prefix + tp.makeText() + suffix;
-                let newText = new PIXI.Text(txt, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
-                this.mText = newText;
-                this.mText.position.x = x;
-                this.mText.position.y = y;
-                out_this.addActor(this, zIndex);
+                this.mText.text = txt;
             }
         })();
-        // let txt: string = prefix + tp.makeText() + suffix;
-        // let newText = new PIXI.Text(txt, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
-        // d.mText = newText;
-        // d.mText.position.x = x;
-        // d.mText.position.y = y;
-        // this.addActor(d, zIndex);
+        let txt = prefix + tp.makeText() + suffix;
+        let newText = new PIXI.Text(txt, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
+        d.mText = newText;
+        d.mText.position.x = x;
+        d.mText.position.y = y;
+        this.addActor(d, zIndex);
         return d;
     }
     /**
@@ -5580,7 +5575,7 @@ class Levels {
             // spacebar to shoot
             //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
             // click to shoot
-            level.setFixedVectorThrowVelocityForProjectiles(50);
+            level.setFixedVectorThrowVelocityForProjectiles(150);
             level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
             level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
             level.setProjectileVectorDampeningFactor(0.5);
