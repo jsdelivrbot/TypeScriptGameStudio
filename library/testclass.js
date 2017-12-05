@@ -5603,7 +5603,7 @@ class Levels {
             level.drawBoundingBox(0, 0, 960, 540, "", 1, 1, 1);
             // Create a hero and assign it to the variable "h"
             // (Here we explicitly state the type of the variable: "Hero")
-            let h = level.makeHeroAsBox(960 / 2, 540 / 2, 64, 64, "./GameAssets/AngelGame/Angel.png");
+            let h = level.makeHeroAsBox(960 / 2, 540 / 2, 32, 32, "./GameAssets/AngelGame/Angel.png");
             // Set strength to 4
             h.setStrength(1);
             // Set 'w' to jump (this involves using keycodes)
@@ -5622,7 +5622,7 @@ class Levels {
             // spacebar to shoot
             //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
             // click to shoot
-            level.setClickAction(level.ThrowDirectionalAction(h, 32, 32));
+            level.setClickAction(level.ThrowDirectionalAction(h, 16, 16));
             level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
             level.setProjectileVectorDampeningFactor(0.8);
             level.setProjectileRange(200);
@@ -5630,13 +5630,13 @@ class Levels {
             /// Creating the enemies
             // Here we set up an array to make things easier:
             let eArray = new Array();
-            eArray[0] = level.makeEnemyAsBox(50, 50, 62, 42, "./GameAssets/AngelGame/Bat.png");
-            eArray[1] = level.makeEnemyAsBox(100, 270, 62, 42, "./GameAssets/AngelGame/Bat.png");
-            eArray[2] = level.makeEnemyAsBox(500, 120, 62, 42, "./GameAssets/AngelGame/Bat.png");
-            eArray[3] = level.makeEnemyAsBox(880, 160, 62, 42, "./GameAssets/AngelGame/Bat.png");
-            eArray[4] = level.makeEnemyAsBox(75, 400, 62, 42, "./GameAssets/AngelGame/Bat.png");
-            eArray[5] = level.makeEnemyAsBox(820, 380, 62, 42, "./GameAssets/AngelGame/Bat.png");
-            eArray[6] = level.makeEnemyAsBox(900, 500, 62, 42, "./GameAssets/AngelGame/Bat.png");
+            eArray[0] = level.makeEnemyAsBox(50, 50, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[1] = level.makeEnemyAsBox(100, 270, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[2] = level.makeEnemyAsBox(500, 120, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[3] = level.makeEnemyAsBox(880, 160, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[4] = level.makeEnemyAsBox(75, 400, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[5] = level.makeEnemyAsBox(820, 380, 31, 21, "./GameAssets/AngelGame/Bat.png");
+            eArray[6] = level.makeEnemyAsBox(900, 500, 31, 21, "./GameAssets/AngelGame/Bat.png");
             // Loop through the elements of the array
             for (let e of eArray) {
                 e.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
@@ -5650,49 +5650,51 @@ class Levels {
             /// Making the cloud obstacles
             // Array for the obstacles
             let oArray = new Array();
+            // Some variables to size them
+            let oSize = 48;
             // Cloud 1
-            oArray[1] = level.makeObstacleAsCircle(0, 220, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[2] = level.makeObstacleAsCircle(24, 220, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[1] = level.makeObstacleAsCircle(0, 220, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[2] = level.makeObstacleAsCircle(24, 220, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 2
-            oArray[3] = level.makeObstacleAsCircle(150, 0, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[4] = level.makeObstacleAsCircle(174, 0, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[5] = level.makeObstacleAsCircle(162, 24, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[3] = level.makeObstacleAsCircle(150, 0, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[4] = level.makeObstacleAsCircle(174, 0, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[5] = level.makeObstacleAsCircle(162, 24, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 3
-            oArray[6] = level.makeObstacleAsCircle(612, 24, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[7] = level.makeObstacleAsCircle(624, 0, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[8] = level.makeObstacleAsCircle(636, 24, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[6] = level.makeObstacleAsCircle(612, 24, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[7] = level.makeObstacleAsCircle(624, 0, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[8] = level.makeObstacleAsCircle(636, 24, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 4
-            oArray[9] = level.makeObstacleAsCircle(764, 64, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[10] = level.makeObstacleAsCircle(788, 72, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[11] = level.makeObstacleAsCircle(812, 80, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[12] = level.makeObstacleAsCircle(768, 88, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[13] = level.makeObstacleAsCircle(792, 96, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[14] = level.makeObstacleAsCircle(816, 104, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[9] = level.makeObstacleAsCircle(764, 64, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[10] = level.makeObstacleAsCircle(788, 72, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[11] = level.makeObstacleAsCircle(812, 80, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[12] = level.makeObstacleAsCircle(768, 88, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[13] = level.makeObstacleAsCircle(792, 96, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[14] = level.makeObstacleAsCircle(816, 104, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 5
-            oArray[15] = level.makeObstacleAsCircle(224, 248, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[16] = level.makeObstacleAsCircle(248, 248, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[17] = level.makeObstacleAsCircle(212, 272, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[18] = level.makeObstacleAsCircle(236, 272, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[19] = level.makeObstacleAsCircle(260, 272, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[15] = level.makeObstacleAsCircle(224, 248, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[16] = level.makeObstacleAsCircle(248, 248, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[17] = level.makeObstacleAsCircle(212, 272, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[18] = level.makeObstacleAsCircle(236, 272, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[19] = level.makeObstacleAsCircle(260, 272, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 6
-            oArray[20] = level.makeObstacleAsCircle(512, 324, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[21] = level.makeObstacleAsCircle(536, 324, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[22] = level.makeObstacleAsCircle(524, 348, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[23] = level.makeObstacleAsCircle(548, 348, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[20] = level.makeObstacleAsCircle(512, 324, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[21] = level.makeObstacleAsCircle(536, 324, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[22] = level.makeObstacleAsCircle(524, 348, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[23] = level.makeObstacleAsCircle(548, 348, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 7
-            oArray[24] = level.makeObstacleAsCircle(80, 412, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[25] = level.makeObstacleAsCircle(104, 416, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[26] = level.makeObstacleAsCircle(128, 420, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[27] = level.makeObstacleAsCircle(152, 424, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[24] = level.makeObstacleAsCircle(80, 412, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[25] = level.makeObstacleAsCircle(104, 416, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[26] = level.makeObstacleAsCircle(128, 420, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[27] = level.makeObstacleAsCircle(152, 424, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 8
-            oArray[28] = level.makeObstacleAsCircle(836, 396, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[29] = level.makeObstacleAsCircle(860, 392, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[30] = level.makeObstacleAsCircle(884, 388, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[31] = level.makeObstacleAsCircle(908, 384, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[32] = level.makeObstacleAsCircle(932, 380, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[28] = level.makeObstacleAsCircle(836, 396, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[29] = level.makeObstacleAsCircle(860, 392, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[30] = level.makeObstacleAsCircle(884, 388, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[31] = level.makeObstacleAsCircle(908, 384, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[32] = level.makeObstacleAsCircle(932, 380, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Cloud 9
-            oArray[33] = level.makeObstacleAsCircle(756, 508, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
-            oArray[0] = level.makeObstacleAsCircle(780, 508, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[33] = level.makeObstacleAsCircle(756, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+            oArray[0] = level.makeObstacleAsCircle(780, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
             // Set the cloud physics
             for (let o of oArray) {
                 o.setPhysics(1, 3, 1);
@@ -5728,7 +5730,7 @@ class LoseScene {
         // Add a background
         level.drawPicture(0, 0, 960, 540, "./GameAssets/TitleBack.png", -2);
         // Add a degrading message to make the player feel bad about themself
-        level.addStaticText(960 / 2, 540 / 2, "Arial", 0x0000FF, 32, "You lost, try being better", 0);
+        level.addStaticTextCentered(960 / 2, 540 / 2, "Arial", 0x0000FF, 32, "You lost, try being better", 0);
         // Make it so they can click to go back to the level select screen
         level.addTapControl(0, 0, 960, 540, "", new (class _ extends LolAction {
             go() {

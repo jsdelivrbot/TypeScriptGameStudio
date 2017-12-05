@@ -36,7 +36,7 @@ class Levels implements ScreenManager {
 
       // Create a hero and assign it to the variable "h"
       // (Here we explicitly state the type of the variable: "Hero")
-      let h: Hero = level.makeHeroAsBox(960/2, 540/2, 32, 32, "./GameAssets/AngelGame/Angel.png");
+      let h: Hero = level.makeHeroAsBox(960/2, 540/2, 48, 48, "./GameAssets/AngelGame/Angel.png");
       // Set strength to 4
       h.setStrength(1);
       // Set 'w' to jump (this involves using keycodes)
@@ -57,7 +57,7 @@ class Levels implements ScreenManager {
       // spacebar to shoot
       //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
       // click to shoot
-      level.setClickAction(level.ThrowDirectionalAction(h, 16, 16));
+      level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
       level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
       level.setProjectileVectorDampeningFactor(0.8);
       level.setProjectileRange(200);
@@ -66,13 +66,13 @@ class Levels implements ScreenManager {
       /// Creating the enemies
       // Here we set up an array to make things easier:
       let eArray = new Array<Enemy>();
-      eArray[0] = level.makeEnemyAsBox(50, 50, 31, 21, "./GameAssets/AngelGame/Bat.png");
-      eArray[1] = level.makeEnemyAsBox(100, 270, 31, 21, "./GameAssets/AngelGame/Bat.png");
-      eArray[2] = level.makeEnemyAsBox(500, 120, 31, 21, "./GameAssets/AngelGame/Bat.png");
-      eArray[3] = level.makeEnemyAsBox(880, 160, 31, 21, "./GameAssets/AngelGame/Bat.png");
-      eArray[4] = level.makeEnemyAsBox(75, 400, 31, 21, "./GameAssets/AngelGame/Bat.png");
-      eArray[5] = level.makeEnemyAsBox(820, 380, 31, 21, "./GameAssets/AngelGame/Bat.png");
-      eArray[6] = level.makeEnemyAsBox(900, 500, 31, 21, "./GameAssets/AngelGame/Bat.png");
+      eArray[0] = level.makeEnemyAsBox(50, 50, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[1] = level.makeEnemyAsBox(100, 270, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[2] = level.makeEnemyAsBox(500, 120, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[3] = level.makeEnemyAsBox(880, 160, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[4] = level.makeEnemyAsBox(75, 400, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[5] = level.makeEnemyAsBox(820, 380, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[6] = level.makeEnemyAsBox(900, 500, 45, 30, "./GameAssets/AngelGame/Bat.png");
 
       // Loop through the elements of the array
       for (let e of eArray) {
@@ -99,9 +99,9 @@ class Levels implements ScreenManager {
       oArray[4] = level.makeObstacleAsCircle(174, 0, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
       oArray[5] = level.makeObstacleAsCircle(162, 24, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
       // Cloud 3
-      oArray[6] = level.makeObstacleAsCircle(612, 24, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
-      oArray[7] = level.makeObstacleAsCircle(624, 0, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
-      oArray[8] = level.makeObstacleAsCircle(636, 24, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+      oArray[6] = level.makeObstacleAsCircle(512, 24, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+      oArray[7] = level.makeObstacleAsCircle(524, 0, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+      oArray[8] = level.makeObstacleAsCircle(536, 24, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
       // Cloud 4
       oArray[9] = level.makeObstacleAsCircle(764, 64, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
       oArray[10] = level.makeObstacleAsCircle(788, 72, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
@@ -137,7 +137,7 @@ class Levels implements ScreenManager {
 
       // Set the cloud physics
       for (let o of oArray) {
-        o.setPhysics(1, 3, 1);
+        o.setPhysics(1, 5, 1);
         // So our clouds can be fit together
         o.setPassThrough(1);
       }
