@@ -2105,6 +2105,21 @@ class Level {
         return this.mGame.mManager.mWorld.addStaticText(x, y, fontName, fontColor, fontSize, text, zIndex);
     }
     /**
+    * Draw some text in the scene, centering it
+    *
+    * @param x         The x coordinate of the middle
+    * @param y         The y coordinate of the middle
+    * @param fontName  The name of the font to use
+    * @param fontColor The color of the font
+    * @param fontSize  The size of the font
+    * @param text      Text text to put before the generated text
+    * @param zIndex    The z index of the text
+    * @return A Renderable of the text, so it can be enabled/disabled by program code
+    */
+    addStaticTextCentered(x, y, fontName, fontColor, fontSize, text, zIndex) {
+        return this.mGame.mManager.mWorld.addStaticTextCentered(x, y, fontName, fontColor, fontSize, text, zIndex);
+    }
+    /**
     * Draw some text in the scene, centering it on a specific point
     *
     * @param centerX   The x coordinate of the center
@@ -3054,10 +3069,10 @@ class LolScene {
         return d;
     }
     /**
-     * Draw some text in the scene, using a bottom-left coordinate
+     * Draw some text in the scene, using a top-left coordinate
      *
-     * @param x         The x coordinate of the bottom left corner
-     * @param y         The y coordinate of the bottom left corner
+     * @param x         The x coordinate of the top left corner
+     * @param y         The y coordinate of the top left corner
      * @param fontName  The name of the font to use
      * @param fontColor The color of the font
      * @param fontSize  The size of the font
@@ -3071,8 +3086,35 @@ class LolScene {
             //@Override
             onRender() { }
         })();
+        let newText = new PIXI.Text(text, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'left' });
+        d.mText = newText;
+        d.mText.position.x = x;
+        d.mText.position.y = y;
+        this.addActor(d, zIndex);
+        return d;
+    }
+    /**
+     * Draw some text in the scene, using the middle coordinate
+     *
+     * @param x         The x coordinate of the middle of the text
+     * @param y         The y coordinate of the middle of the text
+     * @param fontName  The name of the font to use
+     * @param fontColor The color of the font
+     * @param fontSize  The size of the font
+     * @param text      Text to put on screen
+     * @param zIndex    The z index of the text
+     * @return A Renderable of the text, so it can be enabled/disabled by program code
+     */
+    addStaticTextCentered(x, y, fontName, fontColor, fontSize, text, zIndex) {
+        // Create a renderable that updates its text on every render, and add it to the scene
+        let d = new (class _ extends Renderable {
+            //@Override
+            onRender() { }
+        })();
         let newText = new PIXI.Text(text, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
         d.mText = newText;
+        d.mText.anchor.x = 0.5;
+        d.mText.anchor.y = 0.5;
         d.mText.position.x = x;
         d.mText.position.y = y;
         this.addActor(d, zIndex);
@@ -5498,7 +5540,7 @@ class Chooser {
             let midX = 960 / 2;
             let midY = 540 / 2;
             // Back to splash
-            level.addStaticText(midX - 50, midY + 50, "Arial", 0x00FFFF, 24, "Back to Menu", 1);
+            level.addStaticTextCentered(midX, midY + 50, "Arial", 0x00FFFF, 24, "Back to Menu", 1);
             level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doSplash();
@@ -5515,16 +5557,16 @@ class Chooser {
                 }
             })());
             // Play level 2 button
-            level.addStaticText(350, midY - 150, "Arial", 0x00FFFF, 24, "Play Christmas Scramble", 1);
-            level.addTapControl(350, midY - 100, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
+            level.addStaticText(midX - 100, midY - 150, "Arial", 0x00FFFF, 24, "Play Christmas Scramble", 1);
+            level.addTapControl(midX - 100, midY - 100, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(2);
                     return true;
                 }
             })());
             // Play level 3 tebutton
-            level.addStaticText(650, midY - 150, "Arial", 0x00FFFF, 24, "Play Dodgy Plane", 1);
-            level.addTapControl(650, midY - 100, 200, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+            level.addStaticText(960 - 250, midY - 150, "Arial", 0x00FFFF, 24, "Play Dodgy Plane", 1);
+            level.addTapControl(960 - 250, midY - 100, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(3);
                     return true;
