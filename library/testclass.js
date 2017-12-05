@@ -2956,10 +2956,16 @@ class LolScene {
         zIndex = (zIndex < -2) ? -2 : zIndex;
         zIndex = (zIndex > 2) ? 2 : zIndex;
         this.mRenderables[zIndex + 2].push(actor);
-        if (actor.mSprite)
-            this.mContainer.addChild(actor.mSprite);
-        if (actor.mText)
-            this.mContainer.addChild(actor.mText);
+        this.mCamera.mContainer.removeChildren();
+        this.mContainer.removeChildren();
+        for (let i = 0; i < 5; i++) {
+            for (let a of this.mRenderables[i]) {
+                if (a.mSprite)
+                    this.mContainer.addChild(a.mSprite);
+                if (a.mText)
+                    this.mContainer.addChild(a.mText);
+            }
+        }
         this.mCamera.mContainer.addChild(this.mContainer);
     }
     /**
@@ -5492,13 +5498,13 @@ class Chooser {
             let midX = 960 / 2;
             let midY = 540 / 2;
             // Back to splash
-            level.addStaticText(midX - 50, midY + 100, "Arial", 0x00FFFF, 24, "Back to Menu", 1);
             level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doSplash();
                     return true;
                 }
             })());
+            level.addStaticText(midX - 50, midY + 100, "Arial", 0x00FFFF, 24, "Back to Menu", 1);
             // Play level 1 button
             level.addTapControl(50, midY - 100, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
