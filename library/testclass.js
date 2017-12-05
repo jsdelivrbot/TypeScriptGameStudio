@@ -5567,9 +5567,9 @@ class Levels {
             h.setStrength(1);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
-            level.setKeyAction(87, level.JumpAction(h, 1000), false);
+            level.setKeyAction(87, level.JumpAction(h, 500), false);
             // The jumps will give 120 pixels of up velocity
-            h.setJumpImpulses(0, 150);
+            h.setJumpImpulses(0, 130);
             // Let the hero jump in the air to simulate flying
             h.setMultiJumpOn();
             // 'a' key to move left
@@ -5607,11 +5607,11 @@ class Levels {
             }
             eArray[0].setChaseFixedMagnitude(h, 25, 25, false, false);
             eArray[1].setChaseFixedMagnitude(h, 30, 30, false, false);
-            eArray[2].setRoute((new Route(3)).to(500, 120).to(800, 150).to(500, 120), 50, true);
+            eArray[2].setRoute((new Route(3)).to(500, 120).to(800, 250).to(500, 120), 50, true);
             eArray[3].setRoute((new Route(8)).to(880, 160)
                 .to(800, 200)
-                .to(750, 500)
-                .to(250, 440)
+                .to(750, 420)
+                .to(250, 340)
                 .to(120, 200)
                 .to(300, 100)
                 .to(340, 250)
