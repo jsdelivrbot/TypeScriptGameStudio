@@ -23,7 +23,7 @@ class Chooser implements ScreenManager {
       let midY = 540 / 2;
 
       // Back to splash
-      level.addStaticText(midX - 50, midY + 100, "Arial", 0xFFFF00, 24, "Back to Menu", 0);
+      level.addStaticText(midX - 50, midY + 100, "Arial", 0x00FFFF, 24, "Back to Menu", 1);
 
       level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
         public go(): boolean {
@@ -33,9 +33,10 @@ class Chooser implements ScreenManager {
       })());
 
       // Play level 1 button
-      level.addStaticText(midX - 400, midY - 100, "Arial", 0xFFFF00, 24, "Play Sky Fighter", 0);
+      // Colors are written in hex values
+      level.addStaticText(50, midY - 100, "Arial", 0x00FFFF, 24, "Play Sky Fighter", 1);
 
-      level.addTapControl(midX - 400, midY - 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
+      level.addTapControl(50, midY - 100, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
         public go(): boolean {
           level.doLevel(1);
           return true;
@@ -43,9 +44,9 @@ class Chooser implements ScreenManager {
       })());
 
       // Play level 2 button
-      level.addStaticText(midX, midY - 100, "Arial", 0xFFFF00, 24, "Play Christmas Scramble", 0);
+      level.addStaticText(350, midY - 200, "Arial", 0x00FFFF, 24, "Play Christmas Scramble", 1);
 
-      level.addTapControl(midX, midY - 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
+      level.addTapControl(350, midY - 200, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
         public go(): boolean {
           level.doLevel(2);
           return true;
@@ -53,9 +54,9 @@ class Chooser implements ScreenManager {
       })());
 
       // Play level 3 button
-      level.addStaticText(midX + 400, midY - 100, "Arial", 0xFFFF00, 24, "Play Dodgy Plane", 0);
+      level.addStaticText(650, midY - 200, "Arial", 0x00FFFF, 24, "Play Dodgy Plane", 1);
 
-      level.addTapControl(midX + 400, midY - 100, 100, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+      level.addTapControl(650, midY - 200, 200, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
         public go(): boolean {
           level.doLevel(3);
           return true;
