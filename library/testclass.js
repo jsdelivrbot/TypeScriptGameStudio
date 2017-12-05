@@ -320,7 +320,7 @@ class BaseActor extends Renderable {
     /**
     * Returns the X coordinate of this actor
     *
-    * @return x coordinate of bottom left corner, in meters
+    * @return x coordinate of top left corner, in pixels
     */
     getXPosition() {
         return this.mBody.GetPosition().x - this.mSize.x / 2;
@@ -328,7 +328,7 @@ class BaseActor extends Renderable {
     /**
     * Returns the Y coordinate of this actor
     *
-    * @return y coordinate of bottom left corner, in meters
+    * @return y coordinate of top left corner, in pixels
     */
     getYPosition() {
         return this.mBody.GetPosition().y - this.mSize.y / 2;
@@ -1370,9 +1370,9 @@ class Level {
     * screen was touched
     *
     * @param hero    The hero who should throw the projectile
-    * @param offsetX specifies the x distance between the bottom left of the projectile and the
+    * @param offsetX specifies the x distance between the top left of the projectile and the
     *                bottom left of the hero throwing the projectile
-    * @param offsetY specifies the y distance between the bottom left of the projectile and the
+    * @param offsetY specifies the y distance between the top left of the projectile and the
     *                bottom left of the hero throwing the projectile
     * @return The action object
     */
@@ -1380,7 +1380,7 @@ class Level {
         let out_this = this;
         return new (class _ extends TouchEventHandler {
             go(worldX, worldY) {
-                out_this.mGame.mManager.mWorld.mProjectilePool.throwAt(hero.mBody.GetPosition().x, hero.mBody.GetPosition().y, worldX, worldY, hero, offsetX, offsetY);
+                out_this.mGame.mManager.mWorld.mProjectilePool.throwAt(hero.getXPosition(), hero.getYPosition(), worldX, worldY, hero, offsetX, offsetY);
                 return true;
             }
         })();
@@ -5157,8 +5157,8 @@ class ProjectilePool {
     /**
      * Throw a projectile. This is for throwing in the direction of a specified point
      *
-     * @param heroX   x coordinate of the bottom left corner of the thrower
-     * @param heroY   y coordinate of the bottom left corner of the thrower
+     * @param heroX   x coordinate of the top left corner of the thrower
+     * @param heroY   y coordinate of the top left corner of the thrower
      * @param toX     x coordinate of the point at which to throw
      * @param toY     y coordinate of the point at which to throw
      * @param h       The hero who is performing the throw
@@ -5549,9 +5549,9 @@ class Levels {
             // Let the hero jump in the air to simulate flying
             h.setMultiJumpOn();
             // 'a' key to move left
-            level.setKeyAction(65, level.makeXMotionAction(h, -80), true);
+            level.setKeyAction(65, level.makeXMotionAction(h, -60), true);
             // 'd' key to move right
-            level.setKeyAction(68, level.makeXMotionAction(h, 80), true);
+            level.setKeyAction(68, level.makeXMotionAction(h, 60), true);
             // Three projectiles at a time, each has 1 power
             level.configureProjectiles(3, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
             // spacebar to shoot
@@ -5636,8 +5636,8 @@ class Levels {
                 // So our clouds can be fit together
                 o.setPassThrough(1);
             }
-            level.setLoseCountdown(180);
-            level.addDisplay(25, 25, "Arial", "0x000000", 24, "Time Remaining: ", " seconds", level.DisplayLoseCountdown(), 0);
+            //level.setLoseCountdown(180);
+            //level.addDisplay(25, 25, "Arial", "0x000000", 24, "Time Remaining: ", " seconds", level.DisplayLoseCountdown(), 0);
             // Must kill all enemies to win
             level.setVictoryEnemyCount(-1);
         }

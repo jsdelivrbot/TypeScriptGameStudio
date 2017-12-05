@@ -584,13 +584,18 @@ class Level {
   * Create an action that makes a hero jump.
   *
   * @param hero The hero who we want to jump
+  * @param milliDelay If there should be time between being allowed to jump
   * @return The action object
   */
-  public JumpAction(hero: Hero): LolAction {
+  public JumpAction(hero: Hero, milliDelay: number): LolAction {
     return new (class _ extends LolAction {
-      //@Override
+      mLastJump: number = 0;
+
       public go(): void {
-        hero.jump();
+        let now = new Date().getTime();
+        if (this.mLastJump + milliDelay < now) {
+          hero.jump();
+        }
       }
     })();
   }
