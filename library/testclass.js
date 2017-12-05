@@ -3162,10 +3162,11 @@ class Media {
         this.mTunes = new Map();
         for (let imgName of config.mImageNames) {
             //let texture: PIXI.Texture
+            //PIXI has a built-in image loader
             PIXI.loader.add(imgName);
             //this.mImages.set(imgName, texture);
         }
-        PIXI.loader.load();
+        //PIXI.loader.load();
         for (let soundName of config.mSoundNames) {
             let s = new Sound(soundName);
             this.mSounds.set(soundName, s);
@@ -3176,42 +3177,6 @@ class Media {
             this.mTunes.set(musicName, m);
         }
     }
-    // /**
-    //  * Get the font described by the file name and font size
-    //  *
-    //  * @param fontFileName The filename for the font. This should be in the android
-    //  *                     project's assets folder, and should end in .ttf
-    //  * @param fontSize     The font size to use for the BitmapFont we create
-    //  * @return A font object that can be used to render text
-    //  */
-    // BitmapFont getFont(String fontFileName, int fontSize) {
-    //     // we store fonts as their filename appended with their size
-    //     String key = fontFileName + "--" + fontSize;
-    //
-    //     // check if we've already got this font, return it if we do
-    //     BitmapFont f = mFonts.get(key);
-    //     if (f != null) {
-    //         // just to play it safe, make the font white... the caller can
-    //         // change this
-    //         f.setColor(1, 1, 1, 1);
-    //         return f;
-    //     }
-    //
-    //     // Generate the font, save it, and return it
-    //     //
-    //     // NB: if this crashes, the user will get a reasonably good error message
-    //     FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-    //     parameter.size = fontSize;
-    //     parameter.minFilter = Texture.TextureFilter.Linear;
-    //     parameter.magFilter = Texture.TextureFilter.Linear;
-    //     FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontFileName));
-    //     generator.scaleForPixelHeight(fontSize);
-    //     f = generator.generateFont(parameter);
-    //     f.setUseIntegerPositions(false); // NB: when we switch to HTML builds, this helps
-    //     generator.dispose();
-    //     mFonts.put(key, f);
-    //     return f;
-    // }
     /**
      * Get a previously loaded Sound object
      *
@@ -4450,30 +4415,12 @@ class Lol {
      * NB: This is an internal method for initializing a game. User code should never call this.
      */
     create() {
-        // We want to intercept 'back' button presses, so that we can poll for them in
-        // <code>render</code> and react accordingly
-        //Gdx.input.setCatchBackKey(true);
         // The config object has already been set, so we can load all assets
         this.mMedia = new Media(this.mConfig);
-        // Configure the objects we need in order to render
-        //mDebugRender = new Box2DDebugRenderer();
-        //mSpriteBatch = new SpriteBatch();
-        // Configure the input handlers.  We process gestures first, and if no gesture occurs, then
-        // we look for a non-gesture touch event
-        //InputMultiplexer mux = new InputMultiplexer();
-        //mux.addProcessor(new GestureDetector(new LolGestureManager()));
-        //mux.addProcessor(new LolInputManager());
-        //Gdx.input.setInputProcessor(mux);
-        // configure the volume
-        //if (getGameFact(mConfig, "volume", 1) == 1)
-        //    putGameFact(mConfig, "volume", 1);
-        // this.mConfig.mImageNames.forEach( (e) => {
-        //   PIXI.loader.add(e);
-        // } );
-        // PIXI.loader.load();
         // Create the level manager, and instruct it to transition to the Splash screen
         this.mManager = new LolManager(this.mConfig, this.mMedia, this);
-        this.mManager.doSplash();
+        // Make sure all textures are loaded
+        PIXI.loader.load(this.mManager.doSplash);
     }
     /**
      * This code is called every 1/45th of a second to update the game state and re-draw the screen
@@ -4484,8 +4431,8 @@ class Lol {
         this.mManager.mWorld.mWorld.Step(1 / 45, 8, 3);
         // Make sure the music is playing... Note that we start music before the PreScene shows
         this.mManager.mWorld.playMusic();
+        // Adjust camera if it needs to follow an actor
         this.mManager.mWorld.adjustCamera();
-        //this.mManager.mWorld.mCamera.updatePosition();
         this.mManager.mWorld.render();
         this.mManager.mHud.render();
         this.mRenderer.render(this.mManager.mContainer);
@@ -5539,7 +5486,7 @@ class Chooser {
             // Put in some catchy background muzak
             level.setMusic("./GameAssets/TitleTheme.mp3");
             // Add a background
-            level.drawPicture(0, 0, 960, 640, "./GameAssets/TitleBack.png", -2);
+            level.drawPicture(0, 0, 960, 540, "./GameAssets/TitleBack.png", -2);
             // Set variables for easy placement of objects
             let midX = 960 / 2;
             let midY = 540 / 2;
@@ -5637,26 +5584,25 @@ class Levels {
     */
     display(index, level) {
         /*
-        * In this level, all we have is a hero (the green ball) who needs to
-        * make it to the destination (a mustard colored ball). The game is
-        * configured to use tilt to control the level.
+        * In this level, you play as an angel who must defeat the evil bats
+        * who have taken over your skies. Shoot them all down to win.
         */
         // LEVEL 1: the first demo game
         if (index == 1) {
             // Set the gravity of the game
+            // Gravity will be 98 pixels per second
             level.resetGravity(0, 98);
             // Add some quality theme music
             level.setMusic("./GameAssets/AngelGame/AngelTheme.mp3");
             // Add a background
-            level.drawPicture(0, 0, 960, 640, "./GameAssets/AngelGame/SkyBack.png", -2);
+            level.drawPicture(0, 0, 960, 540, "./GameAssets/AngelGame/SkyBack.png", -2);
             // Place a box around the arena to limit the play area
-            level.drawBoundingBox(0, 0, 960, 640, "", 1, 1, 1);
+            level.drawBoundingBox(0, 0, 960, 540, "", 1, 1, 1);
             // Create a hero and assign it to the variable "h"
             // (Here we explicitly state the type of the variable: "Hero")
-            let h = level.makeHeroAsBox(960 / 2, 640 / 2, 32, 32, "./GameAssets/AngelGame/Angel.png");
-            // Set 'w' to jump (this involves using keycode)
+            let h = level.makeHeroAsBox(960 / 2, 540 / 2, 32, 32, "./GameAssets/AngelGame/Angel.png");
+            // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
-            //level.setKeyAction(32, level.JumpAction(h), false);
             level.setKeyAction(87, level.JumpAction(h), false);
             // The jumps will give 100 pixels of up velocity
             h.setJumpImpulses(0, 100);
@@ -5666,25 +5612,25 @@ class Levels {
             level.setKeyAction(65, level.makeXMotionAction(h, -80), true);
             // 'd' key to move right
             level.setKeyAction(68, level.makeXMotionAction(h, 80), true);
-            level.configureProjectiles(5, 8, 8, "./GameAssets/AngelGame/Bullet.png", 2, 0, false);
+            level.configureProjectiles(3, 8, 8, "./GameAssets/AngelGame/Bullet.png", 2, 0, false);
             // spacebar to shoot
             //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
             // click to shoot
             level.setClickAction(level.ThrowDirectionalAction(h, 16, 16));
             level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
             level.setProjectileVectorDampeningFactor(0.8);
-            //level.setProjectileRange(500);
+            level.setProjectileRange(500);
             level.setProjectileGravityOn();
-            let e1 = level.makeEnemyAsBox(960 / 2 + 180, 640 / 2 + 100, 32, 32, "./GameAssets/AngelGame/Bat.png");
-            let e2 = level.makeEnemyAsBox(960 / 2 - 80, 640 / 2 + 50, 32, 32, "./GameAssets/AngelGame/Bat.png");
-            let e3 = level.makeEnemyAsBox(960 / 2 + 300, 640 / 2 - 150, 32, 32, "./GameAssets/AngelGame/Bat.png");
+            let e1 = level.makeEnemyAsBox(960 / 2 + 180, 540 / 2 + 100, 32, 32, "./GameAssets/AngelGame/Bat.png");
+            let e2 = level.makeEnemyAsBox(960 / 2 - 80, 540 / 2 + 50, 32, 32, "./GameAssets/AngelGame/Bat.png");
+            let e3 = level.makeEnemyAsBox(960 / 2 + 300, 540 / 2 - 150, 32, 32, "./GameAssets/AngelGame/Bat.png");
             e1.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
             e2.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
             e3.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
             e1.setDamage(2);
             e2.setDamage(4);
             e3.setDamage(6);
-            e1.setRoute((new Route(3)).to(960 / 2 - 80, 640 / 2 + 100).to(960 / 2 - 80, 640 / 2 + 50).to(960 / 2, 640 / 2).to(960 / 2 - 80, 640 / 2 + 100), 50, true);
+            e1.setRoute((new Route(3)).to(960 / 2 - 80, 540 / 2 + 100).to(960 / 2 - 80, 540 / 2 + 50).to(960 / 2, 540 / 2).to(960 / 2 - 80, 540 / 2 + 100), 50, true);
             e2.setChaseFixedMagnitude(h, 25, 25, false, false);
             let o11 = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/AngelGame/CloudBall.png");
             o11.setPhysics(1, 3, 1);
