@@ -14,33 +14,32 @@ class Levels implements ScreenManager {
   */
   public display(index: number, level: Level): void {
     /*
-    * In this level, all we have is a hero (the green ball) who needs to
-    * make it to the destination (a mustard colored ball). The game is
-    * configured to use tilt to control the level.
+    * In this level, you play as an angel who must defeat the evil bats
+    * who have taken over your skies. Shoot them all down to win.
     */
 
     // LEVEL 1: the first demo game
     if (index == 1) {
 
       // Set the gravity of the game
+      // Gravity will be 98 pixels per second
       level.resetGravity(0, 98);
 
       // Add some quality theme music
       level.setMusic("./GameAssets/AngelGame/AngelTheme.mp3");
 
       // Add a background
-      level.drawPicture(0, 0, 960, 640, "./GameAssets/AngelGame/SkyBack.png", -2);
+      level.drawPicture(0, 0, 960, 540, "./GameAssets/AngelGame/SkyBack.png", -2);
 
       // Place a box around the arena to limit the play area
-      level.drawBoundingBox(0, 0, 960, 640, "", 1, 1, 1);
+      level.drawBoundingBox(0, 0, 960, 540, "", 1, 1, 1);
 
       // Create a hero and assign it to the variable "h"
       // (Here we explicitly state the type of the variable: "Hero")
-      let h: Hero = level.makeHeroAsBox(960/2, 640/2, 32, 32, "./GameAssets/AngelGame/Angel.png");
+      let h: Hero = level.makeHeroAsBox(960/2, 540/2, 32, 32, "./GameAssets/AngelGame/Angel.png");
 
-      // Set 'w' to jump (this involves using keycode)
+      // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
-      //level.setKeyAction(32, level.JumpAction(h), false);
       level.setKeyAction(87, level.JumpAction(h), false);
       // The jumps will give 100 pixels of up velocity
       h.setJumpImpulses(0, 100);
@@ -52,19 +51,20 @@ class Levels implements ScreenManager {
       // 'd' key to move right
       level.setKeyAction(68, level.makeXMotionAction(h, 80), true);
 
-      level.configureProjectiles(5, 8, 8, "./GameAssets/AngelGame/Bullet.png", 2, 0, false);
+      level.configureProjectiles(3, 8, 8, "./GameAssets/AngelGame/Bullet.png", 2, 0, false);
       // spacebar to shoot
       //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
       // click to shoot
       level.setClickAction(level.ThrowDirectionalAction(h, 16, 16));
       level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
       level.setProjectileVectorDampeningFactor(0.8);
-      //level.setProjectileRange(500);
+      level.setProjectileRange(500);
       level.setProjectileGravityOn();
 
-      let e1: Enemy = level.makeEnemyAsBox(960/2 + 180, 640/2 + 100, 32, 32, "./GameAssets/AngelGame/Bat.png")
-      let e2: Enemy = level.makeEnemyAsBox(960/2 - 80, 640/2 + 50, 32, 32, "./GameAssets/AngelGame/Bat.png")
-      let e3: Enemy = level.makeEnemyAsBox(960/2 + 300, 640/2 - 150, 32, 32, "./GameAssets/AngelGame/Bat.png")
+
+      let e1: Enemy = level.makeEnemyAsBox(960/2 + 180, 540/2 + 100, 32, 32, "./GameAssets/AngelGame/Bat.png")
+      let e2: Enemy = level.makeEnemyAsBox(960/2 - 80, 540/2 + 50, 32, 32, "./GameAssets/AngelGame/Bat.png")
+      let e3: Enemy = level.makeEnemyAsBox(960/2 + 300, 540/2 - 150, 32, 32, "./GameAssets/AngelGame/Bat.png")
 
       e1.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
       e2.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
@@ -74,7 +74,7 @@ class Levels implements ScreenManager {
       e2.setDamage(4);
       e3.setDamage(6);
 
-      e1.setRoute((new Route(3)).to(960/2 - 80, 640/2 + 100).to(960/2 - 80, 640/2 + 50).to(960/2, 640/2).to(960/2 - 80, 640/2 + 100), 50, true)
+      e1.setRoute((new Route(3)).to(960/2 - 80, 540/2 + 100).to(960/2 - 80, 540/2 + 50).to(960/2, 540/2).to(960/2 - 80, 540/2 + 100), 50, true)
       e2.setChaseFixedMagnitude(h, 25, 25, false, false);
 
       let o11: Obstacle = level.makeObstacleAsCircle(500, 500, 32, 32, "./GameAssets/AngelGame/CloudBall.png");

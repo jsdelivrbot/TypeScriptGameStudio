@@ -21,7 +21,7 @@ class Chooser implements ScreenManager {
       // Put in some catchy background muzak
       level.setMusic("./GameAssets/TitleTheme.mp3");
       // Add a background
-      level.drawPicture(0, 0, 960, 640, "./GameAssets/TitleBack.png", -2);
+      level.drawPicture(0, 0, 960, 540, "./GameAssets/TitleBack.png", -2);
 
       // Set variables for easy placement of objects
       let midX = 960 / 2;
