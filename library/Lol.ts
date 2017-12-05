@@ -71,5 +71,8 @@ class Lol {
       if(pe.mIsActive)
         pe.go();
     });
+
+    // Update the win/lose timers
+    this.mManager.updateTimeCounts();
   }
 }
