@@ -52,15 +52,15 @@ class Levels implements ScreenManager {
       level.setKeyAction(68, level.makeXMotionAction(h, 60), true);
 
       // Three projectiles at a time, each has 1 power
-      level.configureProjectiles(3, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
+      level.configureProjectiles(5, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
       // spacebar to shoot
-      //level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 16, 75, 0), true);
+      level.setKeyAction(32, level.makeRepeatThrow(h, 1000, 24, 24, 0, 10), true);
       // click to shoot
-      level.setFixedVectorThrowVelocityForProjectiles(150);
-      level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
+      //level.setFixedVectorThrowVelocityForProjectiles(150);
+      //level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
       level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
-      level.setProjectileVectorDampeningFactor(0.5);
-      level.setProjectileRange(200);
+      //level.setProjectileVectorDampeningFactor(0.5);
+      level.setProjectileRange(300);
       level.setProjectileGravityOn();
 
       /// Creating the enemies
@@ -71,7 +71,7 @@ class Levels implements ScreenManager {
       eArray[2] = level.makeEnemyAsBox(500, 120, 45, 30, "./GameAssets/AngelGame/Bat.png");
       eArray[3] = level.makeEnemyAsBox(880, 160, 45, 30, "./GameAssets/AngelGame/Bat.png");
       eArray[4] = level.makeEnemyAsBox(350, 200, 45, 30, "./GameAssets/AngelGame/Bat.png");
-      eArray[5] = level.makeEnemyAsBox(820, 380, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[5] = level.makeEnemyAsBox(820, 320, 45, 30, "./GameAssets/AngelGame/Bat.png");
       eArray[6] = level.makeEnemyAsBox(650, 350, 45, 30, "./GameAssets/AngelGame/Bat.png");
 
       // Loop through the elements of the array

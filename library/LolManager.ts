@@ -297,6 +297,7 @@ class LolManager {
   */
   doLose(index: number): void {
     this.onScreenChange();
+    this.resetScores();
     this.mConfig.mLose.display(index, this.mLevel);
   }
 
@@ -307,6 +308,7 @@ class LolManager {
   */
   doWin(index: number): void {
     this.onScreenChange();
+    this.resetScores();
     this.mConfig.mWin.display(index, this.mLevel);
   }
 
