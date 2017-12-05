@@ -70,9 +70,9 @@ class Levels implements ScreenManager {
       eArray[1] = level.makeEnemyAsBox(100, 270, 45, 30, "./GameAssets/AngelGame/Bat.png");
       eArray[2] = level.makeEnemyAsBox(500, 120, 45, 30, "./GameAssets/AngelGame/Bat.png");
       eArray[3] = level.makeEnemyAsBox(880, 160, 45, 30, "./GameAssets/AngelGame/Bat.png");
-      eArray[4] = level.makeEnemyAsBox(75, 400, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[4] = level.makeEnemyAsBox(150, 200, 45, 30, "./GameAssets/AngelGame/Bat.png");
       eArray[5] = level.makeEnemyAsBox(820, 380, 45, 30, "./GameAssets/AngelGame/Bat.png");
-      eArray[6] = level.makeEnemyAsBox(900, 500, 45, 30, "./GameAssets/AngelGame/Bat.png");
+      eArray[6] = level.makeEnemyAsBox(700, 400, 45, 30, "./GameAssets/AngelGame/Bat.png");
 
       // Loop through the elements of the array
       for (let e of eArray) {
@@ -132,8 +132,8 @@ class Levels implements ScreenManager {
       oArray[31] = level.makeObstacleAsCircle(908, 384, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
       oArray[32] = level.makeObstacleAsCircle(932, 380, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
       // Cloud 9
-      oArray[33] = level.makeObstacleAsCircle(756, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
-      oArray[0] = level.makeObstacleAsCircle(780, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+      oArray[33] = level.makeObstacleAsCircle(700, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
+      oArray[0] = level.makeObstacleAsCircle(724, 508, oSize, oSize, "./GameAssets/AngelGame/CloudBall.png");
 
       // Set the cloud physics
       for (let o of oArray) {

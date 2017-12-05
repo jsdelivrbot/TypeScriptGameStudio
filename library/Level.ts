@@ -479,13 +479,14 @@ class Level {
     return new (class _ implements TextProducer {
       //@Override
       public makeText(): string {
-        return "" + out_this.mGame.mManager.mEnemiesDefeated;
+        let ed = out_this.mGame.mManager.getEnemiesDefeated();
+        return "" + ed;
       }
     })();
   }
 
   /**
-  * Generate text indicating the number of defeated enemies
+  * Generate text indicating the number of remaining projectiles
   */
   public DisplayRemainingProjectiles(): TextProducer {
     let out_this = this;

@@ -406,6 +406,13 @@ class LolManager {
     }
   }
 
+  /*
+   *  Returns number of enemies defeated
+   */
+  getEnemiesDefeated(): number {
+    return this.mEnemiesDefeated;
+  }
+
   /**
   * When a level ends, we run this code to shut it down, print a message, and
   * then let the user resume play
