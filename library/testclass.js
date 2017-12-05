@@ -5593,10 +5593,9 @@ class Levels {
             eArray[0] = level.makeEnemyAsBox(50, 50, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[1] = level.makeEnemyAsBox(100, 270, 45, 30, "./GameAssets/AngelGame/Bat.png");
             eArray[2] = level.makeEnemyAsBox(500, 120, 45, 30, "./GameAssets/AngelGame/Bat.png");
-            eArray[3] = level.makeEnemyAsBox(880, 160, 45, 30, "./GameAssets/AngelGame/Bat.png");
-            eArray[4] = level.makeEnemyAsBox(350, 200, 45, 30, "./GameAssets/AngelGame/Bat.png");
-            eArray[5] = level.makeEnemyAsBox(820, 320, 45, 30, "./GameAssets/AngelGame/Bat.png");
-            eArray[6] = level.makeEnemyAsBox(650, 350, 45, 30, "./GameAssets/AngelGame/Bat.png");
+            eArray[3] = level.makeEnemyAsBox(850, 210, 45, 30, "./GameAssets/AngelGame/Bat.png");
+            eArray[4] = level.makeEnemyAsBox(350, 190, 45, 30, "./GameAssets/AngelGame/Bat.png");
+            eArray[5] = level.makeEnemyAsBox(650, 350, 45, 30, "./GameAssets/AngelGame/Bat.png");
             // Loop through the elements of the array
             for (let e of eArray) {
                 e.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
@@ -5608,14 +5607,20 @@ class Levels {
             eArray[0].setChaseFixedMagnitude(h, 25, 25, false, false);
             eArray[1].setChaseFixedMagnitude(h, 30, 30, false, false);
             eArray[2].setRoute((new Route(3)).to(500, 120).to(800, 250).to(500, 120), 50, true);
-            eArray[3].setRoute((new Route(8)).to(880, 160)
+            eArray[3].setRoute((new Route(8)).to(850, 210)
                 .to(780, 200)
                 .to(710, 420)
                 .to(150, 360)
                 .to(120, 200)
                 .to(300, 100)
-                .to(340, 250)
-                .to(880, 160), 70, true);
+                .to(400, 250)
+                .to(850, 210), 70, true);
+            eArray[4].setRoute((new Route(5)).to(350, 190)
+                .to(360, 250)
+                .to(340, 320)
+                .to(370, 220)
+                .to(350, 190), 70, true);
+            eArray[5].setChaseFixedMagnitude(h, 15, 15, false, false);
             /// Making the cloud obstacles
             // Array for the obstacles
             let oArray = new Array();
