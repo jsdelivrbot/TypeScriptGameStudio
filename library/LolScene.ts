@@ -101,8 +101,16 @@ abstract class LolScene {
     zIndex = (zIndex > 2) ? 2 : zIndex;
     this.mRenderables[zIndex+2].push(actor);
 
-    if(actor.mSprite) this.mContainer.addChild(actor.mSprite);
-    if(actor.mText) this.mContainer.addChild(actor.mText);
+    this.mCamera.mContainer.removeChildren();
+    this.mContainer.removeChildren();
+
+    for (let i = 0; i < 5; i++) {
+      for (let a of this.mRenderables[i]) {
+        if(a.mSprite) this.mContainer.addChild(a.mSprite);
+        if(a.mText) this.mContainer.addChild(a.mText);
+      }
+    }
+
     this.mCamera.mContainer.addChild(this.mContainer);
   }
 

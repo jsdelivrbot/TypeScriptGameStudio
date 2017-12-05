@@ -23,14 +23,14 @@ class Chooser implements ScreenManager {
       let midY = 540 / 2;
 
       // Back to splash
-      level.addStaticText(midX - 50, midY + 100, "Arial", 0x00FFFF, 24, "Back to Menu", 1);
-
       level.addTapControl(midX - 50, midY + 100, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
         public go(): boolean {
           level.doSplash();
           return true;
         }
       })());
+
+      level.addStaticText(midX - 50, midY + 100, "Arial", 0x00FFFF, 24, "Back to Menu", 1);
 
       // Play level 1 button
       level.addTapControl(50, midY - 100, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {

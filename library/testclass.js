@@ -5500,30 +5500,30 @@ class Chooser {
                 }
             })());
             // Play level 1 button
-            // Colors are written in hex values
-            level.addStaticText(50, midY - 100, "Arial", 0x00FFFF, 24, "Play Sky Fighter", 1);
             level.addTapControl(50, midY - 100, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(1);
                     return true;
                 }
             })());
+            // Colors are written in hex values
+            level.addStaticText(50, midY - 100, "Arial", 0x00FFFF, 24, "Play Sky Fighter", 1);
             // Play level 2 button
-            level.addStaticText(350, midY - 200, "Arial", 0x00FFFF, 24, "Play Christmas Scramble", 1);
-            level.addTapControl(350, midY - 200, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
+            level.addTapControl(350, midY - 100, 200, 50, "./GameAssets/button.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(2);
                     return true;
                 }
             })());
+            level.addStaticText(350, midY - 100, "Arial", 0x00FFFF, 24, "Play Christmas Scramble", 1);
             // Play level 3 button
-            level.addStaticText(650, midY - 200, "Arial", 0x00FFFF, 24, "Play Dodgy Plane", 1);
-            level.addTapControl(650, midY - 200, 200, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
+            level.addTapControl(650, midY - 100, 200, 50, "./GameAssets/buttonLarge.png", new (class _ extends LolAction {
                 go() {
                     level.doLevel(3);
                     return true;
                 }
             })());
+            level.addStaticText(650, midY - 100, "Arial", 0x00FFFF, 24, "Play Dodgy Plane", 1);
         }
     }
 }
