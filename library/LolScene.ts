@@ -197,20 +197,21 @@ abstract class LolScene {
       let d: Renderable = new (class _ extends Renderable {
         //@Override
         onRender(): void {
+          out_this.removeActor(this, zIndex);
           let txt: string = prefix + tp.makeText() + suffix;
           let newText = new PIXI.Text(txt, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
           this.mText = newText;
           this.mText.position.x = x;
           this.mText.position.y = y;
-          //out_this.mContainer.addChild(this.mText);
+          out_this.addActor(this, zIndex);
         }
       })();
-      let txt: string = prefix + tp.makeText() + suffix;
-      let newText = new PIXI.Text(txt, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
-      d.mText = newText;
-      d.mText.position.x = x;
-      d.mText.position.y = y;
-      this.addActor(d, zIndex);
+      // let txt: string = prefix + tp.makeText() + suffix;
+      // let newText = new PIXI.Text(txt, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
+      // d.mText = newText;
+      // d.mText.position.x = x;
+      // d.mText.position.y = y;
+      // this.addActor(d, zIndex);
       return d;
   }
 

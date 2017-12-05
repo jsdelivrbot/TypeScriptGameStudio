@@ -3075,11 +3075,11 @@ class LolScene {
                 //out_this.mContainer.addChild(this.mText);
             }
         })();
-        // let txt: string = prefix + tp.makeText() + suffix;
-        // let newText = new PIXI.Text(txt, {fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center'});
-        // d.mText = newText;
-        // d.mText.position.x = x;
-        // d.mText.position.y = y;
+        let txt = prefix + tp.makeText() + suffix;
+        let newText = new PIXI.Text(txt, { fontFamily: fontName, fontSize: fontSize, fill: fontColor, align: 'center' });
+        d.mText = newText;
+        d.mText.position.x = x;
+        d.mText.position.y = y;
         this.addActor(d, zIndex);
         return d;
     }
