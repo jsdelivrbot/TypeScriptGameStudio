@@ -5675,7 +5675,7 @@ class Levels {
             let robot = level.makeHeroAsBox(96, 300, 32, 56, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
             // Set jump power
-            robot.setJumpImpulses(0, 150 * 50);
+            robot.setJumpImpulses(0, 50000);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
             level.setKeyAction(87, level.jumpAction(robot, 0), null, false);

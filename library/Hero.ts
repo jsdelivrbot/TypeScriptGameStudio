@@ -390,7 +390,7 @@ class Hero extends WorldActor {
    * @param y Velocity in Y direction
    */
   public setJumpImpulses(x: number, y: number): void {
-      this.mJumpImpulses = new PhysicsType2d.Vector2(x, -y);
+      this.mJumpImpulses = new PhysicsType2d.Vector2(x, y);
   }
 
   /**
