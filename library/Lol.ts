@@ -52,7 +52,7 @@ class Lol {
    * NB: This is an internal method. User code should never call this.
    */
   render() {
-    this.mManager.mWorld.mWorld.Step(1 / 20, 8, 3);
+    this.mManager.mWorld.mWorld.Step(1 / 45, 8, 3);
 
     // Make sure the music is playing... Note that we start music before the PreScene shows
     this.mManager.mWorld.playMusic();

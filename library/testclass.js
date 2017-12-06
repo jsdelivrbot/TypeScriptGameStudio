@@ -3222,7 +3222,7 @@ class HudScene extends LolScene {
     render() {
         //this.mCamera.updatePosition();
         // Advance the physics world by 1/45 of a second (1/45 is the recommended rate)
-        this.mWorld.Step(1 / 45, 8, 3);
+        this.mWorld.Step(1 / 20, 8, 3);
         // Render all actors and text
         //sb.setProjectionMatrix(mCamera.combined);
         //sb.begin();
@@ -4361,7 +4361,7 @@ class Lol {
      * NB: This is an internal method. User code should never call this.
      */
     render() {
-        this.mManager.mWorld.mWorld.Step(1 / 45, 8, 3);
+        this.mManager.mWorld.mWorld.Step(1 / 20, 8, 3);
         // Make sure the music is playing... Note that we start music before the PreScene shows
         this.mManager.mWorld.playMusic();
         // Adjust camera if it needs to follow an actor
@@ -5667,7 +5667,7 @@ class Levels {
             level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
             level.setZoom(0.25);
             // Set the gravity of the game
-            level.resetGravity(0, 100);
+            level.resetGravity(0, 20);
             // Add a background
             level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
@@ -5675,7 +5675,7 @@ class Levels {
             let robot = level.makeHeroAsBox(32, 300, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
             // Set jump power
-            robot.setJumpImpulses(0, 500);
+            robot.setJumpImpulses(0, 50);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
             level.setKeyAction(87, level.jumpAction(robot, 0), null, false);

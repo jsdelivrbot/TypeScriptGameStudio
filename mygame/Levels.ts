@@ -169,11 +169,10 @@ class Levels implements ScreenManager {
     //level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
       // Add some quality theme music
       level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
-
       level.setZoom(0.25);
 
       // Set the gravity of the game
-      level.resetGravity(0, 20);
+      level.resetGravity(0, 30);
       // Add a background
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
@@ -181,16 +180,16 @@ class Levels implements ScreenManager {
       let robot: Hero = level.makeHeroAsBox(32, 300, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);
       // Set jump power
-      robot.setJumpImpulses(0, 50);
+      robot.setJumpImpulses(0, 60);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
       level.setKeyAction(87, level.jumpAction(robot, 0), null, false);
       // Set 'spacebar' to jump
       level.setKeyAction(32, level.jumpAction(robot, 0), null, false);
       // 'a' key to move left
-      level.setKeyAction(65, level.makeXMotionAction(robot, -60), level.makeXMotionAction(robot, 0), true);
+      level.setKeyAction(65, level.makeXMotionAction(robot, -16), level.makeXMotionAction(robot, 0), true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeXMotionAction(robot, 60), level.makeXMotionAction(robot, 0), true);
+      level.setKeyAction(68, level.makeXMotionAction(robot, 16), level.makeXMotionAction(robot, 0), true);
       // Make the camera follow our hero
       level.setCameraChase(robot);
       // Set the camera bounds
