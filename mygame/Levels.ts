@@ -249,8 +249,8 @@ class Levels implements ScreenManager {
       //level.resetGravity(0, 50);
       // Make the plane as a polygon so it isn't so boxy
       //let plane: Hero = level.makeHeroAsPolygon(0, 540/2, 55, 37,
-      //  "./GameAssets/PlaneGame/PlaneBack.png", [0,2, 0,25, 10,34, 32,34, 32,37, 55,37, 55,9, 36,9, 36,0, 25,0]);
-      let plane: Hero = level.makeHeroAsBox(0, 540/2, 55, 37,"./GameAssets/PlaneGame/PlaneBack.png");
+      //  "./GameAssets/PlaneGame/Plane.png", [0,2, 0,25, 10,34, 32,34, 32,37, 55,37, 55,9, 36,9, 36,0, 25,0]);
+      let plane: Hero = level.makeHeroAsBox(0, 540/2, 55, 37,"./GameAssets/PlaneGame/Plane.png");
       // 'a' key to move left
       level.setKeyAction(65, level.makeXMotionAction(plane, -60), level.makeXMotionAction(plane, 0), true);
       // 'd' key to move right
@@ -260,7 +260,7 @@ class Levels implements ScreenManager {
       // 's' key to move down
       level.setKeyAction(83, level.makeYMotionAction(plane, 60), level.makeYMotionAction(plane, 0), true);
       // Make a rock to crash into
-      let rock: Enemy = level.makeEnemyAsPolygon(200, 0, 100, 540, "./GameAssets/PlaneGame/RockDown.png", [0,0, 50,540, 100,0]);
+      let rock: Enemy = level.makeEnemyAsPolygon(200, 0, 100, 540, "./GameAssets/PlaneGame/RockDown.png", [0,0, 50,540, 100,0, 0,0]);
       // Set a victory destination at the end of the level
       //let dest = level.makeDestinationAsBox(2860, 0, 20, 540, "");
       //level.setVictoryDestination(1);

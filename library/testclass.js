@@ -5729,7 +5729,9 @@ class Levels {
             // Gravity
             //level.resetGravity(0, 50);
             // Make the plane as a polygon so it isn't so boxy
-            let plane = level.makeHeroAsPolygon(0, 540 / 2, 55, 37, "./GameAssets/PlaneGame/PlaneBack.png", [0, 2, 0, 25, 10, 34, 32, 34, 32, 37, 55, 37, 55, 9, 36, 9, 36, 0, 25, 0]);
+            //let plane: Hero = level.makeHeroAsPolygon(0, 540/2, 55, 37,
+            //  "./GameAssets/PlaneGame/PlaneBack.png", [0,2, 0,25, 10,34, 32,34, 32,37, 55,37, 55,9, 36,9, 36,0, 25,0]);
+            let plane = level.makeHeroAsBox(0, 540 / 2, 55, 37, "./GameAssets/PlaneGame/PlaneBack.png");
             // 'a' key to move left
             level.setKeyAction(65, level.makeXMotionAction(plane, -60), level.makeXMotionAction(plane, 0), true);
             // 'd' key to move right

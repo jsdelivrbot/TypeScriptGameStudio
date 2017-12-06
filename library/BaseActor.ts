@@ -114,9 +114,9 @@ class BaseActor extends Renderable {
   */
   setPolygonPhysics(type: PhysicsType2d.Dynamics.BodyType, x: number, y: number, vertices: number[]): void {
     let shape = new PhysicsType2d.Collision.Shapes.PolygonShape();
-    let verts = new Array<PhysicsType2d.Vector2>(vertices.length / 2);
+    let verts = new Array<PhysicsType2d.Vector2>();
     for (let i = 0; i < vertices.length; i += 2)
-    verts[i / 2] = new PhysicsType2d.Vector2(vertices[i], vertices[i + 1]);
+      verts[i / 2] = new PhysicsType2d.Vector2(vertices[i], vertices[i + 1]);
     // print some debug info, since vertices are tricky
     //for (let vert of verts)
     //Lol.message(mScene.mConfig, "vert", "at " + vert.x + "," + vert.y);
