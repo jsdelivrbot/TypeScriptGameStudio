@@ -5735,15 +5735,11 @@ class Levels {
             level.setCameraBounds(960 * 3, 540);
             // Make the plane
             let plane = level.makeHeroAsBox(0, 540 / 2, 55, 37, "./GameAssets/PlaneGame/Plane.png");
-            plane.setAbsoluteVelocity(50, 0);
-            // // 'a' key to move left
-            // level.setKeyAction(65, level.makeXYMotionAction(plane, 40, 0), level.makeXYMotionAction(plane, 50, 0), false);
-            // // 'd' key to move right
-            // level.setKeyAction(68, level.makeXYMotionAction(plane, 70, 0), level.makeXYMotionAction(plane, 70, 0), false);
+            plane.setAbsoluteVelocity(50, 60);
             // 'w' key to move up
-            level.setKeyAction(87, level.makeXYMotionAction(plane, 50, 80), level.makeXYMotionAction(plane, 50, -20), false);
+            level.setKeyAction(87, level.makeXYMotionAction(plane, 50, -50), level.makeXYMotionAction(plane, 50, 60), false);
             // 's' key to move down
-            level.setKeyAction(83, level.makeXYMotionAction(plane, 50, -100), level.makeXYMotionAction(plane, 50, -20), false);
+            level.setKeyAction(83, level.makeXYMotionAction(plane, 50, 100), level.makeXYMotionAction(plane, 50, 60), false);
             // Make the camera follow the plane
             level.setCameraChase(plane);
             // Make rocks to crash into
