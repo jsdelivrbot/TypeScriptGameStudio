@@ -178,7 +178,7 @@ class Levels implements ScreenManager {
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       // Create a hero
-      let robot: Hero = level.makeHeroAsBox(96, 300, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
+      let robot: Hero = level.makeHeroAsBox(32, 300, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);
       // Set jump power
       robot.setJumpImpulses(0, 120);
@@ -202,7 +202,7 @@ class Levels implements ScreenManager {
       level.makeObstacleAsBox(1920, 0, 1, 540, "");
       level.makeObstacleAsBox(0, 0, 1920, 1, "");
       // Make the starting platform
-      makePlatform(4, 16, 0, 356);
+      makePlatform(5, 16, 0, 356);
 
       /*
        * Here we create a function for making platforms, this makes it easy
