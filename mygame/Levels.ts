@@ -170,18 +170,18 @@ class Levels implements ScreenManager {
       // Add some quality theme music
       level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
 
-      //level.setZoom(0.5);
+      level.setZoom(0.5);
 
       // Set the gravity of the game
-      level.resetGravity(0, 150);
+      level.resetGravity(0, 30);
       // Add a background
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       // Create a hero
-      let robot: Hero = level.makeHeroAsBox(96, 300, 32, 56, "./GameAssets/ChristmasGame/Miser.png");
+      let robot: Hero = level.makeHeroAsBox(96, 300, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);
       // Set jump power
-      robot.setJumpImpulses(0, 900*robot.mBody.GetMass());
+      robot.setJumpImpulses(0, 120);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
       level.setKeyAction(87, level.jumpAction(robot, 0), null, false);
@@ -202,7 +202,7 @@ class Levels implements ScreenManager {
       level.makeObstacleAsBox(1920, 0, 1, 540, "");
       level.makeObstacleAsBox(0, 0, 1920, 1, "");
       // Make the starting platform
-      makePlatform(4, 32, 32, 356);
+      makePlatform(4, 16, 0, 356);
 
       /*
        * Here we create a function for making platforms, this makes it easy
