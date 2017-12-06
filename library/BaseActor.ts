@@ -532,8 +532,8 @@ class BaseActor extends Renderable {
   /**
   * Add velocity to this actor
   *
-  * @param x Velocity in X dimension, in meters per second
-  * @param y Velocity in Y dimension, in meters per second
+  * @param x Velocity in X dimension
+  * @param y Velocity in Y dimension
   */
   public addVelocity(x: number, y: number): void {
     // ensure this is a moveable actor
@@ -551,8 +551,8 @@ class BaseActor extends Renderable {
   /**
   * Set the absolute velocity of this actor
   *
-  * @param x Velocity in X dimension, in meters per second
-  * @param y Velocity in Y dimension, in meters per second
+  * @param x Velocity in X dimension
+  * @param y Velocity in Y dimension
   */
   public setAbsoluteVelocity(x: number, y: number): void {
     // ensure this is a moveable actor

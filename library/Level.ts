@@ -708,7 +708,7 @@ class Level {
   *
   * @param actor The actor to move
   * @param xRate The rate at which the actor should move in the X direction
-  * @param yRate The dampening applied
+  * @param yRate The y velocity
   * @return The action
   */
   public addVelocityAction(actor: WorldActor, xRate: number, yRate: number): LolAction {
