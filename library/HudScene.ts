@@ -31,7 +31,7 @@ class HudScene extends LolScene {
     //this.mCamera.updatePosition();
 
     // Advance the physics world by 1/45 of a second (1/45 is the recommended rate)
-    this.mWorld.Step(1 / 45, 8, 3);
+    this.mWorld.Step(1 / 20, 8, 3);
     // Render all actors and text
     //sb.setProjectionMatrix(mCamera.combined);
     //sb.begin();
