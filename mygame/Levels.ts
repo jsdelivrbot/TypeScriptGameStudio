@@ -255,20 +255,23 @@ class Levels implements ScreenManager {
       let plane: Hero = level.makeHeroAsBox(0, 540/2, 55, 37,"./GameAssets/PlaneGame/Plane.png");
       plane.setAbsoluteVelocity(50, 0);
       // 'a' key to move left
-      level.setKeyAction(65, level.makeXMotionAction(plane, 30), level.makeXMotionAction(plane, 50), true);
+      level.setKeyAction(65, level.addVelocityAction(plane, -10, 0), level.addVelocityAction(plane, 10, 0), true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeXMotionAction(plane, 80), level.makeXMotionAction(plane, 50), true);
+      level.setKeyAction(68, level.addVelocityAction(plane, 80, 0), level.addVelocityAction(plane, -80, 0), true);
       // 'w' key to move up
-      level.setKeyAction(87, level.makeYMotionAction(plane, -80), level.makeYMotionAction(plane, 0), true);
+      level.setKeyAction(87, level.addVelocityAction(plane, 0, -80), level.addVelocityAction(plane, 0, 80), true);
       // 's' key to move down
-      level.setKeyAction(83, level.makeYMotionAction(plane, 100), level.makeYMotionAction(plane, 0), true);
+      level.setKeyAction(83, level.addVelocityAction(plane, 0, 100), level.addVelocityAction(plane, 0, -100), true);
       // Make the camera follow the plane
       level.setCameraChase(plane);
       // Make rocks to crash into
       makeRock(false, 450, 100, 300);
-      makeRock(true, 400, 100, 100);
+      makeRock(true, 400, 100, 120);
       makeRock(false, 1000, 70, 200);
       makeRock(true, 1100, 70, 150);
+
+      makeRock(false, 1250, 70, 100);
+
       makeRock(false, 1400, 70, 100);
       makeRock(true, 1300, 70, 300);
       makeRock(false, 1600, 70, 300);

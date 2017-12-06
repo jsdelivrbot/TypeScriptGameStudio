@@ -703,7 +703,7 @@ class Level {
   }
 
   /**
-  * Create an action for applying force to an actor
+  * Create an action for adding velocity to an actor
   * This action can be used by a control.
   *
   * @param actor The actor to move
@@ -711,10 +711,10 @@ class Level {
   * @param yRate The dampening applied
   * @return The action
   */
-  public makeForceAction(actor: WorldActor, xRate: number, yRate: number): LolAction {
+  public addVelocityAction(actor: WorldActor, xRate: number, yRate: number): LolAction {
     return new (class _ extends LolAction {
       public go(): void {
-        actor.mBody.ApplyForceToCenter(new PhysicsType2d.Vector2(xRate, yRate));
+        actor.addVelocity(xRate, yRate);
       }
     })();
   }
