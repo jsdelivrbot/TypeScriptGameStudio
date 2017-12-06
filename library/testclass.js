@@ -101,8 +101,8 @@ class BaseActor extends Renderable {
     * counter-clockwise order, and they must describe a convex shape.
     *
     * @param type     Is the actor's body static or dynamic?
-    * @param x        The X coordinate of the bottom left corner, in meters
-    * @param y        The Y coordinate of the bottom left corner, in meters
+    * @param x        The X coordinate of the top left corner
+    * @param y        The Y coordinate of the top left corner
     * @param vertices Up to 16 coordinates representing the vertexes of this polygon, listed as
     *                 x0,y0,x1,y1,x2,y2,...
     */
@@ -1596,7 +1596,6 @@ class Level {
     */
     makeRotator(hero, rate) {
         return new (class _ extends LolAction {
-            //@Override
             go() {
                 hero.increaseRotation(rate);
             }
@@ -1899,8 +1898,8 @@ class Level {
     /**
     * Draw a hero with an underlying polygon shape
     *
-    * @param x       X coordinate of the bottom left corner
-    * @param y       Y coordinate of the bottom left corner
+    * @param x       X coordinate of the top left corner
+    * @param y       Y coordinate of the top left corner
     * @param width   Width of the obstacle
     * @param height  Height of the obstacle
     * @param imgName Name of image file to use
@@ -5723,6 +5722,27 @@ class Levels {
         else if (index == 3) {
             // Add some quality theme music
             level.setMusic("./GameAssets/PlaneGame/PlaneTheme.ogg");
+            // Add a background
+            level.drawPicture(0, 0, 960, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
+            level.drawPicture(960, 0, 960, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
+            level.drawPicture(1920, 0, 960, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
+            // Gravity
+            //level.resetGravity(0, 50);
+            // Make the plane as a polygon so it isn't so boxy
+            let plane = level.makeHeroAsPolygon(0, 540 / 2, 55, 37, "./GameAssets/PlaneGame/PlaneBack.png", [0, 2, 0, 25, 10, 34, 32, 34, 32, 37, 55, 37, 55, 9, 36, 9, 36, 0, 25, 0]);
+            // 'a' key to move left
+            level.setKeyAction(65, level.makeXMotionAction(plane, -60), level.makeXMotionAction(plane, 0), true);
+            // 'd' key to move right
+            level.setKeyAction(68, level.makeXMotionAction(plane, 60), level.makeXMotionAction(plane, 0), true);
+            // 'w' key to move up
+            level.setKeyAction(87, level.makeYMotionAction(plane, -60), level.makeYMotionAction(plane, 0), true);
+            // 's' key to move down
+            level.setKeyAction(83, level.makeYMotionAction(plane, 60), level.makeYMotionAction(plane, 0), true);
+            // Make a rock to crash into
+            let rock = level.makeEnemyAsPolygon(200, 0, 100, 540, "./GameAssets/PlaneGame/RockDown.png", [0, 0, 50, 540, 100, 0]);
+            // Set a victory destination at the end of the level
+            //let dest = level.makeDestinationAsBox(2860, 0, 20, 540, "");
+            //level.setVictoryDestination(1);
         }
     }
 }
