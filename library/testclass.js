@@ -5684,7 +5684,7 @@ class Levels {
             // Zoom in
             level.setZoom(0.3);
             // Set the gravity of the game
-            level.resetGravity(0, 50);
+            level.resetGravity(0, 75);
             // Add a background
             level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
@@ -5692,16 +5692,16 @@ class Levels {
             let robot = level.makeHeroAsBox(32, 300, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
             // Set jump power
-            robot.setJumpImpulses(0, 75);
+            robot.setJumpImpulses(0, 100);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
             level.setKeyAction(87, level.jumpAction(robot, 0), null, false);
             // Set 'spacebar' to jump
             level.setKeyAction(32, level.jumpAction(robot, 0), null, false);
             // 'a' key to move left
-            level.setKeyAction(65, level.makeXMotionAction(robot, -50), level.makeXMotionAction(robot, 0), true);
+            level.setKeyAction(65, level.makeXMotionAction(robot, -60), level.makeXMotionAction(robot, 0), true);
             // 'd' key to move right
-            level.setKeyAction(68, level.makeXMotionAction(robot, 50), level.makeXMotionAction(robot, 0), true);
+            level.setKeyAction(68, level.makeXMotionAction(robot, 60), level.makeXMotionAction(robot, 0), true);
             // Make the camera follow our hero
             level.setCameraChase(robot);
             // Set the camera bounds
@@ -5714,7 +5714,7 @@ class Levels {
             level.makeObstacleAsBox(0, 0, 1920, 1, "");
             // Make the starting platform
             makePlatform(5, 16, 0, 356);
-            level.drawPicture(0, 356, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png", -2);
+            level.drawPicture(16, 356, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png", -1);
             //let dest = level.makeDestinationAsCircle();
             //dest.setActivationScore(7, 0, 0, 0);
             // Display coins collected
