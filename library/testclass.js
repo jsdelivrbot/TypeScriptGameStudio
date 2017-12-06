@@ -5731,6 +5731,8 @@ class Levels {
             //level.resetGravity(0, 50);
             // Don't let the plane fly out of bounds!
             level.drawBoundingBox(0, 0, 960 * 3, 540, "", 1, 0, 1);
+            level.makeEnemyAsPolygon(0, 0, 960 * 3, 10, "./GameAssets/PlaneGame/Ceiling.png", [-(960 * 3) / 2, 0, (960 * 3) / 2, 0, (960 * 3) / 2, 5, -(960 * 3) / 2, 5]);
+            level.makeEnemyAsPolygon(0, 540, 960 * 3, 10, "./GameAssets/PlaneGame/Floor.png", [-(960 * 3) / 2, 540, -(960 * 3) / 2, 535, (960 * 3) / 2, 535, (960 * 3) / 2, 540]);
             // Don't let the camera go out of bounds!
             level.setCameraBounds(960 * 3, 540);
             // Make the plane
@@ -5757,10 +5759,10 @@ class Levels {
             makeRock(true, 1300, 70, 300);
             makeRock(false, 1600, 90, 300);
             makeRock(true, 1700, 100, 100);
-            makeRock(false, 1850, 70, 150);
-            makeRock(true, 1850, 70, 320);
-            makeRock(false, 2000, 70, 200);
-            makeRock(true, 2000, 70, 250);
+            makeRock(false, 1850, 80, 150);
+            makeRock(true, 1850, 80, 320);
+            makeRock(false, 2000, 80, 200);
+            makeRock(true, 2000, 80, 250);
             makeRock(false, 2150, 50, 320);
             makeRock(true, 2300, 50, 300);
             makeRock(false, 2500, 100, 220);
@@ -5927,7 +5929,7 @@ class MyConfig extends Config {
         this.mDefaultFontSize = 32;
         this.mDefaultFontColor = "#FFFFFF";
         // list the images that the game will use
-        this.mImageNames = new Array("./GameAssets/button.png", "./GameAssets/TitleBack.png", "./GameAssets/AngelGame/Angel.png", "./GameAssets/AngelGame/Bat.png", "./GameAssets/AngelGame/Bullet.png", "./GameAssets/AngelGame/CloudBall.png", "./GameAssets/AngelGame/SkyBack.png", "./GameAssets/ChristmasGame/ArrowSign.png", "./GameAssets/ChristmasGame/ChristmasBack.png", "./GameAssets/ChristmasGame/Crate.png", "./GameAssets/ChristmasGame/GoldCoin.png", "./GameAssets/ChristmasGame/IceBox.png", "./GameAssets/ChristmasGame/Igloo.png", "./GameAssets/ChristmasGame/LeftEndPlat.png", "./GameAssets/ChristmasGame/MiddlePlat.png", "./GameAssets/ChristmasGame/Miser.png", "./GameAssets/ChristmasGame/OneTree.png", "./GameAssets/ChristmasGame/RightEndPlat.png", "./GameAssets/ChristmasGame/Santa.png", "./GameAssets/ChristmasGame/SnowMan.png", "./GameAssets/ChristmasGame/Stone.png", "./GameAssets/ChristmasGame/ThreeTrees.png", "./GameAssets/PlaneGame/Plane.png", "./GameAssets/PlaneGame/PlaneBack.png", "./GameAssets/PlaneGame/RockUp.png", "./GameAssets/PlaneGame/RockDown.png");
+        this.mImageNames = new Array("./GameAssets/button.png", "./GameAssets/TitleBack.png", "./GameAssets/AngelGame/Angel.png", "./GameAssets/AngelGame/Bat.png", "./GameAssets/AngelGame/Bullet.png", "./GameAssets/AngelGame/CloudBall.png", "./GameAssets/AngelGame/SkyBack.png", "./GameAssets/ChristmasGame/ArrowSign.png", "./GameAssets/ChristmasGame/ChristmasBack.png", "./GameAssets/ChristmasGame/Crate.png", "./GameAssets/ChristmasGame/GoldCoin.png", "./GameAssets/ChristmasGame/IceBox.png", "./GameAssets/ChristmasGame/Igloo.png", "./GameAssets/ChristmasGame/LeftEndPlat.png", "./GameAssets/ChristmasGame/MiddlePlat.png", "./GameAssets/ChristmasGame/Miser.png", "./GameAssets/ChristmasGame/OneTree.png", "./GameAssets/ChristmasGame/RightEndPlat.png", "./GameAssets/ChristmasGame/Santa.png", "./GameAssets/ChristmasGame/SnowMan.png", "./GameAssets/ChristmasGame/Stone.png", "./GameAssets/ChristmasGame/ThreeTrees.png", "./GameAssets/PlaneGame/Plane.png", "./GameAssets/PlaneGame/PlaneBack.png", "./GameAssets/PlaneGame/Ceiling.png", "./GameAssets/PlaneGame/Floor.png", "./GameAssets/PlaneGame/RockUp.png", "./GameAssets/PlaneGame/RockDown.png");
         // list the sound effects that the game will use
         this.mSoundNames = new Array("./GameAssets/AngelGame/Shooting.ogg", "./GameAssets/AngelGame/EnemyKilled.wav", "./GameAssets/ChristmasGame/MoneyGet.wav", "./GameAssets/PlaneGame/Crash.ogg");
         // list the background music files that the game will use
