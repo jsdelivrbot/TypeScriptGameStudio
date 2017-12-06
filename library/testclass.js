@@ -5749,13 +5749,14 @@ class Levels {
             makeRock(true, 700, 100, 220);
             makeRock(false, 850, 100, 200);
             makeRock(true, 800, 100, 220);
-            makeRock(false, 1100, 70, 400);
+            makeRock(false, 1050, 70, 400);
             makeRock(true, 1200, 70, 150);
+            makeRock(true, 900, 70, 100);
             makeRock(false, 1250, 70, 100);
-            makeRock(false, 1400, 70, 100);
+            makeRock(false, 1400, 80, 100);
             makeRock(true, 1300, 70, 300);
-            makeRock(false, 1600, 70, 300);
-            makeRock(true, 1700, 70, 100);
+            makeRock(false, 1600, 90, 300);
+            makeRock(true, 1700, 100, 100);
             makeRock(false, 1850, 70, 200);
             makeRock(true, 1850, 70, 200);
             makeRock(false, 2000, 70, 200);

@@ -279,12 +279,12 @@ class Levels implements ScreenManager {
       makeRock(false, 1600, 90, 300);
       makeRock(true, 1700, 100, 100);
 
-      makeRock(false, 1850, 70, 200);
-      makeRock(true, 1850, 70, 200)
-      makeRock(false, 2000, 70, 200);
-      makeRock(true, 2000, 70, 200)
+      makeRock(false, 1850, 70, 150);
+      makeRock(true, 1850, 70, 320)
+      makeRock(false, 2000, 70, 190);
+      makeRock(true, 2000, 70, 290);
 
-      makeRock(false, 2200, 50, 300);
+      makeRock(false, 2150, 50, 300);
       makeRock(true, 2300, 50, 300);
       makeRock(false, 2500, 100, 220);
       makeRock(true, 2500, 40, 220);
