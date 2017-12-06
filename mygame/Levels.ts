@@ -173,7 +173,7 @@ class Levels implements ScreenManager {
       //level.setZoom(0.5);
 
       // Set the gravity of the game
-      level.resetGravity(0, 100);
+      level.resetGravity(0, 150);
       // Add a background
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
@@ -181,7 +181,7 @@ class Levels implements ScreenManager {
       let robot: Hero = level.makeHeroAsBox(96, 300, 32, 56, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);
       // Set jump power
-      robot.setJumpImpulses(0, 200);
+      robot.setJumpImpulses(0, 150*5);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
       level.setKeyAction(87, level.jumpAction(robot, 0), null, false);
