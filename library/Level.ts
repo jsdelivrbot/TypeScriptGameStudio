@@ -52,12 +52,6 @@ class Level {
   */
   public setCameraBounds(width: number, height: number): void {
     this.mGame.mManager.mWorld.mCamBound.Set(width, height);
-
-    // warn on strange dimensions
-    if (width < this.mConfig.mWidth / this.mConfig.mPixelMeterRatio)
-      Lol.message(this.mConfig, "Warning", "Your game width is less than 1/10 of the screen width");
-    if (height < this.mConfig.mHeight / this.mConfig.mPixelMeterRatio)
-      Lol.message(this.mConfig, "Warning", "Your game height is less than 1/10 of the screen height");
   }
 
   /**
@@ -724,7 +718,7 @@ class Level {
         let v = actor.mBody.GetLinearVelocity();
         v.x = xRate;
         actor.updateVelocity(v.x, v.y);
-        actor.mBody.SetLinearDamping(dampening);
+        actor.addVelocity(-xRate, 0);
       }
     })();
   }

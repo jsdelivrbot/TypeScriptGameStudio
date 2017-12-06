@@ -1452,6 +1452,26 @@ class Level {
         })();
     }
     /**
+    * Create an action for moving an actor in the X direction.
+    * This action can be used by a control.
+    *
+    * @param actor The actor to move
+    * @param xRate The rate at which the actor should move in the X direction
+    * @param dampening The dampening applied
+    * @return The action
+    */
+    makeXDampenedMotionAction(actor, xRate, dampening) {
+        return new (class _ extends LolAction {
+            //@Override
+            go() {
+                let v = actor.mBody.GetLinearVelocity();
+                v.x = xRate;
+                actor.updateVelocity(v.x, v.y);
+                actor.mBody.SetLinearDamping(dampening);
+            }
+        })();
+    }
+    /**
     * Create an action for moving an actor in the Y direction.  This action can be used by a
     * Control.
     *
@@ -1484,7 +1504,7 @@ class Level {
     makeXYMotionAction(actor, xRate, yRate) {
         return new (class _ extends LolAction {
             go() {
-                actor.addVelocity(xRate, yRate);
+                actor.updateVelocity(xRate, yRate);
             }
         })();
     }
@@ -1547,7 +1567,7 @@ class Level {
         let action = new (class _ extends LolAction {
             //@Override
             go() {
-                actor.addVelocity(xRate, yRate);
+                actor.updateVelocity(xRate, yRate);
                 actor.mBody.SetLinearDamping(dampening);
             }
         })();
@@ -5662,9 +5682,9 @@ class Levels {
             // Set 'spacebar' to jump
             level.setKeyAction(32, level.JumpAction(robot, 0), false);
             // 'a' key to move left
-            level.setKeyAction(65, level.makeXYDampenedMotionAction(robot, -50, 0, 0), true);
+            level.setKeyAction(65, level.makeXDampenedMotionAction(robot, -50, 5), true);
             // 'd' key to move right
-            level.setKeyAction(68, level.makeXYDampenedMotionAction(robot, 50, 0, 0), true);
+            level.setKeyAction(68, level.makeXDampenedMotionAction(robot, 50, 5), true);
             // The jumps will give 120 pixels of up velocity
             robot.setJumpImpulses(0, 212);
             // Make the camera follow our hero

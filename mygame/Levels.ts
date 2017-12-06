@@ -173,8 +173,9 @@ class Levels implements ScreenManager {
       level.resetGravity(0, 100);
       // Add a background
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
+      level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       // Create a hero
-      let robot: Hero = level.makeHeroAsBox(96, 112, 64, 112, "./GameAssets/ChristmasGame/Miser.png");
+      let robot: Hero = level.makeHeroAsBox(96, 200, 64, 112, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
@@ -189,10 +190,12 @@ class Levels implements ScreenManager {
       robot.setJumpImpulses(0, 212);
       // Make the camera follow our hero
       level.setCameraChase(robot);
+      // Set the camera bounds
+      level.setCameraBounds(1920, 540);
       // Create an "enemy" to kill the hero if he falls off the screen
       level.makeEnemyAsBox(0, 539, 1920, 1, "");
       // Make the starting platform
-      makePlatform(4, 64, 32, 256);
+      makePlatform(4, 64, 32, 312);
 
       /*
        * Here we create a function for making platforms, this makes it easy
