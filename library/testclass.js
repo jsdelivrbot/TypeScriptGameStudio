@@ -1447,23 +1447,18 @@ class Level {
         })();
     }
     /**
-    * Create an action for moving an actor in the X direction.
+    * Create an action for applying force to an actor
     * This action can be used by a control.
     *
     * @param actor The actor to move
     * @param xRate The rate at which the actor should move in the X direction
-    * @param dampening The dampening applied
+    * @param yRate The dampening applied
     * @return The action
     */
-    makeXDampenedMotionAction(actor, xRate, dampening) {
+    makeForceAction(actor, xRate, yRate) {
         return new (class _ extends LolAction {
-            //@Override
             go() {
-                // let v = actor.mBody.GetLinearVelocity();
-                // v.x = xRate;
-                // actor.updateVelocity(v.x, v.y);
-                // actor.addVelocity(-xRate, 0);
-                actor.mBody.ApplyForce(new PhysicsType2d.Vector2(xRate, 0), new PhysicsType2d.Vector2(0, 0));
+                actor.mBody.ApplyForceToCenter(new PhysicsType2d.Vector2(xRate, yRate));
             }
         })();
     }
@@ -4643,10 +4638,11 @@ class Hero extends WorldActor {
         if (this.mInAir) {
             return;
         }
-        let v = this.mBody.GetLinearVelocity();
-        v.x = v.x + this.mJumpImpulses.x;
-        v.y = v.y + this.mJumpImpulses.y;
-        this.updateVelocity(v.x, v.y);
+        // let v = this.mBody.GetLinearVelocity();
+        // v.x = v.x + this.mJumpImpulses.x;
+        // v.y = v.y + this.mJumpImpulses.y;
+        // this.updateVelocity(v.x, v.y);
+        this.mBody.ApplyLinearImpulse(this.mJumpImpulses, new PhysicsType2d.Vector2(0, 0));
         if (!this.mAllowMultiJump) {
             this.mInAir = true;
         }
@@ -5680,9 +5676,9 @@ class Levels {
             // Set 'spacebar' to jump
             level.setKeyAction(32, level.JumpAction(robot, 0), false);
             // 'a' key to move left
-            level.setKeyAction(65, level.makeXDampenedMotionAction(robot, -50, 5), true);
+            level.setKeyAction(65, level.makeForceAction(robot, -60, 0), true);
             // 'd' key to move right
-            level.setKeyAction(68, level.makeXDampenedMotionAction(robot, 50, 5), true);
+            level.setKeyAction(68, level.makeForceAction(robot, 60, 0), true);
             // Set jump power
             robot.setJumpImpulses(0, 2000);
             // Make the camera follow our hero

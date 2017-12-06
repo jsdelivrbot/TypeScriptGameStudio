@@ -582,7 +582,7 @@ class Level {
   * @param milliDelay If there should be time between being allowed to jump
   * @return The action object
   */
-  public JumpAction(hero: Hero, milliDelay: number): LolAction {
+  public jumpAction(hero: Hero, milliDelay: number): LolAction {
     return new (class _ extends LolAction {
       mLastJump: number = 0;
 

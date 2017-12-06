@@ -115,7 +115,7 @@ class Hero extends WorldActor {
     // v.x = v.x + this.mJumpImpulses.x;
     // v.y = v.y + this.mJumpImpulses.y;
     // this.updateVelocity(v.x, v.y);
-    this.mBody.ApplyLinearImpulse(this.mJumpImpulses, new PhysicsType2d.Vector2(0, 0));
+    this.mBody.ApplyLinearImpulse(this.mJumpImpulses, this.mBody.GetWorldCenter());
     if (!this.mAllowMultiJump) {
       this.mInAir = true;
     }
