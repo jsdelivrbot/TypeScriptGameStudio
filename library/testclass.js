@@ -4902,7 +4902,7 @@ class Hero extends WorldActor {
      * @param y Velocity in Y direction
      */
     setJumpImpulses(x, y) {
-        this.mJumpImpulses = new PhysicsType2d.Vector2(x, y);
+        this.mJumpImpulses = new PhysicsType2d.Vector2(x, -y);
     }
     /**
      * Indicate that this hero can jump while it is in the air
@@ -5675,7 +5675,7 @@ class Levels {
             let robot = level.makeHeroAsBox(96, 300, 32, 56, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
             // Set jump power
-            robot.setJumpImpulses(0, -900);
+            robot.setJumpImpulses(0, 900 * robot.mBody.GetMass());
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
             level.setKeyAction(87, level.jumpAction(robot, 0), null, false);
