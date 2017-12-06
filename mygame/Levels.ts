@@ -170,10 +170,10 @@ class Levels implements ScreenManager {
       // Add some quality theme music
       level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
 
-      level.setZoom(0.5);
+      level.setZoom(0.25);
 
       // Set the gravity of the game
-      level.resetGravity(0, 30);
+      level.resetGravity(0, 100);
       // Add a background
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
