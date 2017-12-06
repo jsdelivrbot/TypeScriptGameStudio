@@ -5695,7 +5695,7 @@ class Levels {
             // Add a background
             level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             // Create a hero
-            let robot = level.makeHeroAsBox(600, 400, 48, 48, "./GameAssets/ChristmastGame/Miser.png");
+            let robot = level.makeHeroAsBox(600, 400, 48, 48, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
