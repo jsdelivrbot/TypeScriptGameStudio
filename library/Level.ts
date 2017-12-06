@@ -709,6 +709,27 @@ class Level {
   }
 
   /**
+  * Create an action for moving an actor in the X direction.
+  * This action can be used by a control.
+  *
+  * @param actor The actor to move
+  * @param xRate The rate at which the actor should move in the X direction
+  * @param dampening The dampening applied
+  * @return The action
+  */
+  public makeXDampenedMotionAction(actor: WorldActor, xRate: number, dampening: number): LolAction {
+    return new (class _ extends LolAction {
+      //@Override
+      public go(): void {
+        let v = actor.mBody.GetLinearVelocity();
+        v.x = xRate;
+        actor.updateVelocity(v.x, v.y);
+        actor.mBody.SetLinearDamping(dampening);
+      }
+    })();
+  }
+
+  /**
   * Create an action for moving an actor in the Y direction.  This action can be used by a
   * Control.
   *
@@ -742,7 +763,7 @@ class Level {
   public makeXYMotionAction(actor: WorldActor, xRate: number, yRate: number): LolAction {
     return new (class _ extends LolAction {
       public go(): void {
-        actor.addVelocity(xRate, yRate);
+        actor.updateVelocity(xRate, yRate);
       }
     })();
   }
@@ -811,7 +832,7 @@ class Level {
        let action = new (class _ extends LolAction {
         //@Override
         public go(): void {
-          actor.addVelocity(xRate, yRate);
+          actor.updateVelocity(xRate, yRate);
           actor.mBody.SetLinearDamping(dampening);
         }
       })();

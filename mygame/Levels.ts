@@ -182,9 +182,9 @@ class Levels implements ScreenManager {
       // Set 'spacebar' to jump
       level.setKeyAction(32, level.JumpAction(robot, 0), false);
       // 'a' key to move left
-      level.setKeyAction(65, level.makeXYDampenedMotionAction(robot, -50, 0, 0), true);
+      level.setKeyAction(65, level.makeXDampenedMotionAction(robot, -50, 5), true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeXYDampenedMotionAction(robot, 50, 0, 0), true);
+      level.setKeyAction(68, level.makeXDampenedMotionAction(robot, 50, 5), true);
       // The jumps will give 120 pixels of up velocity
       robot.setJumpImpulses(0, 212);
       // Make the camera follow our hero
