@@ -5665,22 +5665,22 @@ class Levels {
             //level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
             // Add some quality theme music
             level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
-            level.setZoom(0.5);
+            //level.setZoom(0.5);
             // Set the gravity of the game
             level.resetGravity(0, 100);
             // Add a background
             level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             // Create a hero
-            let robot = level.makeHeroAsBox(96, 200, 64, 112, "./GameAssets/ChristmasGame/Miser.png");
+            let robot = level.makeHeroAsBox(96, 300, 32, 56, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
             // Set jump power
-            robot.setJumpImpulses(0, 10);
+            robot.setJumpImpulses(0, 200);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
-            level.setKeyAction(87, level.jumpAction(robot, 500), null, false);
+            level.setKeyAction(87, level.jumpAction(robot, 0), null, false);
             // Set 'spacebar' to jump
-            level.setKeyAction(32, level.jumpAction(robot, 500), null, false);
+            level.setKeyAction(32, level.jumpAction(robot, 0), null, false);
             // 'a' key to move left
             level.setKeyAction(65, level.makeXMotionAction(robot, -60), level.makeXMotionAction(robot, 0), true);
             // 'd' key to move right
@@ -5696,7 +5696,7 @@ class Levels {
             level.makeObstacleAsBox(1920, 0, 1, 540, "");
             level.makeObstacleAsBox(0, 0, 1920, 1, "");
             // Make the starting platform
-            makePlatform(4, 64, 32, 312);
+            makePlatform(4, 32, 32, 356);
             /*
              * Here we create a function for making platforms, this makes it easy
              * because platforms consist of multiple blocks
