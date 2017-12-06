@@ -715,10 +715,11 @@ class Level {
     return new (class _ extends LolAction {
       //@Override
       public go(): void {
-        let v = actor.mBody.GetLinearVelocity();
-        v.x = xRate;
-        actor.updateVelocity(v.x, v.y);
-        actor.addVelocity(-xRate, 0);
+        // let v = actor.mBody.GetLinearVelocity();
+        // v.x = xRate;
+        // actor.updateVelocity(v.x, v.y);
+        // actor.addVelocity(-xRate, 0);
+        actor.mBody.ApplyForce(new PhysicsType2d.Vector2(xRate, 0), new PhysicsType2d.Vector2(0, 0))
       }
     })();
   }

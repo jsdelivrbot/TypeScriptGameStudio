@@ -852,11 +852,6 @@ class Level {
     */
     setCameraBounds(width, height) {
         this.mGame.mManager.mWorld.mCamBound.Set(width, height);
-        // warn on strange dimensions
-        if (width < this.mConfig.mWidth / this.mConfig.mPixelMeterRatio)
-            Lol.message(this.mConfig, "Warning", "Your game width is less than 1/10 of the screen width");
-        if (height < this.mConfig.mHeight / this.mConfig.mPixelMeterRatio)
-            Lol.message(this.mConfig, "Warning", "Your game height is less than 1/10 of the screen height");
     }
     /**
     * Identify the actor that the camera should try to keep on screen at all times
@@ -1467,7 +1462,7 @@ class Level {
                 let v = actor.mBody.GetLinearVelocity();
                 v.x = xRate;
                 actor.updateVelocity(v.x, v.y);
-                actor.mBody.SetLinearDamping(dampening);
+                actor.addVelocity(-xRate, 0);
             }
         })();
     }
@@ -3594,23 +3589,23 @@ class MainScene extends LolScene {
         // figure out the actor's position
         let x = this.mChaseActor.mBody.GetWorldCenter().x + this.mChaseActor.mCameraOffset.x;
         let y = this.mChaseActor.mBody.GetWorldCenter().y + this.mChaseActor.mCameraOffset.y;
-        // // if x or y is too close to MAX,MAX, stick with max acceptable values
-        // if (x > this.mCamBound.x - ((this.mConfig.mWidth / 2) / this.mCamera.getZoom())) { //  / this.mConfig.mPixelMeterRatio / 2) {
-        //   x = this.mCamBound.x - ((this.mConfig.mWidth / 2) / this.mCamera.getZoom()); //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
-        // }
-        // if (y > this.mCamBound.y - ((this.mConfig.mHeight / 2) / this.mCamera.getZoom())) { // / this.mConfig.mPixelMeterRatio / 2) {
-        //   y = this.mCamBound.y - ((this.mConfig.mHeight / 2) / this.mCamera.getZoom()); //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
-        // }
-        // // if x or y is too close to 0,0, stick with minimum acceptable values
-        // //
-        // // NB: we do MAX before MIN, so that if we're zoomed out, we show extra
-        // // space at the top instead of the bottom
-        // if (x < (this.mConfig.mWidth / 2) / this.mCamera.getZoom()) { //  / this.mConfig.mPixelMeterRatio / 2) {
-        //   x = (this.mConfig.mWidth / 2) / this.mCamera.getZoom(); // * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
-        // }
-        // if (y < (this.mConfig.mHeight / 2) / this.mCamera.getZoom()) { //* this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2) {
-        //   y = (this.mConfig.mHeight / 2) / this.mCamera.getZoom(); // * this.mCamera.getZoom() / this.mConfig.mPixelMeterRatio / 2;
-        // }
+        // if x or y is too close to MAX,MAX, stick with max acceptable values
+        if (x * this.mCamera.getZoom() > this.mCamBound.x - (this.mConfig.mWidth / 2)) {
+            x = this.mCamBound.x - ((this.mConfig.mWidth / 2) / this.mCamera.getZoom());
+        }
+        if (y * this.mCamera.getZoom() > this.mCamBound.y - (this.mConfig.mHeight / 2)) {
+            y = this.mCamBound.y - ((this.mConfig.mHeight / 2) / this.mCamera.getZoom());
+        }
+        // if x or y is too close to 0,0, stick with minimum acceptable values
+        //
+        // NB: we do MAX before MIN, so that if we're zoomed out, we show extra
+        // space at the top instead of the bottom
+        if (x * this.mCamera.getZoom() < (this.mConfig.mWidth / 2)) {
+            x = (this.mConfig.mWidth / 2) / this.mCamera.getZoom();
+        }
+        if (y * this.mCamera.getZoom() < this.mConfig.mHeight / 2) {
+            y = (this.mConfig.mHeight / 2) / this.mCamera.getZoom();
+        }
         // update the camera position
         this.mCamera.centerOn(x, y);
         this.mCamera.setPosition(this.mConfig.mWidth / 2, this.mConfig.mHeight / 2);
@@ -5673,8 +5668,9 @@ class Levels {
             level.resetGravity(0, 100);
             // Add a background
             level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
+            level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             // Create a hero
-            let robot = level.makeHeroAsBox(96, 112, 64, 112, "./GameAssets/ChristmasGame/Miser.png");
+            let robot = level.makeHeroAsBox(96, 200, 64, 112, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
@@ -5689,10 +5685,12 @@ class Levels {
             robot.setJumpImpulses(0, 212);
             // Make the camera follow our hero
             level.setCameraChase(robot);
+            // Set the camera bounds
+            level.setCameraBounds(1920, 540);
             // Create an "enemy" to kill the hero if he falls off the screen
             level.makeEnemyAsBox(0, 539, 1920, 1, "");
             // Make the starting platform
-            makePlatform(4, 64, 32, 256);
+            makePlatform(4, 64, 32, 312);
             /*
              * Here we create a function for making platforms, this makes it easy
              * because platforms consist of multiple blocks
