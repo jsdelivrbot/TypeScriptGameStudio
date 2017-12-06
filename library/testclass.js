@@ -98,7 +98,8 @@ class BaseActor extends Renderable {
     * Specify that this actor should have a polygon physics shape.
     * <p>
     * You must take extreme care when using this method. Polygon vertices must be given in
-    * counter-clockwise order, and they must describe a convex shape.
+    * CLOCKWISE order, and they must describe a convex shape.
+    * COORDINATES ARE RELATIVE TO THE MIDDLE OF THE OBJECT
     *
     * @param type     Is the actor's body static or dynamic?
     * @param x        The X coordinate of the top left corner
@@ -5661,23 +5662,6 @@ class Levels {
             level.setVictoryEnemyCount(-1);
         }
         else if (index == 2) {
-            /*
-             * Here we create a function for making platforms, this makes it easy
-             * because platforms consist of multiple blocks
-             */
-            function makePlatform(blocks, width, posX, posY) {
-                if (blocks < 1)
-                    return;
-                if (blocks == 1) {
-                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
-                    return;
-                }
-                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setPhysics(1, 0, 2);
-                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png").setPhysics(1, 0, 2);
-                for (let i = 1; i <= (blocks - 2); i++) {
-                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
-                }
-            }
             // Add some quality theme music
             level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
             // Zoom in
@@ -5718,6 +5702,23 @@ class Levels {
             //dest.setActivationScore(7, 0, 0, 0);
             // Display coins collected
             level.addDisplay(25, 25, "Arial", "0x000000", 24, "Coins: ", "", level.DisplayGoodies1(), 0);
+            /*
+             * Here we create a function for making platforms, this makes it easy
+             * because platforms consist of multiple blocks
+             */
+            function makePlatform(blocks, width, posX, posY) {
+                if (blocks < 1)
+                    return;
+                if (blocks == 1) {
+                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
+                    return;
+                }
+                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setPhysics(1, 0, 2);
+                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png").setPhysics(1, 0, 2);
+                for (let i = 1; i <= (blocks - 2); i++) {
+                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
+                }
+            }
         }
         else if (index == 3) {
             // Add some quality theme music
@@ -5740,11 +5741,27 @@ class Levels {
             level.setKeyAction(87, level.makeYMotionAction(plane, -60), level.makeYMotionAction(plane, 0), true);
             // 's' key to move down
             level.setKeyAction(83, level.makeYMotionAction(plane, 60), level.makeYMotionAction(plane, 0), true);
-            // Make a rock to crash into
-            let rock = level.makeEnemyAsPolygon(200, 0, 100, 540, "./GameAssets/PlaneGame/RockDown.png", [-50, -270, 50, -270, 0, 270]);
+            // Make rocks to crash into
+            makeRock(false, 200, 50, 300);
+            makeRock(true, 300, 50, 300);
+            makeRock(false, 500, 40, 250);
+            makeRock(true, 500, 100, 250);
+            makeRock(false, 600, 50, 300);
             // Set a victory destination at the end of the level
             //let dest = level.makeDestinationAsBox(2860, 0, 20, 540, "");
             //level.setVictoryDestination(1);
+            /*
+             * Here we create a function for making rocks. This makes it easy because
+             * rocks are triangles, and this function does the vertex calculations for us
+             */
+            function makeRock(pointDown, posX, width, height) {
+                if (pointDown) {
+                    level.makeEnemyAsPolygon(posX, 0, width, height, "./GameAssets/PlaneGame/RockDown.png", [-width / 2, -height / 2, width / 2, -height / 2, 0, height / 2]);
+                }
+                else {
+                    level.makeEnemyAsPolygon(posX, height, width, height, "./GameAssets/PlaneGame/RockUp.png", [-width / 2, height / 2, 0, -height / 2, width / 2, height / 2]);
+                }
+            }
         }
     }
 }
