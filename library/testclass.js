@@ -5724,33 +5724,31 @@ class Levels {
             // Add some quality theme music
             level.setMusic("./GameAssets/PlaneGame/PlaneTheme.ogg");
             // Add a background
-            level.drawPicture(0, 0, 960, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
-            level.drawPicture(960 - 1, 0, 960, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
-            level.drawPicture(1920 - 2, 0, 960, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
+            level.drawPicture(0, 0, 961, 541, "./GameAssets/PlaneGame/PlaneBack.png", -2);
+            level.drawPicture(960, 0, 961, 541, "./GameAssets/PlaneGame/PlaneBack.png", -2);
+            level.drawPicture(1920, 0, 961, 541, "./GameAssets/PlaneGame/PlaneBack.png", -2);
             // Gravity
             //level.resetGravity(0, 50);
             // Don't let the plane fly out of bounds!
-            level.drawBoundingBox(0, 0, 960 * 3, 540, "", 1, 1, 1);
+            level.drawBoundingBox(0, 0, 960 * 3, 540, "", 1, 0, 1);
             // Don't let the camera go out of bounds!
             level.setCameraBounds(960 * 3, 540);
             // Make the plane
             let plane = level.makeHeroAsBox(0, 540 / 2, 55, 37, "./GameAssets/PlaneGame/Plane.png");
-            plane.setAbsoluteVelocity(30, 0);
+            plane.setAbsoluteVelocity(50, 0);
             // 'a' key to move left
-            level.setKeyAction(65, level.makeXMotionAction(plane, -60), level.makeXMotionAction(plane, 0), true);
+            level.setKeyAction(65, level.makeXMotionAction(plane, -80), level.makeXMotionAction(plane, 50), true);
             // 'd' key to move right
-            level.setKeyAction(68, level.makeXMotionAction(plane, 60), level.makeXMotionAction(plane, 0), true);
+            level.setKeyAction(68, level.makeXMotionAction(plane, 80), level.makeXMotionAction(plane, 50), true);
             // 'w' key to move up
-            level.setKeyAction(87, level.makeYMotionAction(plane, -60), level.makeYMotionAction(plane, 0), true);
+            level.setKeyAction(87, level.makeYMotionAction(plane, -80), level.makeYMotionAction(plane, 0), true);
             // 's' key to move down
-            level.setKeyAction(83, level.makeYMotionAction(plane, 60), level.makeYMotionAction(plane, 0), true);
+            level.setKeyAction(83, level.makeYMotionAction(plane, 80), level.makeYMotionAction(plane, 0), true);
             // Make the camera follow the plane
             level.setCameraChase(plane);
             // Make rocks to crash into
-            makeRock(false, 500, 100, 220);
-            makeRock(true, 500, 40, 220);
-            makeRock(false, 600, 90, 300);
-            makeRock(true, 820, 70, 400);
+            makeRock(false, 450, 100, 300);
+            makeRock(true, 400, 100, 100);
             makeRock(false, 1000, 70, 200);
             makeRock(true, 1100, 70, 150);
             makeRock(false, 1400, 70, 100);
@@ -5759,6 +5757,10 @@ class Levels {
             makeRock(true, 1700, 70, 100);
             makeRock(false, 2200, 50, 300);
             makeRock(true, 2300, 50, 300);
+            makeRock(false, 2500, 100, 220);
+            makeRock(true, 2500, 40, 220);
+            makeRock(false, 2600, 120, 300);
+            makeRock(true, 2820, 70, 400);
             // Set a victory destination at the end of the level
             //let dest = level.makeDestinationAsBox(2860, 0, 20, 540, "");
             //level.setVictoryDestination(1);
