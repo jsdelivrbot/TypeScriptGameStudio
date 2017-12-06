@@ -5553,8 +5553,7 @@ class Levels {
         // LEVEL 1: the first demo game
         if (index == 1) {
             // Set the gravity of the game
-            // Gravity will be 98 pixels per second
-            level.resetGravity(0, 98);
+            level.resetGravity(0, 100);
             // Add some quality theme music
             level.setMusic("./GameAssets/AngelGame/AngelTheme.mp3");
             // Add a background
@@ -5599,8 +5598,8 @@ class Levels {
             // Loop through the elements of the array
             for (let e of eArray) {
                 e.setDisappearSound("./GameAssets/AngelGame/EnemyKilled.wav");
-                // This makes each enemy need to be hit twice to die
-                e.setDamage(2);
+                // This makes each enemy need to be hit once to die
+                e.setDamage(1);
                 // Enemies can fly through each other
                 e.setPassThrough(2);
             }
@@ -5612,19 +5611,19 @@ class Levels {
             eArray[2].setRoute((new Route(4)).to(500, 120)
                 .to(550, 250)
                 .to(800, 300)
-                .to(500, 120), 20, true);
+                .to(500, 120), 30, true);
             eArray[3].setRoute((new Route(7)).to(850, 210)
                 .to(710, 430)
                 .to(150, 380)
                 .to(120, 200)
                 .to(300, 100)
                 .to(400, 250)
-                .to(850, 210), 20, true);
+                .to(850, 210), 40, true);
             eArray[4].setRoute((new Route(5)).to(350, 170)
                 .to(380, 250)
                 .to(330, 410)
                 .to(370, 220)
-                .to(350, 170), 20, true);
+                .to(350, 170), 30, true);
             /// Making the cloud obstacles
             // Array for the obstacles
             let oArray = new Array();
@@ -5680,15 +5679,56 @@ class Levels {
                 // So our clouds can be fit together
                 o.setPassThrough(1);
             }
+            // Player loses if the bats aren't defeated within 3 minutes
             level.setLoseCountdown(180);
-            level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
-            level.addDisplay(25, 50, "Arial", "0x000000", 24, "Seconds left: ", "", level.DisplayLoseCountdown(), 0);
+            // Add a display for the timer
+            level.addDisplay(25, 25, "Arial", "0x000000", 24, "Time Remaining: ", "", level.DisplayLoseCountdown(), 0);
             // Must kill all enemies to win
             level.setVictoryEnemyCount(-1);
         }
         else if (index == 2) {
+            //level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
             // Add some quality theme music
             level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
+            // Set the gravity of the game
+            level.resetGravity(0, 100);
+            // Add a background
+            level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
+            // Create a hero
+            let robot = level.makeHeroAsBox(600, 400, 48, 48, "./GameAssets/ChristmastGame/Miser.png");
+            robot.setStrength(1);
+            // Set 'w' to jump (this involves using keycodes)
+            // Find the keycode of any key by going to www.keycode.info
+            level.setKeyAction(87, level.JumpAction(robot, 0), false);
+            // Set 'spacebar' to jump
+            level.setKeyAction(32, level.JumpAction(robot, 0), false);
+            // 'a' key to move left
+            level.setKeyAction(65, level.makeXMotionAction(robot, -50), true);
+            // 'd' key to move right
+            level.setKeyAction(68, level.makeXMotionAction(robot, 50), true);
+            // The jumps will give 120 pixels of up velocity
+            robot.setJumpImpulses(0, 164);
+            // Make the camera follow our hero
+            level.setCameraChase(robot);
+            // Make the starting platform
+            makePlatform(4, 64, 24, 340);
+            /*
+             * Here we create a function for making platforms, this makes it easy
+             * because platforms consist of multiple blocks
+             */
+            function makePlatform(blocks, width, posX, posY) {
+                if (blocks < 1)
+                    return;
+                if (blocks == 1) {
+                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
+                    return;
+                }
+                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setPhysics(1, 0, 2);
+                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setPhysics(1, 0, 2);
+                for (let i = 1; i <= (blocks - 2); i++) {
+                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
+                }
+            }
         }
         else if (index == 3) {
             // Add some quality theme music
