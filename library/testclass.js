@@ -5731,8 +5731,8 @@ class Levels {
             //level.resetGravity(0, 50);
             // Don't let the plane fly out of bounds!
             level.drawBoundingBox(0, 0, 960 * 3, 540, "", 1, 0, 1);
-            level.makeEnemyAsPolygon(0, 0, 960 * 3, 10, "./GameAssets/PlaneGame/Ceiling.png", [-(960 * 3) / 2, 0, (960 * 3) / 2, 0, (960 * 3) / 2, 5, -(960 * 3) / 2, 5]);
-            level.makeEnemyAsPolygon(0, 540, 960 * 3, 10, "./GameAssets/PlaneGame/Floor.png", [-(960 * 3) / 2, 540, -(960 * 3) / 2, 535, (960 * 3) / 2, 535, (960 * 3) / 2, 540]);
+            level.makeEnemyAsPolygon(0, 0, 960 * 3, 20, "./GameAssets/PlaneGame/Ceiling.png", [-(960 * 3) / 2, 0, (960 * 3) / 2, 0, (960 * 3) / 2, 10, -(960 * 3) / 2, 10]);
+            level.makeEnemyAsPolygon(0, 530, 960 * 3, 20, "./GameAssets/PlaneGame/Floor.png", [-(960 * 3) / 2, 540, -(960 * 3) / 2, 530, (960 * 3) / 2, 530, (960 * 3) / 2, 540]);
             // Don't let the camera go out of bounds!
             level.setCameraBounds(960 * 3, 540);
             // Make the plane
