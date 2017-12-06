@@ -14,14 +14,13 @@ class Levels implements ScreenManager {
   */
   public display(index: number, level: Level): void {
     /*
-    * In this level, you play as an angel who must defeat the evil bats
-    * who have taken over your skies. Shoot them all down to win.
-    */
-
-    // LEVEL 1: the first demo game
+     * LEVEL 1: the first demo game
+     * In this level, you play as an angel who must defeat the evil bats who have
+     * taken over your skies. Drop pebbles on them all to defeat them and win.
+     */
     if (index == 1) {
       // Set the gravity of the game
-      level.resetGravity(0, 100);
+      level.resetGravity(0, 90);
       // Add some quality theme music
       level.setMusic("./GameAssets/AngelGame/AngelTheme.mp3");
       // Add a background
@@ -36,8 +35,8 @@ class Levels implements ScreenManager {
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
       level.setKeyAction(87, level.jumpAction(h, 500), null, true);
-      // The jumps will give 120 pixels of up velocity
-      h.setJumpImpulses(0, 130);
+      // The sets the velocity of a jump
+      h.setJumpImpulses(0, 120);
       // Let the hero jump in the air to simulate flying
       h.setMultiJumpOn();
       // 'a' key to move left
@@ -78,26 +77,26 @@ class Levels implements ScreenManager {
 
       // Three of the enemies chase the hero
       eArray[0].setChaseFixedMagnitude(h, 25, 25, false, false);
-      eArray[1].setChaseFixedMagnitude(h, 35, 30, false, false);
+      eArray[1].setChaseFixedMagnitude(h, 35, 35, false, false);
       eArray[5].setChaseFixedMagnitude(h, 15, 15, false, false);
 
       // While the other three follow a set route
       eArray[2].setRoute((new Route(4)).to(500, 120)
                                       .to(550, 250)
                                       .to(800, 300)
-                                      .to(500, 120), 30, true);
+                                      .to(500, 120), 40, true);
       eArray[3].setRoute((new Route(7)).to(850, 210)
                                       .to(710, 430)
                                       .to(150, 380)
                                       .to(120, 200)
                                       .to(300, 100)
                                       .to(400, 250)
-                                      .to(850, 210), 40, true);
+                                      .to(850, 210), 50, true);
       eArray[4].setRoute((new Route(5)).to(350, 170)
                                       .to(380, 250)
                                       .to(330, 410)
                                       .to(370, 220)
-                                      .to(350, 170), 30, true);
+                                      .to(350, 170), 40, true);
 
       /// Making the cloud obstacles
       // Array for the obstacles
@@ -164,45 +163,13 @@ class Levels implements ScreenManager {
       level.setVictoryEnemyCount(-1);
     }
 
-    // LEVEL 2: This is going to be a platformer game
+    /*
+     * LEVEL 2: This is a platformer game
+     * You are a cold hearted robot who only cares about money
+     * Santas are your enemies, their jolly-ness will kill you
+     * Collect all the coins and reach the end to win.
+     */
     else if (index == 2) {
-    //level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
-      // Add some quality theme music
-      level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
-      level.setZoom(0.25);
-
-      // Set the gravity of the game
-      level.resetGravity(0, 30);
-      // Add a background
-      level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
-      level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
-      // Create a hero
-      let robot: Hero = level.makeHeroAsBox(32, 300, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
-      robot.setStrength(1);
-      // Set jump power
-      robot.setJumpImpulses(0, 60);
-      // Set 'w' to jump (this involves using keycodes)
-      // Find the keycode of any key by going to www.keycode.info
-      level.setKeyAction(87, level.jumpAction(robot, 0), null, false);
-      // Set 'spacebar' to jump
-      level.setKeyAction(32, level.jumpAction(robot, 0), null, false);
-      // 'a' key to move left
-      level.setKeyAction(65, level.makeXMotionAction(robot, -16), level.makeXMotionAction(robot, 0), true);
-      // 'd' key to move right
-      level.setKeyAction(68, level.makeXMotionAction(robot, 16), level.makeXMotionAction(robot, 0), true);
-      // Make the camera follow our hero
-      level.setCameraChase(robot);
-      // Set the camera bounds
-      level.setCameraBounds(1920, 540);
-      // Create an "enemy" to kill the hero if he falls off the screen
-      level.makeEnemyAsBox(0, 540, 1920, 1, "");
-      // Set other bounds
-      level.makeObstacleAsBox(0, 0, 1, 540, "");
-      level.makeObstacleAsBox(1920, 0, 1, 540, "");
-      level.makeObstacleAsBox(0, 0, 1920, 1, "");
-      // Make the starting platform
-      makePlatform(5, 16, 0, 356);
-
       /*
        * Here we create a function for making platforms, this makes it easy
        * because platforms consist of multiple blocks
@@ -221,9 +188,52 @@ class Levels implements ScreenManager {
           level.makeObstacleAsBox(posX + width*i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
         }
       }
+
+      // Add some quality theme music
+      level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
+      level.setZoom(0.25);
+
+      // Set the gravity of the game
+      level.resetGravity(0, 40);
+      // Add a background
+      level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
+      level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
+      // Create a hero
+      let robot: Hero = level.makeHeroAsBox(32, 300, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
+      robot.setStrength(1);
+      // Set jump power
+      robot.setJumpImpulses(0, 60);
+      // Set 'w' to jump (this involves using keycodes)
+      // Find the keycode of any key by going to www.keycode.info
+      level.setKeyAction(87, level.jumpAction(robot, 0), null, false);
+      // Set 'spacebar' to jump
+      level.setKeyAction(32, level.jumpAction(robot, 0), null, false);
+      // 'a' key to move left
+      level.setKeyAction(65, level.makeXMotionAction(robot, -30), level.makeXMotionAction(robot, 0), true);
+      // 'd' key to move right
+      level.setKeyAction(68, level.makeXMotionAction(robot, 30), level.makeXMotionAction(robot, 0), true);
+      // Make the camera follow our hero
+      level.setCameraChase(robot);
+      // Set the camera bounds
+      level.setCameraBounds(1920, 540);
+      // Create an "enemy" to kill the hero if he falls off the screen
+      level.makeEnemyAsBox(0, 540, 1920, 1, "");
+      // Set other bounds
+      level.makeObstacleAsBox(0, 0, 1, 540, "");
+      level.makeObstacleAsBox(1920, 0, 1, 540, "");
+      level.makeObstacleAsBox(0, 0, 1920, 1, "");
+      // Make the starting platform
+      makePlatform(5, 16, 0, 356);
+
+      //let dest = level.makeDestinationAsCircle();
+      //dest.setActivationScore(7, 0, 0, 0);
+      // Display coins collected
+      level.addDisplay(25, 25, "Arial", "0x000000", 24, "Coins: ", "", level.DisplayGoodies1(), 0);
     }
 
-    // LEVEL 3: This is going to be a flappy bird type game
+    /*
+     * LEVEL 3: This is going to be a flappy bird type game
+     */
     else if (index == 3) {
       // Add some quality theme music
       level.setMusic("./GameAssets/PlaneGame/PlaneTheme.ogg");
