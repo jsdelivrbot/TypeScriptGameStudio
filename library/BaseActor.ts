@@ -104,7 +104,8 @@ class BaseActor extends Renderable {
   * Specify that this actor should have a polygon physics shape.
   * <p>
   * You must take extreme care when using this method. Polygon vertices must be given in
-  * counter-clockwise order, and they must describe a convex shape.
+  * CLOCKWISE order, and they must describe a convex shape.
+  * COORDINATES ARE RELATIVE TO THE MIDDLE OF THE OBJECT
   *
   * @param type     Is the actor's body static or dynamic?
   * @param x        The X coordinate of the top left corner
