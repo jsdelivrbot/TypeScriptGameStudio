@@ -178,13 +178,13 @@ class Levels implements ScreenManager {
       // Set the gravity of the game
       level.resetGravity(0, 85);
 
-      level.makeObstacleAsBox(16, 356, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png").setPassThrough(0);
+      level.makeObstacleAsBox(16, 364, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png").setPassThrough(0);
 
       // Add a background
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       // Create a hero
-      let robot: Hero = level.makeHeroAsBox(32, 300, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
+      let robot: Hero = level.makeHeroAsBox(32, 380-28, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);
       // Set jump power
       robot.setJumpImpulses(0, 110);
@@ -209,11 +209,13 @@ class Levels implements ScreenManager {
       level.makeObstacleAsBox(0, 0, 1920, 1, "");
 
       // Make the starting platform
-      makePlatform(5, 16, 0, 356);
+      makePlatform(5, 16, 0, 380);
       // Make more platforms
       makePlatform(5, 16, 80, 420);
       makePlatform(5, 16, 192, 404);
       makePlatform(5, 16, 280, 380);
+      level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
+      level.makeObstacleAsBox(344, 348, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
       makePlatform(5, 16, 360, 396);
       makePlatform(4, 16, 440, 380);
 
