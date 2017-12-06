@@ -703,23 +703,18 @@ class Level {
   }
 
   /**
-  * Create an action for moving an actor in the X direction.
+  * Create an action for applying force to an actor
   * This action can be used by a control.
   *
   * @param actor The actor to move
   * @param xRate The rate at which the actor should move in the X direction
-  * @param dampening The dampening applied
+  * @param yRate The dampening applied
   * @return The action
   */
-  public makeXDampenedMotionAction(actor: WorldActor, xRate: number, dampening: number): LolAction {
+  public makeForceAction(actor: WorldActor, xRate: number, yRate: number): LolAction {
     return new (class _ extends LolAction {
-      //@Override
       public go(): void {
-        // let v = actor.mBody.GetLinearVelocity();
-        // v.x = xRate;
-        // actor.updateVelocity(v.x, v.y);
-        // actor.addVelocity(-xRate, 0);
-        actor.mBody.ApplyForce(new PhysicsType2d.Vector2(xRate, 0), new PhysicsType2d.Vector2(0, 0))
+        actor.mBody.ApplyForceToCenter(new PhysicsType2d.Vector2(xRate, yRate));
       }
     })();
   }

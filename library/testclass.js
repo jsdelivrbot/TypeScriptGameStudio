@@ -1459,10 +1459,11 @@ class Level {
         return new (class _ extends LolAction {
             //@Override
             go() {
-                let v = actor.mBody.GetLinearVelocity();
-                v.x = xRate;
-                actor.updateVelocity(v.x, v.y);
-                actor.addVelocity(-xRate, 0);
+                // let v = actor.mBody.GetLinearVelocity();
+                // v.x = xRate;
+                // actor.updateVelocity(v.x, v.y);
+                // actor.addVelocity(-xRate, 0);
+                actor.mBody.ApplyForce(new PhysicsType2d.Vector2(xRate, 0), new PhysicsType2d.Vector2(0, 0));
             }
         })();
     }
@@ -5664,8 +5665,9 @@ class Levels {
             //level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
             // Add some quality theme music
             level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
+            level.setZoom(2);
             // Set the gravity of the game
-            level.resetGravity(0, 100);
+            level.resetGravity(0, 150);
             // Add a background
             level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
@@ -5681,8 +5683,8 @@ class Levels {
             level.setKeyAction(65, level.makeXDampenedMotionAction(robot, -50, 5), true);
             // 'd' key to move right
             level.setKeyAction(68, level.makeXDampenedMotionAction(robot, 50, 5), true);
-            // The jumps will give 120 pixels of up velocity
-            robot.setJumpImpulses(0, 212);
+            // Set jump power
+            robot.setJumpImpulses(0, 2000);
             // Make the camera follow our hero
             level.setCameraChase(robot);
             // Set the camera bounds
