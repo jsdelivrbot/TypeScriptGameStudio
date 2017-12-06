@@ -249,6 +249,8 @@ class Levels implements ScreenManager {
       //level.resetGravity(0, 50);
       // Don't let the plane fly out of bounds!
       level.drawBoundingBox(0, 0, 960*3, 540, "", 1, 1, 1);
+      // Don't let the camera go out of bounds!
+      level.setCameraBounds(960*3, 540);
       // Make the plane
       let plane: Hero = level.makeHeroAsBox(0, 540/2, 55, 37,"./GameAssets/PlaneGame/Plane.png");
       // 'a' key to move left
@@ -259,15 +261,21 @@ class Levels implements ScreenManager {
       level.setKeyAction(87, level.makeYMotionAction(plane, -60), level.makeYMotionAction(plane, 0), true);
       // 's' key to move down
       level.setKeyAction(83, level.makeYMotionAction(plane, 60), level.makeYMotionAction(plane, 0), true);
+      // Make the camera follow the plane
+      level.setCameraChase(plane);
       // Make rocks to crash into
       makeRock(false, 200, 50, 300);
       makeRock(true, 300, 50, 300);
       makeRock(false, 500, 100, 220);
       makeRock(true, 500, 40, 220);
-      makeRock(false, 560, 50, 300);
-      makeRock(true, 720, 70, 400);
-      makeRock(false, 800, 70, 300);
-
+      makeRock(false, 600, 50, 300);
+      makeRock(true, 820, 70, 400);
+      makeRock(false, 1000, 70, 200);
+      makeRock(true, 1100, 70, 150);
+      makeRock(false, 1400, 70, 100);
+      makeRock(true, 1300, 70, 100);
+      makeRock(false, 1600, 70, 300);
+      makeRock(true, 1700, 70, 100);
 
       // Set a victory destination at the end of the level
       //let dest = level.makeDestinationAsBox(2860, 0, 20, 540, "");
