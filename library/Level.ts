@@ -769,12 +769,12 @@ class Level {
     actionDown.mIsActive = false;
     if (repeat)
       this.mGame.mManager.mWorld.mRepeatEvents.push(actionDown);
-    else
-      this.mGame.mManager.mWorld.mOneTimeEvents.push(actionDown);
 
     let func = (e: KeyboardEvent) => {
       if (e.keyCode == keyCode) {
         actionDown.mIsActive = true;
+        if (!repeat)
+          actionDown.go();
       }
     };
     this.mGame.mManager.mFunctions.push(func);

@@ -188,15 +188,19 @@ class Levels implements ScreenManager {
       // Set 'spacebar' to jump
       level.setKeyAction(32, level.jumpAction(robot, 500), null, false);
       // 'a' key to move left
-      level.setKeyAction(65, level.makeXMotionAction(robot, -60), level.makeXMotionAction(robot, 60), true);
+      level.setKeyAction(65, level.makeXMotionAction(robot, -60), level.makeXMotionAction(robot, 0), true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeXMotionAction(robot, 60), level.makeXMotionAction(robot, -60), true);
+      level.setKeyAction(68, level.makeXMotionAction(robot, 60), level.makeXMotionAction(robot, 0), true);
       // Make the camera follow our hero
       level.setCameraChase(robot);
       // Set the camera bounds
       level.setCameraBounds(1920, 540);
       // Create an "enemy" to kill the hero if he falls off the screen
-      level.makeEnemyAsBox(0, 539, 1920, 1, "");
+      level.makeEnemyAsBox(0, 540, 1920, 1, "");
+      // Set other bounds
+      level.makeObstacleAsBox(0, 0, 1, 540, "");
+      level.makeObstacleAsBox(1920, 0, 1, 540, "");
+      level.makeObstacleAsBox(0, 0, 1920, 1, "");
       // Make the starting platform
       makePlatform(4, 64, 32, 312);
 

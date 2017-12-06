@@ -1506,12 +1506,15 @@ class Level {
     * @param action     An action to perform
     * @param repeat     Whether holding the button repeats the action
     */
-    setKeyAction(keyCode, action, repeat) {
-        action.mIsActive = false;
-        this.mGame.mManager.mWorld.mRepeatEvents.push(action);
+    setKeyAction(keyCode, actionDown, actionUp, repeat) {
+        actionDown.mIsActive = false;
+        if (repeat)
+            this.mGame.mManager.mWorld.mRepeatEvents.push(actionDown);
+        else
+            this.mGame.mManager.mWorld.mOneTimeEvents.push(actionDown);
         let func = (e) => {
             if (e.keyCode == keyCode) {
-                action.mIsActive = true;
+                actionDown.mIsActive = true;
             }
         };
         this.mGame.mManager.mFunctions.push(func);
@@ -1519,7 +1522,9 @@ class Level {
         document.addEventListener("keydown", func);
         let func2 = (e) => {
             if (e.keyCode == keyCode) {
-                action.mIsActive = false;
+                actionDown.mIsActive = false;
+                if (actionUp)
+                    actionUp.go();
             }
         };
         this.mGame.mManager.mFunctions.push(func2);
@@ -4638,11 +4643,10 @@ class Hero extends WorldActor {
         if (this.mInAir) {
             return;
         }
-        // let v = this.mBody.GetLinearVelocity();
-        // v.x = v.x + this.mJumpImpulses.x;
-        // v.y = v.y + this.mJumpImpulses.y;
-        // this.updateVelocity(v.x, v.y);
-        this.mBody.ApplyLinearImpulse(this.mJumpImpulses, this.mBody.GetWorldCenter());
+        let v = this.mBody.GetLinearVelocity();
+        v.x = v.x + this.mJumpImpulses.x;
+        v.y = v.y + this.mJumpImpulses.y;
+        this.updateVelocity(v.x, v.y);
         if (!this.mAllowMultiJump) {
             this.mInAir = true;
         }
@@ -5537,19 +5541,19 @@ class Levels {
             h.setStrength(1);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
-            level.setKeyAction(87, level.jumpAction(h, 500), false);
+            level.setKeyAction(87, level.jumpAction(h, 500), null, true);
             // The jumps will give 120 pixels of up velocity
             h.setJumpImpulses(0, 130);
             // Let the hero jump in the air to simulate flying
             h.setMultiJumpOn();
             // 'a' key to move left
-            level.setKeyAction(65, level.makeXMotionAction(h, -50), true);
+            level.setKeyAction(65, level.makeXMotionAction(h, -50), null, true);
             // 'd' key to move right
-            level.setKeyAction(68, level.makeXMotionAction(h, 50), true);
+            level.setKeyAction(68, level.makeXMotionAction(h, 50), null, true);
             // Three projectiles at a time, each has 1 power
             level.configureProjectiles(10, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
             // spacebar to shoot
-            level.setKeyAction(32, level.makeRepeatThrow(h, 800, 24, 24, 0, 10), true);
+            level.setKeyAction(32, level.makeRepeatThrow(h, 800, 24, 24, 0, 10), null, true);
             // click to shoot
             //level.setFixedVectorThrowVelocityForProjectiles(150);
             //level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
@@ -5674,13 +5678,13 @@ class Levels {
             robot.setJumpImpulses(0, 10);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
-            level.setKeyAction(87, level.jumpAction(robot, 0), false);
+            level.setKeyAction(87, level.jumpAction(robot, 500), null, false);
             // Set 'spacebar' to jump
-            level.setKeyAction(32, level.jumpAction(robot, 0), false);
+            level.setKeyAction(32, level.jumpAction(robot, 500), null, false);
             // 'a' key to move left
-            level.setKeyAction(65, level.makeForceAction(robot, -60, 0), true);
+            level.setKeyAction(65, level.makeXMotionAction(robot, -60), level.makeXMotionAction(robot, 60), true);
             // 'd' key to move right
-            level.setKeyAction(68, level.makeForceAction(robot, 60, 0), true);
+            level.setKeyAction(68, level.makeXMotionAction(robot, 60), level.makeXMotionAction(robot, -60), true);
             // Make the camera follow our hero
             level.setCameraChase(robot);
             // Set the camera bounds
