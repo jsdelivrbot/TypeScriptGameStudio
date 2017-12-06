@@ -247,9 +247,9 @@ class Levels implements ScreenManager {
       level.drawPicture(1920, 0, 960, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
       // Gravity
       //level.resetGravity(0, 50);
-      // Make the plane as a polygon so it isn't so boxy
-      //let plane: Hero = level.makeHeroAsPolygon(0, 540/2, 55, 37,
-      //  "./GameAssets/PlaneGame/Plane.png", [0,2, 0,25, 10,34, 32,34, 32,37, 55,37, 55,9, 36,9, 36,0, 25,0]);
+      // Don't let the plane fly out of bounds!
+      level.drawBoundingBox(0, 0, 960*3, 540, "", 1, 1, 1);
+      // Make the plane
       let plane: Hero = level.makeHeroAsBox(0, 540/2, 55, 37,"./GameAssets/PlaneGame/Plane.png");
       // 'a' key to move left
       level.setKeyAction(65, level.makeXMotionAction(plane, -60), level.makeXMotionAction(plane, 0), true);
@@ -262,9 +262,12 @@ class Levels implements ScreenManager {
       // Make rocks to crash into
       makeRock(false, 200, 50, 300);
       makeRock(true, 300, 50, 300);
-      makeRock(false, 500, 100, 250);
-      makeRock(true, 500, 40, 250);
-      makeRock(false, 600, 50, 300);
+      makeRock(false, 500, 100, 220);
+      makeRock(true, 500, 40, 220);
+      makeRock(false, 560, 50, 300);
+      makeRock(true, 720, 70, 400);
+      makeRock(false, 800, 70, 300);
+
 
       // Set a victory destination at the end of the level
       //let dest = level.makeDestinationAsBox(2860, 0, 20, 540, "");
@@ -278,10 +281,10 @@ class Levels implements ScreenManager {
        */
       function makeRock(pointDown: boolean, posX: number, width: number, height: number) {
         if (pointDown) {
-          level.makeEnemyAsPolygon(posX-width/2, 0, width, height, "./GameAssets/PlaneGame/RockDown.png", [-width/2,-height/2, width/2,-height/2, 0,height/2]);
+          level.makeEnemyAsPolygon(posX-width/2, -1, width, height, "./GameAssets/PlaneGame/RockDown.png", [-width/2,-height/2, width/2,-height/2, 0,height/2]);
         }
         else {
-          level.makeEnemyAsPolygon(posX-width/2, 540-height, width, height, "./GameAssets/PlaneGame/RockUp.png", [-width/2,height/2, 0,-height/2, width/2,height/2]);
+          level.makeEnemyAsPolygon(posX-width/2, 541-height, width, height, "./GameAssets/PlaneGame/RockUp.png", [-width/2,height/2, 0,-height/2, width/2,height/2]);
         }
       }
     }

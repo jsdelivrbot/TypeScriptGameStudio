@@ -5744,8 +5744,8 @@ class Levels {
             // Make rocks to crash into
             makeRock(false, 200, 50, 300);
             makeRock(true, 300, 50, 300);
-            makeRock(false, 500, 40, 250);
-            makeRock(true, 500, 100, 250);
+            makeRock(false, 500, 100, 250);
+            makeRock(true, 500, 40, 250);
             makeRock(false, 600, 50, 300);
             // Set a victory destination at the end of the level
             //let dest = level.makeDestinationAsBox(2860, 0, 20, 540, "");
@@ -5753,13 +5753,15 @@ class Levels {
             /*
              * Here we create a function for making rocks. This makes it easy because
              * rocks are triangles, and this function does the vertex calculations for us
+             * We probably care most about where the point of the rock is, so we make
+             * the x position parameter the x position of the point
              */
             function makeRock(pointDown, posX, width, height) {
                 if (pointDown) {
-                    level.makeEnemyAsPolygon(posX, 0, width, height, "./GameAssets/PlaneGame/RockDown.png", [-width / 2, -height / 2, width / 2, -height / 2, 0, height / 2]);
+                    level.makeEnemyAsPolygon(posX - width / 2, 0, width, height, "./GameAssets/PlaneGame/RockDown.png", [-width / 2, -height / 2, width / 2, -height / 2, 0, height / 2]);
                 }
                 else {
-                    level.makeEnemyAsPolygon(posX, height, width, height, "./GameAssets/PlaneGame/RockUp.png", [-width / 2, height / 2, 0, -height / 2, width / 2, height / 2]);
+                    level.makeEnemyAsPolygon(posX - width / 2, 540 - height, width, height, "./GameAssets/PlaneGame/RockUp.png", [-width / 2, height / 2, 0, -height / 2, width / 2, height / 2]);
                 }
             }
         }
