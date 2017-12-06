@@ -35,20 +35,20 @@ class Levels implements ScreenManager {
       h.setStrength(1);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
-      level.setKeyAction(87, level.jumpAction(h, 500), false);
+      level.setKeyAction(87, level.jumpAction(h, 500), null, true);
       // The jumps will give 120 pixels of up velocity
       h.setJumpImpulses(0, 130);
       // Let the hero jump in the air to simulate flying
       h.setMultiJumpOn();
       // 'a' key to move left
-      level.setKeyAction(65, level.makeXMotionAction(h, -50), true);
+      level.setKeyAction(65, level.makeXMotionAction(h, -50), null, true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeXMotionAction(h, 50), true);
+      level.setKeyAction(68, level.makeXMotionAction(h, 50), null, true);
 
       // Three projectiles at a time, each has 1 power
       level.configureProjectiles(10, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
       // spacebar to shoot
-      level.setKeyAction(32, level.makeRepeatThrow(h, 800, 24, 24, 0, 10), true);
+      level.setKeyAction(32, level.makeRepeatThrow(h, 800, 24, 24, 0, 10), null, true);
       // click to shoot
       //level.setFixedVectorThrowVelocityForProjectiles(150);
       //level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
@@ -184,13 +184,13 @@ class Levels implements ScreenManager {
       robot.setJumpImpulses(0, 10);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
-      level.setKeyAction(87, level.jumpAction(robot, 0), false);
+      level.setKeyAction(87, level.jumpAction(robot, 500), null, false);
       // Set 'spacebar' to jump
-      level.setKeyAction(32, level.jumpAction(robot, 0), false);
+      level.setKeyAction(32, level.jumpAction(robot, 500), null, false);
       // 'a' key to move left
-      level.setKeyAction(65, level.makeForceAction(robot, -60, 0), true);
+      level.setKeyAction(65, level.makeXMotionAction(robot, -60), level.makeXMotionAction(robot, 60), true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeForceAction(robot, 60, 0), true);
+      level.setKeyAction(68, level.makeXMotionAction(robot, 60), level.makeXMotionAction(robot, -60), true);
       // Make the camera follow our hero
       level.setCameraChase(robot);
       // Set the camera bounds

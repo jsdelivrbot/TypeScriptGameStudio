@@ -111,11 +111,10 @@ class Hero extends WorldActor {
     if (this.mInAir) {
       return;
     }
-    // let v = this.mBody.GetLinearVelocity();
-    // v.x = v.x + this.mJumpImpulses.x;
-    // v.y = v.y + this.mJumpImpulses.y;
-    // this.updateVelocity(v.x, v.y);
-    this.mBody.ApplyLinearImpulse(this.mJumpImpulses, this.mBody.GetWorldCenter());
+    let v = this.mBody.GetLinearVelocity();
+    v.x = v.x + this.mJumpImpulses.x;
+    v.y = v.y + this.mJumpImpulses.y;
+    this.updateVelocity(v.x, v.y);
     if (!this.mAllowMultiJump) {
       this.mInAir = true;
     }

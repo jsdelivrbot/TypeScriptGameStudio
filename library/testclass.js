@@ -1458,7 +1458,7 @@ class Level {
     makeForceAction(actor, xRate, yRate) {
         return new (class _ extends LolAction {
             go() {
-                actor.mBody.ApplyLinearImpulse(new PhysicsType2d.Vector2(xRate, yRate), actor.mBody.GetWorldCenter());
+                actor.mBody.ApplyForceToCenter(new PhysicsType2d.Vector2(xRate, yRate));
             }
         })();
     }
@@ -5671,7 +5671,7 @@ class Levels {
             let robot = level.makeHeroAsBox(96, 200, 64, 112, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
             // Set jump power
-            robot.setJumpImpulses(0, -2000);
+            robot.setJumpImpulses(0, 10);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
             level.setKeyAction(87, level.jumpAction(robot, 0), false);
