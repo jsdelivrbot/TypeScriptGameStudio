@@ -742,7 +742,7 @@ class Level {
   public makeXYMotionAction(actor: WorldActor, xRate: number, yRate: number): LolAction {
     return new (class _ extends LolAction {
       public go(): void {
-        actor.updateVelocity(actor.getXVelocity() + xRate, actor.getYVelocity() + yRate);
+        actor.addVelocity(xRate, yRate);
       }
     })();
   }
@@ -811,7 +811,7 @@ class Level {
        let action = new (class _ extends LolAction {
         //@Override
         public go(): void {
-          actor.updateVelocity(actor.getXVelocity() + xRate, actor.getYVelocity() + yRate);
+          actor.addVelocity(xRate, yRate);
           actor.mBody.SetLinearDamping(dampening);
         }
       })();

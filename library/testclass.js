@@ -1484,50 +1484,9 @@ class Level {
     makeXYMotionAction(actor, xRate, yRate) {
         return new (class _ extends LolAction {
             go() {
-                actor.updateVelocity(xRate, yRate);
+                actor.updateVelocity(actor.getXVelocity() + xRate, actor.getYVelocity() + yRate);
             }
         })();
-    }
-    /**
-    * Let an actor be controlled by arrow keys
-    *
-    * @param actor     The actor to move
-    * @param speed     Speed to move an actor
-    * @param dampening The dampening factor
-    */
-    setArrowKeyControls(actor, speed) {
-        let up = this.makeYMotionAction(actor, -speed);
-        let down = this.makeYMotionAction(actor, speed);
-        let left = this.makeXMotionAction(actor, -speed);
-        let right = this.makeXMotionAction(actor, speed);
-        document.addEventListener("keydown", (e) => {
-            if (e.key == "ArrowUp") {
-                up.go();
-            }
-            else if (e.key == "ArrowDown") {
-                down.go();
-            }
-            else if (e.key == "ArrowLeft") {
-                left.go();
-            }
-            else if (e.key == "ArrowRight") {
-                right.go();
-            }
-        });
-        document.addEventListener("keyup", (e) => {
-            if (e.key == "ArrowUp") {
-                actor.updateVelocity(actor.mBody.GetLinearVelocity().x, 0);
-            }
-            else if (e.key == "ArrowDown") {
-                actor.updateVelocity(actor.mBody.GetLinearVelocity().x, 0);
-            }
-            else if (e.key == "ArrowLeft") {
-                actor.updateVelocity(0, actor.mBody.GetLinearVelocity().y);
-            }
-            else if (e.key == "ArrowRight") {
-                actor.updateVelocity(0, actor.mBody.GetLinearVelocity().y);
-            }
-        });
     }
     /**
     * Set a key to perform an action when it is pressed
@@ -1588,7 +1547,7 @@ class Level {
         let action = new (class _ extends LolAction {
             //@Override
             go() {
-                actor.updateVelocity(xRate, yRate);
+                actor.updateVelocity(actor.getXVelocity() + xRate, actor.getYVelocity() + yRate);
                 actor.mBody.SetLinearDamping(dampening);
             }
         })();
