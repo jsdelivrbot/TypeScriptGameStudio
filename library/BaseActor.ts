@@ -107,8 +107,8 @@ class BaseActor extends Renderable {
   * counter-clockwise order, and they must describe a convex shape.
   *
   * @param type     Is the actor's body static or dynamic?
-  * @param x        The X coordinate of the bottom left corner, in meters
-  * @param y        The Y coordinate of the bottom left corner, in meters
+  * @param x        The X coordinate of the top left corner
+  * @param y        The Y coordinate of the top left corner
   * @param vertices Up to 16 coordinates representing the vertexes of this polygon, listed as
   *                 x0,y0,x1,y1,x2,y2,...
   */

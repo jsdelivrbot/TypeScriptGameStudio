@@ -862,7 +862,6 @@ class Level {
   */
   public makeRotator(hero: Hero, rate: number): LolAction {
     return new (class _ extends LolAction {
-      //@Override
       public go(): void {
         hero.increaseRotation(rate);
       }
@@ -1190,8 +1189,8 @@ class Level {
   /**
   * Draw a hero with an underlying polygon shape
   *
-  * @param x       X coordinate of the bottom left corner
-  * @param y       Y coordinate of the bottom left corner
+  * @param x       X coordinate of the top left corner
+  * @param y       Y coordinate of the top left corner
   * @param width   Width of the obstacle
   * @param height  Height of the obstacle
   * @param imgName Name of image file to use
