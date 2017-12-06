@@ -174,7 +174,7 @@ class Levels implements ScreenManager {
       // Add a background
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       // Create a hero
-      let robot: Hero = level.makeHeroAsBox(96, 128, 64, 128, "./GameAssets/ChristmasGame/Miser.png");
+      let robot: Hero = level.makeHeroAsBox(96, 112, 64, 112, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
@@ -182,11 +182,11 @@ class Levels implements ScreenManager {
       // Set 'spacebar' to jump
       level.setKeyAction(32, level.JumpAction(robot, 0), false);
       // 'a' key to move left
-      level.setKeyAction(65, level.makeXYDampenedMotionAction(robot, -50, 0, 1), true);
+      level.setKeyAction(65, level.makeXYDampenedMotionAction(robot, -50, 0, 0), true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeXYDampenedMotionAction(robot, 50, 0, 1), true);
+      level.setKeyAction(68, level.makeXYDampenedMotionAction(robot, 50, 0, 0), true);
       // The jumps will give 120 pixels of up velocity
-      robot.setJumpImpulses(0, 164);
+      robot.setJumpImpulses(0, 212);
       // Make the camera follow our hero
       level.setCameraChase(robot);
       // Create an "enemy" to kill the hero if he falls off the screen

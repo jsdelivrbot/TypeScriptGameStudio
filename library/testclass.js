@@ -1484,7 +1484,7 @@ class Level {
     makeXYMotionAction(actor, xRate, yRate) {
         return new (class _ extends LolAction {
             go() {
-                actor.updateVelocity(actor.getXVelocity() + xRate, actor.getYVelocity() + yRate);
+                actor.addVelocity(xRate, yRate);
             }
         })();
     }
@@ -1547,7 +1547,7 @@ class Level {
         let action = new (class _ extends LolAction {
             //@Override
             go() {
-                actor.updateVelocity(actor.getXVelocity() + xRate, actor.getYVelocity() + yRate);
+                actor.addVelocity(xRate, yRate);
                 actor.mBody.SetLinearDamping(dampening);
             }
         })();
@@ -5654,7 +5654,7 @@ class Levels {
             // Add a background
             level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             // Create a hero
-            let robot = level.makeHeroAsBox(96, 128, 128, 128, "./GameAssets/ChristmasGame/Miser.png");
+            let robot = level.makeHeroAsBox(96, 128, 64, 128, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
