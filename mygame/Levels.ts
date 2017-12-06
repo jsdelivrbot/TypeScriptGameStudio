@@ -260,7 +260,7 @@ class Levels implements ScreenManager {
       // 's' key to move down
       level.setKeyAction(83, level.makeYMotionAction(plane, 60), level.makeYMotionAction(plane, 0), true);
       // Make a rock to crash into
-      let rock: Enemy = level.makeEnemyAsPolygon(200, 0, 100, 540, "./GameAssets/PlaneGame/RockDown.png", [0,0, 50,540, 100,0, 0,0]);
+      let rock: Enemy = level.makeEnemyAsPolygon(200, 0, 100, 540, "./GameAssets/PlaneGame/RockDown.png", [0,0, 100,0, 50,540]);
       // Set a victory destination at the end of the level
       //let dest = level.makeDestinationAsBox(2860, 0, 20, 540, "");
       //level.setVictoryDestination(1);

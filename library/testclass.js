@@ -108,7 +108,7 @@ class BaseActor extends Renderable {
     */
     setPolygonPhysics(type, x, y, vertices) {
         let shape = new PhysicsType2d.Collision.Shapes.PolygonShape();
-        let verts = new Array(vertices.length / 2);
+        let verts = new Array();
         for (let i = 0; i < vertices.length; i += 2)
             verts[i / 2] = new PhysicsType2d.Vector2(vertices[i], vertices[i + 1]);
         // print some debug info, since vertices are tricky
@@ -5730,8 +5730,8 @@ class Levels {
             //level.resetGravity(0, 50);
             // Make the plane as a polygon so it isn't so boxy
             //let plane: Hero = level.makeHeroAsPolygon(0, 540/2, 55, 37,
-            //  "./GameAssets/PlaneGame/PlaneBack.png", [0,2, 0,25, 10,34, 32,34, 32,37, 55,37, 55,9, 36,9, 36,0, 25,0]);
-            let plane = level.makeHeroAsBox(0, 540 / 2, 55, 37, "./GameAssets/PlaneGame/PlaneBack.png");
+            //  "./GameAssets/PlaneGame/Plane.png", [0,2, 0,25, 10,34, 32,34, 32,37, 55,37, 55,9, 36,9, 36,0, 25,0]);
+            let plane = level.makeHeroAsBox(0, 540 / 2, 55, 37, "./GameAssets/PlaneGame/Plane.png");
             // 'a' key to move left
             level.setKeyAction(65, level.makeXMotionAction(plane, -60), level.makeXMotionAction(plane, 0), true);
             // 'd' key to move right
@@ -5741,7 +5741,7 @@ class Levels {
             // 's' key to move down
             level.setKeyAction(83, level.makeYMotionAction(plane, 60), level.makeYMotionAction(plane, 0), true);
             // Make a rock to crash into
-            let rock = level.makeEnemyAsPolygon(200, 0, 100, 540, "./GameAssets/PlaneGame/RockDown.png", [0, 0, 50, 540, 100, 0]);
+            let rock = level.makeEnemyAsPolygon(200, 0, 100, 540, "./GameAssets/PlaneGame/RockDown.png", [0, 0, 50, 540, 100, 0, 0, 0]);
             // Set a victory destination at the end of the level
             //let dest = level.makeDestinationAsBox(2860, 0, 20, 540, "");
             //level.setVictoryDestination(1);
