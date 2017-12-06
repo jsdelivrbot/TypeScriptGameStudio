@@ -47,12 +47,12 @@ class Lol {
   }
 
   /**
-   * This code is called every 1/60th of a second to update the game state and re-draw the screen
+   * This code is called every 1/45th of a second to update the game state and re-draw the screen
    * <p>
    * NB: This is an internal method. User code should never call this.
    */
   render() {
-    this.mManager.mWorld.mWorld.Step(1 / 30, 8, 3);
+    this.mManager.mWorld.mWorld.Step(1 / 45, 8, 3);
 
     // Make sure the music is playing... Note that we start music before the PreScene shows
     this.mManager.mWorld.playMusic();

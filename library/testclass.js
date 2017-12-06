@@ -3221,8 +3221,8 @@ class HudScene extends LolScene {
     */
     render() {
         //this.mCamera.updatePosition();
-        // Advance the physics world by 1/60 of a second
-        this.mWorld.Step(1 / 60, 8, 3);
+        // Advance the physics world by 1/45 of a second (1/45 is the recommended rate)
+        this.mWorld.Step(1 / 30, 8, 3);
         // Render all actors and text
         //sb.setProjectionMatrix(mCamera.combined);
         //sb.begin();
@@ -4361,7 +4361,7 @@ class Lol {
      * NB: This is an internal method. User code should never call this.
      */
     render() {
-        this.mManager.mWorld.mWorld.Step(1 / 60, 8, 3);
+        this.mManager.mWorld.mWorld.Step(1 / 30, 8, 3);
         // Make sure the music is playing... Note that we start music before the PreScene shows
         this.mManager.mWorld.playMusic();
         // Adjust camera if it needs to follow an actor
