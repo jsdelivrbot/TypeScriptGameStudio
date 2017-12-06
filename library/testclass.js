@@ -5661,7 +5661,7 @@ class Levels {
             //level.addDisplay(25, 25, "Arial", "0x000000", 24, "Enemies Killed: ", "", level.DisplayEnemiesDefeated(), 0);
             // Add some quality theme music
             level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
-            level.setZoom(2);
+            level.setZoom(0.5);
             // Set the gravity of the game
             level.resetGravity(0, 100);
             // Add a background
@@ -5670,6 +5670,8 @@ class Levels {
             // Create a hero
             let robot = level.makeHeroAsBox(96, 200, 64, 112, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
+            // Set jump power
+            robot.setJumpImpulses(0, 2000);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
             level.setKeyAction(87, level.jumpAction(robot, 0), false);
@@ -5679,8 +5681,6 @@ class Levels {
             level.setKeyAction(65, level.makeForceAction(robot, -60, 0), true);
             // 'd' key to move right
             level.setKeyAction(68, level.makeForceAction(robot, 60, 0), true);
-            // Set jump power
-            robot.setJumpImpulses(0, 2000);
             // Make the camera follow our hero
             level.setCameraChase(robot);
             // Set the camera bounds
@@ -5697,13 +5697,13 @@ class Levels {
                 if (blocks < 1)
                     return;
                 if (blocks == 1) {
-                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 1);
+                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
                     return;
                 }
-                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setPhysics(1, 0, 1);
-                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png").setPhysics(1, 0, 1);
+                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setPhysics(1, 0, 2);
+                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png").setPhysics(1, 0, 2);
                 for (let i = 1; i <= (blocks - 2); i++) {
-                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 1);
+                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
                 }
             }
         }
