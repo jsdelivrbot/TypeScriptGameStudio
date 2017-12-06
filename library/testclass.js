@@ -5739,12 +5739,16 @@ class Levels {
             // 'w' key to move up
             level.setKeyAction(87, level.makeXYMotionAction(plane, 50, -50), level.makeXYMotionAction(plane, 50, 60), false);
             // 's' key to move down
-            level.setKeyAction(83, level.makeXYMotionAction(plane, 50, 100), level.makeXYMotionAction(plane, 50, 60), false);
+            level.setKeyAction(83, level.makeXYMotionAction(plane, 50, 120), level.makeXYMotionAction(plane, 50, 60), false);
             // Make the camera follow the plane
             level.setCameraChase(plane);
             // Make rocks to crash into
             makeRock(false, 450, 100, 300);
             makeRock(true, 400, 100, 120);
+            makeRock(false, 750, 100, 200);
+            makeRock(true, 700, 100, 220);
+            makeRock(false, 850, 100, 200);
+            makeRock(true, 800, 100, 220);
             makeRock(false, 1000, 70, 200);
             makeRock(true, 1100, 70, 150);
             makeRock(false, 1250, 70, 100);
