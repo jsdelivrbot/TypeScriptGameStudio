@@ -1333,7 +1333,7 @@ class Level {
     * @param milliDelay If there should be time between being allowed to jump
     * @return The action object
     */
-    JumpAction(hero, milliDelay) {
+    jumpAction(hero, milliDelay) {
         return new (class _ extends LolAction {
             constructor() {
                 super(...arguments);
@@ -4642,7 +4642,7 @@ class Hero extends WorldActor {
         // v.x = v.x + this.mJumpImpulses.x;
         // v.y = v.y + this.mJumpImpulses.y;
         // this.updateVelocity(v.x, v.y);
-        this.mBody.ApplyLinearImpulse(this.mJumpImpulses, new PhysicsType2d.Vector2(0, 0));
+        this.mBody.ApplyLinearImpulse(this.mJumpImpulses, this.mBody.GetWorldCenter());
         if (!this.mAllowMultiJump) {
             this.mInAir = true;
         }
@@ -5537,7 +5537,7 @@ class Levels {
             h.setStrength(1);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
-            level.setKeyAction(87, level.JumpAction(h, 500), false);
+            level.setKeyAction(87, level.jumpAction(h, 500), false);
             // The jumps will give 120 pixels of up velocity
             h.setJumpImpulses(0, 130);
             // Let the hero jump in the air to simulate flying
@@ -5663,7 +5663,7 @@ class Levels {
             level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
             level.setZoom(2);
             // Set the gravity of the game
-            level.resetGravity(0, 150);
+            level.resetGravity(0, 100);
             // Add a background
             level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
@@ -5672,9 +5672,9 @@ class Levels {
             robot.setStrength(1);
             // Set 'w' to jump (this involves using keycodes)
             // Find the keycode of any key by going to www.keycode.info
-            level.setKeyAction(87, level.JumpAction(robot, 0), false);
+            level.setKeyAction(87, level.jumpAction(robot, 0), false);
             // Set 'spacebar' to jump
-            level.setKeyAction(32, level.JumpAction(robot, 0), false);
+            level.setKeyAction(32, level.jumpAction(robot, 0), false);
             // 'a' key to move left
             level.setKeyAction(65, level.makeForceAction(robot, -60, 0), true);
             // 'd' key to move right
@@ -5697,13 +5697,13 @@ class Levels {
                 if (blocks < 1)
                     return;
                 if (blocks == 1) {
-                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
+                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 1);
                     return;
                 }
-                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setPhysics(1, 0, 2);
-                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png").setPhysics(1, 0, 0.5);
+                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setPhysics(1, 0, 1);
+                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png").setPhysics(1, 0, 1);
                 for (let i = 1; i <= (blocks - 2); i++) {
-                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 0.5);
+                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 1);
                 }
             }
         }
