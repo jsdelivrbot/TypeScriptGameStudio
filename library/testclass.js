@@ -5770,7 +5770,7 @@ class Levels {
             makeRock(false, 2500, 100, 220);
             makeRock(true, 2500, 40, 220);
             makeRock(false, 2600, 120, 300);
-            makeRock(true, 2820, 70, 400);
+            makeRock(true, 2820, 70, 380);
             // Set a victory destination at the end of the level
             let dest = level.makeDestinationAsBox(2860, 0, 20, 540, "");
             level.setVictoryDestination(1);

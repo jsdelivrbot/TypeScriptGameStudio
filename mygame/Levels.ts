@@ -178,7 +178,7 @@ class Levels implements ScreenManager {
       // Set the gravity of the game
       level.resetGravity(0, 85);
 
-      level.drawPicture(16, 356, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png", -1);
+      level.makeObstacleAsBox(16, 356, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png").setPassThrough(0);
 
       // Add a background
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
@@ -207,8 +207,15 @@ class Levels implements ScreenManager {
       level.makeObstacleAsBox(0, 0, 1, 540, "");
       level.makeObstacleAsBox(1920, 0, 1, 540, "");
       level.makeObstacleAsBox(0, 0, 1920, 1, "");
+
       // Make the starting platform
       makePlatform(5, 16, 0, 356);
+      // Make more platforms
+      makePlatform(5, 16, 80, 420);
+      makePlatform(5, 16, 192, 404);
+      makePlatform(5, 16, 280, 380);
+      makePlatform(5, 16, 360, 396);
+      makePlatform(4, 16, 440, 380);
 
       //let dest = level.makeDestinationAsCircle();
       //dest.setActivationScore(7, 0, 0, 0);
@@ -245,12 +252,10 @@ class Levels implements ScreenManager {
       level.drawPicture(0, 0, 962, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
       level.drawPicture(960, 0, 962, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
       level.drawPicture(1920, 0, 962, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
-      // Gravity
-      //level.resetGravity(0, 50);
       // Don't let the plane fly out of bounds!
       level.drawBoundingBox(0, 0, 960*3, 540, "", 1, 0, 1);
       level.makeEnemyAsPolygon(0, 0, 960*3, 20, "./GameAssets/PlaneGame/Ceiling.png", [-(960*3)/2,0, (960*3)/2,0, (960*3)/2,10, -(960*3)/2,10]);
-      level.makeEnemyAsPolygon(0, 530, 960*3, 20, "./GameAssets/PlaneGame/Floor.png", [-(960*3)/2,540, -(960*3)/2,530, (960*3)/2,530, (960*3)/2,540]);
+      level.makeEnemyAsPolygon(0, 520, 960*3, 20, "./GameAssets/PlaneGame/Floor.png", [-(960*3)/2,540, -(960*3)/2,530, (960*3)/2,530, (960*3)/2,540]);
       // Don't let the camera go out of bounds!
       level.setCameraBounds(960*3, 540);
       // Make the plane
@@ -260,11 +265,9 @@ class Levels implements ScreenManager {
       level.setKeyAction(87, level.makeXYMotionAction(plane, 50, -60), level.makeXYMotionAction(plane, 50, 70), false);
       level.setKeyAction(32, level.makeXYMotionAction(plane, 50, -60), level.makeXYMotionAction(plane, 50, 70), false);
       level.setKeyAction(38, level.makeXYMotionAction(plane, 50, -60), level.makeXYMotionAction(plane, 50, 70), false);
-
-      // 's' key to move down
-      //level.setKeyAction(83, level.makeXYMotionAction(plane, 50, 120), level.makeXYMotionAction(plane, 50, 60), false);
       // Make the camera follow the plane
       level.setCameraChase(plane);
+
       // Make rocks to crash into
       makeRock(false, 450, 100, 300);
       makeRock(true, 400, 100, 120);

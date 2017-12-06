@@ -33,12 +33,16 @@
       })());
 
       // Add some help messages
-      level.addStaticTextCentered(midX, 100, "Arial", 0xFFFFFF, 24, "In these games, WASD is to move", 0);
-      level.addStaticTextCentered(midX, 100, "Arial", 0xFFFFFF, 24, "Sky Fight:", 0);
-      level.addStaticTextCentered(midX, 200, "Arial", 0xFFFFFF, 24, "Point and click to shoot", 0);
-      level.addStaticTextCentered(midX, 300, "Arial", 0xFFFFFF, 24, "Defeat all enemies to win", 0);
-      level.addStaticTextCentered(midX, 300, "Arial", 0xFFFFFF, 24, "They have 2 lives, so remember to double tap", 0);
-
+      level.addStaticTextCentered(midX, 50, "Arial", 0x0000FF, 24, "INSTRUCTIONS", 0);
+      level.addStaticTextCentered(midX, 100, "Arial", 0x0000FF, 24, "Sky Fight", 0);
+      level.addStaticTextCentered(midX, 150, "Arial", 0x0000FF, 24, "Drop pebbles on the bats using spacebar", 0);
+      level.addStaticTextCentered(midX, 200, "Arial", 0x0000FF, 24, "Rid the skies of all the bats before the time runs out", 0);
+      level.addStaticTextCentered(midX, 250, "Arial", 0x0000FF, 24, "Christmas Scramble", 0);
+      level.addStaticTextCentered(midX, 300, "Arial", 0x0000FF, 24, "Move with WASD", 0);
+      level.addStaticTextCentered(midX, 350, "Arial", 0x0000FF, 24, "Collect all the coins and reach the end to win", 0);
+      level.addStaticTextCentered(midX, 250, "Arial", 0x0000FF, 24, "Dodgy Plane", 0);
+      level.addStaticTextCentered(midX, 300, "Arial", 0x0000FF, 24, "Move up with spacebar, dodge the rocks", 0);
+      level.addStaticTextCentered(midX, 350, "Arial", 0x0000FF, 24, "Reach the end to win", 0);
      }
    }
 }
