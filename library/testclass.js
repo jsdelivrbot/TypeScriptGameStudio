@@ -481,8 +481,8 @@ class BaseActor extends Renderable {
     /**
     * Add velocity to this actor
     *
-    * @param x Velocity in X dimension, in meters per second
-    * @param y Velocity in Y dimension, in meters per second
+    * @param x Velocity in X dimension
+    * @param y Velocity in Y dimension
     */
     addVelocity(x, y) {
         // ensure this is a moveable actor
@@ -499,8 +499,8 @@ class BaseActor extends Renderable {
     /**
     * Set the absolute velocity of this actor
     *
-    * @param x Velocity in X dimension, in meters per second
-    * @param y Velocity in Y dimension, in meters per second
+    * @param x Velocity in X dimension
+    * @param y Velocity in Y dimension
     */
     setAbsoluteVelocity(x, y) {
         // ensure this is a moveable actor
@@ -1453,7 +1453,7 @@ class Level {
     *
     * @param actor The actor to move
     * @param xRate The rate at which the actor should move in the X direction
-    * @param yRate The dampening applied
+    * @param yRate The y velocity
     * @return The action
     */
     addVelocityAction(actor, xRate, yRate) {
@@ -5736,14 +5736,14 @@ class Levels {
             // Make the plane
             let plane = level.makeHeroAsBox(0, 540 / 2, 55, 37, "./GameAssets/PlaneGame/Plane.png");
             plane.setAbsoluteVelocity(50, 0);
-            // 'a' key to move left
-            level.setKeyAction(65, level.addVelocityAction(plane, -10, 0), level.addVelocityAction(plane, 10, 0), false);
-            // 'd' key to move right
-            level.setKeyAction(68, level.addVelocityAction(plane, 80, 0), level.addVelocityAction(plane, -80, 0), false);
+            // // 'a' key to move left
+            // level.setKeyAction(65, level.makeXYMotionAction(plane, 40, 0), level.makeXYMotionAction(plane, 50, 0), false);
+            // // 'd' key to move right
+            // level.setKeyAction(68, level.makeXYMotionAction(plane, 70, 0), level.makeXYMotionAction(plane, 70, 0), false);
             // 'w' key to move up
-            level.setKeyAction(87, level.addVelocityAction(plane, 0, -80), level.addVelocityAction(plane, 0, 80), false);
+            level.setKeyAction(87, level.makeXYMotionAction(plane, 50, 80), level.makeXYMotionAction(plane, 50, -20), false);
             // 's' key to move down
-            level.setKeyAction(83, level.addVelocityAction(plane, 0, 100), level.addVelocityAction(plane, 0, -100), false);
+            level.setKeyAction(83, level.makeXYMotionAction(plane, 50, -100), level.makeXYMotionAction(plane, 50, -20), false);
             // Make the camera follow the plane
             level.setCameraChase(plane);
             // Make rocks to crash into
