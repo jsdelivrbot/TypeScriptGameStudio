@@ -714,7 +714,7 @@ class Level {
   public makeForceAction(actor: WorldActor, xRate: number, yRate: number): LolAction {
     return new (class _ extends LolAction {
       public go(): void {
-        actor.mBody.ApplyForceToCenter(new PhysicsType2d.Vector2(xRate, yRate));
+        actor.mBody.ApplyLinearImpulse(new PhysicsType2d.Vector2(xRate, yRate), actor.mBody.GetWorldCenter());
       }
     })();
   }

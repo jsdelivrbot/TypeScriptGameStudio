@@ -3586,21 +3586,21 @@ class MainScene extends LolScene {
         let x = this.mChaseActor.mBody.GetWorldCenter().x + this.mChaseActor.mCameraOffset.x;
         let y = this.mChaseActor.mBody.GetWorldCenter().y + this.mChaseActor.mCameraOffset.y;
         // if x or y is too close to MAX,MAX, stick with max acceptable values
-        if (x * this.mCamera.getZoom() > this.mCamBound.x - (this.mConfig.mWidth / 2)) {
-            x = this.mCamBound.x - ((this.mConfig.mWidth / 2) / this.mCamera.getZoom());
+        if (x > this.mCamBound.x - (this.mConfig.mWidth / 2) * this.mCamera.getZoom()) {
+            x = this.mCamBound.x - (this.mConfig.mWidth / 2) * this.mCamera.getZoom();
         }
-        if (y * this.mCamera.getZoom() > this.mCamBound.y - (this.mConfig.mHeight / 2)) {
-            y = this.mCamBound.y - ((this.mConfig.mHeight / 2) / this.mCamera.getZoom());
+        if (y > this.mCamBound.y - (this.mConfig.mHeight / 2) * this.mCamera.getZoom()) {
+            y = this.mCamBound.y - (this.mConfig.mHeight / 2) * this.mCamera.getZoom();
         }
         // if x or y is too close to 0,0, stick with minimum acceptable values
         //
         // NB: we do MAX before MIN, so that if we're zoomed out, we show extra
         // space at the top instead of the bottom
-        if (x * this.mCamera.getZoom() < (this.mConfig.mWidth / 2)) {
-            x = (this.mConfig.mWidth / 2) / this.mCamera.getZoom();
+        if (x < (this.mConfig.mWidth / 2) * this.mCamera.getZoom()) {
+            x = (this.mConfig.mWidth / 2) * this.mCamera.getZoom();
         }
-        if (y * this.mCamera.getZoom() < this.mConfig.mHeight / 2) {
-            y = (this.mConfig.mHeight / 2) / this.mCamera.getZoom();
+        if (y < (this.mConfig.mHeight / 2) * this.mCamera.getZoom()) {
+            y = (this.mConfig.mHeight / 2) * this.mCamera.getZoom();
         }
         // update the camera position
         this.mCamera.centerOn(x, y);
