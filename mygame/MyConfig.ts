@@ -60,6 +60,7 @@ class MyConfig extends Config {
      "./GameAssets/ChristmasGame/SnowMan.png", "./GameAssets/ChristmasGame/Stone.png",
      "./GameAssets/ChristmasGame/ThreeTrees.png",
      "./GameAssets/PlaneGame/Plane.png", "./GameAssets/PlaneGame/PlaneBack.png",
+     "./GameAssets/PlaneGame/Ceiling.png", "./GameAssets/PlaneGame/Floor.png",
      "./GameAssets/PlaneGame/RockUp.png", "./GameAssets/PlaneGame/RockDown.png"
     );
 

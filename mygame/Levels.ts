@@ -249,6 +249,8 @@ class Levels implements ScreenManager {
       //level.resetGravity(0, 50);
       // Don't let the plane fly out of bounds!
       level.drawBoundingBox(0, 0, 960*3, 540, "", 1, 0, 1);
+      level.makeEnemyAsPolygon(0, 0, 960*3, 10, "./GameAssets/PlaneGame/Ceiling.png", [-(960*3)/2,0, (960*3)/2,0, (960*3)/2,5, -(960*3)/2,5])
+      level.makeEnemyAsPolygon(0, 540, 960*3, 10, "./GameAssets/PlaneGame/Floor.png", [-(960*3)/2,540, -(960*3)/2,535, (960*3)/2,535, (960*3)/2,540])
       // Don't let the camera go out of bounds!
       level.setCameraBounds(960*3, 540);
       // Make the plane
@@ -279,10 +281,10 @@ class Levels implements ScreenManager {
       makeRock(false, 1600, 90, 300);
       makeRock(true, 1700, 100, 100);
 
-      makeRock(false, 1850, 70, 150);
-      makeRock(true, 1850, 70, 320)
-      makeRock(false, 2000, 70, 200);
-      makeRock(true, 2000, 70, 250);
+      makeRock(false, 1850, 80, 150);
+      makeRock(true, 1850, 80, 320)
+      makeRock(false, 2000, 80, 200);
+      makeRock(true, 2000, 80, 250);
 
       makeRock(false, 2150, 50, 320);
       makeRock(true, 2300, 50, 300);
