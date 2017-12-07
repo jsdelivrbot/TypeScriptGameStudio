@@ -8,8 +8,8 @@ $(document).ready(editorSetup());
 //Remove game when run game modal is loaded and stop all audio
 $("#runGameModal").on("hidden.bs.modal", function () {
     $("#runGameModalContent").empty();
-    var sounds = document.getElementByTagName('audio');
-    for(i = 0; i <sounds.length; i++) sounds[i].remove();
+    let sounds = document.getElementByTagName('audio');
+    for(let i = 0; i < sounds.length; i++) sounds[i].remove();
 });
 
 /*
