@@ -216,6 +216,8 @@ class Levels implements ScreenManager {
       level.drawPicture(85, 372, 32, 48, "./GameAssets/ChristmasGame/OneTree.png", -1);
       // Add a coin goodie on the platform
       level.makeGoodieAsCircle(120, 404, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
+      level.makeGoodieAsCircle(100, 404, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
+
       // Platform 3
       makePlatform(5, 16, 192, 404);
       // Add a santa baddie

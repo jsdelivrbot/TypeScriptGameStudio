@@ -324,8 +324,6 @@ class LolManager {
     this.mConfig.mStore.display(index, this.mLevel);
   }
 
-  // TODO: What does quitting the game look like??
-  // With a webpage, closing the browser tab should be sufficient?
   /**
   * Quit the game
   */
@@ -434,7 +432,6 @@ class LolManager {
   /**
   * Update all timer counters associated with the current level
   */
-  // TODO: This uses PIXI.ticker, which may require some adjustments
   updateTimeCounts(): void {
     // Check the countdown timers
     if (this.mLoseCountDownRemaining != -100) {
@@ -453,26 +450,4 @@ class LolManager {
       this.mStopWatchProgress += PIXI.ticker.shared.deltaTime / 100 //Gdx.graphics.getDeltaTime();
     }
   }
-
-  // /**
-  // * Code to run when the back key is pressed, or when we are simulating a back key pressed
-  // */
-  // handleBack(): void {
-  //   // clear all timers, just in case...
-  //   Timer.instance().clear();
-  //   // if we're looking at main menu, then exit
-  //   if (mMode == SPLASH) {
-  //     // TODO: return a bool, let game dispose of itself?
-  //     mGame.dispose();
-  //     Gdx.app.exit();
-  //   }
-  //   // if we're looking at the chooser or help, switch to the splash screen
-  //   else if (mMode == CHOOSER || mMode == HELP || mMode == STORE) {
-  //     doSplash();
-  //   }
-  //   // ok, we're looking at a game scene... switch to chooser
-  //   else {
-  //     doChooser(mModeStates[CHOOSER]);
-  //   }
-  //}
 }

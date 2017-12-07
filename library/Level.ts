@@ -392,7 +392,6 @@ class Level {
   public DisplayGoodies1(): TextProducer {
     let out_this = this;
     return new (class _ implements TextProducer {
-      //@Override
       public makeText(): string {
         return "" + out_this.mGame.mManager.mGoodiesCollected[0];
       }
