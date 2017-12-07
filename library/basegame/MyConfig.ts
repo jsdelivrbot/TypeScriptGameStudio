@@ -73,7 +73,7 @@ class MyConfig extends Config {
     "https://s3.amazonaws.com/typescript-game-studio/standard/TitleTheme.mp3",
     "https://s3.amazonaws.com/typescript-game-studio/standard/AngelTheme.mp3",
     "https://s3.amazonaws.com/typescript-game-studio/standard/ChristmasTheme.mp3",
-    "https://s3.amazonaws.com/typescript-game-studio/standard/GameAssets/PlaneTheme.ogg"
+    "https://s3.amazonaws.com/typescript-game-studio/standard/PlaneTheme.ogg"
     );
 
     // don't change these lines unless you know what you are doing
