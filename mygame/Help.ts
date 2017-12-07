@@ -35,14 +35,17 @@
       // Add some help messages
       level.addStaticTextCentered(midX, 50, "Arial", 0x0000FF, 24, "INSTRUCTIONS", 0);
       level.addStaticTextCentered(midX, 100, "Arial", 0x0000FF, 24, "Sky Fight", 0);
-      level.addStaticTextCentered(midX, 150, "Arial", 0x0000FF, 24, "Drop pebbles on the bats using spacebar", 0);
-      level.addStaticTextCentered(midX, 200, "Arial", 0x0000FF, 24, "Rid the skies of all the bats before the time runs out", 0);
-      level.addStaticTextCentered(midX, 250, "Arial", 0x0000FF, 24, "Christmas Scramble", 0);
-      level.addStaticTextCentered(midX, 300, "Arial", 0x0000FF, 24, "Move with WASD", 0);
-      level.addStaticTextCentered(midX, 350, "Arial", 0x0000FF, 24, "Collect all the coins and reach the end to win", 0);
-      level.addStaticTextCentered(midX, 250, "Arial", 0x0000FF, 24, "Dodgy Plane", 0);
-      level.addStaticTextCentered(midX, 300, "Arial", 0x0000FF, 24, "Move up with spacebar, dodge the rocks", 0);
-      level.addStaticTextCentered(midX, 350, "Arial", 0x0000FF, 24, "Reach the end to win", 0);
+      level.addStaticTextCentered(midX, 130, "Arial", 0x0000FF, 24, "Drop pebbles on the bats using spacebar", 0);
+      level.addStaticTextCentered(midX, 160, "Arial", 0x0000FF, 24, "Rid the skies of all the bats before the time runs out", 0);
+
+      level.addStaticTextCentered(midX, 230, "Arial", 0x0000FF, 24, "Christmas Scramble", 0);
+      level.addStaticTextCentered(midX, 260, "Arial", 0x0000FF, 24, "Move with WASD", 0);
+      level.addStaticTextCentered(midX, 290, "Arial", 0x0000FF, 24, "Collect all the coins and reach the end to win", 0);
+      level.addStaticTextCentered(midX, 320, "Arial", 0x0000FF, 24, "Jump on santas to defeat them", 0);
+
+      level.addStaticTextCentered(midX, 390, "Arial", 0x0000FF, 24, "Dodgy Plane", 0);
+      level.addStaticTextCentered(midX, 420, "Arial", 0x0000FF, 24, "Move up with spacebar, dodge the rocks", 0);
+      level.addStaticTextCentered(midX, 450, "Arial", 0x0000FF, 24, "Reach the end to win", 0);
      }
    }
 }

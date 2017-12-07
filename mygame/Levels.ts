@@ -227,10 +227,12 @@ class Levels implements ScreenManager {
       // Add a stone decoration
       level.drawPicture(230, 388, 24, 16, "./GameAssets/ChristmasGame/Stone.png", -1);
       // Platform 4
-      makePlatform(5, 16, 280, 380);
+      makePlatform(6, 16, 280, 380);
       level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
       level.makeObstacleAsBox(344, 348, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
+      // Platform 5
       makePlatform(5, 16, 360, 396);
+      // Platform 6
       makePlatform(4, 16, 440, 380);
 
       //let dest = level.makeDestinationAsCircle();
@@ -259,7 +261,7 @@ class Levels implements ScreenManager {
     }
 
     /*
-     * LEVEL 3: This is going to be a flappy bird type game
+     * LEVEL 3: This is a jet-pack joyride type game
      */
     else if (index == 3) {
       // Add some quality theme music

@@ -4227,7 +4227,7 @@ class LolManager {
     */
     onGoodieCollected(goodie) {
         // Update goodie counts
-        for (let i = 0; i < 4; ++i) {
+        for (let i = 0; i < 4; i++) {
             this.mGoodiesCollected[i] += goodie.mScore[i];
         }
         // possibly win the level, but only if we win on goodie count and all
@@ -4731,9 +4731,6 @@ class Hero extends WorldActor {
         else if (other instanceof Goodie) {
             this.onCollideWithGoodie(other);
         }
-        if (other instanceof Goodie) {
-            this.mGame.mManager.onGoodieCollected(other);
-        }
     }
     /**
     * Dispatch method for handling Hero collisions with Destinations
@@ -4782,7 +4779,7 @@ class Hero extends WorldActor {
         else if (this.mCrawling && enemy.mDefeatByCrawl) {
             enemy.defeat(true);
         }
-        else if (this.mInAir && enemy.mDefeatByJump && this.getYPosition() + this.mSize.y < enemy.getYPosition() + enemy.mSize.y / 2) {
+        else if (this.mInAir && enemy.mDefeatByJump && this.getYPosition() + this.mSize.y <= enemy.getYPosition()) {
             enemy.defeat(true);
         }
         else if (enemy.mDamage >= this.mStrength) {
