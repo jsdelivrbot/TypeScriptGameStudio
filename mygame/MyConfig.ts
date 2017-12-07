@@ -51,12 +51,11 @@ class MyConfig extends Config {
      "./GameAssets/AngelGame/CloudBall.png", "./GameAssets/AngelGame/SkyBack.png",
      "./GameAssets/ChristmasGame/ArrowSign.png", "./GameAssets/ChristmasGame/ChristmasBack.png",
      "./GameAssets/ChristmasGame/Crate.png", "./GameAssets/ChristmasGame/GoldCoin.png",
-     "./GameAssets/ChristmasGame/IceBox.png", "./GameAssets/ChristmasGame/Igloo.png",
      "./GameAssets/ChristmasGame/LeftEndPlat.png", "./GameAssets/ChristmasGame/MiddlePlat.png",
      "./GameAssets/ChristmasGame/Miser.png", "./GameAssets/ChristmasGame/OneTree.png",
      "./GameAssets/ChristmasGame/RightEndPlat.png", "./GameAssets/ChristmasGame/Santa.png",
      "./GameAssets/ChristmasGame/SnowMan.png", "./GameAssets/ChristmasGame/Stone.png",
-     "./GameAssets/ChristmasGame/ThreeTrees.png",
+     "./GameAssets/ChristmasGame/ThreeTrees.png", "./GameAssets/ChristmasGame/Igloo.png",
      "./GameAssets/PlaneGame/Plane.png", "./GameAssets/PlaneGame/PlaneBack.png",
      "./GameAssets/PlaneGame/Ceiling.png", "./GameAssets/PlaneGame/Floor.png",
      "./GameAssets/PlaneGame/RockUp.png", "./GameAssets/PlaneGame/RockDown.png"
