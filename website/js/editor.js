@@ -9,7 +9,7 @@ $(document).ready(editorSetup());
 $("#runGameModal").on("hidden.bs.modal", function () {
     $("#runGameModalContent").empty();
     var sounds = document.getElementByTagName('audio');
-    for(i = 0l i <sounds.length; i++) sounds[i].pause();
+    for(i = 0l i <sounds.length; i++) sounds[i].remove();
 });
 
 /*
