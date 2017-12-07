@@ -5670,16 +5670,19 @@ class Levels {
             // Add some quality theme music
             level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
             // Zoom in
-            level.setZoom(0.3);
+            level.setZoom(0.4);
             // Set the gravity of the game
-            level.resetGravity(0, 85);
-            level.makeObstacleAsBox(16, 364, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png").setPassThrough(0);
+            level.resetGravity(0, 90);
+            //
+            //level.makeObstacleAsBox(16, 364, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png").setPassThrough(1);
+            level.drawPicture(16, 364, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png", -1);
             // Add a background
             level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
             // Create a hero
             let robot = level.makeHeroAsBox(32, 380 - 28, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
+            robot.setPassThrough(1);
             // Set jump power
             robot.setJumpImpulses(0, 110);
             // Set 'w' to jump (this involves using keycodes)
@@ -5688,9 +5691,9 @@ class Levels {
             // Set 'spacebar' to jump
             level.setKeyAction(32, level.jumpAction(robot, 0), null, false);
             // 'a' key to move left
-            level.setKeyAction(65, level.makeXMotionAction(robot, -60), level.makeXMotionAction(robot, 0), true);
+            level.setKeyAction(65, level.makeXMotionAction(robot, -50), level.makeXMotionAction(robot, 0), true);
             // 'd' key to move right
-            level.setKeyAction(68, level.makeXMotionAction(robot, 60), level.makeXMotionAction(robot, 0), true);
+            level.setKeyAction(68, level.makeXMotionAction(robot, 50), level.makeXMotionAction(robot, 0), true);
             // Make the camera follow our hero
             level.setCameraChase(robot);
             // Set the camera bounds

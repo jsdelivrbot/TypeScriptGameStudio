@@ -105,7 +105,7 @@ abstract class LolScene {
     this.mContainer.removeChildren();
 
     for (let i = 0; i < 5; i++) {
-      for (let a of this.mRenderables[4-i]) {
+      for (let a of this.mRenderables[i]) {
         if(a.mSprite) this.mContainer.addChild(a.mSprite);
         if(a.mText) this.mContainer.addChild(a.mText);
       }

@@ -177,15 +177,12 @@ class Levels implements ScreenManager {
 
       // Set the gravity of the game
       level.resetGravity(0, 90);
-      //
-      //level.makeObstacleAsBox(16, 364, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png").setPassThrough(1);
-      level.drawPicture(16, 364, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png", -1);
 
       // Add a background
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       // Create a hero
-      let robot: Hero = level.makeHeroAsBox(32, 380-28, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
+      let robot: Hero = level.makeHeroAsBox(32, 332, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);
       robot.setPassThrough(1);
       // Set jump power
@@ -196,9 +193,9 @@ class Levels implements ScreenManager {
       // Set 'spacebar' to jump
       level.setKeyAction(32, level.jumpAction(robot, 0), null, false);
       // 'a' key to move left
-      level.setKeyAction(65, level.makeXMotionAction(robot, -50), level.makeXMotionAction(robot, 0), true);
+      level.setKeyAction(65, level.makeXMotionAction(robot, -40), level.makeXMotionAction(robot, 0), true);
       // 'd' key to move right
-      level.setKeyAction(68, level.makeXMotionAction(robot, 50), level.makeXMotionAction(robot, 0), true);
+      level.setKeyAction(68, level.makeXMotionAction(robot, 40), level.makeXMotionAction(robot, 0), true);
       // Make the camera follow our hero
       level.setCameraChase(robot);
       // Set the camera bounds
@@ -211,10 +208,22 @@ class Levels implements ScreenManager {
       level.makeObstacleAsBox(0, 0, 1920, 1, "");
 
       // Make the starting platform
-      makePlatform(5, 16, 0, 380);
+      makePlatform(5, 16, 0, 360);
+      level.drawPicture(16, 344, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png", -1);
       // Make more platforms
       makePlatform(5, 16, 80, 420);
+      // Add a tree decoration on the platform
+      level.drawPicture(85, 396, 16, 24, "./GameAssets/ChristmasGame/OneTree.png", -1);
+      // Add a coin goodie on the platform
+      level.makeGoodieAsCircle(120, 404, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
+      // Platform 3
       makePlatform(5, 16, 192, 404);
+      // Add a santa baddie
+      let s1: Enemy = level.makeEnemyAsBox(256, 376, 17, 28, "./GameAssets/ChristmasGame/Santa.png");
+      s1.setRoute(new Route(3).to(256, 376).to(192, 376).to(256, 376), 25, true);
+      // Add a stone decoration
+      level.drawPicture(85, 396, 16, 24, "./GameAssets/ChristmasGame/Stone.png", -1);
+
       makePlatform(5, 16, 280, 380);
       level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
       level.makeObstacleAsBox(344, 348, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
