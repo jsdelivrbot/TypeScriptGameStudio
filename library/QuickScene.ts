@@ -43,9 +43,6 @@ class QuickScene extends LolScene {
     }
     /**
      * Render the QuickScene, or return false if it is not supposed to be shown
-     *
-     * @param sb    The SpriteBatch used to draw the text and pictures
-     * @param delta The time since the last render
      * @return true if the PauseScene was drawn, false otherwise
      */
     render(): boolean {

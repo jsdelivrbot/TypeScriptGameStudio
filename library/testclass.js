@@ -4723,13 +4723,13 @@ class Levels {
                 if (blocks < 1)
                     return;
                 if (blocks == 1) {
-                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setOneSided(0);
+                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png");
                     return;
                 }
-                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setOneSided(0);
-                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png").setOneSided(0);
+                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png");
+                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png");
                 for (let i = 1; i <= (blocks - 2); i++) {
-                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setOneSided(0);
+                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png");
                 }
             }
         }
@@ -4742,8 +4742,8 @@ class Levels {
             level.drawPicture(1920, 0, 962, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
             // Don't let the plane fly out of bounds!
             level.drawBoundingBox(0, 0, 960 * 3, 540, "", 1, 0, 1);
-            level.makeEnemyAsPolygon(0, 0, 960 * 3, 20, "./GameAssets/PlaneGame/Ceiling.png", [-(960 * 3) / 2, 0, (960 * 3) / 2, 0, (960 * 3) / 2, 10, -(960 * 3) / 2, 10]);
-            level.makeEnemyAsPolygon(0, 520, 960 * 3, 20, "./GameAssets/PlaneGame/Floor.png", [-(960 * 3) / 2, 540, -(960 * 3) / 2, 530, (960 * 3) / 2, 530, (960 * 3) / 2, 540]);
+            level.makeEnemyAsPolygon(0, 0, 960 * 3, 20, "./GameAssets/PlaneGame/Ceiling.png", [-(960 * 3) / 2, -10, (960 * 3) / 2, -10, (960 * 3) / 2, 5, -(960 * 3) / 2, 5]);
+            level.makeEnemyAsPolygon(0, 520, 960 * 3, 20, "./GameAssets/PlaneGame/Floor.png", [-(960 * 3) / 2, 10, -(960 * 3) / 2, 5, (960 * 3) / 2, 5, (960 * 3) / 2, 10]);
             // Don't let the camera go out of bounds!
             level.setCameraBounds(960 * 3, 540);
             // Make the plane
@@ -4938,7 +4938,7 @@ class MyConfig extends Config {
         this.mDefaultFontSize = 32;
         this.mDefaultFontColor = "#FFFFFF";
         // list the images that the game will use
-        this.mImageNames = new Array("./GameAssets/button.png", "./GameAssets/TitleBack.png", "./GameAssets/AngelGame/Angel.png", "./GameAssets/AngelGame/Bat.png", "./GameAssets/AngelGame/Bullet.png", "./GameAssets/AngelGame/CloudBall.png", "./GameAssets/AngelGame/SkyBack.png", "./GameAssets/ChristmasGame/ArrowSign.png", "./GameAssets/ChristmasGame/ChristmasBack.png", "./GameAssets/ChristmasGame/Crate.png", "./GameAssets/ChristmasGame/GoldCoin.png", "./GameAssets/ChristmasGame/IceBox.png", "./GameAssets/ChristmasGame/Igloo.png", "./GameAssets/ChristmasGame/LeftEndPlat.png", "./GameAssets/ChristmasGame/MiddlePlat.png", "./GameAssets/ChristmasGame/Miser.png", "./GameAssets/ChristmasGame/OneTree.png", "./GameAssets/ChristmasGame/RightEndPlat.png", "./GameAssets/ChristmasGame/Santa.png", "./GameAssets/ChristmasGame/SnowMan.png", "./GameAssets/ChristmasGame/Stone.png", "./GameAssets/ChristmasGame/ThreeTrees.png", "./GameAssets/PlaneGame/Plane.png", "./GameAssets/PlaneGame/PlaneBack.png", "./GameAssets/PlaneGame/Ceiling.png", "./GameAssets/PlaneGame/Floor.png", "./GameAssets/PlaneGame/RockUp.png", "./GameAssets/PlaneGame/RockDown.png");
+        this.mImageNames = new Array("./GameAssets/button.png", "./GameAssets/TitleBack.png", "./GameAssets/AngelGame/Angel.png", "./GameAssets/AngelGame/Bat.png", "./GameAssets/AngelGame/Bullet.png", "./GameAssets/AngelGame/CloudBall.png", "./GameAssets/AngelGame/SkyBack.png", "./GameAssets/ChristmasGame/ArrowSign.png", "./GameAssets/ChristmasGame/ChristmasBack.png", "./GameAssets/ChristmasGame/Crate.png", "./GameAssets/ChristmasGame/GoldCoin.png", "./GameAssets/ChristmasGame/LeftEndPlat.png", "./GameAssets/ChristmasGame/MiddlePlat.png", "./GameAssets/ChristmasGame/Miser.png", "./GameAssets/ChristmasGame/OneTree.png", "./GameAssets/ChristmasGame/RightEndPlat.png", "./GameAssets/ChristmasGame/Santa.png", "./GameAssets/ChristmasGame/SnowMan.png", "./GameAssets/ChristmasGame/Stone.png", "./GameAssets/ChristmasGame/ThreeTrees.png", "./GameAssets/ChristmasGame/Igloo.png", "./GameAssets/PlaneGame/Plane.png", "./GameAssets/PlaneGame/PlaneBack.png", "./GameAssets/PlaneGame/Ceiling.png", "./GameAssets/PlaneGame/Floor.png", "./GameAssets/PlaneGame/RockUp.png", "./GameAssets/PlaneGame/RockDown.png");
         // list the sound effects that the game will use
         this.mSoundNames = new Array("./GameAssets/AngelGame/Shooting.ogg", "./GameAssets/AngelGame/EnemyKilled.wav", "./GameAssets/ChristmasGame/MoneyGet.wav", "./GameAssets/PlaneGame/Crash.ogg");
         // list the background music files that the game will use

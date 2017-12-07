@@ -56,12 +56,6 @@ class Hero extends WorldActor {
 
   /**
   * Code to run when rendering the Hero.
-  *
-  * NB:  We can't just use the basic renderer, because we might need to adjust a one-off
-  *      animation (invincibility or throw) first
-  *
-  * @param sb    The SpriteBatch to use for drawing this hero
-  * @param delta The time since the last render
   */
   //@Override
   onRender(): void {
@@ -253,10 +247,6 @@ class Hero extends WorldActor {
     fixtures.MoveNext();
     let f = fixtures.Current();
 
-    // reset rotation of hero if this obstacle is not a sensor
-    // if ((this.mCurrentRotation != 0) && !f.IsSensor()) {
-    //   this.increaseRotation(-this.mCurrentRotation);
-    // }
     // if there is code attached to the obstacle for modifying the hero's behavior, run it
     if (o.mHeroCollision != null) {
       o.mHeroCollision.go(o, this, contact);

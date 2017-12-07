@@ -11,8 +11,6 @@ class HudScene extends LolScene {
   */
   constructor(config: Config, media: Media) {
     super(config, media);
-
-    //this.mToggleControls = new Array<SceneActor>();
   }
 
   /**
@@ -22,8 +20,6 @@ class HudScene extends LolScene {
   * @param delta The time since the last render
   */
   render() {
-    //this.mCamera.updatePosition();
-
     // Advance the physics world by 1/45 of a second (1/45 is the recommended rate)
     this.mWorld.Step(1 / 45, 8, 3);
 

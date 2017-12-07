@@ -259,9 +259,6 @@ class MainScene extends LolScene {
 
   /**
   * Draw the actors in this world
-  *
-  * @param sb    The spritebatch to use when drawing
-  * @param delta The time since the last render
   */
   render(): boolean {
     for(let zA of this.mRenderables) {

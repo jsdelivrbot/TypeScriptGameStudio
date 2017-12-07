@@ -296,8 +296,6 @@ abstract class LolScene {
   /**
    * Render this scene
    *
-   * @param sb    The SpriteBatch used to render the scene
-   * @param delta The time since the last render
    * @return True if the scene was rendered, false if it was not
    */
   abstract render(): boolean;

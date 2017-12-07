@@ -70,8 +70,8 @@ class BaseActor extends Renderable {
   * Specify that this actor should have a rectangular physics shape
   *
   * @param type Is the actor's body static or dynamic?
-  * @param x    The X coordinate of the bottom left corner, in meters
-  * @param y    The Y coordinate of the bottom left corner, in meters
+  * @param x    The X coordinate of the top left corner
+  * @param y    The Y coordinate of the top left corner
   */
   setBoxPhysics(type: PhysicsType2d.Dynamics.BodyType, x: number, y: number): void {
     let shape = new PhysicsType2d.Collision.Shapes.PolygonShape();
@@ -151,8 +151,8 @@ class BaseActor extends Renderable {
   * Specify that this actor should have a circular physics shape
   *
   * @param type   Is the actor's body static or dynamic?
-  * @param x      The X coordinate of the bottom left corner, in meters
-  * @param y      The Y coordinate of the bottom left corner, in meters
+  * @param x      The X coordinate of the top left corner
+  * @param y      The Y coordinate of the top left corner
   * @param radius The radius of the underlying circle
   */
   setCirclePhysics(type: PhysicsType2d.Dynamics.BodyType, x: number, y: number, radius: number): void {
@@ -226,9 +226,6 @@ class BaseActor extends Renderable {
   /**
   * Every time the world advances by a timestep, we call this code to update the actor route and
   * animation, and then draw the actor
-  *
-  * @param sb    The spritebatch to use in order to draw this actor
-  * @param delta The amount of time since the last render event
   */
   //@Override
   onRender() {
@@ -359,8 +356,8 @@ class BaseActor extends Renderable {
   /**
   * Change the position of an actor
   *
-  * @param x The new X position, in meters
-  * @param y The new Y position, in meters
+  * @param x The new X position, in pixels
+  * @param y The new Y position, in pixels
   */
   public setPosition(x: number, y: number): void {
     this.mBody.SetTransform(new PhysicsType2d.Vector2(x + this.mSize.x / 2, y + this.mSize.y / 2), this.mBody.GetAngle());
@@ -369,7 +366,7 @@ class BaseActor extends Renderable {
   /**
   * Returns the width of this actor
   *
-  * @return the actor's width, in meters
+  * @return the actor's width, in pixels
   */
   public getWidth(): number {
     return this.mSize.x;
@@ -378,7 +375,7 @@ class BaseActor extends Renderable {
   /**
   * Return the height of this actor
   *
-  * @return the actor's height, in meters
+  * @return the actor's height, in pixels
   */
   public getHeight(): number {
     return this.mSize.y;
@@ -387,10 +384,10 @@ class BaseActor extends Renderable {
   /**
   * Change the size of an actor, and/or change its position
   *
-  * @param x      The new X coordinate of its bottom left corner, in meters
-  * @param y      The new Y coordinate of its bototm left corner, in meters
-  * @param width  The new width of the actor, in meters
-  * @param height The new height of the actor, in meters
+  * @param x      The new X coordinate of its top left corner, in pixels
+  * @param y      The new Y coordinate of its top left corner, in pixels
+  * @param width  The new width of the actor, in pixels
+  * @param height The new height of the actor, in pixels
   */
   public resize(x: number, y: number, width: number, height: number): void {
     // set new height and width
@@ -484,7 +481,7 @@ class BaseActor extends Renderable {
   /**
   * Returns the X velocity of of this actor
   *
-  * @return Velocity in X dimension, in meters per second
+  * @return Velocity in X dimension, in pixels per second
   */
   public getXVelocity(): number {
     return this.mBody.GetLinearVelocity().x;
@@ -493,7 +490,7 @@ class BaseActor extends Renderable {
   /**
   * Returns the Y velocity of of this actor
   *
-  * @return Velocity in Y dimension, in meters per second
+  * @return Velocity in Y dimension, in pixels per second
   */
   public getYVelocity(): number {
     return this.mBody.GetLinearVelocity().y;

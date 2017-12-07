@@ -24,8 +24,6 @@ class ProjectilePool {
   mRotateVectorThrow: boolean;
   /// Index of next available projectile in the pool
   private mNextIndex: number;
-  /// For choosing random images for the projectiles
-  //mRandomizeImages: boolean;
   /// Sound to play when projectiles are thrown
   mThrowSound: Sound;
   /// The sound to play when a projectile disappears
@@ -96,8 +94,6 @@ class ProjectilePool {
     let b: Projectile = this.mPool[this.mNextIndex];
     this.mNextIndex = (this.mNextIndex + 1) % this.mPoolSize;
     b.setCollisionsEnabled(!this.mSensorProjectiles);
-    // if (this.mRandomizeImages)
-    //     b.mAnimator.updateIndex(this.mLevel.mGenerator);
 
     // calculate offset for starting position of projectile, put it on screen
     b.mRangeFrom.x = h.getXPosition() + offsetX;
@@ -106,7 +102,7 @@ class ProjectilePool {
     b.mSprite.visible = true;
     b.mBody.SetTransform(b.mRangeFrom, 0);
 
-    // give the projectile velocity, show it, play sound, animate the hero
+    // give the projectile velocity, show it, and play sound
     b.updateVelocity(velocityX, velocityY);
     b.mEnabled = true;
     if (this.mThrowSound)
@@ -122,11 +118,11 @@ class ProjectilePool {
   * @param toX     x coordinate of the point at which to throw
   * @param toY     y coordinate of the point at which to throw
   * @param h       The hero who is performing the throw
-  * @param offsetX specifies the x distance between the bottom left of the
-  *                projectile and the bottom left of the hero throwing the
+  * @param offsetX specifies the x distance between the top left of the
+  *                projectile and the top left of the hero throwing the
   *                projectile
-  * @param offsetY specifies the y distance between the bottom left of the
-  *                projectile and the bottom left of the hero throwing the
+  * @param offsetY specifies the y distance between the top left of the
+  *                projectile and the top left of the hero throwing the
   *                projectile
   */
   throwAt(heroX: number, heroY: number, toX: number, toY: number, h: Hero,
@@ -185,6 +181,5 @@ class ProjectilePool {
     if (this.mThrowSound)
     this.mThrowSound.play();
     b.mDisappearSound = this.mProjectileDisappearSound;
-    //h.doThrowAnimation();
   }
 }

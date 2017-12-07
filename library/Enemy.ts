@@ -7,7 +7,7 @@
 class Enemy extends WorldActor {
     /// Amount of damage this enemy does to a hero on a collision. The default is 2, so that an
     /// enemy will defeat a hero and not disappear.
-    mDamage: number; //int
+    mDamage: number;
     /// Message to display when this enemy defeats the last hero
     mOnDefeatHeroText: string;
     /// Does a crawling hero automatically defeat this enemy?
@@ -36,16 +36,16 @@ class Enemy extends WorldActor {
         this.mOnDefeatHeroText = "";
     }
 
-    // /**
-    //  * Code to run when an Enemy collides with a WorldActor.
-    //  * <p>
-    //  * Based on our WorldActor numbering scheme, the only concerns are collisions with Obstacles
-    //  * and Projectiles
-    //  *
-    //  * @param other   Other actor involved in this collision
-    //  * @param contact A description of the collision
-    //  */
-    // @Override
+    /**
+     * Code to run when an Enemy collides with a WorldActor.
+     * <p>
+     * Based on our WorldActor numbering scheme, the only concerns are collisions with Obstacles
+     * and Projectiles
+     *
+     * @param other   Other actor involved in this collision
+     * @param contact A description of the collision
+     */
+    //@Override
     onCollide(other: WorldActor, contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
         // collision with obstacles
         if (other instanceof Obstacle)

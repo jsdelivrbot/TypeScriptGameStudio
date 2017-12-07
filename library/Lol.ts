@@ -37,7 +37,7 @@ class Lol {
 
       // Create the level manager, and instruct it to transition to the Splash screen
       this.mManager = new LolManager(this.mConfig, this.mMedia, this);
-      // Make sure all textures are loaded
+      // This makes sure all textures are loaded before we show the splash screen
       PIXI.loader.load(() => this.mManager.doSplash());
   }
 
@@ -51,15 +51,18 @@ class Lol {
 
     // Make sure the music is playing... Note that we start music before the PreScene shows
     this.mManager.mWorld.playMusic();
-    // Adjust camera if it needs to follow an actor
+    // Adjust camera in case it is following an actor
     this.mManager.mWorld.adjustCamera();
     this.mManager.mWorld.render();
     this.mManager.mHud.render();
+    // Render everything using the PIXI renderer
     this.mRenderer.render(this.mManager.mContainer);
+    // Execute any one time events
     this.mManager.mWorld.mOneTimeEvents.forEach((pe) => {
       if(pe.mIsActive)
         pe.go();
     });
+    // This empties the list so we don't execute the events again
     this.mManager.mWorld.mOneTimeEvents.length = 0;
 
     this.mManager.mWorld.mRepeatEvents.forEach((pe) => {

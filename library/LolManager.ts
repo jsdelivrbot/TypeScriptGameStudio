@@ -41,10 +41,6 @@ class LolManager {
   mLoseScene: QuickScene;
   /// The scene to show when the level is paused (if any)
   mPauseScene: QuickScene;
-  /// The background layers
-  // mBackground: ParallaxScene;
-  /// The foreground layers
-  // mForeground: ParallaxScene;
 
   /// Store string/integer pairs that get reset whenever we restart the program, but which persist
   /// across levels
@@ -131,9 +127,6 @@ class LolManager {
     for (let i = 0; i < 5; ++i)
     this.mModeStates[i] = 1;
     this.resetScores();
-
-    //
-    // this.mGoodiesCollected = new Array<number>();
   }
 
   /**
@@ -166,16 +159,15 @@ class LolManager {
   * Create all scenes for a playable level.
   */
   private createScenes(): void {
-    // Create the easy scenes
+    // Create the main scene and hud
     this.mWorld = new MainScene(this.mConfig, this.mMedia);
     this.mHud = new HudScene(this.mConfig, this.mMedia);
 
     this.mContainer = new PIXI.Container();
+    // All of a scene's renderables should be in its camera's container
     this.mContainer.addChild(this.mWorld.mCamera.mContainer);
     this.mContainer.addChild(this.mHud.mCamera.mContainer);
   }
-
-
 
   /**
   * Before we call programmer code to load a new scene, we call this to ensure that everything is
@@ -190,9 +182,6 @@ class LolManager {
 
     this.mWorld.pauseMusic();
     this.createScenes();
-    // When debug mode is on, print the frames per second
-    // if (this.mConfig.mShowDebugBoxes)
-    //   this.mLevel.addDisplay(800, 15, mConfig.mDefaultFontFace, mConfig.mDefaultFontColor, 12, "fps: ", "", mLevel.DisplayFPS, 2);
   }
 
   // /**
@@ -326,7 +315,6 @@ class LolManager {
   */
   doQuit(): void {
     this.mWorld.stopMusic();
-    //Gdx.app.exit();
   }
 
 
@@ -432,19 +420,19 @@ class LolManager {
   updateTimeCounts(): void {
     // Check the countdown timers
     if (this.mLoseCountDownRemaining != -100) {
-      this.mLoseCountDownRemaining -= (PIXI.ticker.shared.deltaTime / 100);  //Gdx.graphics.getDeltaTime();
+      this.mLoseCountDownRemaining -= (PIXI.ticker.shared.deltaTime / 100);
       if (this.mLoseCountDownRemaining < 0) {
         this.endLevel(false);
       }
     }
     if (this.mWinCountRemaining != -100) {
-      this.mWinCountRemaining -= PIXI.ticker.shared.deltaTime / 100;  //Gdx.graphics.getDeltaTime();
+      this.mWinCountRemaining -= PIXI.ticker.shared.deltaTime / 100;
       if (this.mWinCountRemaining < 0) {
         this.endLevel(true);
       }
     }
     if (this.mStopWatchProgress != -100) {
-      this.mStopWatchProgress += PIXI.ticker.shared.deltaTime / 100 //Gdx.graphics.getDeltaTime();
+      this.mStopWatchProgress += PIXI.ticker.shared.deltaTime / 100;
     }
   }
 }

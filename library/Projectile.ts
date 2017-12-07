@@ -42,7 +42,7 @@ class Projectile extends WorldActor {
         this.disableRotation();
         this.mScene.addActor(this, zIndex);
         this.mDisappearOnCollide = true;
-        //NB: in physicstype2d, Vector2 constructor must take two arguments
+        // In physicstype2d, Vector2 must take two arguments
         this.mRangeFrom = new PhysicsType2d.Vector2(0, 0);
         this.mRange = 1000;
     }
@@ -84,9 +84,6 @@ class Projectile extends WorldActor {
     /**
      * When drawing a projectile, we first check if it is too far from its starting point. We only
      * draw it if it is not.
-     *
-     * @param sb    The SpriteBatch to use for drawing this hero
-     * @param delta The time since the last render
      */
     //@Override
     public onRender(): void {

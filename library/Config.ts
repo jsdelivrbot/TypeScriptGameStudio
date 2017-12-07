@@ -6,9 +6,9 @@
 * A programmer should extend Config, and change these values in their class constructor.
 */
 class Config {
-  /// The default screen width (note: it will be stretched to fill the phone screen)
+  /// The default game width
   public mWidth: number;
-  /// The default screen height (note: it will be stretched to fill the phone screen)
+  /// The default game height
   public mHeight: number;
 
   /// The game title.

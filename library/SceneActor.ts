@@ -9,8 +9,8 @@ class SceneActor extends BaseActor {
   *
   * @param scene   The scene into which this actor should be placed
   * @param imgName The image to show for this actor
-  * @param width   The width of the actor's image and body, in meters
-  * @param height  The height of the actor's image and body, in meters
+  * @param width   The width of the actor's image and body, in pixels
+  * @param height  The height of the actor's image and body, in pixels
   */
   constructor(scene: LolScene, imgName: string, width: number, height: number) {
     super(scene, imgName, width, height);
