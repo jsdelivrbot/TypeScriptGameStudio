@@ -17,7 +17,7 @@ class Levels implements ScreenManager {
     /*
      * For all levels we want a button to go back to the menu
      */
-    level.addDisplay(895, 500, "Arial", "0x0000FF", 16, "", "", level.DisplayFixedText("Quit"), 2);
+    level.addDisplay(900, 500, "Arial", "0x0000FF", 16, "", "", level.DisplayFixedText("Quit"), 2);
     level.addTapControl(890, 500, 50, 20, "./GameAssets/button.png", new (class _ extends LolAction {
       public go(): boolean {
         level.doChooser(1);
