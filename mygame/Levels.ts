@@ -1,5 +1,4 @@
 /// <reference path="../library/ScreenManager.ts"/>
-/// <reference path="../library/Hero.ts"/>
 
 /**
 * Levels is where all of the code goes for describing the different levels of
@@ -18,7 +17,7 @@ class Levels implements ScreenManager {
     /*
      * For all levels we want a button to go back to the menu
      */
-    level.addDisplay(890, 500, "Arial", "0x0000FF", 16, "", "", level.DisplayFixedText("Quit"), 2);
+    level.addDisplay(895, 500, "Arial", "0x0000FF", 16, "", "", level.DisplayFixedText("Quit"), 2);
     level.addTapControl(890, 500, 50, 20, "./GameAssets/button.png", new (class _ extends LolAction {
       public go(): boolean {
         level.doChooser(1);
@@ -61,10 +60,6 @@ class Levels implements ScreenManager {
       level.configureProjectiles(10, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
       // spacebar to shoot, you have to wait 0.8 seconds between throws
       level.setKeyAction(32, level.makeRepeatThrow(h, 800, 24, 24, 0, 10), null, true);
-      // click to shoot
-      //level.setFixedVectorThrowVelocityForProjectiles(150);
-      //level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
-      //level.setProjectileVectorDampeningFactor(0.5);
       level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
       level.setProjectileRange(540);
       level.setProjectileGravityOn();
@@ -194,7 +189,7 @@ class Levels implements ScreenManager {
       // Create a hero
       let robot: Hero = level.makeHeroAsBox(32, 332, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);
-      robot.setCameraOffset(-10, 10)
+      robot.setCameraOffset(20, -20)
       // Set jump power
       robot.setJumpImpulses(0, 110);
       // Set 'w' to jump (this involves using keycodes)
