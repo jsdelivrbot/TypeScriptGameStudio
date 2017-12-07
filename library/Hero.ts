@@ -2,10 +2,6 @@
 /// <reference path="./Obstacle.ts"/>
 /// <reference path="./Destination.ts"/>
 /// <reference path="./LolActorEvent.ts"/>
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
-
 
 /**
 * The Hero is the focal point of a game. While it is technically possible to have many heroes, or
@@ -26,15 +22,6 @@ class Hero extends WorldActor {
 
   /// Time until the hero's invincibility runs out
   private mInvincibleRemaining: number;
-  /// cells involved in animation for invincibility
-  //private mInvincibleAnimation: Animation;
-
-  /// cells involved in animation for throwing
-  //private mThrowAnimation: Animation;
-  /// seconds that constitute a throw action
-  //private mThrowAnimateTotalLength: number;
-  /// how long until we stop showing the throw animation
-  //private mThrowAnimationTimeRemaining: number;
 
   /// Track if the hero is in the air, so that it can't jump when it isn't touching anything. This
   /// does not quite work as desired, but is good enough for LOL
@@ -45,13 +32,9 @@ class Hero extends WorldActor {
   private mAllowMultiJump: boolean;
   /// Sound to play when a jump occurs
   private mJumpSound: Sound;
-  /// cells involved in animation for jumping
-  //private mJumpAnimation: Animation;
 
   /// Is the hero currently in crawl mode?
   private mCrawling: boolean;
-  /// cells involved in animation for crawling
-  //private mCrawlAnimation: Animation;
 
   /// For tracking the current amount of rotation of the hero
   private mCurrentRotation: number;
@@ -82,24 +65,6 @@ class Hero extends WorldActor {
   */
   //@Override
   onRender(): void {
-    // determine when to turn off throw animations
-    // if (mThrowAnimationTimeRemaining > 0) {
-    //   mThrowAnimationTimeRemaining -= delta;
-    //   if (mThrowAnimationTimeRemaining <= 0) {
-    //     mThrowAnimationTimeRemaining = 0;
-    //     mAnimator.setCurrentAnimation(mDefaultAnimation);
-    //   }
-    // }
-    //
-    // // determine when to turn off invincibility and cease invincibility animation
-    // if (mInvincibleRemaining > 0) {
-    //   mInvincibleRemaining -= delta;
-    //   if (mInvincibleRemaining <= 0) {
-    //     mInvincibleRemaining = 0;
-    //     if (mInvincibleAnimation != null)
-    //     mAnimator.setCurrentAnimation(mDefaultAnimation);
-    //   }
-    // }
     super.onRender();
   }
 
@@ -118,13 +83,9 @@ class Hero extends WorldActor {
     if (!this.mAllowMultiJump) {
       this.mInAir = true;
     }
-    // if (this.mJumpAnimation != null)
-    //     this.mAnimator.setCurrentAnimation(this.mJumpAnimation);
     if (this.mJumpSound != null) {
         this.mJumpSound.play();
     }
-    // suspend creation of sticky joints, so the hero can actually move
-    // this.mStickyDelay = System.currentTimeMillis() + 10;
   }
 
   /**
@@ -136,16 +97,6 @@ class Hero extends WorldActor {
       // this.mAnimator.setCurrentAnimation(this.mDefaultAnimation);
     }
   }
-
-  // /**
-  // * Make the hero's throw animation play while it is throwing a projectile
-  // */
-  // void doThrowAnimation() {
-  //   if (mThrowAnimation != null) {
-  //     mAnimator.setCurrentAnimation(mThrowAnimation);
-  //     mThrowAnimationTimeRemaining = mThrowAnimateTotalLength;
-  //   }
-  // }
 
   /**
   * Put the hero in crawl mode. Note that we make the hero rotate when it is crawling
@@ -410,15 +361,6 @@ class Hero extends WorldActor {
     })();
   }
 
-  // /**
-  //  * Register an animation sequence for when the hero is jumping
-  //  *
-  //  * @param animation The animation to display
-  //  */
-  // public setJumpAnimation(Animation animation): void {
-  //     mJumpAnimation = animation;
-  // }
-
   /**
    * Set the sound to play when a jump occurs
    *
@@ -427,36 +369,6 @@ class Hero extends WorldActor {
   public setJumpSound(soundName: string): void {
       this.mJumpSound = this.mScene.mMedia.getSound(soundName);
   }
-
-  // /**
-  //  * Register an animation sequence for when the hero is throwing a projectile
-  //  *
-  //  * @param animation The animation to display
-  //  */
-  // public void setThrowAnimation(Animation animation) {
-  //     mThrowAnimation = animation;
-  //     // compute the length of the throw sequence, so that we can get our
-  //     // timer right for restoring the default animation
-  //     mThrowAnimateTotalLength = animation.getDuration() / 1000;
-  // }
-
-  // /**
-  //  * Register an animation sequence for when the hero is crawling
-  //  *
-  //  * @param animation The animation to display
-  //  */
-  // public void setCrawlAnimation(Animation animation) {
-  //     mCrawlAnimation = animation;
-  // }
-
-  // /**
-  //  * Register an animation sequence for when the hero is invincible
-  //  *
-  //  * @param a The animation to display
-  //  */
-  // public void setInvincibleAnimation(Animation a) {
-  //     mInvincibleAnimation = a;
-  // }
 
   /**
    * Indicate that the level should end immediately if this hero is defeated

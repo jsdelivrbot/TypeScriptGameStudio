@@ -29,8 +29,6 @@ class MyConfig extends Config {
     // The size of the screen, and some game behavior configuration
     this.mWidth = 960;
     this.mHeight = 540;
-    this.mPixelMeterRatio = 20;
-    this.mEnableVibration = true;
     this.mGameTitle = "Micah's Basic Game";
     this.mDefaultWinText = "Good Job";
     this.mDefaultLoseText = "Try Again";

@@ -1,9 +1,5 @@
 /// <reference path="./WorldActor.ts"/>
 /// <reference path="./MainScene.ts"/>
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
-
 
 /**
  * Projectiles are actors that can be thrown from the hero's location in order to remove enemies.
@@ -14,12 +10,12 @@ class Projectile extends WorldActor {
     /// We have to be careful in side-scrolling games, or else projectiles can continue traveling
     // off-screen forever. This field lets us cap the distance away from the hero that a projectile
     // can travel before we make it disappear.
-    mRange: number; //float
+    mRange: number;
     /// When projectiles collide, and they are not sensors, one will disappear. We can keep both on
     // screen by setting this false
     mDisappearOnCollide: boolean;
     /// How much damage does this projectile do?
-    mDamage: number; //int
+    mDamage: number;
 
     /**
      * Create a projectile, and give it a physics body

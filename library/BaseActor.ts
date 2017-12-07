@@ -223,19 +223,6 @@ class BaseActor extends Renderable {
   breakJoints(): void {
   }
 
-
-  // /**
-  //  * When this actor is touched, play its mTouchSound and then execute its mTapHandler
-  //  *
-  //  * @param touchVec The coordinates of the touch, in meters
-  //  * @return True if the event was handled, false otherwise
-  //  */
-  // boolean onTap(Vector3 touchVec) {
-  //     if (mTouchSound != null)
-  //         mTouchSound.play(Lol.getGameFact(mScene.mConfig, "volume", 1));
-  //     return mTapHandler != null && mTapHandler.go(touchVec.x, touchVec.y);
-  // }
-
   /**
   * Every time the world advances by a timestep, we call this code to update the actor route and
   * animation, and then draw the actor
@@ -288,14 +275,12 @@ class BaseActor extends Renderable {
     this.mBody.ResetMassData();
   }
 
-
   /**
   * Indicate that this actor should be immune to the force of gravity
   */
   public setGravityDefy(): void {
     this.mBody.SetGravityScale(0);
   }
-
 
   /**
   * Ensure that an actor is subject to gravitational forces.
@@ -399,7 +384,6 @@ class BaseActor extends Renderable {
     return this.mSize.y;
   }
 
-
   /**
   * Change the size of an actor, and/or change its position
   *
@@ -445,7 +429,6 @@ class BaseActor extends Renderable {
     oldBody.SetActive(false);
   }
 
-
   /**
   * Use this to find the current rotation of an actor
   *
@@ -454,7 +437,6 @@ class BaseActor extends Renderable {
   public getRotation(): number {
     return this.mBody.GetAngle();
   }
-
 
   /**
   * Call this on an actor to rotate it. Note that this works best on boxes.
@@ -497,18 +479,6 @@ class BaseActor extends Renderable {
     // play a sound when we remove this actor?
      if (this.mDisappearSound && !quiet)
          this.mDisappearSound.play();
-
-    // To do a disappear animation after we've removed the actor, we draw an actor, so that
-    // we have a clean hook into the animation system, but we disable its physics
-    //  if (this.mDisappearAnimation != null) {
-    //      float x = getXPosition() + mDisappearAnimateOffset.x;
-    //      float y = getYPosition() + mDisappearAnimateOffset.y;
-    //      BaseActor o = new BaseActor(mScene, "", mDisappearAnimateSize.x, mDisappearAnimateSize.y);
-    //      o.setBoxPhysics(BodyDef.BodyType.StaticBody, x, y);
-    //      mScene.addActor(o, 0);
-    //      o.mBody.setActive(false);
-    //      o.setDefaultAnimation(mDisappearAnimation);
-    //  }
   }
 
   /**
@@ -582,40 +552,6 @@ class BaseActor extends Renderable {
     this.mBody.SetAngularDamping(amount);
   }
 
-  //  /**
-  //   * Specify some code to run when this actor is tapped
-  //   *
-  //   * @param handler The TouchEventHandler to run in response to the tap
-  //   */
-  //  public void setTapCallback(TouchEventHandler handler) {
-  //      mTapHandler = handler;
-  //  }
-
-  //  /**
-  //   * Specify some code to run while this actor is down-pressed and when it is released
-  //   *
-  //   * @param whileDownAction The code to run for as long as the actor is being pressed
-  //   * @param onUpAction      The code to run when the actor is released
-  //   */
-  //  public void setToggleCallback(final LolAction whileDownAction, final LolAction onUpAction) {
-  //      whileDownAction.mIsActive = false;
-  //
-  //      // set up the toggle behavior
-  //      mToggleHandler = new ToggleEventHandler() {
-  //          public boolean go(boolean isUp, float worldX, float worldY) {
-  //              if (isUp) {
-  //                  whileDownAction.mIsActive = false;
-  //                  if (onUpAction != null)
-  //                      onUpAction.go();
-  //              } else {
-  //                  whileDownAction.mIsActive = true;
-  //              }
-  //              return true;
-  //          }
-  //      };
-  //      mScene.mRepeatEvents.add(whileDownAction);
-  //  }
-
   /**
   * Request that this actor moves according to a fixed route
   *
@@ -632,15 +568,6 @@ class BaseActor extends Renderable {
     // Create a Driver to advance the actor's position according to the route
     this.mRoute = new Route.Driver(route, velocity, loop, this);
   }
-
-  //  /**
-  //   * Request that a sound plays whenever the player touches this actor
-  //   *
-  //   * @param sound The name of the sound file to play
-  //   */
-  //  public void setTouchSound(String sound) {
-  //      mTouchSound = mScene.mMedia.getSound(sound);
-  //  }
 
    /**
     * Request that a sound plays whenever this actor disappears
@@ -675,40 +602,6 @@ class BaseActor extends Renderable {
     this.mScene.addActor(this, this.mZIndex);
   }
 
-  //  /**
-  //   * Set the default animation sequence for this actor, and start playing it
-  //   *
-  //   * @param animation The animation to display
-  //   */
-  //  public void setDefaultAnimation(Animation animation) {
-  //      mDefaultAnimation = animation;
-  //      mAnimator.setCurrentAnimation(mDefaultAnimation);
-  //  }
-  //
-  //  /**
-  //   * Set the animation sequence to use when the actor is moving in the negative X direction
-  //   *
-  //   * @param animation The animation to display
-  //   */
-  //  public void setDefaultReverseAnimation(Animation animation) {
-  //      mDefaultReverseAnimation = animation;
-  //  }
-
-  //  /**
-  //   * Set the animation sequence to use when the actor is removed from the world
-  //   *
-  //   * @param animation The animation to display
-  //   * @param offsetX   Distance between the animation and the left side of the actor
-  //   * @param offsetY   Distance between the animation and the bottom of the actor
-  //   * @param width     The width of the animation, in case it's not the same as the actor width
-  //   * @param height    The height of the animation, in case it's not the same as the actor height
-  //   */
-  //  public void setDisappearAnimation(Animation animation, float offsetX, float offsetY, float width, float height) {
-  //      mDisappearAnimation = animation;
-  //      mDisappearAnimateOffset.set(offsetX, offsetY);
-  //      mDisappearAnimateSize.set(width, height);
-  //  }
-
   /**
   * Set a time that should pass before this actor appears on the screen
   *
@@ -736,44 +629,6 @@ class BaseActor extends Renderable {
     }, delay);
   }
 
-  //  /**
-  //   * Indicate that this actor should shrink over time.  Note that using negative values will lead
-  //   * to growing instead of shrinking.
-  //   *
-  //   * @param shrinkX      The number of meters by which the X dimension should shrink each second
-  //   * @param shrinkY      The number of meters by which the Y dimension should shrink each second
-  //   * @param keepCentered Should the actor's center point stay the same as it shrinks, or should
-  //   *                     its bottom left corner stay in the same position
-  //   */
-  //  public void setShrinkOverTime(final float shrinkX, final float shrinkY, final boolean keepCentered) {
-  //      // NB: we shrink 20 times per second
-  //      final Timer.Task t = new Timer.Task() {
-  //          @Override
-  //          public void run() {
-  //              if (mEnabled) {
-  //                  float x, y;
-  //                  if (keepCentered) {
-  //                      x = getXPosition() + shrinkX / 20 / 2;
-  //                      y = getYPosition() + shrinkY / 20 / 2;
-  //                  } else {
-  //                      x = getXPosition();
-  //                      y = getYPosition();
-  //                  }
-  //                  float w = mSize.x - shrinkX / 20;
-  //                  float h = mSize.y - shrinkY / 20;
-  //                  // if the area remains >0, resize it and schedule a timer to run again
-  //                  if ((w > 0.05f) && (h > 0.05f)) {
-  //                      resize(x, y, w, h);
-  //                      Timer.schedule(this, .05f);
-  //                  } else {
-  //                      remove(false);
-  //                  }
-  //              }
-  //          }
-  //      };
-  //      Timer.schedule(t, .05f);
-  //  }
-
   /**
   * Indicate that this actor's rotation should change in response to its direction of motion
   */
@@ -791,23 +646,4 @@ class BaseActor extends Renderable {
       }
     })());
   }
-
-
-  //  /**
-  //   * Specify that a limited amount of the actor should be displayed (image clipping)
-  //   *
-  //   * @param x The starting X position of the displayed portion, as a fraction from 0 to 1
-  //   * @param y The starting Y position of the displayed portion, as a fraction from 0 to 1
-  //   * @param w The width to display, as a fraction from 0 to 1
-  //   * @param h The height to display, as a fraction from 0 to 1
-  //   */
-  //  public void setFlipAndClipRatio(float x, float y, float w, float h) {
-  //      if (mClippingBL == null) {
-  //          mClippingBL = new Vector2(x, y);
-  //          mClippingWH = new Vector2(w, h);
-  //      } else {
-  //          mClippingBL.set(x, y);
-  //          mClippingWH.set(w, h);
-  //      }
-  //  }
 }

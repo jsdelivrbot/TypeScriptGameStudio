@@ -6,9 +6,6 @@
 /// <reference path="./QuickScene.ts"/>
 /// <reference path="./Media.ts"/>
 /// <reference path="./Lol.ts"/>
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
 
 /**
 * These are the ways you can complete a level: you can reach the destination, you can collect

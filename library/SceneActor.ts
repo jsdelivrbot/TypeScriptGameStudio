@@ -1,23 +1,8 @@
 /// <reference path="./BaseActor.ts"/>
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
 
 class SceneActor extends BaseActor {
   /// Should we run code when this actor is touched?
   mIsTouchable: boolean;
-
-  /// callback when this actor receives a pan event
-  //mPanHandler: PanEventHandler;
-
-  /// callback when this actor receives a pan stop event
-  //TouchEventHandler mPanStopHandler;
-
-  /// callback when this actor receives a zoom event
-  //TouchEventHandler mZoomHandler;
-
-  /// callback when this actor receives a Down event
-  //TouchEventHandler mDownHandler;
 
   /**
   * Construct a SceneActor, but do not give it any physics yet

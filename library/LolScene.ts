@@ -1,9 +1,5 @@
 /// <reference path="./Camera.ts" />
 /// <reference path="./LolAction.ts" />
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
-// ^this isn't working properly right now
 
 /**
  * LolScene is the parent of all Scene types
@@ -34,15 +30,8 @@ abstract class LolScene {
   /// We use this to avoid garbage collection when converting screen touches to camera coordinates
   readonly mCamBound: PhysicsType2d.Vector2;
 
-  /// This callback is used to get a touched actor from the physics world
-  //final mTouchCallback: QueryCallback;
   /// When there is a touch of an actor in the physics world, this is how we find it
   mHitActor: BaseActor
-
-  /// Use this for determining bounds of text boxes
-  //private final mGlyphLayout: GlyphLayout;
-  /// Actions that run in response to a screen tap
-  //final mTapHandlers: ArrayList<TouchEventHandler>;
 
   /// Events that get processed on the next render, then discarded
   readonly mOneTimeEvents: Array<LolAction>;

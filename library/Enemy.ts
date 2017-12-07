@@ -1,7 +1,4 @@
 /// <reference path="./WorldActor.ts"/>
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
 
 /**
  * Enemies are things to be avoided or defeated by the Hero. Enemies do damage to heroes when they
@@ -160,27 +157,13 @@ class Enemy extends WorldActor {
       this.mAlwaysDoesDamage = true;
   }
 
-    // /**
-    //  * Indicate that if the player touches this enemy, the enemy will be removed from the game
-    //  */
-    // public void setDisappearOnTouch() {
-    //     mTapHandler = new TouchEventHandler() {
-    //         public boolean go(float worldX, float worldY) {
-    //             Lol.vibrate(mScene.mConfig, 100);
-    //             defeat(true);
-    //             mTapHandler = null;
-    //             return true;
-    //         }
-    //     };
-    // }
-
-    /**
-     * Provide code to run when this Enemy is defeated
-     *
-     * @param callback The callback to run when the enemy is defeated.  Note that a value of
-     *                 <code>null</code> will remove a previously-set callback
-     */
-    public setDefeatCallback(callback: LolActorEvent): void {
-        this.mDefeatCallback = callback;
-    }
+  /**
+  * Provide code to run when this Enemy is defeated
+  *
+  * @param callback The callback to run when the enemy is defeated.  Note that a value of
+  *                 <code>null</code> will remove a previously-set callback
+  */
+  public setDefeatCallback(callback: LolActorEvent): void {
+    this.mDefeatCallback = callback;
+  }
 }

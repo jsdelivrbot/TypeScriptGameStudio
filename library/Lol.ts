@@ -1,8 +1,5 @@
 /// <reference path="./LolManager.ts"/>
 /// <reference path="./LolScene.ts"/>
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
 
 class Lol {
   /// The Manager object handles scores, screen management, and transitions among screens
@@ -20,16 +17,14 @@ class Lol {
   }
 
   /**
-   * Instead of using Gdx.app.log directly, and potentially writing a lot of debug info in a
-   * production setting, we use this to only dump to the log when debug mode is on
+   * We use this to write messages to the console
    *
    * @param config The game-wide configuration
    * @param tag    The message tag
    * @param text   The message text
    */
   static message(config: Config, tag: string, text: string): void {
-      if (config.mShowDebugBoxes)
-          console.log(tag + " " +  text);
+    console.log(tag + " " +  text);
   }
 
   /**

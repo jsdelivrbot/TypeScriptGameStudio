@@ -20,10 +20,10 @@ class Media {
         this.mSounds = new Map<string, Sound>();
         this.mTunes = new Map<string, Sound>();
         for (let imgName of config.mImageNames) {
-            //let texture: PIXI.Texture
-
-            //PIXI has a built-in image loader
+            // PIXI has a built-in image loader
             PIXI.loader.add(imgName);
+
+            //let texture: PIXI.Texture
             //this.mImages.set(imgName, texture);
         }
         //PIXI.loader.load();
@@ -65,22 +65,4 @@ class Media {
         }
         return ret;
     }
-
-    // /**
-    //  * Get a previously loaded image
-    //  *
-    //  * @param imgName Name of the image file to retrieve
-    //  * @return a TextureRegion object that can be used to create Actors
-    //  */
-    // TextureRegion getImage(String imgName) {
-    //     // don't give an error for "", since it's probably intentional
-    //     if (imgName.equals("")) {
-    //         return null;
-    //     }
-    //     TextureRegion ret = mImages.get(imgName);
-    //     if (ret == null) {
-    //         Lol.message(mConfig, "ERROR", "Error retrieving image '" + imgName + "'");
-    //     }
-    //     return ret;
-    // }
 }
