@@ -295,14 +295,14 @@ class Levels implements ScreenManager {
         if (blocks < 1)
           return;
         if (blocks == 1) {
-          level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setOneSided(0);
+          level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png");
           return
         }
-        level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setOneSided(0);
-        level.makeObstacleAsBox(posX + width*(blocks-1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png").setOneSided(0);
+        level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png");
+        level.makeObstacleAsBox(posX + width*(blocks-1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png");
 
         for (let i = 1; i <= (blocks - 2); i++) {
-          level.makeObstacleAsBox(posX + width*i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setOneSided(0);
+          level.makeObstacleAsBox(posX + width*i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png");
         }
       }
     }
@@ -319,8 +319,8 @@ class Levels implements ScreenManager {
       level.drawPicture(1920, 0, 962, 540, "./GameAssets/PlaneGame/PlaneBack.png", -2);
       // Don't let the plane fly out of bounds!
       level.drawBoundingBox(0, 0, 960*3, 540, "", 1, 0, 1);
-      level.makeEnemyAsPolygon(0, 0, 960*3, 20, "./GameAssets/PlaneGame/Ceiling.png", [-(960*3)/2,0, (960*3)/2,0, (960*3)/2,10, -(960*3)/2,10]);
-      level.makeEnemyAsPolygon(0, 520, 960*3, 20, "./GameAssets/PlaneGame/Floor.png", [-(960*3)/2,540, -(960*3)/2,530, (960*3)/2,530, (960*3)/2,540]);
+      level.makeEnemyAsPolygon(0, 0, 960*3, 20, "./GameAssets/PlaneGame/Ceiling.png", [-(960*3)/2,-10, (960*3)/2,-10, (960*3)/2,5, -(960*3)/2,5]);
+      level.makeEnemyAsPolygon(0, 520, 960*3, 20, "./GameAssets/PlaneGame/Floor.png", [-(960*3)/2,10, -(960*3)/2,5, (960*3)/2,5, (960*3)/2,10]);
       // Don't let the camera go out of bounds!
       level.setCameraBounds(960*3, 540);
       // Make the plane
