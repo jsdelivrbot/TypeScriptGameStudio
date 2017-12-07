@@ -2184,9 +2184,6 @@ class WorldActor extends BaseActor {
         /// When the camera follows the actor without centering on it, this gives us the difference
         /// between the actor and camera
         this.mCameraOffset = new PhysicsType2d.Vector2(0, 0);
-        /// Track if Heros stick to this WorldActor. The array has 4 positions, corresponding to top,
-        /// right, bottom, left
-        //boolean[] mIsSticky = new boolean[4];
         /// Disable 3 of 4 sides of a Actors, to allow walking through walls. The value reflects the
         /// side that remains active. 0 is top, 1 is right, 2 is bottom, 3 is left
         this.mIsOneSided = -1;
@@ -2245,281 +2242,6 @@ class WorldActor extends BaseActor {
         // turn off sensor behavior, so this collides with stuff...
         this.setCollisionsEnabled(true);
     }
-    // /**
-    // * Indicate that touching this object will cause some special code to run
-    // *
-    // * @param activationGoodies1 Number of type-1 goodies that must be collected before it works
-    // * @param activationGoodies2 Number of type-2 goodies that must be collected before it works
-    // * @param activationGoodies3 Number of type-3 goodies that must be collected before it works
-    // * @param activationGoodies4 Number of type-4 goodies that must be collected before it works
-    // * @param disappear          True if the actor should disappear when the callback runs
-    // * @param callback           The callback to run when the actor is touched
-    // */
-    // public setTouchCallback(activationGoodies1: number, activationGoodies2: number,
-    //   activationGoodies3: number, activationGoodies4: number,
-    //   disappear: boolean, callback: LolActorEvent): void {
-    //     final int[] touchCallbackActivation = new int[]{activationGoodies1, activationGoodies2,
-    //       activationGoodies3, activationGoodies4};
-    //       // set the code to run on touch
-    //       mTapHandler = new TouchEventHandler() {
-    //         public boolean go(float worldX, float worldY) {
-    //           // check if we've got enough goodies
-    //           boolean match = true;
-    //           for (int i = 0; i < 4; ++i)
-    //           match &= touchCallbackActivation[i] <= mGame.mManager.mGoodiesCollected[i];
-    //           // if so, run the callback
-    //           if (match) {
-    //             if (disappear)
-    //             remove(false);
-    //             callback.go(WorldActor.this);
-    //           }
-    //           return true;
-    //         }
-    //       };
-    //     }
-    // /**
-    // * Call this on an actor to make it draggable. Be careful when dragging things. If they are
-    // * small, they will be hard to touch.
-    // *
-    // * @param immuneToPhysics Indicate whether the actor should pass through other objects or
-    // *                        collide with them
-    // */
-    // public setCanDrag(immuneToPhysics: boolean): void {
-    //   if (immuneToPhysics)
-    //   mBody.setType(BodyType.KinematicBody);
-    //   else
-    //   mBody.setType(BodyType.DynamicBody);
-    //   mDragHandler = new TouchEventHandler() {
-    //     public boolean go(float worldX, float worldY) {
-    //       mBody.setTransform(worldX, worldY, mBody.getAngle());
-    //       return true;
-    //     }
-    //   };
-    // }
-    // /**
-    // * Call this on an actor to make it pokeable. Poke the actor, then poke the screen, and the
-    // * actor will move to the location that was pressed. Poke the actor twice in rapid succession to
-    // * delete it.
-    // *
-    // * @param deleteThresholdMillis If two touches happen within this many milliseconds, the actor
-    // *                              will be deleted. Use 0 to disable this "delete by double-touch"
-    // *                              feature.
-    // */
-    // public void setPokeToPlace(long deleteThresholdMillis) {
-    //   // convert threshold to nanoseconds
-    //   final long deleteThreshold = deleteThresholdMillis;
-    //   // set the code to run on touch
-    //   mTapHandler = new TouchEventHandler() {
-    //     long mLastPokeTime;
-    //     boolean mRunning = true;
-    //
-    //     public boolean go(float worldX, float worldY) {
-    //       if (!mRunning)
-    //       return false;
-    //       Lol.vibrate(mScene.mConfig, 100);
-    //       long time = System.currentTimeMillis();
-    //       // double touch
-    //       if ((time - mLastPokeTime) < deleteThreshold) {
-    //         // hide actor, disable physics
-    //         mBody.setActive(false);
-    //         mEnabled = false;
-    //         mRunning = false;
-    //         return true;
-    //       }
-    //       // repeat single-touch
-    //       else {
-    //         mLastPokeTime = time;
-    //       }
-    //       // set a screen handler to detect when/where to move the actor
-    //       mScene.mTapHandlers.add(new TouchEventHandler() {
-    //         boolean mIsRunning = true;
-    //
-    //         public boolean go(float worldX, float worldY) {
-    //           if (!mIsRunning || !mEnabled)
-    //           return false;
-    //           Lol.vibrate(mScene.mConfig, 100);
-    //           // move the object
-    //           mBody.setTransform(worldX, worldY, mBody.getAngle());
-    //           // clear the Level responder
-    //           mIsRunning = false;
-    //           return true;
-    //         }
-    //       });
-    //       return true;
-    //     }
-    //   };
-    // }
-    // /**
-    // * Indicate that this actor can be flicked on the screen
-    // *
-    // * @param dampFactor A value that is multiplied by the vector for the flick, to affect speed
-    // */
-    // public void setFlickable(final float dampFactor) {
-    //   // make sure the body is a dynamic body
-    //   setCanFall();
-    //
-    //   ((MainScene) mScene).mFlingHandlers.add(new TouchEventHandler() {
-    //     public boolean go(float worldX, float worldY) {
-    //       // note: may need to disable hovering
-    //       if (mScene.mHitActor == WorldActor.this) {
-    //         mHover = null;
-    //         updateVelocity(worldX * dampFactor, worldY * dampFactor);
-    //       }
-    //       return true;
-    //     }
-    //   });
-    // }
-    // /**
-    // * Configure an actor so that touching an arbitrary point on the screen makes the actor move
-    // * toward that point. The behavior is similar to pokeToPlace, in that one touches the actor,
-    // * then where she wants the actor to go. However, this involves moving with velocity, instead of
-    // * teleporting
-    // *
-    // * @param velocity     The constant velocity for poke movement
-    // * @param oncePerTouch After starting a path, does the player need to re-select (re-touch) the
-    // *                     actor before giving it a new destinaion point?
-    // */
-    // public void setPokePath(final float velocity, final boolean oncePerTouch) {
-    //   if (mBody.getType() == BodyType.StaticBody)
-    //   mBody.setType(BodyType.KinematicBody);
-    //   mTapHandler = new TouchEventHandler() {
-    //     public boolean go(float worldX, float worldY) {
-    //       Lol.vibrate(mScene.mConfig, 5);
-    //       mScene.mTapHandlers.add(new TouchEventHandler() {
-    //         boolean mRunning = true;
-    //
-    //         public boolean go(float worldX, float worldY) {
-    //           if (!mRunning)
-    //           return false;
-    //           Route r = new Route(2).to(getXPosition(), getYPosition()).to(worldX - mSize.x / 2,
-    //             worldY - mSize.y / 2);
-    //             setAbsoluteVelocity(0, 0);
-    //             setRoute(r, velocity, false);
-    //             if (oncePerTouch)
-    //             mRunning = false;
-    //             return true;
-    //           }
-    //         });
-    //         return true;
-    //       }
-    //     };
-    //   }
-    //
-    // /**
-    // * Configure an actor so that touching an arbitrary point on the screen makes the actor move
-    // * toward that point. The behavior is similar to pokePath, except that as the finger moves, the
-    // * actor keeps changing its destination accordingly.
-    // *
-    // * @param velocity     The constant velocity for poke movement
-    // * @param oncePerTouch After starting a path, does the player need to re-select (re-touch) the
-    // *                     actor before giving it a new destinaion point?
-    // * @param stopOnUp     When the touch is released, should the actor stop moving, or continue in
-    // *                     the same direction?
-    // */
-    // public void setFingerChase(final float velocity, final boolean oncePerTouch,
-    //   final boolean stopOnUp) {
-    //     if (mBody.getType() == BodyType.StaticBody)
-    //     mBody.setType(BodyType.KinematicBody);
-    //     mTapHandler = new TouchEventHandler() {
-    //       public boolean go(float worldX, float worldY) {
-    //         Lol.vibrate(mScene.mConfig, 5);
-    //
-    //         // on a down (or, indirectly, a pan), do this
-    //         final TouchEventHandler down = new TouchEventHandler() {
-    //           public boolean go(float worldX, float worldY) {
-    //             if (!mTapHandler.mIsActive)
-    //             return false;
-    //             Route r = new Route(2).to(getXPosition(), getYPosition()).to(worldX - mSize.x / 2,
-    //               worldY - mSize.y / 2);
-    //               setAbsoluteVelocity(0, 0);
-    //               setRoute(r, velocity, false);
-    //               return true;
-    //             }
-    //           };
-    //           final PanEventHandler pan = new PanEventHandler() {
-    //             @Override
-    //             public boolean go(float eventPositionX, float eventPositionY, float deltaX, float deltaY) {
-    //               return down.go(eventPositionX, eventPositionY);
-    //             }
-    //           };
-    //           // on an up (or a panstop), do this
-    //           TouchEventHandler up = new TouchEventHandler() {
-    //             public boolean go(float worldX, float worldY) {
-    //               if (!mTapHandler.mIsActive)
-    //               return false;
-    //               if (stopOnUp && mRoute != null)
-    //               mRoute.haltRoute();
-    //               if (oncePerTouch)
-    //               mTapHandler.mIsActive = false;
-    //               return true;
-    //             }
-    //           };
-    //           ((MainScene) mScene).mUpHandlers.add(up);
-    //           ((MainScene) mScene).mPanStopHandlers.add(up);
-    //           ((MainScene) mScene).mDownHandlers.add(down);
-    //           ((MainScene) mScene).mPanHandlers.add(pan);
-    //           return true;
-    //         }
-    //       };
-    //     }
-    // /**
-    // * Indicate that this actor should hover at a specific location on the screen, rather than being
-    // * placed at some point on the level itself. Note that the coordinates to this command are the
-    // * center position of the hovering actor. Also, be careful about using hover with zoom... hover
-    // * is relative to screen coordinates (pixels), not world coordinates, so it's going to look
-    // * funny to use this with zoom
-    // *
-    // * @param x the X coordinate (in pixels) where the actor should appear
-    // * @param y the Y coordinate (in pixels) where the actor should appear
-    // */
-    // public void setHover(final int x, final int y) {
-    //   mHover = new Vector3();
-    //   mScene.mRepeatEvents.add(new LolAction() {
-    //     @Override
-    //     public void go() {
-    //       if (mHover == null)
-    //       return;
-    //       mHover.x = x;
-    //       mHover.y = y;
-    //       mHover.z = 0;
-    //       mScene.mCamera.unproject(mHover);
-    //       mBody.setTransform(mHover.x, mHover.y, mBody.getAngle());
-    //     }
-    //   });
-    // }
-    //
-    // /**
-    // * Make this actor sticky, so that another actor will stick to it
-    // *
-    // * @param top    Is the top sticky?
-    // * @param right  Is the right side sticky?
-    // * @param bottom Is the bottom sticky?
-    // * @param left   Is the left side sticky?
-    // */
-    // public void setSticky(boolean top, boolean right, boolean bottom, boolean left) {
-    //   mIsSticky = new boolean[]{top, right, bottom, left};
-    // }
-    //
-    // /**
-    // * Indicate that touching this actor should make a hero throw a projectile
-    // *
-    // * @param h         The hero who should throw a projectile when this is touched
-    // * @param offsetX   specifies the x distance between the bottom left of the projectile and the
-    // *                  bottom left of the hero throwing the projectile
-    // * @param offsetY   specifies the y distance between the bottom left of the projectile and the
-    // *                  bottom left of the hero throwing the projectile
-    // * @param velocityX The X velocity of the projectile when it is thrown
-    // * @param velocityY The Y velocity of the projectile when it is thrown
-    // */
-    // public void setTouchToThrow(final Hero h, final float offsetX, final float offsetY,
-    //   final float velocityX, final float velocityY) {
-    //     mTapHandler = new TouchEventHandler() {
-    //       public boolean go(float worldX, float worldY) {
-    //         ((MainScene) mScene).mProjectilePool.throwFixed(h, offsetX, offsetY, velocityX, velocityY);
-    //         return true;
-    //       }
-    //     };
-    //   }
     /**
     * Indicate that this obstacle only registers collisions on one side.
     *
@@ -2537,52 +2259,6 @@ class WorldActor extends BaseActor {
     setPassThrough(id) {
         this.mPassThroughId = id;
     }
-    // /**
-    // * Specify that this actor is supposed to chase another actor
-    // *
-    // * @param speed    The speed with which it chases the other actor
-    // * @param target   The actor to chase
-    // * @param chaseInX Should the actor change its x velocity?
-    // * @param chaseInY Should the actor change its y velocity?
-    // */
-    // public void setChaseSpeed(final float speed, final WorldActor target, final boolean chaseInX,
-    //   final boolean chaseInY) {
-    //     mChaseTarget = target;
-    //     mBody.setType(BodyType.DynamicBody);
-    //     mScene.mRepeatEvents.add(new LolAction() {
-    //       @Override
-    //       public void go() {
-    //         // don't chase something that isn't visible
-    //         if (!target.mEnabled)
-    //         return;
-    //         // don't run if this actor isn't visible
-    //         if (!mEnabled)
-    //         return;
-    //         // compute vector between actors, and normalize it
-    //         float x = target.mBody.getPosition().x - mBody.getPosition().x;
-    //         float y = target.mBody.getPosition().y - mBody.getPosition().y;
-    //         float denom = (float) Math.sqrt(x * x + y * y);
-    //         x /= denom;
-    //         y /= denom;
-    //         // multiply by speed
-    //         x *= speed;
-    //         y *= speed;
-    //         // remove changes for disabled directions, and boost the other
-    //         // dimension a little bit
-    //         if (!chaseInX) {
-    //           x = mBody.getLinearVelocity().x;
-    //           y *= 2;
-    //         }
-    //         if (!chaseInY) {
-    //           y = mBody.getLinearVelocity().y;
-    //           x *= 2;
-    //         }
-    //         // apply velocity
-    //         updateVelocity(x, y);
-    //       }
-    //     });
-    //   }
-    //
     /**
     * Specify that this actor is supposed to chase another actor, but using fixed X/Y velocities
     *
@@ -5705,7 +5381,8 @@ class Levels {
             // Add a tree decoration on the platform
             level.drawPicture(85, 372, 32, 48, "./GameAssets/ChristmasGame/OneTree.png", -1);
             // Add a coin goodie on the platform
-            level.makeGoodieAsCircle(120, 404, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
+            level.makeGoodieAsCircle(120, 404, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
+                .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
             // Platform 3
             makePlatform(5, 16, 192, 404);
             // Add a santa baddie
@@ -5717,8 +5394,8 @@ class Levels {
             // Platform 4
             makePlatform(6, 16, 280, 380);
             // Make crates
-            level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(-1);
-            level.makeObstacleAsBox(344, 348, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(-1);
+            level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setPassThrough(1);
+            level.makeObstacleAsBox(344, 348, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(0);
             // Platform 5
             makePlatform(7, 16, 360, 396);
             let s5 = level.makeEnemyAsBox(360 + 16, 396 - 28, 17, 28, "./GameAssets/ChristmasGame/Santa.png");
@@ -5726,18 +5403,23 @@ class Levels {
             s5.setDefeatByJump();
             // Platform 6
             makePlatform(4, 16, 456, 380);
-            level.makeGoodieAsCircle(456 + 8, 380 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
-            level.makeGoodieAsCircle(456 + 16, 380 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
-            level.makeGoodieAsCircle(456 + 24, 380 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
+            level.makeGoodieAsCircle(456 + 8, 380 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
+                .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
+            level.makeGoodieAsCircle(456 + 16, 380 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
+                .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
+            level.makeGoodieAsCircle(456 + 24, 380 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
+                .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
             // Platform 7 - start the upper deck
             makePlatform(3, 16, 120, 280);
-            level.makeGoodieAsCircle(120 + 16, 280 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
+            level.makeGoodieAsCircle(120 + 16, 280 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
+                .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
             let s7 = level.makeEnemyAsBox(120, 280 - 28, 17, 28, "./GameAssets/ChristmasGame/Santa.png");
             s7.setRoute(new Route(3).to(120, 280 - 28).to(120 + 2 * 16, 280 - 28).to(120, 280 - 28), 20, true);
             s7.setDefeatByJump();
             // Platform 8
             makePlatform(4, 16, 190, 310);
-            level.makeGoodieAsCircle(190 + 40, 310 - 16 * 3, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
+            level.makeGoodieAsCircle(190 + 40, 310 - 16 * 3, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
+                .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
             let s8 = level.makeEnemyAsBox(190, 310 - 28, 17, 28, "./GameAssets/ChristmasGame/Santa.png");
             s8.setRoute(new Route(3).to(190, 310 - 28).to(190 + 16 * 3, 310 - 28).to(190, 310 - 28), 30, true);
             s8.setDefeatByJump();
@@ -5748,12 +5430,12 @@ class Levels {
             level.drawPicture(368 + 8, 290 - 16, 16, 16, "./GameAssets/ChristmasGame/ArrowSign.png", -1);
             // Platform 11
             makePlatform(7, 16, 432, 274);
-            level.drawPicture(454, 274 - 50, 65, 50, "./GameAssets/ChristmasGame/OneTree.png", -1);
-            level.drawPicture(480, 274 - 16, 24, 16, "./GameAssets/ChristmasGame/Stone.png", 0);
-            level.makeObstacleAsBox(432 + 16 * 5, 274 - 16, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(-1);
-            level.makeObstacleAsBox(432 + 16 * 5, 274 - 32, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(-1);
-            level.makeObstacleAsBox(432 + 16 * 6, 274 - 16, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(-1);
-            level.makeObstacleAsBox(432 + 16 * 6, 274 - 32, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(-1);
+            level.drawPicture(480, 274 - 16, 24, 16, "./GameAssets/ChristmasGame/Stone.png", -1);
+            level.drawPicture(454, 274 - 50, 65, 50, "./GameAssets/ChristmasGame/ThreeTrees.png", -1);
+            level.makeObstacleAsBox(432 + 16 * 5, 274 - 16, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setPassThrough(1);
+            level.makeObstacleAsBox(432 + 16 * 5, 274 - 32, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(0);
+            level.makeObstacleAsBox(432 + 16 * 6, 274 - 16, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setPassThrough(1);
+            level.makeObstacleAsBox(432 + 16 * 6, 274 - 32, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(0);
             // Platform 12
             makePlatform(5, 16, 416, 200);
             // Wall
