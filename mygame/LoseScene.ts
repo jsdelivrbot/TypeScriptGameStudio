@@ -24,5 +24,12 @@ class LoseScene implements ScreenManager {
         return true;
       }
     })());
+    // Make it so we can use the spacebar
+    level.setKeyAction(32, new (class _ extends LolAction {
+      public go(): boolean {
+        level.doLevel(index);
+        return true;
+      }
+    })(), null, false);
   }
 }

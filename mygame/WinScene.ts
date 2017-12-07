@@ -12,7 +12,6 @@ class WinScene implements ScreenManager {
   */
   public display(index: number, level: Level): void {
     // Configure our win screen
-
     // Add a background
     level.drawPicture(0, 0, 960, 540, "./GameAssets/TitleBack.png", -2);
     // Add an uplifting message
@@ -24,5 +23,12 @@ class WinScene implements ScreenManager {
         return true;
       }
     })());
+    // Make it so we can use the spacebar
+    level.setKeyAction(32, new (class _ extends LolAction {
+      public go(): boolean {
+        level.doChooser(1);
+        return true;
+      }
+    })(), null, false);
   }
 }

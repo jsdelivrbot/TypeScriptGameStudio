@@ -9,10 +9,22 @@
 class Levels implements ScreenManager {
 
   /**
-  * We currently have 94 levels, each of which is described in part of the
+  * We currently have 3 levels, each of which is described in part of the
   * following function.
   */
   public display(index: number, level: Level): void {
+
+    /*
+     * For all levels we want a button to go back to the menu
+     */
+    level.addDisplay(800, 400, "Arial", "0x0000FF", 24, "", "", level.DisplayFixedText("Menu"), 2);
+    level.addTapControl(800, 400, 100, 50, "./GameAssets/button.png", new (class _ extends LolAction {
+      public go(): boolean {
+        level.doChooser(1);
+        return true;
+      }
+    })());
+
     /*
      * LEVEL 1: the first demo game
      * In this level, you play as an angel who must defeat the evil bats who have

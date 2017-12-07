@@ -1,22 +1,13 @@
 /// <reference path="../library/ScreenManager.ts"/>
 
 /**
-* Chooser draws the level chooser screens. Our chooser code is pretty
-* straightforward. However, the different screens are drawn in different ways,
-* to show how we can write more effective code once we are comfortable with
-* loops and basic geometry.
+* Chooser draws the level chooser screens. Our chooser code is pretty straightforward.
 */
 class Chooser implements ScreenManager {
   /**
-  * Describe how to draw each level of the chooser. Our chooser will have 15
-  * levels per screen, so we need 7 screens.
+  * Describe how to draw the buttons to go to each level.
   */
   public display(index: number, level: Level): void {
-    // screen 1: show 1-->15
-    //
-    // NB: in this screen, we assume you haven't done much programming, so
-    // we draw each button with its own line of code, and we don't use any
-    // variables.
     if (index == 1) {
       // Put in some catchy background muzak
       level.setMusic("./GameAssets/TitleTheme.mp3");
