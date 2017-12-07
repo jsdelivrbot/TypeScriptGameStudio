@@ -7,9 +7,12 @@ $(document).ready(editorSetup());
 
 //Remove game when run game modal is loaded and stop all audio
 $("#runGameModal").on("hidden.bs.modal", function () {
+    
     $("#runGameModalContent").empty();
     let sounds = document.getElementsByTagName('audio');
     for(let i = 0; i < sounds.length; i++) sounds[i].remove();
+
+    document.getElementById('gameScript').remove();
 });
 
 /*
@@ -109,6 +112,7 @@ function compile(arg){
                         //Create a new script element and add it to the page
                         let script = document.createElement('script');
                         script.type = "text/javascript";
+                        script.id = "gameScript";
                         script.innerHTML = res.contents;
                         document.body.appendChild(script);
 
