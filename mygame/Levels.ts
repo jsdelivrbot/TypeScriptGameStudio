@@ -1,4 +1,5 @@
 /// <reference path="../library/ScreenManager.ts"/>
+/// <reference path="../library/Hero.ts"/>
 
 /**
 * Levels is where all of the code goes for describing the different levels of
@@ -18,7 +19,7 @@ class Levels implements ScreenManager {
      * For all levels we want a button to go back to the menu
      */
     level.addDisplay(890, 500, "Arial", "0x0000FF", 16, "", "", level.DisplayFixedText("Quit"), 2);
-    level.addTapControl(990, 500, 50, 20, "./GameAssets/button.png", new (class _ extends LolAction {
+    level.addTapControl(890, 500, 50, 20, "./GameAssets/button.png", new (class _ extends LolAction {
       public go(): boolean {
         level.doChooser(1);
         return true;
@@ -193,6 +194,7 @@ class Levels implements ScreenManager {
       // Create a hero
       let robot: Hero = level.makeHeroAsBox(32, 332, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);
+      robot.setCameraOffset(-10, 10)
       // Set jump power
       robot.setJumpImpulses(0, 110);
       // Set 'w' to jump (this involves using keycodes)
@@ -297,7 +299,7 @@ class Levels implements ScreenManager {
       // The "1" means that only one hero must finish (we only have one in this game)
       level.setVictoryDestination(1);
       // Display coins collected
-      level.addDisplay(25, 25, "Arial", "0x0000FF", 24, "Coins: ", " out of 7", level.DisplayGoodies1(), 0);
+      level.addDisplay(25, 25, "Arial", "0xFFFFFF", 24, "Coins: ", " out of 7", level.DisplayGoodies1(), 0);
 
       /*
        * Here we create a function for making platforms, this makes it easy

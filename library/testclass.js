@@ -4424,8 +4424,8 @@ class Levels {
         /*
          * For all levels we want a button to go back to the menu
          */
-        level.addDisplay(905, 505, "Arial", "0x0000FF", 10, "", "", level.DisplayFixedText("Menu"), 2);
-        level.addTapControl(900, 500, 50, 20, "./GameAssets/button.png", new (class _ extends LolAction {
+        level.addDisplay(890, 500, "Arial", "0x0000FF", 16, "", "", level.DisplayFixedText("Quit"), 2);
+        level.addTapControl(990, 500, 50, 20, "./GameAssets/button.png", new (class _ extends LolAction {
             go() {
                 level.doChooser(1);
                 return true;
@@ -4567,7 +4567,7 @@ class Levels {
             // Player loses if the bats aren't defeated within 3 minutes
             level.setLoseCountdown(180);
             // Add a display for the timer
-            level.addDisplay(25, 25, "Arial", "0x000000", 24, "Time Remaining: ", "", level.DisplayLoseCountdown(), 0);
+            level.addDisplay(25, 25, "Arial", "0x0000FF", 24, "Time Remaining: ", "", level.DisplayLoseCountdown(), 0);
             // Must kill all enemies to win
             level.setVictoryEnemyCount(-1);
         }
@@ -4686,7 +4686,7 @@ class Levels {
             // The "1" means that only one hero must finish (we only have one in this game)
             level.setVictoryDestination(1);
             // Display coins collected
-            level.addDisplay(25, 25, "Arial", "0x000000", 24, "Coins: ", " out of 7", level.DisplayGoodies1(), 0);
+            level.addDisplay(25, 25, "Arial", "0x0000FF", 24, "Coins: ", " out of 7", level.DisplayGoodies1(), 0);
             /*
              * Here we create a function for making platforms, this makes it easy
              * because platforms consist of multiple blocks
