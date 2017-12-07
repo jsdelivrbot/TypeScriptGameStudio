@@ -1,7 +1,4 @@
 /// <reference path="../library/ScreenManager.ts"/>
-/// <reference path="../library/Hero.ts"/>
-/// <reference path="../library/Route.ts"/>
-
 
 /**
 * Levels is where all of the code goes for describing the different levels of
@@ -33,7 +30,7 @@ class Levels implements ScreenManager {
 
       // Create a hero and assign it to the variable "h"
       // (Here we explicitly state the type of the variable: "Hero")
-      let h: Hero = level.makeHeroAsBox(600, 400, 48, 48, "./GameAssets/AngelGame/Angel.png");
+      let h: Hero = level.makeHeroAsBox(450, 400, 48, 48, "./GameAssets/AngelGame/Angel.png");
       h.setStrength(1);
       // Set 'w' to jump (this involves using keycodes)
       // Find the keycode of any key by going to www.keycode.info
@@ -47,15 +44,15 @@ class Levels implements ScreenManager {
       // 'd' key to move right
       level.setKeyAction(68, level.makeXMotionAction(h, 50), null, true);
 
-      // Three projectiles at a time, each has 1 power
+      // Ten projectiles at a time, each has 1 power
       level.configureProjectiles(10, 8, 8, "./GameAssets/AngelGame/Bullet.png", 1, 0, false);
-      // spacebar to shoot
+      // spacebar to shoot, you have to wait 0.8 seconds between throws
       level.setKeyAction(32, level.makeRepeatThrow(h, 800, 24, 24, 0, 10), null, true);
       // click to shoot
       //level.setFixedVectorThrowVelocityForProjectiles(150);
       //level.setClickAction(level.ThrowDirectionalAction(h, 24, 24));
-      level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
       //level.setProjectileVectorDampeningFactor(0.5);
+      level.setThrowSound("./GameAssets/AngelGame/Shooting.ogg");
       level.setProjectileRange(540);
       level.setProjectileGravityOn();
 
@@ -177,13 +174,10 @@ class Levels implements ScreenManager {
       level.setMusic("./GameAssets/ChristmasGame/ChristmasTheme.mp3");
       // Zoom in
       level.setZoom(0.4);
-
       // Set the gravity of the game
       level.resetGravity(0, 90);
-
       // Add a background
       level.drawPicture(0, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
-      //level.drawPicture(960, 0, 960, 540, "./GameAssets/ChristmasGame/ChristmasBack.png", -2);
       // Create a hero
       let robot: Hero = level.makeHeroAsBox(32, 332, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
       robot.setStrength(1);

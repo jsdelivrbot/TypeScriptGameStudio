@@ -5351,7 +5351,6 @@ class Levels {
             // Create a hero
             let robot = level.makeHeroAsBox(32, 332, 16, 28, "./GameAssets/ChristmasGame/Miser.png");
             robot.setStrength(1);
-            robot.setPassThrough(1);
             // Set jump power
             robot.setJumpImpulses(0, 110);
             // Set 'w' to jump (this involves using keycodes)
@@ -5418,9 +5417,9 @@ class Levels {
             s7.setDefeatByJump();
             // Platform 8
             makePlatform(4, 16, 190, 310);
-            level.makeGoodieAsCircle(190 + 40, 310 - 44, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
+            level.makeGoodieAsCircle(190 + 24, 310 - 44, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
                 .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
-            level.makeGoodieAsCircle(190 + 40, 310 - 60, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
+            level.makeGoodieAsCircle(190 + 24, 310 - 60, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
                 .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
             let s8 = level.makeEnemyAsBox(190, 310 - 28, 17, 28, "./GameAssets/ChristmasGame/Santa.png");
             s8.setRoute(new Route(3).to(190, 310 - 28).to(190 + 16 * 3, 310 - 28).to(190, 310 - 28), 30, true);
@@ -5449,7 +5448,7 @@ class Levels {
             level.makeObstacleAsBox(374, 200, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
             level.drawPicture(395, 200 - 26, 24, 26, "./GameAssets/ChristmasGame/SnowMan.png", -1);
             // The goal is an igloo
-            let dest = level.makeDestinationAsBox(432, 180, 50, 20, "./GameAssets/ChristmasGame/Igloo.png");
+            let dest = level.makeDestinationAsBox(416, 180, 50, 20, "./GameAssets/ChristmasGame/Igloo.png");
             // Set it so you have to collect all the coins first
             dest.setActivationScore(7, 0, 0, 0);
             // The "1" means that only one hero must finish (we only have one in this game)
@@ -5464,13 +5463,13 @@ class Levels {
                 if (blocks < 1)
                     return;
                 if (blocks == 1) {
-                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
+                    level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setOneSided(0);
                     return;
                 }
-                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setPhysics(1, 0, 2);
-                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png").setPhysics(1, 0, 2);
+                level.makeObstacleAsBox(posX, posY, width, width, "./GameAssets/ChristmasGame/LeftEndPlat.png").setOneSided(0);
+                level.makeObstacleAsBox(posX + width * (blocks - 1), posY, width, width, "./GameAssets/ChristmasGame/RightEndPlat.png").setOneSided(0);
                 for (let i = 1; i <= (blocks - 2); i++) {
-                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setPhysics(1, 0, 2);
+                    level.makeObstacleAsBox(posX + width * i, posY, width, width, "./GameAssets/ChristmasGame/MiddlePlat.png").setOneSided(0);
                 }
             }
         }
