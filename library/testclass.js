@@ -5405,9 +5405,9 @@ class Levels {
             makePlatform(4, 16, 456, 380);
             level.makeGoodieAsCircle(456 + 8, 380 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
                 .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
-            level.makeGoodieAsCircle(456 + 16, 380 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
-                .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
             level.makeGoodieAsCircle(456 + 24, 380 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
+                .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
+            level.makeGoodieAsCircle(456 + 40, 380 - 16, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
                 .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
             // Platform 7 - start the upper deck
             makePlatform(3, 16, 120, 280);
@@ -5418,7 +5418,7 @@ class Levels {
             s7.setDefeatByJump();
             // Platform 8
             makePlatform(4, 16, 190, 310);
-            level.makeGoodieAsCircle(190 + 40, 310 - 16 * 3, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
+            level.makeGoodieAsCircle(190 + 40, 310 - 40, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png")
                 .setDisappearSound("./GameAssets/ChristmasGame/MoneyGet.wav");
             let s8 = level.makeEnemyAsBox(190, 310 - 28, 17, 28, "./GameAssets/ChristmasGame/Santa.png");
             s8.setRoute(new Route(3).to(190, 310 - 28).to(190 + 16 * 3, 310 - 28).to(190, 310 - 28), 30, true);
@@ -5431,20 +5431,20 @@ class Levels {
             // Platform 11
             makePlatform(7, 16, 432, 274);
             level.drawPicture(480, 274 - 16, 24, 16, "./GameAssets/ChristmasGame/Stone.png", -1);
-            level.drawPicture(454, 274 - 50, 65, 50, "./GameAssets/ChristmasGame/ThreeTrees.png", -1);
+            level.drawPicture(450, 274 - 50, 65, 50, "./GameAssets/ChristmasGame/ThreeTrees.png", -1);
             level.makeObstacleAsBox(432 + 16 * 5, 274 - 16, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setPassThrough(1);
             level.makeObstacleAsBox(432 + 16 * 5, 274 - 32, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(0);
             level.makeObstacleAsBox(432 + 16 * 6, 274 - 16, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setPassThrough(1);
             level.makeObstacleAsBox(432 + 16 * 6, 274 - 32, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(0);
             // Platform 12
-            makePlatform(5, 16, 416, 200);
+            makePlatform(5, 16, 406, 200);
             // Wall
-            level.makeObstacleAsBox(400, 152, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
-            level.makeObstacleAsBox(400, 168, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
-            level.makeObstacleAsBox(400, 184, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
-            level.makeObstacleAsBox(400, 200, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            level.makeObstacleAsBox(390, 152, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            level.makeObstacleAsBox(390, 168, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            level.makeObstacleAsBox(390, 184, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            level.makeObstacleAsBox(390, 200, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            level.drawPicture(400, 200 - 21, 19, 21, "./GameAssets/ChristmasGame/SnowMan.png", -1);
             // The goal is an igloo
-            level.drawPicture(432, 180 - 42, 38, 42, "./GameAssets/ChristmasGame/SnowMan.png", -1);
             let dest = level.makeDestinationAsBox(432, 180, 50, 20, "./GameAssets/ChristmasGame/Igloo.png");
             // Set it so you have to collect all the coins first
             dest.setActivationScore(7, 0, 0, 0);
