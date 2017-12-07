@@ -23,7 +23,7 @@ $("#settingsModal").on('show.bs.modal', function(event) {
     modal.find(".modal-footer a[id='submit-update']").on('click', function(){
 
         let settings = {
-            origName : $(this).attr('data-origName'),
+            origName : $(this).attr('data-origname'),
             name : $("#projectSettingsName").val(),
             description : $("#projectSettingsDesc").val(),
             file : document.getElementById("projectSettingsFile").files[0],
@@ -106,7 +106,7 @@ function loadGames() {
         if(this.readyState === 4 && this.status === 200){
 
             let response = JSON.parse(this.responseText); 
-            
+
             if(response != "No Games"){
 
                 let games = []; 
@@ -177,6 +177,7 @@ function submitNewProjectSettings(settings) {
                 card.find(".card-text").text(settings.description);
                 card.find(".load-project-btn").attr("href", "./editor?game=" + settings.name);
                 card.find(".card-img-top").attr("src", settings.imgURL);
+                card.attr("projectname", settings.name)
 
                 $('#settingsModal').modal('hide');
 

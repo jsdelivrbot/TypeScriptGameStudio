@@ -103,6 +103,7 @@ button{
 
 #game-title{
     font-size: 30px;
+    margin-top: 20px;
 }
 
 /*===========
@@ -120,6 +121,14 @@ button{
      padding: 10px;
 }
 
+#runGameModal{
+    max-width: 960px;
+    margin: auto;
+}
+
+#runGameModal .modal-dialog{
+    max-width: 960px;
+}
 /*===========
 
 	Popups

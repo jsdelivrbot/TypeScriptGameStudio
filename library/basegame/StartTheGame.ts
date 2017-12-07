@@ -7,15 +7,14 @@
 //// <reference types="pixi.js"/>
 
 function runGame(id : string){
+  PIXI.utils.sayHello("Hello");
 
-    PIXI.utils.sayHello("Hello");
-    
-    let myConfig = new MyConfig();
-    
-    let game = new Lol(myConfig);
-    game.create();
-    document.getElementById(id).appendChild(game.mRenderer.view);
-    requestAnimationFrame(() => gameLoop(game));
+  let myConfig = new MyConfig();
+
+  let game = new Lol(myConfig);
+  game.create();
+  document.getElementById(id).appendChild(game.mRenderer.view);
+  requestAnimationFrame(() => gameLoop(game));
 }
 
 function gameLoop(game: Lol) {

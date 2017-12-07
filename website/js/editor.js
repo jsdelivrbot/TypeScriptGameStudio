@@ -89,6 +89,7 @@ function compile(arg){
                     else showPopup("publish")
                     
                     //TODO: DISPLAY COMPILOR ERROR ON PAGE
+                    alert(res.contents);
                 }
                 else{
 
@@ -151,6 +152,7 @@ function loadGameFiles(gameName) {
 
                 if(xhr.response !== "None"){
 
+                    console.log(xhr.response);
                     //Load all the files into the DOM
                     let files = JSON.parse(xhr.response);
 
@@ -312,7 +314,7 @@ function addResourceToPage(fileName, url, type){
             <img class="resourceFile" draggable=true data-url="${url}" src="${url}" alt="Image">
         `;
     } 
-    else if(type == '.mp3' || type == '.oog.'){
+    else if(type == '.mp3' || type == '.ogg.' || type == 'wav'){
         template =`
             <span class="resourceFile" data-url="${url}" draggable=true>${fileName}</span>
         `;
