@@ -5,6 +5,11 @@ let editor = ace.edit("editor");
 
 $(document).ready(editorSetup());
 
+//Remove game when run game modal is loaded
+$("#runGameModal").on("hidden.bs.modal", function () {
+    $("#runGameModalContent").empty();
+});
+
 /*
     Initial setup for the editor that runs when the page loads. Also loads the game files into
     the editor
@@ -110,7 +115,6 @@ function compile(arg){
 
                         //Show the game window
                         $("#runGameModal").modal('show');
-
                     }
 
                     else{
