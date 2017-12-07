@@ -231,9 +231,20 @@ class Levels implements ScreenManager {
       level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
       level.makeObstacleAsBox(344, 348, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
       // Platform 5
-      makePlatform(5, 16, 360, 396);
+      makePlatform(7, 16, 360, 396);
       // Platform 6
-      makePlatform(4, 16, 440, 380);
+      makePlatform(4, 16, 456, 380);
+
+      // Platform 7
+      makePlatform(3, 16, 360, 396);
+      // Platform 8
+      makePlatform(4, 16, 456, 380);
+      // Platform 9
+      makePlatform(2, 16, 360, 396);
+      // Platform 10
+      makePlatform(4, 16, 456, 380);
+      // Platform 11
+      makePlatform(7, 16, 456, 380);
 
       //let dest = level.makeDestinationAsCircle();
       //dest.setActivationScore(7, 0, 0, 0);
