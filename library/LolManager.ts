@@ -356,7 +356,7 @@ class LolManager {
   */
   onGoodieCollected(goodie: Goodie): void {
     // Update goodie counts
-    for (let i = 0; i < 4; ++i) {
+    for (let i = 0; i < 4; i++) {
       this.mGoodiesCollected[i] += goodie.mScore[i];
     }
     // possibly win the level, but only if we win on goodie count and all

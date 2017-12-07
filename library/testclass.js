@@ -1162,7 +1162,6 @@ class Level {
     DisplayGoodies1() {
         let out_this = this;
         return new (class _ {
-            //@Override
             makeText() {
                 return "" + out_this.mGame.mManager.mGoodiesCollected[0];
             }
@@ -4199,8 +4198,6 @@ class LolManager {
         this.onScreenChange();
         this.mConfig.mStore.display(index, this.mLevel);
     }
-    // TODO: What does quitting the game look like??
-    // With a webpage, closing the browser tab should be sufficient?
     /**
     * Quit the game
     */
@@ -4301,7 +4298,6 @@ class LolManager {
     /**
     * Update all timer counters associated with the current level
     */
-    // TODO: This uses PIXI.ticker, which may require some adjustments
     updateTimeCounts() {
         // Check the countdown timers
         if (this.mLoseCountDownRemaining != -100) {
@@ -5710,6 +5706,7 @@ class Levels {
             level.drawPicture(85, 372, 32, 48, "./GameAssets/ChristmasGame/OneTree.png", -1);
             // Add a coin goodie on the platform
             level.makeGoodieAsCircle(120, 404, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
+            level.makeGoodieAsCircle(100, 404, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
             // Platform 3
             makePlatform(5, 16, 192, 404);
             // Add a santa baddie

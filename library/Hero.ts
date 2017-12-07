@@ -207,9 +207,6 @@ class Hero extends WorldActor {
     } else if (other instanceof Goodie) {
       this.onCollideWithGoodie(other as Goodie);
     }
-    if(other instanceof Goodie) {
-      this.mGame.mManager.onGoodieCollected(other as Goodie);
-    }
   }
 
   /**
@@ -261,8 +258,8 @@ class Hero extends WorldActor {
     else if (this.mCrawling && enemy.mDefeatByCrawl) {
       enemy.defeat(true);
     }
-    // defeat by jumping only if the hero's bottom is above the enemy's mid-section
-    else if (this.mInAir && enemy.mDefeatByJump && this.getYPosition()+this.mSize.y < enemy.getYPosition() + enemy.mSize.y / 2) {
+    // defeat by jumping only if the hero's bottom is above the enemy's head
+    else if (this.mInAir && enemy.mDefeatByJump && this.getYPosition()+this.mSize.y <= enemy.getYPosition()) {
       enemy.defeat(true);
     }
     // when we can't defeat it by losing strength, remove the hero
