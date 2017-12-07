@@ -5718,7 +5718,7 @@ class Levels {
             // Platform 4
             makePlatform(6, 16, 280, 380);
             // Make crates
-            level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(0);
+            level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(2);
             level.makeObstacleAsBox(344, 348, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(0);
             // Platform 5
             makePlatform(7, 16, 360, 396);
@@ -5735,11 +5735,17 @@ class Levels {
             // Platform 11
             makePlatform(7, 16, 432, 274);
             // Platform 12
-            makePlatform(5, 16, 416, 240);
+            makePlatform(5, 16, 390, 240);
             // Wall
-            level.makeObstacleAsBox(400, 192, 16, 64, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            level.makeObstacleAsBox(400, 166, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            level.makeObstacleAsBox(400, 182, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            level.makeObstacleAsBox(400, 198, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            level.makeObstacleAsBox(400, 214, 16, 16, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            // The goal is an igloo
             let dest = level.makeDestinationAsBox(432, 220, 50, 20, "./GameAssets/ChristmasGame/Igloo.png");
+            // Set it so you have to collect all the coins first
             dest.setActivationScore(7, 0, 0, 0);
+            // The "1" means that only one hero must finish (we only have one in this game)
             level.setVictoryDestination(1);
             // Display coins collected
             level.addDisplay(25, 25, "Arial", "0x000000", 24, "Coins: ", " out of 7", level.DisplayGoodies1(), 0);
