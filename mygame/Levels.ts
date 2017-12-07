@@ -213,7 +213,7 @@ class Levels implements ScreenManager {
       // Make more platforms
       makePlatform(5, 16, 80, 420);
       // Add a tree decoration on the platform
-      level.drawPicture(85, 396, 16, 24, "./GameAssets/ChristmasGame/OneTree.png", -1);
+      level.drawPicture(85, 396, 32, 48, "./GameAssets/ChristmasGame/OneTree.png", -1);
       // Add a coin goodie on the platform
       level.makeGoodieAsCircle(120, 404, 16, 16, "./GameAssets/ChristmasGame/GoldCoin.png");
       // Platform 3
@@ -221,8 +221,9 @@ class Levels implements ScreenManager {
       // Add a santa baddie
       let s1: Enemy = level.makeEnemyAsBox(256, 376, 17, 28, "./GameAssets/ChristmasGame/Santa.png");
       s1.setRoute(new Route(3).to(256, 376).to(192, 376).to(256, 376), 25, true);
+      s1.setDefeatByJump();
       // Add a stone decoration
-      level.drawPicture(85, 396, 16, 24, "./GameAssets/ChristmasGame/Stone.png", -1);
+      level.drawPicture(256, 378, 24, 16, "./GameAssets/ChristmasGame/Stone.png", -1);
 
       makePlatform(5, 16, 280, 380);
       level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
