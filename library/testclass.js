@@ -5718,8 +5718,8 @@ class Levels {
             // Platform 4
             makePlatform(6, 16, 280, 380);
             // Make crates
-            level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
-            level.makeObstacleAsBox(344, 348, 16, 16, "./GameAssets/ChristmasGame/Crate.png");
+            level.makeObstacleAsBox(344, 364, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(0);
+            level.makeObstacleAsBox(344, 348, 16, 16, "./GameAssets/ChristmasGame/Crate.png").setOneSided(0);
             // Platform 5
             makePlatform(7, 16, 360, 396);
             // Platform 6
@@ -5734,10 +5734,15 @@ class Levels {
             makePlatform(4, 16, 368, 290);
             // Platform 11
             makePlatform(7, 16, 432, 274);
-            //let dest = level.makeDestinationAsCircle();
-            //dest.setActivationScore(7, 0, 0, 0);
+            // Platform 12
+            makePlatform(5, 16, 416, 240);
+            // Wall
+            level.makeObstacleAsBox(400, 192, 16, 64, "./GameAssets/ChristmasGame/MiddlePlat.png");
+            let dest = level.makeDestinationAsBox(432, 220, 50, 20, "./GameAssets/ChristmasGame/Igloo.png");
+            dest.setActivationScore(7, 0, 0, 0);
+            level.setVictoryDestination(1);
             // Display coins collected
-            level.addDisplay(25, 25, "Arial", "0x000000", 24, "Coins: ", "", level.DisplayGoodies1(), 0);
+            level.addDisplay(25, 25, "Arial", "0x000000", 24, "Coins: ", " out of 7", level.DisplayGoodies1(), 0);
             /*
              * Here we create a function for making platforms, this makes it easy
              * because platforms consist of multiple blocks
