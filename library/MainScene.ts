@@ -1,27 +1,43 @@
-//// <reference path="./Hero.ts"/>
-//// <reference path="./Enemy.ts"/>
-//// <reference path="./Projectile.ts"/>
-//// <reference path="./LolAction.ts"/>
+/// <reference path="./TouchEventHandler.ts"/>
 /// <reference path="./LolScene.ts"/>
-//// <reference path="./Config.ts"/>
-//// <reference path="./Media.ts"/>
-//// <reference path="./WorldActor.ts"/>
-//// <reference path="./typedefinitions/physicstype2d/PhysicsType2d.v0_9.d.ts"/>
-//// <reference path="./typedefinitions/pixi.js/index.d.ts"/>
-//// <reference types="pixi.js"/>
+/// <reference path="./WorldActor.ts"/>
 
 class MainScene extends LolScene {
+  /// All actors whose behavior should change due to tilt
+  readonly mTiltActors: Array<WorldActor>;
+  /// Magnitude of the maximum gravity the accelerometer can create
+  mTiltMax: PhysicsType2d.Vector2;
+  /// Track if we have an override for gravity to be translated into velocity
+  mTiltVelocityOverride: boolean;
+  /// A multiplier to make gravity change faster or slower than the accelerometer default
+  mTiltMultiplier: number = 1;
+
+  /// This is the WorldActor that the camera chases, if any
   mChaseActor: WorldActor;
-  mCamera: Camera;
+
+
+  /// A handler to run in response to a screen Down event.  An actor will install this, if needed
+  readonly mDownHandlers: Array<TouchEventHandler>;
+  /// A handler to run in response to a screen Up event.  An actor will install this, if needed
+  readonly mUpHandlers: Array<TouchEventHandler>;
+  /// A handler to run in response to a screen Fling event.  An actor will install this, if needed
+  readonly mFlingHandlers: Array<TouchEventHandler>;
+  /// A handler to run in response to a screen PanStop event.  An actor will install it, if needed
+  readonly mPanStopHandlers: Array<TouchEventHandler>;
+  /// A handler to run in response to a screen Pan event.  An actor will install this, if needed
+  //readonly mPanHandlers: Array<PanEventHandler>;
+
+  /// A pool of projectiles for use by the hero
+  mProjectilePool: ProjectilePool;
+
+  /// The music, if any
+  mMusic: Sound;
+  /// Whether the music is playing or not
+  private mMusicPlaying: boolean;
 
   constructor(config: Config, media: Media) {
     super(config, media);
     this.configureCollisionHandlers();
-  }
-
-  chaseActor(hero: WorldActor) {
-    this.mChaseActor = hero;
-    this.mCamera.setChase(hero);
   }
 
   /**
@@ -43,7 +59,6 @@ class MainScene extends LolScene {
       */
       //@Override
       public BeginContact(contact: PhysicsType2d.Dynamics.Contacts.Contact): void {
-        console.log("In BeginContact");
         // Get the bodies, make sure both are actors
         let a = contact.GetFixtureA().GetBody().GetUserData(); //any type
         let b = contact.GetFixtureB().GetBody().GetUserData(); //any type
@@ -112,14 +127,13 @@ class MainScene extends LolScene {
       //@Override
       public PreSolve(contact: PhysicsType2d.Dynamics.Contacts.Contact, oldManifold: PhysicsType2d.Collision.Manifold): void {
         // get the bodies, make sure both are actors
-        //  let a = contact.GetFixtureA().GetBody().GetUserData();
-        //  let b = contact.GetFixtureB().GetBody().GetUserData();
-        //  if (!(a instanceof WorldActor) || !(b instanceof WorldActor))
-        //      return;
-        //  let gfoA = a as WorldActor;
-        //  let gfoB = b as WorldActor;
+         let a = contact.GetFixtureA().GetBody().GetUserData();
+         let b = contact.GetFixtureB().GetBody().GetUserData();
+         if (!(a instanceof WorldActor) || !(b instanceof WorldActor))
+             return;
+         let gfoA = a as WorldActor;
+         let gfoB = b as WorldActor;
 
-        //TODO: This stuff here
         //  // go sticky obstacles... only do something if at least one actor is a sticky actor
         //  if (gfoA.mIsSticky[0] || gfoA.mIsSticky[1] || gfoA.mIsSticky[2] || gfoA.mIsSticky[3]) {
         //      handleSticky(gfoA, gfoB, contact);
@@ -128,42 +142,42 @@ class MainScene extends LolScene {
         //      handleSticky(gfoB, gfoA, contact);
         //      return;
         //  }
-        //
-        //  // if the actors have the same passthrough ID, and it's  not zero, then disable the
-        //  // contact
-        //  if (gfoA.mPassThroughId != 0 && gfoA.mPassThroughId == gfoB.mPassThroughId) {
-        //      contact.SetEnabled(false);
-        //      return;
-        //  }
-        //
-        //  // is either one-sided? If not, we're done
-        //  let oneSided: WorldActor;
-        // let other: WorldActor;
-        //  if (gfoA.mIsOneSided > -1) {
-        //      oneSided = gfoA;
-        //      other = gfoB;
-        //  } else if (gfoB.mIsOneSided > -1) {
-        //      oneSided = gfoB;
-        // other = gfoA;
-        //  } else {
-        //      return;
-        //  }
 
-        // if we're here, see if we should be disabling a one-sided obstacle collision
-        //let worldManiFold = contact.GetWorldManifold();
-        //  let numPoints = worldManiFold.points.length;
-        //  for (let i = 0; i < numPoints; i++) {
-        //      let vector2 = other.mBody.GetLinearVelocityFromWorldPoint(worldManiFold.points[i]);
-        //      // disable based on the value of isOneSided and the vector between the actors
-        //      if (oneSided.mIsOneSided == 0 && vector2.y < 0)
-        //          contact.SetEnabled(false);
-        //      else if (oneSided.mIsOneSided == 2 && vector2.y > 0)
-        //          contact.SetEnabled(false);
-        //      else if (oneSided.mIsOneSided == 1 && vector2.x > 0)
-        //          contact.SetEnabled(false);
-        //      else if (oneSided.mIsOneSided == 3 && vector2.x < 0)
-        //          contact.SetEnabled(false);
-        //  }
+         // if the actors have the same passthrough ID, and it's  not zero, then disable the
+         // contact
+         if (gfoA.mPassThroughId != 0 && gfoA.mPassThroughId == gfoB.mPassThroughId) {
+             contact.SetEnabled(false);
+             return;
+         }
+
+         // is either one-sided? If not, we're done
+         let oneSided: WorldActor;
+         let other: WorldActor;
+         if (gfoA.mIsOneSided > -1) {
+           oneSided = gfoA;
+           other = gfoB;
+         } else if (gfoB.mIsOneSided > -1) {
+           oneSided = gfoB;
+           other = gfoA;
+         } else {
+           return;
+         }
+
+         //if we're here, see if we should be disabling a one-sided obstacle collision
+         let worldManiFold = contact.GetWorldManifold();
+         let numPoints = worldManiFold.points.length;
+         for (let i = 0; i < numPoints; i++) {
+           let vector2 = other.mBody.GetLinearVelocityFromWorldPoint(worldManiFold.points[i]);
+           // disable based on the value of isOneSided and the vector between the actors
+           if (oneSided.mIsOneSided == 0 && vector2.y < 0)
+           contact.SetEnabled(false);
+           else if (oneSided.mIsOneSided == 2 && vector2.y > 0)
+           contact.SetEnabled(false);
+           else if (oneSided.mIsOneSided == 1 && vector2.x > 0)
+           contact.SetEnabled(false);
+           else if (oneSided.mIsOneSided == 3 && vector2.x < 0)
+           contact.SetEnabled(false);
+         }
       }
 
       /**
@@ -178,12 +192,80 @@ class MainScene extends LolScene {
     })(this));
   }
 
-  render(): boolean {
-    this.mRenderables.forEach((e) => {
-      e.render();
-    });
-    return true;
+  /**
+   * If the level has music attached to it, this starts playing it
+   */
+  playMusic(): void {
+      if (!this.mMusicPlaying && this.mMusic) {
+          this.mMusicPlaying = true;
+          this.mMusic.play();
+      }
   }
 
+  /**
+   * If the level has music attached to it, this pauses it
+   */
+  pauseMusic(): void {
+      if (this.mMusicPlaying) {
+          this.mMusicPlaying = false;
+          this.mMusic.stop();
+      }
+  }
 
+  /**
+   * If the level has music attached to it, this stops it
+   */
+  stopMusic(): void {
+      if (this.mMusicPlaying) {
+          this.mMusicPlaying = false;
+          this.mMusic.stop();
+      }
+  }
+
+  /**
+  * If the camera is supposed to follow an actor, this code will handle updating the camera
+  * position
+  */
+  adjustCamera(): void {
+    if (!this.mChaseActor) {
+      return;
+    }
+    // figure out the actor's position
+    let x: number = this.mChaseActor.mBody.GetWorldCenter().x + this.mChaseActor.mCameraOffset.x;
+    let y: number = this.mChaseActor.mBody.GetWorldCenter().y + this.mChaseActor.mCameraOffset.y;
+
+    // if x or y is too close to MAX,MAX, stick with max acceptable values
+    if (x > this.mCamBound.x - (this.mConfig.mWidth / 2) * this.mCamera.getZoom()) {
+      x = this.mCamBound.x - (this.mConfig.mWidth / 2) * this.mCamera.getZoom();
+    }
+    if (y > this.mCamBound.y - (this.mConfig.mHeight / 2) * this.mCamera.getZoom()) {
+      y = this.mCamBound.y - (this.mConfig.mHeight / 2) * this.mCamera.getZoom();
+    }
+    // if x or y is too close to 0,0, stick with minimum acceptable values
+    //
+    // NB: we do MAX before MIN, so that if we're zoomed out, we show extra
+    // space at the top instead of the bottom
+    if (x < (this.mConfig.mWidth / 2) * this.mCamera.getZoom()) {
+      x = (this.mConfig.mWidth / 2) * this.mCamera.getZoom();
+    }
+    if (y < (this.mConfig.mHeight / 2) * this.mCamera.getZoom()) {
+      y = (this.mConfig.mHeight / 2) * this.mCamera.getZoom();
+    }
+
+    // update the camera position
+    this.mCamera.centerOn(x, y);
+    this.mCamera.setPosition(this.mConfig.mWidth/2, this.mConfig.mHeight/2);
+  }
+
+  /**
+  * Draw the actors in this world
+  */
+  render(): boolean {
+    for(let zA of this.mRenderables) {
+      for(let r of zA) {
+        r.render();
+      }
+    }
+    return true;
+  }
 }
