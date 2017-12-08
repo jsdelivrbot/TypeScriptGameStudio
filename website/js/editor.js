@@ -100,8 +100,14 @@ function compile(arg){
 
                 if(res.error == 1){
 
-                    if(!arg) showPopup("compile");
-                    else showPopup("publish")
+                    if(!arg){
+                        showPopup("compile");
+                        $("#compileLoad").toggleClass("load-gif");                        
+                    } 
+                    else{
+                        $("#publishLoad").toggleClass("load-gif");
+                        showPopup("publish");
+                    } 
                     
                     //TODO: DISPLAY COMPILOR ERROR ON PAGE
                     alert(res.contents);
