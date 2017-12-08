@@ -260,6 +260,7 @@ function saveContent(id) {
 
     let request = {
         game_name : currentGame,
+        date : new Date(),
         files : files
     };
 
