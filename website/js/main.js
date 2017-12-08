@@ -3,6 +3,10 @@ function showPopup(id){
     popup.classList.toggle("show");
 }
 
+$(".popuptext").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){ 
+    console.log("animation"); 
+});
+
 /*
     Retrieve a parameter from a query string. For use when loading the IDE
     and loading the proper games.
