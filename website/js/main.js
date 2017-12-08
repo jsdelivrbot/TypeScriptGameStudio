@@ -3,7 +3,7 @@ function showPopup(id){
     popup.classList.toggle("show");
 }
 
-$(".popuptext").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(e){ 
+$(".popup").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(e){ 
     console.log(e); 
 });
 
