@@ -51,6 +51,10 @@ button{
 	display: none;
 }
 
+.load-gif{
+    display: none;
+}
+
 /*===========
 
 	Homepage

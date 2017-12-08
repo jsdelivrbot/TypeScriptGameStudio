@@ -72,10 +72,12 @@ function compile(arg){
     //Compile and run
     if(!arg){
         xhr.open('POST', "/game/compile");
+        $("#compileLoad").toggleClass("load-gif");
     }
     //Publish game
     else{
         xhr.open('POST', "/game/publish");
+        $("#publishLoad").toggleClass("load-gif");
     }
 
     //Save the files to the user's account
@@ -108,6 +110,8 @@ function compile(arg){
 
                     //Run the game in a window
                     if(!arg){
+                        
+                        $("#compileLoad").toggleClass("load-gif");
 
                         //Clear the contents of the modal
                         $("#runGameModalContent").empty();
@@ -126,6 +130,8 @@ function compile(arg){
                     }
 
                     else{
+
+                        $("#publishLoad").toggleClass("load-gif");
 
                         if(res.error == 0){
 

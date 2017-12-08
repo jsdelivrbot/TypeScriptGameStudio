@@ -17,15 +17,18 @@
                 <a class="btn btn-sm bg-white my-2 my-sm-0" href="./account">Back to Project Select</a> 
 
                 <div class="popup">
-                    <a onclick="saveContent('save')" class="btn btn-sm bg-white my-2 my-sm-0 ml-2">Save</a>
+                    <a onclick="saveContent('save')" class="btn btn-sm bg-white my-2 my-sm-0 ml-2">Save</a>                    
                     <span class="popuptext" id="savePopup">Saved!</span>
                 </div>
                 <div class="popup">
-                    <a onclick="compile(0)" class="btn btn-sm bg-white my-2 my-sm-0 ml-2">Compile &amp; Run</a>
+                    <a onclick="compile(0)" id="compileBtn" class="btn btn-sm bg-white my-2 my-sm-0 ml-2">Compile &amp; Run</a>
+                    <img class="load-gif" id="compileLoad" src="images/ajax-loader.gif" />
+
                     <span class="popuptext" id="compilePopup">Error compiling project</span>
                 </div>
                 <div class="popup">
-                    <a onclick="compile(1)" class="btn btn-sm bg-white my-2 my-sm-0 ml-2">Publish</a>
+                    <a onclick="compile(1)" id="publishBtn" class="btn btn-sm bg-white my-2 my-sm-0 ml-2">Publish</a>
+                    <img class="load-gif" id="publishLoad" src="images/ajax-loader.gif" />
                     <span class="popuptext" id="publishPopup">Error publishing project</span>
                 </div>
 
