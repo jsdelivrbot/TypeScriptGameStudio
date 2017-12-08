@@ -113,11 +113,10 @@ function compile(arg){
                         let script = document.createElement('script');
                         script.type = "text/javascript";
                         script.id = "gameScript";
-                        script.innerHTML = "(function(){" + res.contents +"}());";
+                        script.innerHTML = "(function(){" + res.contents + " runGame('runGameModalContent');}());";
                         document.body.appendChild(script);
 
                         //Run the game in a pop up window
-                        runGame('runGameModalContent');
 
                         //Show the game window
                         $("#runGameModal").modal('show');
