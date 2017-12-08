@@ -113,7 +113,7 @@ function compile(arg){
                         let script = document.createElement('script');
                         script.type = "text/javascript";
                         script.id = "gameScript";
-                        script.innerHTML = res.contents;
+                        script.innerHTML = "(function(){" + res.contents +"}());";
                         document.body.appendChild(script);
 
                         //Run the game in a pop up window
