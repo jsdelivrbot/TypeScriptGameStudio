@@ -207,12 +207,11 @@ function deleteProject(name, modal) {
         if(xhr.readyState === 4){
 
             if(xhr.status === 200){
-
-                console.log("Success");
                 $(".card-container[projectname='" + name + "']").remove();
             }
             else{
-                console.log("Error adding file")
+                console.log("Error deleting project");
+                alert("Error deleting project. Please try again later");
             }
         }
     };

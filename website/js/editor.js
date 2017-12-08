@@ -325,7 +325,7 @@ function addResourceToPage(fileName, url, type){
             <img class="resourceFile" draggable=true data-url="${url}" src="${url}" alt="Image">
         `;
     } 
-    else if(type == '.mp3' || type == '.ogg.' || type == 'wav'){
+    else if(type == '.mp3' || type == '.ogg' || type == 'wav'){
         template =`
             <span class="resourceFile" data-url="${url}" draggable=true>${fileName}</span>
         `;
