@@ -218,7 +218,7 @@ function loadResourceFiles() {
 
                     //Load all the files into the DOM
                     let files = JSON.parse(xhr.response);                    
-                    console.log(files);
+                    //console.log(files);
 
                     for (let i = 0; i < files.length; i++){
 

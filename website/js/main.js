@@ -3,8 +3,8 @@ function showPopup(id){
     popup.classList.toggle("show");
 }
 
-$(".popuptext").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){ 
-    console.log("animation"); 
+$(".popuptext").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(e){ 
+    console.log(e); 
 });
 
 /*
