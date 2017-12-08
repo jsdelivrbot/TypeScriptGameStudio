@@ -10,7 +10,10 @@ $("#runGameModal").on("hidden.bs.modal", function () {
     
     $("#runGameModalContent").empty();
     let sounds = document.getElementsByTagName('audio');
-    for(let i = 0; i < sounds.length; i++) sounds[i].remove();
+    for(let i = 0; i < sounds.length; i++){
+        console.log(sounds[i]);
+        sounds[i].remove();
+    } 
 
     document.getElementById('gameScript').remove();
 });
