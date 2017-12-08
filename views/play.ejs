@@ -3,13 +3,13 @@
 <html lang="en">
     <head>
         <% include partials/headdefaults.ejs %>
-        <title>TypeScript Game Studio</title>
+        <title>TypeScript Game Studio - Play</title>
     </head>
 
     <body class="d-flex flex-column" style="overflow:hidden; height:100vh">
-        <div class="container-fluid d-flex" style="flex:1">
+        <div class="container-fluid d-flex">
             <div class="row navbar navbar-expand-md navbar-dark fixed-top">
-                <a class="navbar-brand site-title" href="./index" style="padding-left: 5px">TypeScript Game Studio</a>
+                <a class="navbar-brand site-title" href="/" style="padding-left: 5px">TypeScript Game Studio</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -18,11 +18,22 @@
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
-
                     <a href="/auth/login"><img src="images/btn_google_signin_dark_normal_web.png" class="signin-btn" /></a>
                 </div>
             </div>
+
         </div>
+        <div class="container-fluid d-flex" style="flex:1">
+            <div class="row" id="player-container">
+                <div class="col-lg-12" id="game-title">
+                </div>
+                <div class="col-lg-12" id="game-player">
+                </div>
+            </div>
+        </div>
+
         <% include partials/jsdefaults.ejs %>
+        <% include partials/gamedefaults.ejs %>                
+        <script src="js/play.js"></script>
     </body>
 </html>
