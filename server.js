@@ -9,6 +9,7 @@ var express = require('express');
 var app = module.exports = express();
 var bodyParser = require('body-parser');
 var https = require('https');
+var http = require('http');
 
 //Database modules
 var database = require('./lib/database');
@@ -68,15 +69,15 @@ mongodb.MongoClient.connect(database_url, function(err, db) {
 
 	connection = db;
 
-  //Export the database connection and the database module for use throughout the app
-  module.exports.connection = connection;
-  module.exports.database = database;
+	//Export the database connection and the database module for use throughout the app
+	module.exports.connection = connection;
+	module.exports.database = database;
 
 	console.log("We are connected to the database");
 
 	var server = app.listen(process.env.PORT || 5000, function () {
-    	var port = server.address().port;
-    	console.log("App now running on port", port);
+		var port = server.address().port;
+		console.log("App now running on port", port);
 	});
 });
 
@@ -106,7 +107,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 /*============
   
-  Paths that return static html pages
+  Paths for every web page
 
 ==============*/
 
@@ -118,6 +119,7 @@ app.get('/home', (req, res) => res.render('index'));
 app.get('/account', auth.required, (req, res) => res.render('workspace'));
 app.get('/editor', auth.required, (req, res) => res.render('editor'));
 app.get('/template', (req, res) => res.render('template'));
+app.get('/play', (req, res) => res.render('play'));
 
 /*============
   
@@ -135,40 +137,37 @@ app.get('/sign-s3', (req, res) => {
   const fileType = req.query['file-type'];
 
   //Make sure the user is logged in
-  if(req.user != undefined){
+  if(req.user != undefined && fileName != undefined && fileType != undefined){
 
-    const s3Params = {
-        Bucket: S3_BUCKET,
-        Key: req.user.email + '/' + fileName,
-        Expires: 60,
-        ContentType: fileType,
-        ACL: 'public-read'
-      };
+  	var url = "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName;
 
-      s3.getSignedUrl('putObject', s3Params, (err, data) => {
-        if(err){
-          console.log(err);
-          return res.end();
-        }
-        const returnData = {
-          signedRequest: data,
-          url: "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName
-        };
+	const s3Params = {
+		Bucket: S3_BUCKET,
+		Key: req.user.email + '/' + fileName,
+		Expires: 60,
+		ContentType: fileType,
+		ACL: 'public-read'
+	};
 
-        /*
-          Add the new file to the user's list of files in the 
-          database
-        */
-        res.write(JSON.stringify(returnData));
-        database.addNewFileEntry(connection, fileName, 
-          "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName, req.user, res);        
-      });
+	const returnData = {
+      	signedRequest: null,
+    	url: url
+    };
+
+	var data = {
+		s3Params : s3Params,
+		returnData : returnData,
+		s3: s3
+	}
+
+	database.checkIfExists(connection, {name : fileName, url: url}, "file", req.user, data, res);
+	
   }
   else{
-    res.status(500);
+    res.status(200);
+    res.write("noLogin");
     return res.end();
   }
-  
 });
 
 /*
@@ -182,9 +181,15 @@ app.get("/account/data", function(req, res){
         user_email : req.user.email
       }, function(err, object){
         if(!err){ 
-          res.write(JSON.stringify(object));
-          res.status(200);
-          res.end();
+          if(object){
+            res.write(JSON.stringify(object));
+            res.status(200);
+            res.end();
+          }
+          else{
+            res.status(500);
+            res.end();
+          }
         }
         else{
           res.status(500);
@@ -197,26 +202,10 @@ app.get("/account/data", function(req, res){
 /*
   Retrieve account files uploaded to Amazon
 */  
-app.get("/account/files", function(req, res){
+app.get("/account/getFiles", function(req, res){
 
   if(req.user){
-      connection.collection('files').find({
-        user_id : req.user.id,
-        user_email : req.user.email
-      }).toArray(function(err, object){
-        if(object != null){
-          if(!err){ 
-            console.log(object);
-            res.write(JSON.stringify(object[0].files));
-            res.status(200);
-            res.end();
-          }
-          else{
-            res.status(500);
-            res.end();
-          }
-        }
-      });
+      database.getResourceFiles(connection, req.user, res);
   }
 });
 
@@ -226,15 +215,30 @@ app.get("/account/files", function(req, res){
 app.post("/game/updateGameFiles", function(req, res){
 
   if(req.user){
-    database.updateGameFiles(connection, req.body.game_name, req.body.files, req.user, res);
+    database.updateGameFiles(connection, req.body.game_name, req.body.date, req.body.files, req.user, res);
+  }
+});
+
+/*
+  Update a game's settings
+*/
+app.post("/game/updateGameSettings", function(req, res){
+  if(req.user){
+    database.updateGameSettings(connection, req.body.game_name, req.body.new_name, req.body.description, req.body.imgURL, req.body.datetime, req.user, res);
   }
 });
 
 app.post("/game/addNewGameFile", function(req, res){
 
-  //console.log(req.body);
   if(req.user){
-    database.addNewGameFile(connection, req.body.game_name, req.body.file, req.user, res);
+    if(!database.checkIfExists(connection, {name : req.body.game_name, file : req.body.file }, "gfile", req.user)){
+      database.addNewGameFile(connection, req.body.game_name, req.body.file, req.user, res);
+    }
+    else{
+      res.status(200);
+      res.write("A file with this name already exists.");
+      res.end();
+    }
   }
 });
 
@@ -244,7 +248,14 @@ app.post("/game/addNewGameFile", function(req, res){
 app.post("/game/newGame", function(req, res){
 
   if(req.user){
-    database.addNewGame(connection, req.body.game_name, req.body.description, req.body.imgURL, req.body.datetime, req.user, res);
+    if(!database.checkIfExists(connection, {name : req.body.game_name}, "game", req.user)){
+      database.addNewGame(connection, req.body.game_name, req.body.description, req.body.imgURL, req.body.datetime, req.user, res);
+    }
+    else{
+      res.status(200);
+      res.write("A project with this name already exists");
+      res.end();
+    }
   }
 });
 
@@ -255,6 +266,16 @@ app.get("/game/getGame", function(req, res){
 
   if(req.user){
     database.getGamefiles(connection, req.query['game_name'], req.user, res);  
+  }
+});
+
+/*
+  Retrieve all of a game's files
+*/
+app.get("/game/loadGame", function(req, res){
+
+  if(req.user){
+    database.getPublishedGame(connection, req.query['game_ID'], req.user, res);  
   }
 });
 
@@ -276,39 +297,106 @@ app.get("/game/allGames", function(req, res){
 app.post("/game/compile", function(req, res){
 
   if(req.user){
+    compile(req, res, function(data){
+  		res.write(data);
+  		res.status(200);
+  		res.end();
+    });
+  }
+});
+
+/*
+  Send a game's files off for compilation on the build server and then publish the game for public access.
+
+  Return game URL to user
+*/
+app.post("/game/publish", function(req, res){
+
+  if(req.user){
+
+  	compile(req, res, function(data){
+
+      let readableData = JSON.parse(data);
+
+  		//Publish the game and return the url to the user
+      if(readableData.error == null){
+
+        //TODO: ADD PUBLISH URL TO ENTRY IN GAME COLLECTION
+        database.publishGame(connection, req.body.game_name, readableData.contents, req.user, res);
+      }
+      else{
+        res.write(data);
+        res.status(200);
+        res.end();
+      }
+  	});
+  }
+});
+
+/*
+  Update a project's settings
+*/
+app.post("/game/updateSettings", function(req, res){
+
+  if(req.user){
+    database.updateProjectSettings(connection, req.body, req.user, res);  
+  }
+});
+
+/*============
+  
+  Server Functions
+
+==============*/
+
+function compile(req, res, callback){
 
     var postData = {
       email : req.user.email,
       id : req.user.id,
+      game_name : req.body.game_name,
       contents : req.body.contents
     };
+
+    /*
+    var options = {
+      hostname : "localhost",
+      port : 5001,
+      path : "/compile",
+      method : "POST",
+      headers : {
+         'Content-Type' : 'application/json',
+         'Content-Length' : Buffer.byteLength(JSON.stringify(postData)) 
+      }
+    };
+	*/
 
     var options = {
       hostname : "typescript-game-studio-build.herokuapp.com",
       path : "/compile",
       method : "POST",
       headers : {
-         'Content-Type': 'application/x-www-form-urlencoded'
+         'Content-Type' : 'application/json',
+         'Content-Length' : Buffer.byteLength(JSON.stringify(postData)) 
       }
     };
 
-    var req = https.request(options, (res) => {
+	var req = http.request(options, (response) => {
 
-      var data = '';
+	  	var data = '';
 
-      console.log('statusCode: ', res.statusCode);
+	  	console.log('statusCode: ', response.statusCode);
 
-      res.on('data', (d) => {
-        data += d;
-      });
+	  	response.on('data', (d) => {
+	    	data += d;
+	  	});
 
-      res.on('end', () => {
-        console.log(data);
-      });
+		response.on('end', () => {
+			callback(data);
+		});
 
-    });
+	});
 
-    req.write(JSON.stringify(postData));
-    req.end();
-  }
-});
+	req.write(JSON.stringify(postData));
+	req.end();
+}

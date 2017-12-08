@@ -3,15 +3,15 @@
 <html lang="en">
     <head>
         <% include partials/headdefaults.ejs %>    
-        <title>Workspace</title>
+        <title>TypeScript Game Studio - Account</title>
     </head>
 
     <body class="d-flex" style="height: 100vh" onload="loadGames()">
 
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top lehighbgcolor">
-            <a class="navbar-brand" href="./">TypeScript Game Studio</a>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+            <a class="navbar-brand site-title" href="./">TypeScript Game Studio - Account</a>
             
-            <button class="btn bg-white ml-auto" data-toggle="modal" data-target="#createModal" type="button">Create Project</button>
+            <a class="btn bg-white ml-auto" data-toggle="modal" data-target="#createModal" type="button">Create Project</a>
         </nav>
 
         <!-- Modal to create a project -->
@@ -28,58 +28,75 @@
                         <form>
                             <label for="projectName">Project Name</label>
                             <input class="form-control" id="projectName" aria-describedby="projectName" required>
+                            <small id="projectNoNameError" class="form-text text-error hidden">Please enter a project name</small>  
                             <br>
                             <label for="projectDesc">Project Description</label>
-                            <textarea class="form-control" id="projectDesc" rows="5"></textarea>  
+                            <textarea class="form-control" id="projectDesc" rows="5"></textarea>
+                            <small id="projectNoDescriptionError" class="form-text text-error hidden">Please enter a project description</small>   
                             <br>
                             <label for="imgUpload">Upload Project Image</label>
                             <input type="file" class="form-control-file" id="projectImgUpload" aria-describedby="fileHelp" accept=".jpg, .jpeg, .png">
-                            <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png format!</small>                            
+                            <small id="projectNoImgError" class="form-text text-error hidden">Please add an image</small> 
+                            <small id="projectImgTypeError" class="form-text text-error hidden">Image must be a .jpg, .jpeg, or .png</small> 
+                            <small id="projectImgSizeError" class="form-text text-error hidden">Image must be less than 10 MB</small>   
+                            <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png format!<br>Image dimensions 320x190 preferred.<br>Image size < 10 MB.</small>                             
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-<!--                         <a href="./editor">
- -->                        <button type="button" class="btn btn-primary text-capitalize" onclick="createGame()">start coding!</button>
-<!--                         </a>
- -->                        
+                        <button type="button" class="btn btn-primary text-capitalize" onclick="createGame()">Create Project</button>
                     </div>
                 </div>
             </div>
         </div>
 
 
-        <div class="container">
+        <div class="container project-select">
+
             <!-- Card Decks: a list of card each containing information for one project -->
             <div class="card-deck justify-content-center align-items-center" id="card-deck">
             </div>
 
-
             <!-- Modal: project setting -->
-            <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Project Setting</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Project Settings</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <form>
-                                <label for="projectName">Project Name</label>
-                                <input class="form-control" id="projectName" aria-describedby="projectName">
+                                <label for="projectSettingsName">Change Project Name</label>
+                                <input class="form-control" id="projectSettingsName" aria-describedby="projectName">
+                                <small id="projectSettingsNoNameError" class="form-text text-error hidden">Please enter a project name</small>  
                                 <br>
-                                <label for="projectDesc">Project Description</label>
-                                <textarea class="form-control" id="projectDesc" rows="5"></textarea> 
+                                <label for="projectSettingsDesc">Change Project Description</label>
+                                <textarea class="form-control" id="projectSettingsDesc" rows="5"></textarea> 
+                                <small id="projectSettingsNoDescriptionError" class="form-text text-error hidden">Please enter a project description</small>  
                                 <br>
-                                <label for="exampleInputFile">Upload Project Image</label>
-                                <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">                            
+                                <label for="projectSettingsFile">Change Project Image</label>
+                                <input type="file" class="form-control-file" id="projectSettingsFile" aria-describedby="fileHelp">  
+                                <small id="projectImgTypeError" class="form-text text-error hidden">Image must be a .jpg, .jpeg, or .png</small> 
+                                <small id="projectImgSizeError" class="form-text text-error hidden">Image must be less than 10 MB</small>   
+                                <small id="fileHelp" class="form-text text-muted">We accept .jpg, .jpeg, and .png format!<br>Image dimensions 320x190 preferred.<br>Image size < 10 MB.</small>                            
                             </form>
                         </div>
                         <div class="modal-footer">
+                            <div class="perm-popup">
+                                <button type="button" class="btn btn-bad" onclick="showPopup('delete')">Delete Project</button>
+                                <span class="popuptext" id="deletePopup">Are you sure?<br>
+                                <a class="btn btn-sm" data-dismiss="modal" type="button" id="submit-delete">Yes</a>
+                                <a class="btn btn-sm" type="button" onclick="showPopup('delete')">No</a>
+                                </span>
+                            </div>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <a href="./editor"><button type="button" class="btn btn-primary text-capitalize">update setting</button></a>
+                            <div class="popup">
+                                <a id="submit-update"><button type="button" class="btn btn-primary text-capitalize">Update settings</button></a>
+                                <span class="popuptext" id="updatePopup">Error publishing project</span>
+                            </div>
                         </div>
                     </div>
                 </div>
