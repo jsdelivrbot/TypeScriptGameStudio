@@ -53,6 +53,11 @@ function editorSetup() {
 
 }
 
+/*
+    Send compilation request to the server
+
+    @param {number} arg - 0 for compile 1 for publish
+*/
 function compile(arg){
 
     saveContent('save');
@@ -87,8 +92,6 @@ function compile(arg){
         game_name : currentGame,
         contents : files
     };
-
-    //console.log(JSON.stringify(request));
 
     xhr.onreadystatechange = () => {
 
@@ -161,7 +164,11 @@ function compile(arg){
     xhr.send(JSON.stringify(request)); 
 }
 
+/*
+    Load all of a game's files from the server
 
+    @param {string} gameName - name of the game to load
+*/
 function loadGameFiles(gameName) {
 
     let xhr = new XMLHttpRequest(); 
@@ -249,6 +256,8 @@ function loadResourceFiles() {
 
 /*
     Save the contents of all the files to the server
+
+    @param {string} id - id of button to display a popup over
 */
 function saveContent(id) {
     
@@ -292,6 +301,11 @@ function saveContent(id) {
     xhr.send(JSON.stringify(request)); 
 }
 
+/*
+    Switch the displayed file in the editor
+
+    @param {string} name - name of the file to switch to
+*/
 function switchActiveFile(name){
 
     console.log(name);
@@ -310,6 +324,11 @@ function switchActiveFile(name){
     }
 }
 
+/*
+    Add a new file to the page
+
+    @param {string} fileName - name of the file
+*/
 function addFileToPage(fileName){
 
     let listItemNode = document.createElement("button");
@@ -328,6 +347,14 @@ function addFileToPage(fileName){
     document.getElementById("gameFileList").appendChild(listItemNode);
 }
 
+/*
+    Add a new resource file to the page
+
+    @param {string} fileName - name of the file
+    @param {string} url - url of the file on amazon
+    @param {string} type - type of file
+
+*/
 function addResourceToPage(fileName, url, type){
 
     let template;

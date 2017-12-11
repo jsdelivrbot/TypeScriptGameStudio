@@ -58,7 +58,7 @@ $("#settingsModal").on('show.bs.modal', function(event) {
         Delete project event handler
     */
     modal.find(".modal-footer a[id='submit-delete']").on('click', function(){
-        deleteProject($(this).attr('data-origName'), $(this));
+        deleteProject($(this).attr('data-origName'));
     });
 });
 
@@ -67,30 +67,6 @@ $("#settingsModal").on('show.bs.modal', function(event) {
     Page General Functions
 
 ================*/
-
-/*
-    Verify the image's size and type are okay for upload.  
-*/
-function verifyInputs(settings, callback) {
-
-    let imgSizeGood = false;
-    let imgTypeGood = false;
-
-    $("#projectImgSizeError").addClass("hidden");
-    $("#projectImgTypeError").addClass("hidden");
-
-    //Verify the uploaded image is less than 10 MB
-    if(settings.file.size <= 1024 * 1024 * 10) imgSizeGood = true;
-    else $("#projectImgSizeError").toggleClass("hidden");
-
-    //Verify the uploaded image is of types jpg, jpeg, or png
-    if((/\.(jpg|jpeg|png)$/i).test(settings.file.name)) imgTypeGood = true;
-    else $("#projectImgTypeError").toggleClass("hidden");
-
-    if(imgSizeGood && imgTypeGood){
-        signS3(settings, callback); 
-    }
-}
 
 /*
     Load all of a user's games onto the page
@@ -156,6 +132,8 @@ function loadGames() {
 
 /*
     Submit new project settings to the server
+
+    @param {object} settings - a game's settings to the sent to the server
 */
 function submitNewProjectSettings(settings) {
 
@@ -190,7 +168,12 @@ function submitNewProjectSettings(settings) {
     xhr.send(JSON.stringify(settings)); 
 }
 
-function deleteProject(name, modal) {
+/*
+    Delete a project
+    
+    @param {string} name - game name
+*/
+function deleteProject(name) {
     
     //Save the files to the user's account
     const xhr = new XMLHttpRequest();
@@ -266,6 +249,8 @@ function createGame() {
 /*
     After the game's image has been uploaded, we should create a new game
     in the database for the user and load the IDE once we receive a response
+
+    @param {object} newGame - the new game's parameters object (name, description, etc)
 */
 function submitNewGame(newGame) {
 

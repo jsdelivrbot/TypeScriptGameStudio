@@ -38,7 +38,7 @@ const database_url = process.env.MONGOLAB_URI;
 
 //S3 bucket name and region
 const S3_BUCKET = process.env.S3_BUCKET_NAME;
-aws.config.region = "us-east-1";
+aws.config.region = process.env.AWS_CONFIG_REGION;
 
 //Session configuration object for user authentication
 var sessionConfig = {
@@ -84,18 +84,14 @@ mongodb.MongoClient.connect(database_url, function(err, db) {
 
 /*============
   
-  Definitions for static html and js files to be used throughout the app.
+  Definitions for ejs templates and js files to be used throughout the app.
 
 ==============*/
 
-//Game engine library files
-app.use(express.static(__dirname + '/library'));
-app.use(express.static(__dirname + '/library/dependencyfiles'));
-app.use('/images', express.static(__dirname + '/library/images'));
-
-//Static html and javascript files for web pages
+//Ejs templates
 app.use(express.static(__dirname + '/views'));
 
+//JS, CSS, image files
 app.use('/js', express.static(__dirname + '/website/js'));
 app.use('/css', express.static(__dirname + '/website/css')); // redirect CSS bootstrap
 app.use('/images', express.static(__dirname + '/website/images')); // redirect CSS bootstrap
@@ -111,14 +107,9 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 ==============*/
 
-app.get('/uploadtest', auth.required, (req, res) => res.render('test.html'));
-app.get('/game', auth.required, (req, res) => res.render('game.html'));
-
 app.get('/', (req, res) => res.render('index'));
-app.get('/home', (req, res) => res.render('index'));
-app.get('/account', auth.required, (req, res) => res.render('workspace'));
+app.get('/account', auth.required, (req, res) => res.render('account'));
 app.get('/editor', auth.required, (req, res) => res.render('editor'));
-app.get('/template', (req, res) => res.render('template'));
 app.get('/play', (req, res) => res.render('play'));
 
 /*============
@@ -139,29 +130,29 @@ app.get('/sign-s3', (req, res) => {
   //Make sure the user is logged in
   if(req.user != undefined && fileName != undefined && fileType != undefined){
 
-  	var url = "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName;
+    let url = "https://" + S3_BUCKET + ".s3.amazonaws.com/" + req.user.email + '/' + fileName;
 
-	const s3Params = {
-		Bucket: S3_BUCKET,
-		Key: req.user.email + '/' + fileName,
-		Expires: 60,
-		ContentType: fileType,
-		ACL: 'public-read'
-	};
+  	const s3Params = {
+  		Bucket: S3_BUCKET,
+  		Key: req.user.email + '/' + fileName,
+  		Expires: 60,
+  		ContentType: fileType,
+  		ACL: 'public-read'
+  	};
 
-	const returnData = {
+  	const returnData = {
       	signedRequest: null,
-    	url: url
-    };
+      	url: url
+      };
 
-	var data = {
-		s3Params : s3Params,
-		returnData : returnData,
-		s3: s3
-	}
+  	let data = {
+  		s3Params : s3Params,
+  		returnData : returnData,
+  		s3: s3
+  	}
 
-	database.checkIfExists(connection, {name : fileName, url: url}, "file", req.user, data, res);
-	
+  	database.checkIfExists(connection, {name : fileName, url: url}, "file", req.user, data, res);
+  	
   }
   else{
     res.status(200);
@@ -175,27 +166,8 @@ app.get('/sign-s3', (req, res) => {
 */
 app.get("/account/data", function(req, res){
 
-  if(req.user){
-      connection.collection('accounts').findOne({
-        user_id : req.user.id,
-        user_email : req.user.email
-      }, function(err, object){
-        if(!err){ 
-          if(object){
-            res.write(JSON.stringify(object));
-            res.status(200);
-            res.end();
-          }
-          else{
-            res.status(500);
-            res.end();
-          }
-        }
-        else{
-          res.status(500);
-          res.end();
-        }
-      });
+  if(req.user){ 
+    database.getAccountData(connection, req.user, res);
   }
 });
 

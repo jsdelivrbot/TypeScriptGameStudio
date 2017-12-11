@@ -21,6 +21,11 @@ function playerSetup() {
     }
 }
 
+/*
+    Get the game code from the server
+
+    @param {string} id - the game's ID
+*/
 function getGame(id){
 
     let xhr = new XMLHttpRequest(); 
@@ -62,7 +67,11 @@ function getGame(id){
 
     xhr.send();
 }
-
+/*
+    Display an error to the user
+    
+    @param {string} error - error to display
+*/
 function playerError(error){
     $("#player-container").text(error);
 }
