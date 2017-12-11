@@ -344,7 +344,7 @@ function compile(req, res, callback){
 	*/
 
     var options = {
-      hostname : "typescript-game-studio-build.herokuapp.com",
+      hostname : process.env.Build_Server_URL,
       path : "/compile",
       method : "POST",
       headers : {
